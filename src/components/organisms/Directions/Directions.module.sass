@@ -1,12 +1,30 @@
 .section
-  background: var(--bg-white)
-  padding: 80px 24px
+  background: var(--bg-blue-light)
+  padding: 100px 24px
+  position: relative
+  overflow: hidden
   @media (max-width: 768px)
-    padding: 48px 20px
+    padding: 64px 20px
 
 .inner
   max-width: var(--container)
   margin: 0 auto
+  position: relative
+  z-index: 1
+
+.sectionTitle
+  font-family: var(--font-serif)
+  font-size: clamp(28px, 4vw, 42px)
+  font-weight: 700
+  color: var(--text-dark)
+  text-align: center
+  margin-bottom: 8px
+
+.sectionSubtitle
+  font-size: 16px
+  color: var(--text-muted)
+  text-align: center
+  margin-bottom: 48px
 
 .grid
   display: grid
@@ -19,18 +37,20 @@
 
 .card
   padding: 32px 24px
-  border-radius: var(--radius-lg)
-  border: 1px solid var(--border-light)
-  transition: all 0.3s
+  border-radius: var(--radius-xl)
+  background: white
+  box-shadow: var(--shadow-card)
+  transition: all 0.35s ease
+  display: flex
+  flex-direction: column
   &:hover
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08)
-    transform: translateY(-4px)
+    transform: translateY(-6px)
+    box-shadow: var(--shadow-card-hover)
 
 .iconWrap
-  width: 56px
-  height: 56px
-  background: var(--pink-soft)
-  border-radius: var(--radius-md)
+  width: 60px
+  height: 60px
+  border-radius: var(--radius-lg)
   display: flex
   align-items: center
   justify-content: center
@@ -40,21 +60,29 @@
   font-size: 28px
 
 .cardTitle
-  font-size: 18px
-  font-weight: 700
+  font-family: var(--font-serif)
+  font-size: 19px
+  font-weight: 600
   color: var(--text-dark)
   margin-bottom: 8px
 
 .cardDesc
   font-size: 14px
   color: var(--text-muted)
-  line-height: 1.6
+  line-height: 1.7
+  margin-bottom: 12px
+  flex: 1
+
+.cardCount
+  font-size: 13px
+  color: var(--coral)
+  font-weight: 600
   margin-bottom: 16px
 
 .cardLink
   font-size: 14px
   font-weight: 600
-  color: var(--pink)
+  color: var(--coral)
   transition: opacity 0.2s
   &:hover
     opacity: 0.7

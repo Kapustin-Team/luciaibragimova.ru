@@ -1,22 +1,19 @@
 .header
   background: var(--bg-white)
-  border-bottom: 1px solid #e5e5e5
+  border-bottom: 1px solid var(--border-light)
   position: sticky
   top: 0
   z-index: 100
+  backdrop-filter: blur(12px)
 
 .inner
-  max-width: 1440px
+  max-width: 1240px
   margin: 0 auto
-  padding: 0 100px
+  padding: 0 24px
   height: 64px
   display: flex
   align-items: center
   justify-content: space-between
-  @media (max-width: 1024px)
-    padding: 0 24px
-  @media (max-width: 768px)
-    height: 56px
 
 .left
   display: flex
@@ -24,81 +21,43 @@
   gap: 32px
 
 .logo
-  height: 28px
-  width: auto
+  font-family: var(--font-serif)
+  font-weight: 700
+  font-size: 1.15rem
+  color: var(--text-dark)
+  text-decoration: none
 
 .nav
   display: flex
-  gap: 8px
-  @media (max-width: 1024px)
+  gap: 4px
+  @media (max-width: 768px)
     display: none
 
 .navLink
-  font-size: 16px
-  color: var(--text-nav)
-  padding: 8px 12px
-  border-radius: 8px
-  transition: background 0.2s
-  white-space: nowrap
+  font-size: 15px
+  color: var(--text-muted)
+  padding: 8px 14px
+  border-radius: var(--radius-full)
+  transition: all 0.2s
+  font-weight: 500
   &:hover
+    color: var(--text-dark)
     background: var(--bg-light)
-
-.chevron
-  font-size: 10px
-  margin-left: 2px
-  opacity: 0.6
 
 .right
   display: flex
   align-items: center
-  gap: 16px
-  @media (max-width: 768px)
-    gap: 8px
-
-.search
-  display: flex
-  align-items: center
-  gap: 8px
-  padding: 8px 16px
-  border: 1px solid #e5e5e5
-  border-radius: var(--radius-pill)
-  font-size: 14px
-  color: var(--text-gray)
-  min-width: 240px
-  @media (max-width: 1200px)
-    display: none
-
-.signIn
-  font-size: 14px
-  color: var(--text-nav)
-  font-weight: 400
-  white-space: nowrap
-  @media (max-width: 768px)
-    display: none
-
-.contactSales
-  font-size: 14px
-  font-weight: 700
-  color: var(--text-dark)
-  padding: 10px 20px
-  border: 1px solid var(--text-dark)
-  border-radius: var(--radius-pill)
-  white-space: nowrap
-  transition: all 0.2s
-  &:hover
-    background: var(--text-dark)
-    color: var(--text-white)
-  @media (max-width: 768px)
-    display: none
+  gap: 12px
 
 .viewPlans
   font-size: 14px
   font-weight: 700
-  color: var(--text-white)
-  padding: 10px 20px
-  background: var(--accent-pink)
-  border-radius: var(--radius-pill)
+  color: white
+  padding: 10px 24px
+  background: var(--coral)
+  border-radius: var(--radius-full)
   white-space: nowrap
-  transition: opacity 0.2s
+  transition: all 0.3s
   &:hover
-    opacity: 0.9
+    transform: translateY(-1px)
+    box-shadow: 0 4px 16px rgba(232, 108, 79, 0.3)

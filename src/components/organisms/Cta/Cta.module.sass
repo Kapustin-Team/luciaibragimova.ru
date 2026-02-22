@@ -1,5 +1,5 @@
 .section
-  background: var(--pink)
+  background: linear-gradient(135deg, var(--bg-blue-soft) 0%, var(--bg-lavender) 100%)
   padding: 80px 24px
   text-align: center
   @media (max-width: 768px)
@@ -10,11 +10,11 @@
   margin: 0 auto
 
 .title
+  font-family: var(--font-serif)
   font-size: clamp(32px, 4vw, 48px)
-  font-weight: 900
-  color: white
+  font-weight: 700
+  color: var(--text-dark)
   margin-bottom: 32px
-  letter-spacing: -0.03em
 
 .actions
   display: flex
@@ -23,24 +23,25 @@
   flex-wrap: wrap
 
 .btnLight
-  padding: 14px 28px
-  background: white
-  color: var(--pink)
-  border-radius: var(--radius-full)
-  font-size: 15px
-  font-weight: 700
-  transition: all 0.2s
-  &:hover
-    transform: translateY(-1px)
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15)
-
-.btnOutline
-  padding: 14px 28px
-  border: 2px solid rgba(255,255,255,0.4)
+  padding: 14px 32px
+  background: var(--coral)
   color: white
   border-radius: var(--radius-full)
   font-size: 15px
-  font-weight: 600
-  transition: all 0.2s
+  font-weight: 700
+  transition: all 0.3s
   &:hover
-    border-color: white
+    transform: translateY(-2px)
+    box-shadow: 0 8px 24px rgba(232, 108, 79, 0.3)
+
+.btnOutline
+  padding: 14px 32px
+  border: 2px solid var(--text-dark)
+  color: var(--text-dark)
+  border-radius: var(--radius-full)
+  font-size: 15px
+  font-weight: 600
+  transition: all 0.3s
+  &:hover
+    background: var(--text-dark)
+    color: white

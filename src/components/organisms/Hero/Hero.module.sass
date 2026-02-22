@@ -1,10 +1,12 @@
 .hero
   background: var(--bg-dark)
-  padding: 60px 100px
+  padding: 80px 100px
+  position: relative
+  overflow: hidden
   @media (max-width: 1024px)
-    padding: 40px 24px
+    padding: 60px 24px
   @media (max-width: 768px)
-    padding: 32px 16px
+    padding: 48px 16px
 
 .inner
   max-width: 1240px
@@ -12,70 +14,54 @@
   display: flex
   align-items: center
   justify-content: center
-  gap: 24px
+  gap: 48px
+  position: relative
+  z-index: 1
   @media (max-width: 768px)
     flex-direction: column
 
 .content
   flex: 0 0 auto
-  width: 608px
-  padding-right: 60px
+  width: 580px
   @media (max-width: 1024px)
     width: 100%
-    padding-right: 0
 
 .title
-  font-size: 56px
-  font-weight: 400
+  font-family: var(--font-serif)
+  font-size: 52px
+  font-weight: 700
   color: var(--text-white)
-  line-height: 62px
-  letter-spacing: -2px
+  line-height: 1.15
+  letter-spacing: -1px
   white-space: pre-line
-  margin-bottom: 8px
+  margin-bottom: 16px
   @media (max-width: 768px)
     font-size: 36px
-    line-height: 42px
-    letter-spacing: -1px
 
 .desc
-  font-size: 20px
+  font-size: 18px
   font-weight: 400
-  color: var(--text-light-gray)
-  line-height: 30px
-  margin-bottom: 8px
+  color: var(--text-light)
+  line-height: 1.7
+  margin-bottom: 16px
   @media (max-width: 768px)
     font-size: 16px
-    line-height: 24px
 
 .stat
   display: flex
   align-items: center
   gap: 12px
-  height: 40px
-  margin-bottom: 16px
-
-.statIcon
-  width: 32px
-  height: 32px
-  background: var(--accent-pink)
-  border-radius: 16px
-  display: flex
-  align-items: center
-  justify-content: center
-  img
-    width: 32px
-    height: 32px
+  margin-bottom: 24px
 
 .statText
-  font-size: 20px
-  font-weight: 700
-  color: var(--text-light-gray)
-  line-height: 30px
+  font-size: 16px
+  font-weight: 600
+  color: var(--coral)
+  line-height: 1.5
 
 .buttons
   display: flex
   gap: 16px
-  padding-top: 16px
   @media (max-width: 768px)
     flex-direction: column
 
@@ -83,44 +69,42 @@
   display: inline-flex
   align-items: center
   justify-content: center
-  padding: 12px 32px
-  background: var(--bg-white)
-  color: var(--text-dark)
+  padding: 14px 36px
+  background: var(--coral)
+  color: white
   font-size: 15px
   font-weight: 700
-  border-radius: var(--radius-pill)
-  border: 1px solid var(--bg-white)
-  line-height: 24px
-  transition: opacity 0.2s
+  border-radius: var(--radius-full)
+  transition: all 0.3s
   &:hover
-    opacity: 0.9
+    transform: translateY(-2px)
+    box-shadow: 0 8px 24px rgba(232, 108, 79, 0.3)
 
 .btnOutline
   display: inline-flex
   align-items: center
   justify-content: center
-  padding: 12px 32px
-  background: var(--bg-dark)
+  padding: 14px 36px
+  background: transparent
   color: var(--text-white)
   font-size: 15px
   font-weight: 700
-  border-radius: var(--radius-pill)
-  border: 1px solid var(--text-white)
-  line-height: 24px
-  transition: all 0.2s
+  border-radius: var(--radius-full)
+  border: 2px solid rgba(255, 255, 255, 0.25)
+  transition: all 0.3s
   &:hover
-    background: var(--text-white)
-    color: var(--bg-dark)
+    border-color: white
+    background: rgba(255, 255, 255, 0.05)
 
 .imageWrap
   flex: 0 0 auto
-  width: 607px
+  width: 500px
   @media (max-width: 1024px)
     width: 100%
 
 .heroImage
   width: 100%
   height: auto
-  border-radius: 0
+  border-radius: var(--radius-xl)
   object-fit: cover
-  aspect-ratio: 607 / 400
+  aspect-ratio: 4 / 3

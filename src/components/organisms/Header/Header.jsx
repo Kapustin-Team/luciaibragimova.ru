@@ -7,18 +7,17 @@ export default function Header() {
     <header className={s.header}>
       <div className={s.inner}>
         <div className={s.left}>
-          <a href="#" className={s.logo} style={{ fontWeight: 700, fontSize: '1.25rem', color: '#fff', textDecoration: 'none' }}>Школа психологии</a>
+          <a href="#" className={s.logo}>Школа психологии</a>
           <nav className={s.nav}>
             {navLinks.map(link => (
-              <a key={link} href="#" className={s.navLink}>
+              <a key={link} href={`#${link === 'Курсы' ? 'courses' : link === 'О нас' ? 'about' : link === 'Направления' ? 'directions' : 'faq'}`} className={s.navLink}>
                 {link}
               </a>
             ))}
           </nav>
         </div>
         <div className={s.right}>
-          <a href="#" className={s.signIn}>Войти →</a>
-          <a href="#" className={s.viewPlans}>Бесплатная консультация →</a>
+          <a href="#courses" className={s.viewPlans}>Выбрать курс</a>
         </div>
       </div>
     </header>
