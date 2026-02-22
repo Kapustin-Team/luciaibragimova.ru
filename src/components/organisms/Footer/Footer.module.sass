@@ -1,52 +1,62 @@
 .footer
   background: var(--bg-dark)
-
-.related
-  border-top: 1px solid rgba(255,255,255,0.1)
-  padding: 24px 100px
+  border-top: 1px solid var(--border-dark)
+  padding: 64px 24px 32px
   @media (max-width: 768px)
-    padding: 16px
-
-.relatedInner
-  max-width: 1240px
-  margin: 0 auto
-
-.relatedTitle
-  font-size: 14px
-  font-weight: 700
-  color: var(--text-white)
-  margin-right: 24px
-
-.relatedLinks
-  display: inline-flex
-  gap: 24px
-  flex-wrap: wrap
-
-.relatedLink
-  font-size: 14px
-  font-weight: 700
-  color: var(--text-light-gray)
-  &:hover
-    color: var(--text-white)
-
-.main
-  padding: 40px 100px
-  border-top: 1px solid rgba(255,255,255,0.1)
-  @media (max-width: 768px)
-    padding: 32px 16px
+    padding: 48px 20px 24px
 
 .inner
-  max-width: 1240px
+  max-width: var(--container)
   margin: 0 auto
+
+.top
+  display: grid
+  grid-template-columns: 1fr 3fr
+  gap: 64px
+  margin-bottom: 48px
+  @media (max-width: 900px)
+    grid-template-columns: 1fr
+    gap: 40px
+
+.brand
+  display: flex
+  flex-direction: column
+  gap: 12px
+
+.logoRow
+  display: flex
+  align-items: center
+  gap: 10px
+
+.logoMark
+  width: 32px
+  height: 32px
+  background: var(--pink)
+  border-radius: 8px
+  display: flex
+  align-items: center
+  justify-content: center
+  font-size: 12px
+  font-weight: 800
+  color: white
+
+.logoName
+  font-weight: 700
+  font-size: 15px
+
+.tagline
+  font-size: 13px
+  color: var(--text-muted)
+  line-height: 1.6
+  max-width: 220px
 
 .cols
   display: grid
-  grid-template-columns: repeat(5, 1fr)
-  gap: 40px
-  @media (max-width: 1024px)
-    grid-template-columns: repeat(3, 1fr)
-  @media (max-width: 640px)
-    grid-template-columns: repeat(2, 1fr)
+  grid-template-columns: repeat(3, 1fr)
+  gap: 32px
+  @media (max-width: 600px)
+    grid-template-columns: 1fr
+    gap: 24px
 
 .col
   display: flex
@@ -54,99 +64,38 @@
   gap: 8px
 
 .colTitle
-  font-size: 20px
-  font-weight: 400
-  color: var(--text-white)
+  font-size: 12px
+  font-weight: 600
+  color: var(--text-muted)
+  text-transform: uppercase
+  letter-spacing: 1px
   margin-bottom: 4px
 
 .colLink
   font-size: 14px
-  font-weight: 700
-  color: var(--text-light-gray)
+  color: var(--text-light)
+  transition: color 0.2s
   &:hover
-    color: var(--text-white)
-
-.newsletter
-  display: flex
-  flex-direction: column
-  gap: 8px
-
-.newsletterTitle
-  font-size: 19px
-  font-weight: 500
-  color: var(--text-white)
-
-.newsletterDesc
-  font-size: 15px
-  font-weight: 400
-  color: var(--text-light-gray)
-  line-height: 22px
-
-.signUpBtn
-  display: inline-flex
-  align-items: center
-  justify-content: center
-  padding: 8px 16px
-  background: var(--bg-white)
-  color: var(--text-dark)
-  font-size: 13px
-  font-weight: 600
-  border-radius: var(--radius-pill)
-  width: fit-content
-  margin-top: 4px
-
-.socials
-  display: flex
-  gap: 12px
-  margin-top: 8px
-
-.socialIcon
-  width: 32px
-  height: 32px
-  display: flex
-  align-items: center
-  justify-content: center
-  font-size: 12px
-  color: var(--text-white)
-  opacity: 0.6
-  &:hover
-    opacity: 1
+    color: var(--pink-light)
 
 .bottom
-  border-top: 1px solid rgba(255,255,255,0.1)
-  padding: 24px 100px
-  @media (max-width: 768px)
-    padding: 16px
-
-.bottomInner
-  max-width: 1240px
-  margin: 0 auto
   display: flex
   justify-content: space-between
   align-items: center
-  @media (max-width: 768px)
-    flex-direction: column
-    gap: 16px
-
-.logoWrap
-  display: flex
-  align-items: center
+  padding-top: 24px
+  border-top: 1px solid var(--border-dark)
   gap: 16px
-
-.footerLogo
-  height: 20px
-  width: auto
-  filter: brightness(0) invert(1)
-
-.copyright
-  font-size: 11px
-  color: var(--text-light-gray)
+  font-size: 13px
+  color: var(--text-muted)
+  @media (max-width: 600px)
+    flex-direction: column
+    text-align: center
 
 .legal
   display: flex
-  gap: 16px
+  gap: 20px
   a
-    font-size: 11px
-    color: var(--text-light-gray)
+    color: var(--text-muted)
+    transition: color 0.2s
     &:hover
-      color: var(--text-white)
+      color: var(--text-light)
