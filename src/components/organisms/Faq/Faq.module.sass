@@ -1,0 +1,52 @@
+.section
+  background: var(--bg-dark)
+  padding: 100px 24px
+  @media (max-width: 768px)
+    padding: 64px 20px
+
+.inner
+  max-width: 800px
+  margin: 0 auto
+
+.title
+  font-size: clamp(28px, 4vw, 40px)
+  font-weight: 800
+  text-align: center
+  margin-bottom: 48px
+  letter-spacing: -0.02em
+
+.list
+  display: flex
+  flex-direction: column
+  gap: 8px
+
+.item
+  background: var(--bg-section)
+  border: 1px solid var(--border-dark)
+  border-radius: var(--radius-md)
+  cursor: pointer
+  overflow: hidden
+  transition: border-color 0.2s
+
+.itemOpen
+  border-color: rgba(255,255,255,0.15)
+
+.question
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 18px 24px
+  gap: 16px
+  font-size: 15px
+  font-weight: 600
+
+.icon
+  font-size: 20px
+  color: var(--text-muted)
+  flex-shrink: 0
+
+.answer
+  padding: 0 24px 18px
+  font-size: 14px
+  color: var(--text-light)
+  line-height: 1.8

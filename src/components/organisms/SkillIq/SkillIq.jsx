@@ -5,18 +5,17 @@ export default function SkillIq() {
     <section className={s.section}>
       <div className={s.inner}>
         <div className={s.content}>
-          <span className={s.badge}>Identify skills gaps</span>
-          <h2 className={s.heading}>Speed up learning with personalized, AI-powered guidance</h2>
+          <span className={s.badge}>Флагманский курс</span>
+          <h2 className={s.heading}>«Вовремя» — 5 модулей, которые вернут доверие с подростком</h2>
           <p className={s.desc}>
-            Identify current skill levels and growth opportunities with Skill IQ assessments,
-            then get custom content recommendations to upskill faster. Plus, learners
-            receive instant guidance from Pluralsight&apos;s AI assistant, Iris, to improve skill
-            development outcomes.
+            Концентрат 25-летней практики работы с семьями. 5 модулей по 4 видеолекции,
+            практические задания и поддержка. Для родителей, которые хотят вернуть контакт
+            с подростком, пока не стало слишком поздно.
           </p>
-          <a href="#" className={s.btn}>Explore skill assessments</a>
+          <a href="#" className={s.btn}>Записаться на курс</a>
         </div>
         <div className={s.imageWrap}>
-          <img src="/images/skill-iq.png" alt="Skill IQ" className={s.image} />
+          <img src="/images/skill-iq.png" alt="Курс Вовремя" className={s.image} />
         </div>
       </div>
     </section>

@@ -9,12 +9,11 @@ export default function IdcSection() {
         </div>
         <div className={s.content}>
           <h2 className={s.heading}>
-            Pluralsight named a{' '}
-            <span className={s.leader}>Leader</span>{' '}
-            in North America IT Training Services
+            Центр{' '}
+            <span className={s.leader}>«Время первых»</span>
           </h2>
-          <p className={s.desc}>See why the IDC MarketScape recognized us.</p>
-          <a href="#" className={s.btn}>Learn more</a>
+          <p className={s.desc}>Более 10 лет работаем с подростками, которых другие специалисты называют безнадёжными. Подростки возвращались в школу, снимались с учётов в КДН и ПДН.</p>
+          <a href="#" className={s.btn}>О центре</a>
         </div>
       </div>
     </section>

@@ -2,27 +2,27 @@ import s from './Footer.module.sass'
 
 const footerCols = [
   {
-    title: 'Support',
-    links: ['Contact', 'Help Center', 'IP Allowlist', 'Sitemap', 'Download Pluralsight', 'View Plans', 'Professional Services'],
+    title: 'Направления',
+    links: ['Рождение семьи', 'Здоровое взросление', 'Развитие детей и взрослых', 'Духовно-нравственная трансформация'],
   },
   {
-    title: 'Community',
-    links: ['Guides', 'Teach', 'Partner with Pluralsight', 'Affiliate Partners', 'Pluralsight One', 'Authors'],
+    title: 'Курсы',
+    links: ['Вовремя', 'Мама здесь', 'Свои люди', 'Анти-выгорание', 'Все курсы'],
   },
   {
-    title: 'Company',
-    links: ['About Us', 'Careers', 'Newsroom', 'Resources'],
+    title: 'О школе',
+    links: ['О Люции', 'Центр «Время первых»', 'Отзывы', 'Контакты'],
   },
   {
-    title: 'Industries',
-    links: ['Education', 'Financial Services (FSBI)', 'Healthcare', 'Insurance', 'Non-Profit', 'Public Sector'],
+    title: 'Специалистам',
+    links: ['Для педагогов', 'Для психологов', 'Для школ', 'Сотрудничество'],
   },
 ]
 
 const relatedPages = [
-  'Top-Tier Training for Small Businesses',
-  'Technology skills for enterprise',
-  'Solutions for Tech Workforce Transformation',
+  'Курс «Вовремя» для родителей подростков',
+  'Центр «Время первых»',
+  'Программы для специалистов',
 ]
 
 export default function Footer() {
@@ -30,7 +30,7 @@ export default function Footer() {
     <footer className={s.footer}>
       <div className={s.related}>
         <div className={s.relatedInner}>
-          <span className={s.relatedTitle}>Related Pages</span>
+          <span className={s.relatedTitle}>Популярное</span>
           <div className={s.relatedLinks}>
             {relatedPages.map(p => (
               <a key={p} href="#" className={s.relatedLink}>{p}</a>
@@ -50,13 +50,13 @@ export default function Footer() {
               </div>
             ))}
             <div className={s.newsletter}>
-              <h4 className={s.newsletterTitle}>Get tech insights and updates</h4>
+              <h4 className={s.newsletterTitle}>Будьте в курсе новых программ</h4>
               <p className={s.newsletterDesc}>
-                Don&apos;t miss the latest industry news, career resources, offers, and more.
+                Получайте полезные материалы о воспитании и семейной психологии.
               </p>
-              <a href="#" className={s.signUpBtn}>Sign up now</a>
+              <a href="#" className={s.signUpBtn}>Подписаться</a>
               <div className={s.socials}>
-                {['f', 'x', 'in', 'ig', 'yt'].map(icon => (
+                {['tg', 'vk', 'yt'].map(icon => (
                   <a key={icon} href="#" className={s.socialIcon}>{icon}</a>
                 ))}
               </div>
@@ -67,13 +67,12 @@ export default function Footer() {
       <div className={s.bottom}>
         <div className={s.bottomInner}>
           <div className={s.logoWrap}>
-            <img src="/images/pluralsight-logo.svg" alt="Pluralsight" className={s.footerLogo} />
-            <span className={s.copyright}>Copyright © 2004 - Pluralsight LLC. All rights reserved</span>
+            <span className={s.footerLogo} style={{ fontWeight: 700, fontSize: '1rem', color: '#fff' }}>Школа психологии Люции Ибрагимовой</span>
+            <span className={s.copyright}>© 2026 Люция Ибрагимова. Все права защищены</span>
           </div>
           <div className={s.legal}>
-            <a href="#">Terms of Use</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Code of Conduct</a>
+            <a href="#">Политика конфиденциальности</a>
+            <a href="#">Оферта</a>
           </div>
         </div>
       </div>

@@ -7,10 +7,9 @@ export default function AiBanner() {
         <img src="/images/ai-banner.png" alt="" className={s.bg} />
         <div className={s.content}>
           <h2 className={s.heading}>
-            Enhanced AI.{'\n'}Easier navigation. Faster learning.
+            «Изменить можно многое.{'\n'}Даже если сейчас кажется, что уже поздно.»
           </h2>
-          <p className={s.desc}>Check out our new features for a more streamlined experience.</p>
-          <a href="#" className={s.btn}>Learn more</a>
+          <p className={s.desc}>Люция Ибрагимова — семейный психолог</p>
         </div>
       </div>
     </section>

@@ -1,0 +1,71 @@
+.section
+  background: var(--bg-white)
+  padding: 100px 24px
+  @media (max-width: 768px)
+    padding: 64px 20px
+
+.inner
+  max-width: var(--container)
+  margin: 0 auto
+
+.title
+  font-size: clamp(28px, 4vw, 40px)
+  font-weight: 800
+  color: var(--text-dark)
+  text-align: center
+  margin-bottom: 48px
+  letter-spacing: -0.02em
+
+.grid
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  gap: 24px
+  @media (max-width: 900px)
+    grid-template-columns: 1fr
+
+.card
+  padding: 32px
+  border-radius: var(--radius-lg)
+  border: 1px solid var(--border-light)
+  display: flex
+  flex-direction: column
+  gap: 16px
+
+.quoteIcon
+  font-size: 32px
+  color: var(--pink)
+  line-height: 1
+
+.text
+  font-size: 15px
+  color: var(--text-muted)
+  line-height: 1.8
+  flex: 1
+
+.author
+  display: flex
+  align-items: center
+  gap: 12px
+  padding-top: 16px
+  border-top: 1px solid var(--border-light)
+
+.avatar
+  width: 40px
+  height: 40px
+  border-radius: 50%
+  background: var(--pink-soft)
+  color: var(--pink)
+  display: flex
+  align-items: center
+  justify-content: center
+  font-weight: 700
+  font-size: 16px
+
+.name
+  font-weight: 600
+  font-size: 14px
+  color: var(--text-dark)
+
+.role
+  font-size: 12px
+  color: var(--text-muted)

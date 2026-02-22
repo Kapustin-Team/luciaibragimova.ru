@@ -6,25 +6,25 @@ export default function Hero() {
       <div className={s.inner}>
         <div className={s.content}>
           <h1 className={s.title}>
-            Empower your team{'\n'}with future-ready tech{'\n'}skills
+            Верните доверие{'\n'}и взаимопонимание{'\n'}с подростком
           </h1>
           <p className={s.desc}>
-            Stay ahead in AI, cloud, cybersecurity, and more to drive
-            innovation and achieve measurable results.
+            Авторские программы семейного психолога с 25-летним опытом.
+            Сотни семей уже прошли этот путь.
           </p>
           <div className={s.stat}>
             <div className={s.statIcon}>
               <img src="/images/course-icon.svg" alt="" width={32} height={32} />
             </div>
-            <span className={s.statText}>6,500+ tech courses</span>
+            <span className={s.statText}>25 лет опыта · 500+ семей · 14 курсов</span>
           </div>
           <div className={s.buttons}>
-            <a href="#" className={s.btnPrimary}>For businesses</a>
-            <a href="#" className={s.btnOutline}>For individuals</a>
+            <a href="#" className={s.btnPrimary}>Выбрать курс</a>
+            <a href="#" className={s.btnOutline}>Бесплатная консультация</a>
           </div>
         </div>
         <div className={s.imageWrap}>
-          <img src="/images/hero.png" alt="Empower your team" className={s.heroImage} />
+          <img src="/images/hero.png" alt="Люция Ибрагимова" className={s.heroImage} />
         </div>
       </div>
     </section>

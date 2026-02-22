@@ -1,0 +1,69 @@
+.section
+  background: var(--bg-white)
+  padding: 100px 24px
+  @media (max-width: 768px)
+    padding: 64px 20px
+
+.inner
+  max-width: var(--container)
+  margin: 0 auto
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: 64px
+  align-items: center
+  @media (max-width: 900px)
+    grid-template-columns: 1fr
+    gap: 40px
+
+.imageWrap
+  border-radius: var(--radius-xl)
+  overflow: hidden
+
+.placeholder
+  aspect-ratio: 4 / 5
+  background: linear-gradient(135deg, #f0f0f5, #e8e0f0)
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  gap: 12px
+  color: var(--text-muted)
+
+.tag
+  display: inline-block
+  padding: 6px 14px
+  background: var(--green-soft)
+  color: var(--green-tag)
+  border-radius: var(--radius-full)
+  font-size: 13px
+  font-weight: 700
+  margin-bottom: 20px
+
+.title
+  font-size: clamp(28px, 3.5vw, 40px)
+  font-weight: 800
+  color: var(--text-dark)
+  line-height: 1.2
+  margin-bottom: 16px
+  letter-spacing: -0.02em
+
+.desc
+  font-size: 16px
+  color: var(--text-muted)
+  line-height: 1.8
+  margin-bottom: 24px
+
+.list
+  list-style: none
+  display: flex
+  flex-direction: column
+  gap: 12px
+
+.listItem
+  display: flex
+  align-items: center
+  gap: 10px
+  font-size: 15px
+  color: var(--text-dark)
+  svg
+    flex-shrink: 0

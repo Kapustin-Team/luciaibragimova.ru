@@ -1,9 +1,9 @@
 import s from './BusinessSection.module.sass'
 
 const features = [
-  'Identify knowledge gaps and align tech learning to organizational initiatives',
-  'Build skills to transform and retain in-house tech talent',
-  'Validate skills with assessments, certification practice exams, and hands-on practice labs',
+  'Повышение квалификации для школьных психологов и педагогов',
+  'Программы профилактики девиантного поведения подростков',
+  'Тренинги по работе с трудными подростками и их семьями',
 ]
 
 export default function BusinessSection() {
@@ -11,14 +11,13 @@ export default function BusinessSection() {
     <section className={s.section}>
       <div className={s.inner}>
         <div className={s.imageWrap}>
-          <img src="/images/business.png" alt="Business" className={s.image} />
+          <img src="/images/business.png" alt="Для специалистов" className={s.image} />
         </div>
         <div className={s.content}>
-          <span className={s.badge}>Develop tech teams</span>
-          <h2 className={s.heading}>Accelerate business initiatives</h2>
+          <span className={s.badge}>Для специалистов</span>
+          <h2 className={s.heading}>Программы для специалистов и образовательных учреждений</h2>
           <p className={s.desc}>
-            Join the Fortune 500 companies and more than 23,000 businesses that rely on
-            Pluralsight to:
+            Курсы и тренинги для педагогов, школьных психологов и социальных работников:
           </p>
           <ul className={s.list}>
             {features.map((f, i) => (
@@ -29,8 +28,8 @@ export default function BusinessSection() {
             ))}
           </ul>
           <div className={s.buttons}>
-            <a href="#" className={s.btnPrimary}>View team plans</a>
-            <a href="#" className={s.btnLink}>See all solutions →</a>
+            <a href="#" className={s.btnPrimary}>Узнать подробнее</a>
+            <a href="#" className={s.btnLink}>Все программы →</a>
           </div>
         </div>
       </div>

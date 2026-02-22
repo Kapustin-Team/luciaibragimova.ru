@@ -5,17 +5,17 @@ export default function HandsOn() {
     <section className={s.section}>
       <div className={s.inner}>
         <div className={s.imageWrap}>
-          <img src="/images/hands-on.png" alt="Hands-on practice" className={s.image} />
+          <img src="/images/hands-on.png" alt="Формат обучения" className={s.image} />
         </div>
         <div className={s.content}>
-          <span className={s.badge}>Learn by doing</span>
-          <h2 className={s.heading}>Build confidence with hands-on practice</h2>
+          <span className={s.badge}>Формат обучения</span>
+          <h2 className={s.heading}>Практические программы, которые работают в реальных семьях</h2>
           <p className={s.desc}>
-            Experiment with new skills in 3,500+ interactive labs and AI or cloud sandboxes
-            to quickly get the hang of them in real-world environments and take your career
-            (and subject) to the next level.
+            Видеолекции, практические задания, личные консультации и офлайн-тренинги.
+            Каждый курс создан на основе реальной практики работы с сотнями семей.
+            Вы получаете не теорию, а проверенные инструменты.
           </p>
-          <a href="#" className={s.btn}>Learn about labs</a>
+          <a href="#" className={s.btn}>Смотреть курсы</a>
         </div>
       </div>
     </section>
