@@ -1,0 +1,62 @@
+.section
+  background: var(--bg-white)
+  padding: 60px 100px
+  @media (max-width: 1024px)
+    padding: 40px 24px
+  @media (max-width: 768px)
+    padding: 32px 16px
+
+.inner
+  max-width: 1240px
+  margin: 0 auto
+
+.grid
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  gap: 24px
+  @media (max-width: 1024px)
+    grid-template-columns: repeat(2, 1fr)
+  @media (max-width: 640px)
+    grid-template-columns: 1fr
+
+.card
+  padding: 32px 24px
+  border: 1px solid #e5e5e5
+  border-radius: var(--radius)
+  transition: box-shadow 0.2s
+  &:hover
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08)
+
+.iconWrap
+  width: 48px
+  height: 48px
+  border-radius: 12px
+  display: flex
+  align-items: center
+  justify-content: center
+  margin-bottom: 16px
+  img
+    width: 24px
+    height: 24px
+    filter: brightness(0) invert(1)
+
+.cardTitle
+  font-size: 20px
+  font-weight: 400
+  color: var(--text-dark)
+  margin-bottom: 8px
+
+.cardDesc
+  font-size: 16px
+  font-weight: 400
+  color: var(--text-gray)
+  line-height: 24px
+  margin-bottom: 16px
+
+.link
+  font-size: 16px
+  font-weight: 700
+  color: var(--text-nav)
+  transition: color 0.2s
+  &:hover
+    color: var(--accent-pink)

@@ -5,17 +5,19 @@
 }
 
 :root {
-  --bg: #0D0D0D;
-  --bg-card: #1A1A1A;
-  --bg-card-hover: #222;
-  --text: #FFFFFF;
-  --text-secondary: #999;
-  --accent: #D946EF;
-  --accent-hover: #C026D3;
-  --accent-soft: rgba(217, 70, 239, 0.15);
-  --border: #2A2A2A;
+  --bg-dark: #130f25;
+  --bg-white: #ffffff;
+  --bg-light: #f7f5f4;
+  --text-white: #ffffff;
+  --text-dark: #130f25;
+  --text-gray: #555555;
+  --text-light-gray: #bfbfbf;
+  --text-nav: #45424d;
+  --accent-pink: #e80a89;
+  --accent-green: #cfff6e;
   --radius: 16px;
   --radius-sm: 8px;
+  --radius-pill: 999px;
 }
 
 html {
@@ -23,10 +25,10 @@ html {
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.6;
+  background: var(--bg-white);
+  color: var(--text-dark);
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -38,4 +40,12 @@ a {
 img {
   max-width: 100%;
   height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
 }
