@@ -1,0 +1,53 @@
+.section
+  padding: 120px 24px
+  @media (max-width: 768px)
+    padding: 80px 24px
+
+.inner
+  max-width: 1200px
+  margin: 0 auto
+
+.grid
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  gap: 24px
+  @media (max-width: 768px)
+    grid-template-columns: 1fr
+
+.card
+  background: var(--bg-card)
+  border: 1px solid var(--border)
+  border-radius: var(--radius)
+  padding: 32px
+
+.text
+  font-size: 16px
+  color: var(--text)
+  line-height: 1.7
+  margin-bottom: 24px
+  font-style: italic
+
+.author
+  display: flex
+  align-items: center
+  gap: 12px
+
+.avatar
+  width: 44px
+  height: 44px
+  border-radius: 50%
+  background: var(--accent-soft)
+  color: var(--accent)
+  display: flex
+  align-items: center
+  justify-content: center
+  font-weight: 700
+  font-size: 18px
+
+.name
+  font-weight: 600
+  font-size: 15px
+
+.course
+  font-size: 13px
+  color: var(--text-secondary)

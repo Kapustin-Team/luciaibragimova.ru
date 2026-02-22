@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Health check endpoint - не индексировать
+Disallow: /health
+
+# Lesson page - не индексировать
+Disallow: /lesson

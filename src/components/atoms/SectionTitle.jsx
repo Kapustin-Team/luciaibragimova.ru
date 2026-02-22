@@ -1,0 +1,10 @@
+import s from './SectionTitle.module.sass'
+
+export default function SectionTitle({ children, sub }) {
+  return (
+    <div className={s.wrap}>
+      <h2 className={s.title}>{children}</h2>
+      {sub && <p className={s.sub}>{sub}</p>}
+    </div>
+  )
+}

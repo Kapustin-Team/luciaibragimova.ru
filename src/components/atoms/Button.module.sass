@@ -1,0 +1,27 @@
+.btn
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  padding: 16px 32px
+  border-radius: 50px
+  font-size: 16px
+  font-weight: 600
+  cursor: pointer
+  border: none
+  transition: all 0.3s ease
+  text-align: center
+
+.primary
+  background: var(--accent)
+  color: #fff
+  &:hover
+    background: var(--accent-hover)
+    transform: translateY(-2px)
+
+.outline
+  background: transparent
+  color: var(--text)
+  border: 1px solid var(--border)
+  &:hover
+    border-color: var(--accent)
+    color: var(--accent)
