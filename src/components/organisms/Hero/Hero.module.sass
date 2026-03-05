@@ -1,110 +1,219 @@
 .hero
-  background: var(--bg-dark)
-  padding: 80px 100px
+  background: var(--bg-hero)
+  padding: 120px 40px 0
   position: relative
   overflow: hidden
-  @media (max-width: 1024px)
-    padding: 60px 24px
-  @media (max-width: 768px)
-    padding: 48px 16px
 
 .inner
-  max-width: 1240px
+  max-width: var(--container-wide)
   margin: 0 auto
   display: flex
+  flex-direction: column
   align-items: center
-  justify-content: center
-  gap: 48px
-  position: relative
-  z-index: 1
-  @media (max-width: 768px)
-    flex-direction: column
 
 .content
-  flex: 0 0 auto
-  width: 580px
-  @media (max-width: 1024px)
-    width: 100%
+  text-align: center
+  max-width: 860px
+  margin-bottom: 72px
 
 .title
-  font-family: var(--font-serif)
-  font-size: 52px
+  font-size: clamp(44px, 5.5vw, 72px)
   font-weight: 700
-  color: var(--text-white)
-  line-height: 1.15
-  letter-spacing: -1px
-  white-space: pre-line
-  margin-bottom: 16px
+  color: var(--text-dark)
+  line-height: 1.05
+  letter-spacing: -2.5px
+  margin-bottom: 28px
   @media (max-width: 768px)
-    font-size: 36px
+    letter-spacing: -1.5px
 
 .desc
-  font-size: 18px
+  font-size: 20px
   font-weight: 400
-  color: var(--text-light)
-  line-height: 1.7
-  margin-bottom: 16px
+  color: var(--text-muted)
+  line-height: 1.55
+  margin-bottom: 40px
+  max-width: 540px
+  margin-left: auto
+  margin-right: auto
   @media (max-width: 768px)
-    font-size: 16px
-
-.stat
-  display: flex
-  align-items: center
-  gap: 12px
-  margin-bottom: 24px
-
-.statText
-  font-size: 16px
-  font-weight: 600
-  color: var(--coral)
-  line-height: 1.5
+    font-size: 17px
 
 .buttons
   display: flex
-  gap: 16px
-  @media (max-width: 768px)
-    flex-direction: column
+  gap: 12px
+  justify-content: center
+  flex-wrap: wrap
 
 .btnPrimary
   display: inline-flex
   align-items: center
   justify-content: center
-  padding: 14px 36px
-  background: var(--coral)
-  color: white
-  font-size: 15px
-  font-weight: 700
-  border-radius: var(--radius-full)
-  transition: all 0.3s
+  padding: 18px 40px
+  background: var(--text-dark)
+  color: var(--text-white)
+  font-size: 16px
+  font-weight: 600
+  border-radius: var(--radius-btn)
+  transition: var(--transition-base)
   &:hover
+    background: var(--accent-orange)
     transform: translateY(-2px)
-    box-shadow: 0 8px 24px rgba(232, 108, 79, 0.3)
+    box-shadow: var(--shadow-orange-lg)
 
 .btnOutline
   display: inline-flex
   align-items: center
   justify-content: center
-  padding: 14px 36px
+  padding: 18px 36px
   background: transparent
-  color: var(--text-white)
-  font-size: 15px
-  font-weight: 700
-  border-radius: var(--radius-full)
-  border: 2px solid rgba(255, 255, 255, 0.25)
-  transition: all 0.3s
+  color: var(--text-dark)
+  font-size: 16px
+  font-weight: 600
+  border-radius: var(--radius-btn)
+  border: 1.5px solid var(--border-strong)
+  transition: var(--transition-base)
   &:hover
-    border-color: white
-    background: rgba(255, 255, 255, 0.05)
+    border-color: var(--text-dark)
+    background: var(--overlay-dark-subtle)
 
-.imageWrap
-  flex: 0 0 auto
-  width: 500px
-  @media (max-width: 1024px)
-    width: 100%
-
-.heroImage
+/* Three tilted feature cards */
+.cards
+  display: flex
+  gap: 16px
+  align-items: flex-end
   width: 100%
-  height: auto
+  max-width: var(--container-wide)
+  justify-content: center
+  @media (max-width: 900px)
+    gap: 10px
+  @media (max-width: 640px)
+    flex-direction: column
+    align-items: center
+    padding-bottom: 40px
+
+.card
+  width: calc(33.333% - 11px)
+  max-width: 420px
   border-radius: var(--radius-xl)
-  object-fit: cover
-  aspect-ratio: 4 / 3
+  overflow: hidden
+  flex-shrink: 0
+  @media (max-width: 900px)
+    width: calc(33.333% - 7px)
+  @media (max-width: 640px)
+    width: 100%
+    max-width: 360px
+
+.cardLeft
+  transform: rotate(-4deg) translateY(32px)
+  transform-origin: bottom center
+  @media (max-width: 640px)
+    transform: none
+
+.cardCenter
+  transform: translateY(0)
+  z-index: 2
+
+.cardRight
+  transform: rotate(4deg) translateY(32px)
+  transform-origin: bottom center
+  @media (max-width: 640px)
+    transform: none
+
+/* Orange card */
+.cardOrange
+  background: var(--accent-orange)
+
+/* Blue card */
+.cardBlue
+  background: var(--accent-blue)
+
+/* Purple card */
+.cardPurple
+  background: var(--accent-purple)
+
+.cardHeader
+  padding: 28px 28px 20px
+
+.cardTitle
+  font-size: 22px
+  font-weight: 700
+  letter-spacing: -0.5px
+  margin-bottom: 8px
+  display: flex
+  align-items: center
+  gap: 6px
+
+.cardTitleOrange
+  color: var(--accent-orange-dark)
+
+.cardTitleBlue
+  color: var(--accent-blue-dark)
+
+.cardTitlePurple
+  color: var(--accent-purple-dark)
+
+.cardArrow
+  font-size: 18px
+  opacity: 0.7
+
+.cardDesc
+  font-size: 14px
+  line-height: 1.55
+  font-weight: 400
+
+.cardDescOrange
+  color: var(--accent-orange-dark)
+
+.cardDescBlue
+  color: var(--accent-blue-dark)
+
+.cardDescPurple
+  color: var(--accent-purple-dark)
+
+.cardImage
+  width: 100%
+  height: 200px
+  display: flex
+  align-items: center
+  justify-content: center
+  overflow: hidden
+  position: relative
+
+.cardImageInner
+  width: 100%
+  height: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+  opacity: 0.35
+
+/* Decorative content inside card images */
+.cardPattern
+  position: absolute
+  inset: 0
+  display: flex
+  flex-direction: column
+  gap: 8px
+  padding: 16px 20px
+  justify-content: center
+
+.patternRow
+  height: 12px
+  border-radius: var(--radius-xs)
+  background: var(--overlay-dark-medium)
+
+.patternRowWide
+  width: 80%
+
+.patternRowMedium
+  width: 55%
+
+.patternRowShort
+  width: 40%
+
+.patternBlock
+  height: 56px
+  border-radius: var(--radius-md)
+  background: var(--overlay-dark-light)
+  width: 100%
+  margin-top: 6px

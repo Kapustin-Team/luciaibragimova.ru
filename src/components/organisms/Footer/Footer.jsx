@@ -67,7 +67,7 @@ export default function Footer() {
       <div className={s.bottom}>
         <div className={s.bottomInner}>
           <div className={s.logoWrap}>
-            <span className={s.footerLogo} style={{ fontWeight: 700, fontSize: '1rem', color: '#fff' }}>Школа психологии Люции Ибрагимовой</span>
+            <span className={s.footerLogo} style={{ fontWeight: 700, fontSize: '1rem' }}>Школа психологии Люции Ибрагимовой</span>
             <span className={s.copyright}>© 2026 Люция Ибрагимова. Все права защищены</span>
           </div>
           <div className={s.legal}>

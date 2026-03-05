@@ -1,47 +1,64 @@
 .section
-  background: linear-gradient(135deg, var(--bg-blue-soft) 0%, var(--bg-lavender) 100%)
-  padding: 80px 24px
-  text-align: center
+  background: var(--accent-blue)
+  padding: 80px 32px
   @media (max-width: 768px)
     padding: 56px 20px
 
-.inner
-  max-width: 600px
+.outer
+  max-width: var(--container)
   margin: 0 auto
 
+.card
+  background: var(--bg-white)
+  border-radius: var(--radius-cta)
+  padding: 80px 120px
+  text-align: center
+  @media (max-width: 900px)
+    padding: 60px 48px
+  @media (max-width: 600px)
+    padding: 48px 28px
+    border-radius: var(--radius-card)
+
 .title
-  font-family: var(--font-serif)
-  font-size: clamp(32px, 4vw, 48px)
+  font-size: clamp(32px, 4.5vw, 52px)
   font-weight: 700
   color: var(--text-dark)
-  margin-bottom: 32px
+  margin-bottom: 16px
+  letter-spacing: -1.5px
+  line-height: 1.1
+
+.subtitle
+  font-size: 17px
+  color: var(--text-muted)
+  margin-bottom: 36px
 
 .actions
   display: flex
-  gap: 16px
+  gap: 12px
   justify-content: center
   flex-wrap: wrap
 
-.btnLight
-  padding: 14px 32px
-  background: var(--coral)
-  color: white
-  border-radius: var(--radius-full)
-  font-size: 15px
-  font-weight: 700
-  transition: all 0.3s
-  &:hover
-    transform: translateY(-2px)
-    box-shadow: 0 8px 24px rgba(232, 108, 79, 0.3)
-
-.btnOutline
-  padding: 14px 32px
-  border: 2px solid var(--text-dark)
-  color: var(--text-dark)
-  border-radius: var(--radius-full)
+.btnDark
+  padding: 16px 36px
+  background: var(--text-dark)
+  color: var(--text-white)
+  border-radius: var(--radius-btn)
   font-size: 15px
   font-weight: 600
-  transition: all 0.3s
+  transition: var(--transition-base)
   &:hover
-    background: var(--text-dark)
-    color: white
+    background: var(--accent-orange)
+    transform: translateY(-1px)
+    box-shadow: var(--shadow-orange)
+
+.btnOutline
+  padding: 16px 36px
+  border: 1.5px solid var(--border-strong)
+  color: var(--text-dark)
+  border-radius: var(--radius-btn)
+  font-size: 15px
+  font-weight: 600
+  transition: var(--transition-base)
+  &:hover
+    border-color: var(--text-dark)
+    background: var(--bg-card)

@@ -1,87 +1,88 @@
 .section
-  background: var(--bg-dark)
-  padding: 100px 24px
+  background: var(--bg-section-alt)
+  padding: 100px 32px
   @media (max-width: 768px)
-    padding: 64px 20px
+    padding: 72px 20px
 
 .inner
   max-width: var(--container)
   margin: 0 auto
   display: grid
   grid-template-columns: 1fr 1fr
-  gap: 64px
+  gap: 80px
   align-items: center
   @media (max-width: 900px)
     grid-template-columns: 1fr
-    gap: 40px
+    gap: 48px
 
 .badge
   display: inline-block
   padding: 6px 16px
   background: var(--coral-soft)
-  border-radius: var(--radius-full)
+  border-radius: var(--radius-md)
   font-size: 13px
   font-weight: 700
-  color: var(--coral)
+  color: var(--accent-orange-dark)
   margin-bottom: 20px
 
 .title
-  font-family: var(--font-serif)
-  font-size: clamp(40px, 5vw, 60px)
+  font-size: clamp(36px, 5vw, 56px)
   font-weight: 700
-  color: white
-  margin-bottom: 16px
+  color: var(--text-dark)
+  margin-bottom: 18px
+  letter-spacing: -1.5px
 
 .desc
   font-size: 17px
-  color: var(--text-light)
+  color: var(--text-muted)
   line-height: 1.7
   margin-bottom: 32px
   max-width: 480px
 
 .btn
   display: inline-flex
-  padding: 14px 32px
-  background: var(--coral)
-  color: white
-  border-radius: var(--radius-full)
+  padding: 16px 36px
+  background: var(--text-dark)
+  color: var(--text-white)
+  border-radius: var(--radius-btn)
   font-size: 15px
-  font-weight: 700
-  transition: all 0.3s
+  font-weight: 600
+  transition: var(--transition-base)
   &:hover
-    transform: translateY(-2px)
-    box-shadow: 0 8px 24px rgba(232, 108, 79, 0.3)
+    background: var(--accent-orange)
+    transform: translateY(-1px)
+    box-shadow: var(--shadow-orange)
 
 .stats
   display: flex
-  gap: 24px
+  gap: 16px
   @media (max-width: 600px)
-    gap: 16px
+    gap: 12px
 
 .statItem
   display: flex
   flex-direction: column
   align-items: center
-  background: rgba(255,255,255,0.06)
-  border: 1px solid var(--border-dark)
-  backdrop-filter: blur(8px)
-  border-radius: var(--radius-xl)
+  background: var(--bg-white)
+  border: 1px solid var(--border-light)
+  border-radius: var(--radius-2xl)
   padding: 32px 24px
   flex: 1
   text-align: center
-  transition: all 0.3s
+  box-shadow: var(--shadow-xs)
+  transition: var(--transition-base)
   &:hover
-    background: rgba(255,255,255,0.1)
+    box-shadow: var(--shadow-lg)
 
 .statNum
-  font-family: var(--font-serif)
   font-size: 36px
   font-weight: 700
-  color: var(--coral)
+  color: var(--accent-orange)
   line-height: 1
+  letter-spacing: -1px
 
 .statLabel
   font-size: 13px
-  color: var(--text-light)
+  color: var(--text-muted)
   margin-top: 8px
   font-weight: 500

@@ -1,37 +1,37 @@
 .section
-  background: var(--bg-white)
-  padding: 100px 24px
+  background: var(--bg-section-alt)
+  padding: 100px 32px
   @media (max-width: 768px)
-    padding: 64px 20px
+    padding: 72px 20px
 
 .inner
-  max-width: 800px
+  max-width: var(--container-narrow)
   margin: 0 auto
 
 .title
-  font-family: var(--font-serif)
-  font-size: clamp(28px, 4vw, 40px)
+  font-size: clamp(28px, 4vw, 44px)
   font-weight: 700
   color: var(--text-dark)
   text-align: center
-  margin-bottom: 48px
+  margin-bottom: 52px
+  letter-spacing: -1px
 
 .list
   display: flex
   flex-direction: column
-  gap: 10px
+  gap: 8px
 
 .item
-  background: var(--bg-light)
+  background: var(--bg-white)
   border: 1px solid var(--border-light)
-  border-radius: var(--radius-lg)
+  border-radius: var(--radius-xl)
   cursor: pointer
   overflow: hidden
-  transition: all 0.25s
+  transition: var(--transition-fast)
 
 .itemOpen
-  border-color: var(--coral)
-  box-shadow: 0 2px 12px rgba(232, 108, 79, 0.08)
+  border-left: 3px solid var(--coral)
+  box-shadow: var(--shadow-md)
 
 .question
   display: flex
@@ -44,9 +44,10 @@
   color: var(--text-dark)
 
 .icon
-  font-size: 20px
+  font-size: 18px
   color: var(--coral)
   flex-shrink: 0
+  font-weight: 400
 
 .answer
   padding: 0 24px 20px

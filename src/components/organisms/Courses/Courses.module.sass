@@ -1,8 +1,8 @@
 .section
   background: var(--bg-white)
-  padding: 100px 24px
+  padding: 100px 32px
   @media (max-width: 768px)
-    padding: 64px 20px
+    padding: 72px 20px
 
 .inner
   max-width: var(--container)
@@ -19,14 +19,14 @@
     align-items: flex-start
 
 .title
-  font-family: var(--font-serif)
-  font-size: clamp(28px, 4vw, 40px)
+  font-size: clamp(28px, 4vw, 44px)
   font-weight: 700
   color: var(--text-dark)
   margin-bottom: 8px
+  letter-spacing: -1px
 
 .subtitle
-  font-size: 15px
+  font-size: 16px
   color: var(--text-muted)
 
 .filters
@@ -37,12 +37,12 @@
 .filterBtn
   padding: 8px 20px
   border-radius: var(--radius-full)
-  border: 1px solid var(--border-light)
+  border: 1.5px solid var(--border-medium)
   background: transparent
   color: var(--text-muted)
   font-size: 13px
   font-weight: 600
-  transition: all 0.25s
+  transition: var(--transition-fast)
   &:hover
     border-color: var(--coral)
     color: var(--coral)
@@ -50,44 +50,44 @@
 .active
   background: var(--coral)
   border-color: var(--coral)
-  color: white
+  color: var(--text-white)
   &:hover
-    color: white
+    color: var(--text-white)
     border-color: var(--coral)
 
 .grid
   display: grid
   grid-template-columns: repeat(3, 1fr)
-  gap: 20px
+  gap: 16px
   @media (max-width: 1024px)
     grid-template-columns: repeat(2, 1fr)
   @media (max-width: 600px)
     grid-template-columns: 1fr
 
 .card
-  background: var(--bg-white)
-  border: 1px solid var(--border-light)
-  border-radius: var(--radius-xl)
+  background: var(--bg-card)
+  border-radius: var(--radius-card)
   padding: 28px
   display: flex
   flex-direction: column
   position: relative
-  transition: all 0.35s ease
-  box-shadow: var(--shadow-card)
+  transition: var(--transition-slow)
   &:hover
-    transform: translateY(-4px)
-    box-shadow: var(--shadow-card-hover)
+    background: var(--bg-card-hover)
+    transform: translateY(-3px)
+    box-shadow: var(--shadow-lg)
 
 .featured
-  border-color: rgba(232, 108, 79, 0.3)
-  background: linear-gradient(135deg, white 90%, rgba(232, 108, 79, 0.04))
+  background: var(--coral-soft)
+  &:hover
+    background: rgba(227, 154, 77, 0.16)
 
 .tag
   position: absolute
-  top: 16px
-  right: 16px
+  top: 20px
+  right: 20px
   background: var(--coral)
-  color: white
+  color: var(--text-white)
   padding: 4px 12px
   border-radius: var(--radius-full)
   font-size: 11px
@@ -112,11 +112,11 @@
   color: var(--text-muted)
 
 .cardTitle
-  font-family: var(--font-serif)
   font-size: 19px
-  font-weight: 600
+  font-weight: 700
   color: var(--text-dark)
   margin-bottom: 4px
+  letter-spacing: -0.4px
 
 .cardDir
   font-size: 13px
@@ -133,9 +133,9 @@
 .cardLink
   font-size: 14px
   font-weight: 600
-  color: var(--coral)
+  color: var(--text-dark)
   padding-top: 14px
-  border-top: 1px solid var(--border-light)
-  transition: opacity 0.2s
+  border-top: 1px solid var(--border-default)
+  transition: color 0.2s
   &:hover
-    opacity: 0.7
+    color: var(--coral)

@@ -1,86 +1,125 @@
 .section
-  background: var(--bg-dark)
-  padding: 100px 24px
+  background: var(--bg-white)
+  padding: 120px 40px
   @media (max-width: 768px)
-    padding: 64px 20px
+    padding: 80px 20px
 
 .inner
-  max-width: var(--container)
+  max-width: var(--container-wide)
   margin: 0 auto
 
-.title
-  font-family: var(--font-serif)
-  font-size: clamp(28px, 4vw, 40px)
-  font-weight: 700
-  color: white
+.header
   text-align: center
-  margin-bottom: 8px
+  margin-bottom: 72px
+
+.title
+  font-size: clamp(32px, 4vw, 48px)
+  font-weight: 700
+  color: var(--text-dark)
+  letter-spacing: -1.5px
+  margin-bottom: 14px
+  line-height: 1.1
 
 .subtitle
-  font-size: 16px
-  color: var(--text-light)
-  text-align: center
-  margin-bottom: 48px
+  font-size: 18px
+  color: var(--text-muted)
+  line-height: 1.5
 
 .grid
   display: grid
   grid-template-columns: repeat(4, 1fr)
-  gap: 24px
+  gap: 16px
   @media (max-width: 1024px)
     grid-template-columns: repeat(2, 1fr)
   @media (max-width: 600px)
     grid-template-columns: 1fr
 
 .card
-  padding: 32px 24px
   border-radius: var(--radius-xl)
-  background: rgba(255, 255, 255, 0.04)
-  border: 1px solid var(--border-dark)
+  background: var(--bg-card)
+  overflow: hidden
   display: flex
   flex-direction: column
-  align-items: center
-  text-align: center
-  gap: 12px
-  transition: all 0.35s
+  transition: transform 0.3s ease, box-shadow 0.3s ease
   &:hover
-    background: rgba(255, 255, 255, 0.08)
     transform: translateY(-4px)
+    box-shadow: var(--shadow-card-hover)
 
-.avatarWrap
-  margin-bottom: 4px
-
-.avatar
-  width: 56px
-  height: 56px
-  border-radius: 50%
-  background: linear-gradient(135deg, var(--coral), var(--lavender))
-  color: white
+/* Colored top band */
+.cardTop
+  height: 160px
   display: flex
   align-items: center
   justify-content: center
+  position: relative
+  overflow: hidden
+
+.cardTop0
+  background: var(--accent-orange)
+
+.cardTop1
+  background: var(--accent-blue)
+
+.cardTop2
+  background: var(--accent-purple)
+
+.cardTop3
+  background: var(--accent-orange)
+
+/* Avatar circle in the colored top */
+.avatarCircle
+  width: 80px
+  height: 80px
+  border-radius: 50%
+  background: var(--overlay-white-medium)
+  display: flex
+  align-items: center
+  justify-content: center
+  font-size: 26px
   font-weight: 700
-  font-size: 18px
+  color: var(--text-white)
+  letter-spacing: -0.5px
+  backdrop-filter: blur(4px)
+  border: 2px solid var(--overlay-white-strong)
+
+.cardBottom
+  padding: 24px
+  display: flex
+  flex-direction: column
+  flex: 1
+  gap: 10px
+
+.tag
+  font-size: 10px
+  font-weight: 700
+  letter-spacing: 1.2px
+  text-transform: uppercase
+  color: var(--text-muted)
 
 .name
+  font-size: 18px
   font-weight: 700
-  font-size: 16px
-  color: white
+  color: var(--text-dark)
+  letter-spacing: -0.3px
 
 .role
   font-size: 13px
-  color: var(--text-light)
+  color: var(--text-muted)
+  margin-top: -6px
 
 .text
   font-size: 14px
-  color: var(--text-light)
+  color: var(--text-dark)
   line-height: 1.7
+  opacity: 0.75
   flex: 1
 
 .course
+  display: inline-block
   font-size: 12px
   font-weight: 600
-  color: var(--coral)
+  color: var(--accent-orange-dark)
   padding: 4px 12px
-  background: var(--coral-soft)
+  background: var(--accent-orange-soft)
   border-radius: var(--radius-full)
-  margin-top: 4px
+  align-self: flex-start

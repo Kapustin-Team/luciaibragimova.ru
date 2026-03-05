@@ -8,49 +8,80 @@ const FORMAT_LABELS = { online: 'Онлайн', offline: 'Офлайн', hybrid:
 
 export default function CoursePageClient({ course }) {
   const c = course
+  const imgSrc = c.image?.url || c.image?.formats?.large?.url
 
   return (
     <>
       <Header />
-      <main className={s.page}>
-        {/* Hero */}
+      <main>
+
+        {/* ─── Hero — orange bg, split layout (Figma 33:38591) ─── */}
         <section className={s.hero}>
           <div className={s.heroInner}>
-            <div className={s.heroContent}>
+            <div className={s.heroLeft}>
               {c.direction?.title && (
-                <span className={s.dirBadge}>{c.direction.title}</span>
+                <div className={s.dirBadge}>{c.direction.title}</div>
               )}
-              {c.badge && <span className={s.badge}>{c.badge}</span>}
-              <h1 className={s.title}>{c.title}</h1>
-              <p className={s.shortDesc}>{c.shortDescription}</p>
-              <div className={s.meta}>
-                {c.format && <span className={s.metaItem}>{FORMAT_LABELS[c.format] || c.format}</span>}
-                {c.duration && <span className={s.metaItem}>{c.duration}</span>}
-                {c.participantsCount && <span className={s.metaItem}>{c.participantsCount}</span>}
-                {c.lessonsCount && <span className={s.metaItem}>{c.lessonsCount} занятий</span>}
+              <h1 className={s.heroTitle}>{c.title}</h1>
+              <p className={s.heroDesc}>{c.shortDescription}</p>
+              <div className={s.metaTags}>
+                {c.format && <span className={s.metaTag}>{FORMAT_LABELS[c.format] || c.format}</span>}
+                {c.duration && <span className={s.metaTag}>{c.duration}</span>}
+                {c.lessonsCount && <span className={s.metaTag}>{c.lessonsCount} занятий</span>}
+                {c.participantsCount && <span className={s.metaTag}>{c.participantsCount}</span>}
               </div>
               <div className={s.heroCta}>
                 {c.getcourseLink ? (
-                  <a href={c.getcourseLink} className={s.btnPrimary} target="_blank" rel="noopener">Записаться</a>
+                  <a href={c.getcourseLink} className={s.btnDark} target="_blank" rel="noopener">Записаться на курс</a>
                 ) : (
-                  <a href="#tariffs" className={s.btnPrimary}>Записаться</a>
+                  <a href="#tariffs" className={s.btnDark}>Записаться на курс</a>
                 )}
-                <a href="#program" className={s.btnOutline}>Программа курса</a>
+                <a href="#program" className={s.btnLight}>Программа курса</a>
+              </div>
+            </div>
+
+            {/* Browser-window mockup on the right */}
+            <div className={s.heroRight}>
+              <div className={s.browserMock}>
+                <div className={s.browserBar}>
+                  <span className={s.dot} />
+                  <span className={s.dot} />
+                  <span className={s.dot} />
+                </div>
+                <div className={s.browserBody}>
+                  {imgSrc ? (
+                    <img src={imgSrc} alt={c.title} className={s.browserImg} />
+                  ) : (
+                    <div className={s.mockContent}>
+                      <div className={s.mockBand} />
+                      <div className={s.mockInner}>
+                        <p className={s.mockLabel}>Курс от Люции Ибрагимовой</p>
+                        <h3 className={s.mockTitle}>{c.title}</h3>
+                        {c.duration && <p className={s.mockMeta}>{c.duration}</p>}
+                        {c.lessonsCount && <p className={s.mockMeta}>{c.lessonsCount} занятий</p>}
+                        <div className={s.mockBtn}>Подробнее →</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Для кого */}
+        {/* ─── Для кого — white bg, card grid (Figma 33:38616 style) ─── */}
         {c.targetAudience?.length > 0 && (
           <section className={s.section}>
             <div className={s.container}>
-              <h2 className={s.sectionTitle}>Для кого этот курс</h2>
+              <div className={s.centeredHeader}>
+                <h2 className={s.sectionTitle}>Для кого этот курс</h2>
+                <p className={s.sectionSubtitle}>Курс разработан с учётом потребностей разных людей в разных жизненных ситуациях.</p>
+              </div>
               <div className={s.audienceGrid}>
                 {c.targetAudience.map((a, i) => (
                   <motion.div key={i} className={s.audienceCard}
-                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                    initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
                     <p>{a.text}</p>
                   </motion.div>
                 ))}
@@ -59,54 +90,79 @@ export default function CoursePageClient({ course }) {
           </section>
         )}
 
-        {/* Боли */}
+        {/* ─── Знакомые ситуации — peach bg, split with checklist (Figma 33:38964 style) ─── */}
         {c.pains?.length > 0 && (
-          <section className={s.sectionAlt}>
+          <section className={s.sectionPeach}>
             <div className={s.container}>
-              <h2 className={s.sectionTitle}>Знакомые проблемы?</h2>
-              <div className={s.painGrid}>
-                {c.pains.map((pain, i) => (
-                  <motion.div key={i} className={s.painCard}
-                    initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
-                    {pain}
-                  </motion.div>
-                ))}
+              <div className={s.featureLayout}>
+                <div className={s.featureLeft}>
+                  <h2 className={s.featureTitle}>Знакомые ситуации?</h2>
+                  <p className={s.featureDesc}>Если хотя бы несколько пунктов откликаются — этот курс создан именно для вас.</p>
+                </div>
+                <div className={s.featureRight}>
+                  <ul className={s.checkList}>
+                    {c.pains.map((pain, i) => (
+                      <motion.li key={i} className={s.checkItem}
+                        initial={{ opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
+                        <span className={s.checkBox}>✓</span>
+                        <span>{pain}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </section>
         )}
 
-        {/* Результаты */}
+        {/* ─── Что получите — white bg, image-left + text-right (Figma 33:38745 style) ─── */}
         {c.results?.length > 0 && (
-          <section className={s.section}>
+          <section className={s.section} id="results">
             <div className={s.container}>
-              <h2 className={s.sectionTitle}>Что вы получите</h2>
-              <div className={s.resultsGrid}>
-                {c.results.map((r, i) => (
-                  <motion.div key={i} className={s.resultCard}
-                    initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
-                    <span className={s.resultIcon}>✓</span>
-                    <span>{r.text}</span>
-                  </motion.div>
-                ))}
+              <div className={s.articleLayout}>
+                <div className={s.articleFigure}>
+                  <div className={s.articleImageWrap}>
+                    <div className={s.articleImgPlaceholder}>
+                      <div className={s.imgPlaceholderBand} />
+                      <div className={s.imgPlaceholderRow} />
+                      <div className={s.imgPlaceholderRow} />
+                      <div className={s.imgPlaceholderRow} style={{ width: '60%' }} />
+                    </div>
+                  </div>
+                </div>
+                <div className={s.articleText}>
+                  <h2 className={s.articleTitle}>Что вы получите</h2>
+                  <ul className={s.checkList}>
+                    {c.results.map((r, i) => (
+                      <motion.li key={i} className={s.checkItem}
+                        initial={{ opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
+                        <span className={s.checkBox}>✓</span>
+                        <span>{r.text}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </section>
         )}
 
-        {/* Программа */}
+        {/* ─── Программа — peach bg, numbered cards ─── */}
         {c.modules?.length > 0 && (
-          <section className={s.sectionAlt} id="program">
+          <section className={s.sectionPeach} id="program">
             <div className={s.container}>
-              <h2 className={s.sectionTitle}>Программа курса</h2>
+              <div className={s.centeredHeader}>
+                <h2 className={s.sectionTitle}>Программа курса</h2>
+                <p className={s.sectionSubtitle}>Структурированная программа, которая ведёт вас шаг за шагом.</p>
+              </div>
               <div className={s.modulesGrid}>
                 {c.modules.map((m, i) => (
                   <motion.div key={i} className={s.moduleCard}
-                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
-                    <div className={s.moduleNum}>{String(i + 1).padStart(2, '0')}</div>
+                    initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
+                    <div className={s.moduleNum}>Модуль {String(i + 1).padStart(2, '0')}</div>
                     <h3 className={s.moduleTitle}>{m.title}</h3>
                     {m.description && <p className={s.moduleDesc}>{m.description}</p>}
                   </motion.div>
@@ -116,25 +172,63 @@ export default function CoursePageClient({ course }) {
           </section>
         )}
 
-        {/* Тарифы */}
-        {c.tariffs?.length > 0 && (
-          <section className={s.section} id="tariffs">
+        {/* ─── Методики — white bg, image-right + text-left (Figma 33:38757 style) ─── */}
+        {c.methods?.length > 0 && (
+          <section className={s.section}>
             <div className={s.container}>
-              <h2 className={s.sectionTitle}>Тарифы</h2>
+              <div className={s.articleLayoutReverse}>
+                <div className={s.articleText}>
+                  <h2 className={s.articleTitle}>Методики и подходы</h2>
+                  <p className={s.articleDesc}>Курс основан на проверенных психологических методиках и современных научных подходах.</p>
+                  <div className={s.methodsWrap}>
+                    {c.methods.map((m, i) => (
+                      <span key={i} className={s.methodTag}>{m}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className={s.articleFigure}>
+                  <div className={s.articleImageWrap}>
+                    <div className={s.articleImgPlaceholder}>
+                      <div className={s.imgPlaceholderBand} style={{ background: 'var(--accent-blue)' }} />
+                      <div className={s.imgPlaceholderRow} />
+                      <div className={s.imgPlaceholderRow} />
+                      <div className={s.imgPlaceholderRow} style={{ width: '70%' }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ─── Тарифы — white bg, pricing cards ─── */}
+        {c.tariffs?.length > 0 && (
+          <section className={s.sectionPeach} id="tariffs">
+            <div className={s.container}>
+              <div className={s.centeredHeader}>
+                <h2 className={s.sectionTitle}>Выберите тариф</h2>
+                <p className={s.sectionSubtitle}>Выберите формат участия, который подходит именно вам.</p>
+              </div>
               <div className={s.tariffsGrid}>
                 {c.tariffs.map((t, i) => (
                   <motion.div key={i} className={`${s.tariffCard} ${t.popular ? s.tariffPopular : ''}`}
-                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                    {t.popular && <div className={s.popularBadge}>Популярный</div>}
                     <h3 className={s.tariffName}>{t.name}</h3>
                     {t.features?.length > 0 && (
                       <ul className={s.tariffFeatures}>
                         {t.features.map((f, j) => (
-                          <li key={j}>{f}</li>
+                          <li key={j}>
+                            <span className={s.tariffCheck}>✓</span>
+                            <span>{f}</span>
+                          </li>
                         ))}
                       </ul>
                     )}
-                    <a href={c.getcourseLink || '#'} className={s.tariffBtn}>Выбрать</a>
+                    <a href={c.getcourseLink || '#'} className={t.popular ? s.tariffBtnDark : s.tariffBtn}>
+                      Выбрать тариф
+                    </a>
                   </motion.div>
                 ))}
               </div>
@@ -142,45 +236,39 @@ export default function CoursePageClient({ course }) {
           </section>
         )}
 
-        {/* Методики */}
-        {c.methods?.length > 0 && (
-          <section className={s.sectionAlt}>
-            <div className={s.container}>
-              <h2 className={s.sectionTitle}>Методики и подходы</h2>
-              <div className={s.methodsWrap}>
-                {c.methods.map((m, i) => (
-                  <span key={i} className={s.methodTag}>{m}</span>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Ограничения */}
+        {/* ─── Ограничения — peach bg, checklist ─── */}
         {c.limitations?.length > 0 && (
-          <section className={s.section}>
+          <section className={s.sectionPeach}>
             <div className={s.container}>
-              <h2 className={s.sectionTitle}>Важно знать</h2>
-              <div className={s.limitationsWrap}>
-                {c.limitations.map((l, i) => (
-                  <div key={i} className={s.limitationItem}>
-                    <span className={s.limitIcon}>⚠️</span>
-                    <span>{l}</span>
-                  </div>
-                ))}
+              <div className={s.featureLayout}>
+                <div className={s.featureLeft}>
+                  <h2 className={s.featureTitle}>Важно знать</h2>
+                  <p className={s.featureDesc}>Обратите внимание перед записью на курс.</p>
+                </div>
+                <div className={s.featureRight}>
+                  <ul className={s.checkList}>
+                    {c.limitations.map((l, i) => (
+                      <li key={i} className={s.checkItem}>
+                        <span className={s.checkBox}>!</span>
+                        <span>{l}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </section>
         )}
 
-        {/* CTA */}
+        {/* ─── CTA — orange bg + white card 56px radius (Figma 33:39189) ─── */}
         <section className={s.ctaSection}>
-          <div className={s.container}>
+          <div className={s.ctaCard}>
             <h2 className={s.ctaTitle}>Готовы начать?</h2>
-            <p className={s.ctaDesc}>Запишитесь на курс и начните путь к изменениям</p>
-            <a href={c.getcourseLink || '#tariffs'} className={s.btnPrimary}>Записаться на курс</a>
+            <p className={s.ctaDesc}>Записывайтесь на курс и сделайте первый шаг к изменениям в вашей жизни</p>
+            <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>Записаться на курс</a>
           </div>
         </section>
+
       </main>
       <Footer />
     </>

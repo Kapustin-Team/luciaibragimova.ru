@@ -1,28 +1,28 @@
 .section
-  background: var(--bg-lavender)
-  padding: 100px 24px
+  background: var(--bg-section-alt)
+  padding: 100px 32px
   @media (max-width: 768px)
-    padding: 64px 20px
+    padding: 72px 20px
 
 .inner
   max-width: var(--container)
   margin: 0 auto
   display: grid
   grid-template-columns: 1fr 1fr
-  gap: 64px
+  gap: 80px
   align-items: center
   @media (max-width: 900px)
     grid-template-columns: 1fr
-    gap: 40px
+    gap: 48px
 
 .imageWrap
-  border-radius: var(--radius-xl)
+  border-radius: var(--radius-card)
   overflow: hidden
-  box-shadow: var(--shadow-card-hover)
+  box-shadow: var(--shadow-xl)
 
 .placeholder
   aspect-ratio: 4 / 5
-  background: linear-gradient(135deg, #e8e0f0, #d6d0e8)
+  background: var(--bg-card)
   display: flex
   flex-direction: column
   align-items: center
@@ -34,25 +34,25 @@
   display: inline-block
   padding: 6px 16px
   background: var(--coral-soft)
-  color: var(--coral)
-  border-radius: var(--radius-full)
+  color: var(--accent-orange-dark)
+  border-radius: var(--radius-md)
   font-size: 13px
   font-weight: 700
   margin-bottom: 20px
 
 .title
-  font-family: var(--font-serif)
-  font-size: clamp(28px, 3.5vw, 40px)
+  font-size: clamp(26px, 3.5vw, 40px)
   font-weight: 700
   color: var(--text-dark)
-  line-height: 1.2
-  margin-bottom: 16px
+  line-height: 1.15
+  margin-bottom: 18px
+  letter-spacing: -1px
 
 .desc
   font-size: 16px
   color: var(--text-muted)
   line-height: 1.8
-  margin-bottom: 24px
+  margin-bottom: 28px
 
 .list
   list-style: none
@@ -63,7 +63,7 @@
 .listItem
   display: flex
   align-items: center
-  gap: 10px
+  gap: 12px
   font-size: 15px
   color: var(--text-dark)
   svg

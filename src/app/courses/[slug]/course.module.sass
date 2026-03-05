@@ -1,317 +1,580 @@
-.page
-  background: var(--bg-dark)
-  color: var(--text-white)
-  min-height: 100vh
+// Course Detail Page
+// Matches Figma node 33:38589 — orange hero, peach feature sections, white content, orange CTA
 
 .container
   max-width: var(--container)
   margin: 0 auto
-  padding: 0 24px
+  padding: 0 80px
+  @media (max-width: 1100px)
+    padding: 0 40px
+  @media (max-width: 768px)
+    padding: 0 24px
 
-// Hero
+// ─── Hero (Figma 33:38591) ────────────────────────────────────────────────────
+// Full-bleed orange bg, text in accent-orange-dark, split layout
+
 .hero
-  padding: 120px 24px 80px
-  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-section) 100%)
+  background: var(--accent-orange)
+  padding: 140px 80px 80px
+  @media (max-width: 768px)
+    padding: 100px 24px 60px
 
 .heroInner
   max-width: var(--container)
   margin: 0 auto
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: 80px
+  align-items: center
+  @media (max-width: 900px)
+    grid-template-columns: 1fr
 
-.heroContent
-  max-width: 800px
+.heroLeft
+  display: flex
+  flex-direction: column
+  gap: 16px
 
 .dirBadge
   display: inline-block
   padding: 6px 16px
-  background: var(--lavender-soft)
-  border-radius: var(--radius-full)
-  font-size: 13px
-  font-weight: 600
-  color: var(--lavender)
-  margin-bottom: 12px
-  margin-right: 8px
-
-.badge
-  display: inline-block
-  padding: 6px 16px
-  background: var(--coral-soft)
-  border-radius: var(--radius-full)
+  background: var(--accent-orange-dark)
+  color: var(--bg-peach)
+  border-radius: var(--radius-sm)
   font-size: 13px
   font-weight: 700
-  color: var(--coral)
-  margin-bottom: 12px
+  width: fit-content
 
-.title
-  font-family: var(--font-serif)
-  font-size: clamp(36px, 5vw, 56px)
-  line-height: 1.15
-  margin-bottom: 20px
+.heroTitle
+  font-size: clamp(36px, 4.5vw, 54px)
+  font-weight: 700
+  color: var(--accent-orange-dark)
+  line-height: 1.14
+  letter-spacing: -1.68px
 
-.shortDesc
-  font-size: 18px
-  line-height: 1.6
-  color: var(--text-light)
-  margin-bottom: 28px
-  max-width: 650px
+.heroDesc
+  font-size: clamp(16px, 1.5vw, 22px)
+  line-height: 1.55
+  color: var(--accent-orange-dark)
+  max-width: 480px
 
-.meta
+.metaTags
   display: flex
   flex-wrap: wrap
-  gap: 12px
-  margin-bottom: 32px
+  gap: 8px
+  margin-top: 4px
 
-.metaItem
-  padding: 8px 16px
-  background: rgba(255, 255, 255, 0.06)
-  border-radius: var(--radius-full)
+.metaTag
+  padding: 7px 16px
+  background: var(--accent-orange-dark-soft)
+  border-radius: var(--radius-xl)
   font-size: 14px
-  color: var(--text-light)
+  font-weight: 500
+  color: var(--accent-orange-dark)
 
 .heroCta
   display: flex
-  gap: 16px
+  gap: 12px
   flex-wrap: wrap
+  margin-top: 8px
 
-.btnPrimary
-  display: inline-block
-  padding: 16px 32px
-  background: var(--coral-gradient)
-  color: white
-  border-radius: var(--radius-full)
-  font-weight: 700
+// Dark button (Figma: #452623 bg, #f6ddc4 text, 14px radius)
+.btnDark
+  display: inline-flex
+  padding: 18px 28px
+  background: var(--accent-orange-dark)
+  color: var(--bg-peach)
+  border-radius: var(--radius-btn)
   font-size: 16px
-  text-decoration: none
-  transition: transform 0.2s, box-shadow 0.2s
-  &:hover
-    transform: translateY(-2px)
-    box-shadow: 0 8px 24px rgba(232, 108, 79, 0.3)
-
-.btnOutline
-  display: inline-block
-  padding: 16px 32px
-  border: 1px solid rgba(255, 255, 255, 0.2)
-  color: var(--text-white)
-  border-radius: var(--radius-full)
   font-weight: 600
-  font-size: 16px
-  text-decoration: none
-  transition: border-color 0.2s
+  transition: var(--transition-fast)
   &:hover
-    border-color: rgba(255, 255, 255, 0.5)
+    background: var(--accent-orange-dark-hover)
+    transform: translateY(-1px)
 
-// Sections
-.section
-  padding: 80px 24px
-  @media (max-width: 768px)
-    padding: 56px 20px
+// Light button on orange bg
+.btnLight
+  display: inline-flex
+  padding: 18px 28px
+  background: var(--accent-orange-dark-soft)
+  color: var(--accent-orange-dark)
+  border-radius: var(--radius-btn)
+  font-size: 16px
+  font-weight: 600
+  transition: var(--transition-fast)
+  &:hover
+    background: rgba(69, 38, 35, 0.2)
 
-.sectionAlt
-  padding: 80px 24px
-  background: var(--bg-section)
-  @media (max-width: 768px)
-    padding: 56px 20px
+// ─── Browser mockup (hero right side) ────────────────────────────────────────
 
-.sectionTitle
-  font-family: var(--font-serif)
-  font-size: clamp(28px, 4vw, 40px)
-  margin-bottom: 40px
-  text-align: center
+.heroRight
+  @media (max-width: 900px)
+    display: none
 
-// Audience
-.audienceGrid
-  display: grid
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
-  gap: 20px
-
-.audienceCard
-  background: var(--bg-card)
+.browserMock
   border-radius: var(--radius-lg)
-  padding: 28px
-  font-size: 16px
-  line-height: 1.6
-  color: var(--text-light)
-  border: 1px solid var(--border-dark)
+  overflow: hidden
+  box-shadow: 0 12px 48px rgba(69, 38, 35, 0.25)
 
-// Pains
-.painGrid
+.browserBar
+  background: var(--accent-orange-dark)
+  padding: 12px 16px
   display: flex
-  flex-wrap: wrap
-  gap: 12px
-  justify-content: center
+  gap: 6px
+  align-items: center
 
-.painCard
-  padding: 12px 24px
-  background: rgba(232, 108, 79, 0.08)
-  border: 1px solid rgba(232, 108, 79, 0.2)
-  border-radius: var(--radius-full)
-  font-size: 15px
-  color: var(--coral)
+.dot
+  width: 12px
+  height: 12px
+  border-radius: 50%
+  background: var(--bg-peach-soft)
+  display: inline-block
 
-// Results
-.resultsGrid
-  display: grid
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
-  gap: 16px
-  max-width: 800px
-  margin: 0 auto
+.browserBody
+  background: var(--bg-peach)
+  min-height: 320px
 
-.resultCard
+.browserImg
+  width: 100%
+  height: 100%
+  object-fit: cover
+  display: block
+
+.mockContent
   display: flex
-  align-items: flex-start
-  gap: 12px
-  padding: 16px 20px
-  background: var(--bg-card)
-  border-radius: var(--radius-md)
-  font-size: 16px
-  line-height: 1.5
-  color: var(--text-light)
+  flex-direction: column
+  height: 320px
 
-.resultIcon
-  color: var(--green-tag)
-  font-weight: 700
-  font-size: 18px
+.mockBand
+  height: 140px
+  background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-orange-dark) 100%)
   flex-shrink: 0
 
-// Modules
-.modulesGrid
-  display: grid
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
-  gap: 20px
+.mockInner
+  padding: 24px 28px
+  background: var(--bg-white)
+  flex: 1
 
-.moduleCard
-  background: var(--bg-card)
-  border-radius: var(--radius-lg)
-  padding: 28px
-  border: 1px solid var(--border-dark)
-  transition: border-color 0.2s
-  &:hover
-    border-color: var(--coral)
-
-.moduleNum
-  font-size: 14px
-  font-weight: 700
-  color: var(--coral)
+.mockLabel
+  font-size: 12px
+  color: var(--text-muted)
   margin-bottom: 8px
 
-.moduleTitle
+.mockTitle
   font-size: 18px
   font-weight: 700
-  margin-bottom: 8px
+  color: var(--accent-orange-dark)
+  letter-spacing: -0.4px
+  margin-bottom: 12px
+  line-height: 1.3
 
-.moduleDesc
-  font-size: 15px
-  line-height: 1.6
-  color: var(--text-light)
+.mockMeta
+  font-size: 13px
+  color: var(--text-muted)
+  margin-bottom: 4px
 
-// Tariffs
-.tariffsGrid
-  display: grid
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
-  gap: 24px
-  max-width: 900px
-  margin: 0 auto
+.mockBtn
+  display: inline-block
+  margin-top: 16px
+  padding: 10px 20px
+  background: var(--accent-orange)
+  color: var(--accent-orange-dark)
+  border-radius: var(--radius-md)
+  font-size: 13px
+  font-weight: 700
 
-.tariffCard
-  background: var(--bg-card)
-  border-radius: var(--radius-lg)
-  padding: 32px 28px
-  border: 1px solid var(--border-dark)
+// ─── Common sections ──────────────────────────────────────────────────────────
+
+.section
+  padding: 128px 80px
+  background: var(--bg-white)
+  @media (max-width: 1100px)
+    padding: 100px 40px
+  @media (max-width: 768px)
+    padding: 72px 24px
+
+// Peach/cream section (Figma: #f6ddc4)
+.sectionPeach
+  padding: 128px 80px
+  background: var(--bg-peach)
+  @media (max-width: 1100px)
+    padding: 100px 40px
+  @media (max-width: 768px)
+    padding: 72px 24px
+
+// Centered header block
+.centeredHeader
   text-align: center
+  max-width: 760px
+  margin: 0 auto 64px
+
+.sectionTitle
+  font-size: clamp(28px, 3.5vw, 44px)
+  font-weight: 700
+  color: var(--accent-orange-dark)
+  letter-spacing: -1.2px
+  line-height: 1.15
+  margin-bottom: 16px
+
+.sectionSubtitle
+  font-size: clamp(16px, 1.5vw, 22px)
+  color: var(--accent-orange-dark)
+  line-height: 1.5
+
+// ─── Feature split layout (Figma 33:38964) ───────────────────────────────────
+
+.featureLayout
+  max-width: var(--container)
+  margin: 0 auto
+  display: grid
+  grid-template-columns: 524fr 632fr
+  gap: 124px
+  align-items: start
+  @media (max-width: 900px)
+    grid-template-columns: 1fr
+    gap: 48px
+
+.featureLeft
+  position: sticky
+  top: 40px
+  @media (max-width: 900px)
+    position: static
+
+.featureTitle
+  font-size: clamp(24px, 3vw, 40px)
+  font-weight: 700
+  color: var(--accent-orange-dark)
+  letter-spacing: -1.2px
+  line-height: 1.15
+  margin-bottom: 16px
+
+.featureDesc
+  font-size: clamp(15px, 1.3vw, 21px)
+  color: var(--accent-orange-dark)
+  line-height: 1.57
+
+.featureRight
+  padding-top: 8px
+
+// ─── Checklist with orange square bullets (Figma 33:38964) ───────────────────
+
+.checkList
+  list-style: none
+  display: flex
+  flex-direction: column
+  gap: 24px
+
+.checkItem
+  display: flex
+  align-items: flex-start
+  gap: 16px
+  font-size: clamp(15px, 1.3vw, 21px)
+  color: var(--accent-orange-dark)
+  line-height: 1.4
+
+// Orange square with checkmark (Figma: #e39a4d bg, 8px radius)
+.checkBox
+  flex-shrink: 0
+  width: 24px
+  height: 24px
+  background: var(--accent-orange)
+  color: var(--accent-orange-dark)
+  border-radius: var(--radius-sm)
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  font-size: 10px
+  font-weight: 900
+  margin-top: 2px
+
+// ─── Article layout: image + text (Figma 33:38745) ───────────────────────────
+
+.articleLayout
+  max-width: var(--container)
+  margin: 0 auto
+  display: grid
+  grid-template-columns: 740fr 416fr
+  gap: 124px
+  align-items: center
+  @media (max-width: 900px)
+    grid-template-columns: 1fr
+    gap: 48px
+
+// Reversed: text left + image right (Figma 33:38757)
+.articleLayoutReverse
+  max-width: var(--container)
+  margin: 0 auto
+  display: grid
+  grid-template-columns: 416fr 740fr
+  gap: 124px
+  align-items: center
+  @media (max-width: 900px)
+    grid-template-columns: 1fr
+    gap: 48px
+
+.articleFigure
+  min-height: 1px
+
+.articleImageWrap
+  border-radius: var(--radius-2xl)
+  overflow: hidden
+
+.articleImgPlaceholder
+  width: 100%
+  aspect-ratio: 740 / 478
+  background: var(--bg-peach)
   display: flex
   flex-direction: column
 
-.tariffPopular
-  border-color: var(--coral)
+.imgPlaceholderBand
+  height: 140px
+  background: var(--accent-orange)
+  flex-shrink: 0
+
+.imgPlaceholderRow
+  height: 16px
+  background: var(--accent-orange-dark-soft)
+  border-radius: var(--radius-sm)
+  margin: 20px 28px 0
+  width: 80%
+
+.articleText
+  display: flex
+  flex-direction: column
+  gap: 24px
+
+.articleTitle
+  font-size: clamp(24px, 3vw, 40px)
+  font-weight: 700
+  color: var(--text-dark)
+  letter-spacing: -1.2px
+  line-height: 1.15
+
+.articleDesc
+  font-size: clamp(15px, 1.3vw, 21px)
+  color: var(--text-muted)
+  line-height: 1.57
+
+// ─── Audience grid ────────────────────────────────────────────────────────────
+
+.audienceGrid
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+  gap: 16px
+
+.audienceCard
+  background: var(--bg-section-alt)
+  border-radius: var(--radius-lg)
+  padding: 28px
+  font-size: clamp(14px, 1.1vw, 17px)
+  line-height: 1.65
+  color: var(--text-dark)
+  border: 1px solid var(--border-light)
+  transition: box-shadow 0.2s
+  &:hover
+    box-shadow: var(--shadow-lg)
+
+// ─── Modules ──────────────────────────────────────────────────────────────────
+
+.modulesGrid
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
+  gap: 20px
+
+.moduleCard
+  background: var(--bg-white)
+  border-radius: var(--radius-xl)
+  padding: 32px
+  border-left: 4px solid var(--accent-orange)
+  box-shadow: var(--shadow-sm)
+  transition: box-shadow 0.2s
+  &:hover
+    box-shadow: var(--shadow-card-hover)
+
+.moduleNum
+  font-size: 12px
+  font-weight: 700
+  color: var(--accent-orange-dark)
+  letter-spacing: 0.5px
+  margin-bottom: 12px
+  opacity: 0.7
+
+.moduleTitle
+  font-size: 17px
+  font-weight: 700
+  color: var(--text-dark)
+  letter-spacing: -0.3px
+  margin-bottom: 10px
+  line-height: 1.3
+
+.moduleDesc
+  font-size: 14px
+  line-height: 1.7
+  color: var(--text-muted)
+
+// ─── Methods ──────────────────────────────────────────────────────────────────
+
+.methodsWrap
+  display: flex
+  flex-wrap: wrap
+  gap: 10px
+
+.methodTag
+  padding: 10px 18px
+  background: var(--accent-orange-dark-muted)
+  border-radius: var(--radius-xl)
+  font-size: 15px
+  font-weight: 500
+  color: var(--accent-orange-dark)
+
+// ─── Tariffs ──────────────────────────────────────────────────────────────────
+
+.tariffsGrid
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+  gap: 24px
+  max-width: 960px
+  margin: 0 auto
+
+.tariffCard
+  background: var(--bg-white)
+  border-radius: var(--radius-3xl)
+  padding: 36px 32px
+  border: 1px solid var(--border-default)
+  box-shadow: var(--shadow-xs)
+  display: flex
+  flex-direction: column
   position: relative
-  &::before
-    content: 'Популярный'
-    position: absolute
-    top: -12px
-    left: 50%
-    transform: translateX(-50%)
-    background: var(--coral-gradient)
-    color: white
-    padding: 4px 16px
-    border-radius: var(--radius-full)
-    font-size: 12px
-    font-weight: 700
+  transition: box-shadow 0.2s
+  &:hover
+    box-shadow: var(--shadow-card-hover)
+
+.tariffPopular
+  border: 2px solid var(--accent-orange)
+  box-shadow: 0 4px 24px rgba(227, 154, 77, 0.2)
+
+.popularBadge
+  position: absolute
+  top: -14px
+  left: 50%
+  transform: translateX(-50%)
+  background: var(--accent-orange)
+  color: var(--accent-orange-dark)
+  padding: 4px 16px
+  border-radius: var(--radius-xl)
+  font-size: 12px
+  font-weight: 700
+  white-space: nowrap
 
 .tariffName
   font-size: 22px
   font-weight: 700
-  margin-bottom: 20px
+  color: var(--text-dark)
+  letter-spacing: -0.5px
+  margin-bottom: 24px
 
 .tariffFeatures
   list-style: none
-  text-align: left
-  margin-bottom: 28px
   flex: 1
+  display: flex
+  flex-direction: column
+  gap: 14px
+  margin-bottom: 28px
   li
-    padding: 8px 0
-    font-size: 15px
-    color: var(--text-light)
-    border-bottom: 1px solid var(--border-dark)
-    &::before
-      content: '✓ '
-      color: var(--green-tag)
+    display: flex
+    align-items: flex-start
+    gap: 12px
+    font-size: 14px
+    color: var(--text-muted)
+    line-height: 1.5
+
+.tariffCheck
+  flex-shrink: 0
+  width: 20px
+  height: 20px
+  background: var(--accent-orange)
+  color: var(--accent-orange-dark)
+  border-radius: var(--radius-xs)
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  font-size: 9px
+  font-weight: 900
+  margin-top: 1px
 
 .tariffBtn
   display: block
-  padding: 14px 28px
-  background: var(--coral-gradient)
-  color: white
-  border-radius: var(--radius-full)
-  font-weight: 700
-  text-decoration: none
-  transition: transform 0.2s
-  &:hover
-    transform: translateY(-2px)
-
-// Methods
-.methodsWrap
-  display: flex
-  flex-wrap: wrap
-  gap: 12px
-  justify-content: center
-
-.methodTag
-  padding: 10px 20px
-  background: var(--lavender-soft)
-  border-radius: var(--radius-full)
-  font-size: 15px
-  color: var(--lavender)
-
-// Limitations
-.limitationsWrap
-  max-width: 700px
-  margin: 0 auto
-  display: flex
-  flex-direction: column
-  gap: 16px
-
-.limitationItem
-  display: flex
-  align-items: flex-start
-  gap: 12px
-  font-size: 15px
-  line-height: 1.6
-  color: var(--text-light)
-
-.limitIcon
-  flex-shrink: 0
-
-// CTA
-.ctaSection
-  padding: 80px 24px
-  background: var(--bg-section)
+  padding: 14px 24px
+  border: 1.5px solid var(--border-strong)
+  color: var(--text-dark)
+  border-radius: var(--radius-btn)
+  font-size: 14px
+  font-weight: 600
   text-align: center
+  transition: var(--transition-fast)
+  &:hover
+    border-color: var(--text-dark)
+    background: var(--overlay-dark-subtle)
+
+.tariffBtnDark
+  display: block
+  padding: 14px 24px
+  background: var(--accent-orange-dark)
+  color: var(--bg-peach)
+  border-radius: var(--radius-btn)
+  font-size: 14px
+  font-weight: 700
+  text-align: center
+  transition: var(--transition-fast)
+  &:hover
+    background: var(--accent-orange-dark-hover)
+    transform: translateY(-1px)
+
+// ─── CTA (Figma 33:39189) — orange bg + white card 56px radius ────────────────
+
+.ctaSection
+  background: var(--accent-orange)
+  padding: 120px 80px
+  display: flex
+  align-items: center
+  justify-content: center
+  @media (max-width: 768px)
+    padding: 80px 24px
+
+.ctaCard
+  background: var(--bg-white)
+  border-radius: 56px
+  padding: 80px 60px
+  text-align: center
+  max-width: 760px
+  width: 100%
+  @media (max-width: 768px)
+    border-radius: var(--radius-card)
+    padding: 48px 32px
 
 .ctaTitle
-  font-family: var(--font-serif)
-  font-size: clamp(28px, 4vw, 40px)
+  font-size: clamp(28px, 3.5vw, 44px)
+  font-weight: 700
+  color: var(--accent-orange-dark)
+  letter-spacing: -1.2px
+  line-height: 1.15
   margin-bottom: 16px
 
 .ctaDesc
-  font-size: 18px
-  color: var(--text-light)
+  font-size: clamp(16px, 1.5vw, 22px)
+  color: var(--accent-orange-dark)
+  line-height: 1.5
   margin-bottom: 32px
+
+// CTA button: dark bg + peach text (Figma: #452623 bg, #f6ddc4 text)
+.ctaBtn
+  display: inline-flex
+  padding: 18px 32px
+  background: var(--accent-orange-dark)
+  color: var(--bg-peach)
+  border-radius: var(--radius-btn)
+  font-size: 16px
+  font-weight: 600
+  transition: var(--transition-fast)
+  &:hover
+    background: var(--accent-orange-dark-hover)
+    transform: translateY(-1px)

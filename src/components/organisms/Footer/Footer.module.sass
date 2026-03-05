@@ -1,10 +1,10 @@
 .footer
-  background: var(--bg-dark)
-  border-top: 1px solid var(--border-dark)
+  background: var(--bg-footer)
+  border-top: 1px solid var(--border-light)
 
 .related
-  padding: 32px 24px
-  border-bottom: 1px solid var(--border-dark)
+  padding: 28px 32px
+  border-bottom: 1px solid var(--border-light)
 
 .relatedInner
   max-width: var(--container)
@@ -15,11 +15,11 @@
   flex-wrap: wrap
 
 .relatedTitle
-  font-size: 13px
-  font-weight: 600
+  font-size: 11px
+  font-weight: 700
   color: var(--text-muted)
   text-transform: uppercase
-  letter-spacing: 1px
+  letter-spacing: 1.2px
 
 .relatedLinks
   display: flex
@@ -28,13 +28,13 @@
 
 .relatedLink
   font-size: 14px
-  color: var(--text-light)
+  color: var(--text-muted)
   transition: color 0.2s
   &:hover
     color: var(--coral)
 
 .main
-  padding: 48px 24px
+  padding: 56px 32px 48px
 
 .inner
   max-width: var(--container)
@@ -55,29 +55,28 @@
   gap: 8px
 
 .colTitle
-  font-size: 12px
-  font-weight: 600
+  font-size: 11px
+  font-weight: 700
   color: var(--text-muted)
   text-transform: uppercase
-  letter-spacing: 1px
+  letter-spacing: 1.2px
   margin-bottom: 8px
 
 .colLink
   font-size: 14px
-  color: var(--text-light)
+  color: var(--text-muted)
   transition: color 0.2s
   &:hover
-    color: var(--coral)
+    color: var(--text-dark)
 
 .newsletter
   display: flex
   flex-direction: column
 
 .newsletterTitle
-  font-family: var(--font-serif)
   font-size: 16px
   font-weight: 600
-  color: white
+  color: var(--text-dark)
   margin-bottom: 8px
 
 .newsletterDesc
@@ -91,17 +90,18 @@
   align-items: center
   justify-content: center
   padding: 10px 24px
-  background: var(--coral)
-  color: white
-  border-radius: var(--radius-full)
+  background: var(--text-dark)
+  color: var(--text-white)
+  border-radius: var(--radius-base)
   font-size: 14px
-  font-weight: 700
-  transition: all 0.3s
+  font-weight: 600
+  transition: var(--transition-base)
   width: fit-content
   margin-bottom: 16px
   &:hover
+    background: var(--coral-hover)
     transform: translateY(-1px)
-    box-shadow: 0 4px 16px rgba(232, 108, 79, 0.3)
+    box-shadow: var(--shadow-orange)
 
 .socials
   display: flex
@@ -112,11 +112,11 @@
   color: var(--text-muted)
   transition: color 0.2s
   &:hover
-    color: white
+    color: var(--text-dark)
 
 .bottom
-  padding: 24px 24px
-  border-top: 1px solid var(--border-dark)
+  padding: 24px 32px
+  border-top: 1px solid var(--border-light)
 
 .bottomInner
   max-width: var(--container)
@@ -135,7 +135,7 @@
   gap: 4px
 
 .footerLogo
-  font-family: var(--font-serif)
+  color: var(--text-dark)
 
 .copyright
   font-size: 13px

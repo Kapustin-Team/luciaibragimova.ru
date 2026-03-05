@@ -9,6 +9,8 @@ const FALLBACK_REVIEWS = [
   { name: 'Ольга Д.', role: 'Педагог', text: 'Программа «Лёгкость адаптации» помогла выстроить работу с родителями и детьми совершенно по-новому. Рекомендую всем коллегам.', course: 'Лёгкость адаптации', initials: 'ОД' },
 ]
 
+const topStyles = [s.cardTop0, s.cardTop1, s.cardTop2, s.cardTop3]
+
 function getInitials(name) {
   return name.split(' ').map(w => w[0]).join('').toUpperCase()
 }
@@ -33,20 +35,25 @@ export default function Reviews({ data, reviews: strapiReviews } = {}) {
     <section className={s.section} id="reviews">
       <div className={s.inner}>
         <AnimatedSection>
-          <h2 className={s.title}>{title}</h2>
-          <p className={s.subtitle}>{subtitle}</p>
+          <div className={s.header}>
+            <h2 className={s.title}>{title}</h2>
+            <p className={s.subtitle}>{subtitle}</p>
+          </div>
         </AnimatedSection>
         <div className={s.grid}>
           {reviewsList.map((r, i) => (
             <AnimatedSection key={i} delay={i * 0.1}>
               <div className={s.card}>
-                <div className={s.avatarWrap}>
-                  <div className={s.avatar}>{r.initials}</div>
+                <div className={`${s.cardTop} ${topStyles[i % topStyles.length]}`}>
+                  <div className={s.avatarCircle}>{r.initials}</div>
                 </div>
-                <div className={s.name}>{r.name}</div>
-                <div className={s.role}>{r.role}</div>
-                <p className={s.text}>{r.text}</p>
-                {r.course && <span className={s.course}>{r.course}</span>}
+                <div className={s.cardBottom}>
+                  <span className={s.tag}>Отзыв</span>
+                  <div className={s.name}>{r.name}</div>
+                  {r.role && <div className={s.role}>{r.role}</div>}
+                  <p className={s.text}>{r.text}</p>
+                  {r.course && <span className={s.course}>{r.course}</span>}
+                </div>
               </div>
             </AnimatedSection>
           ))}
