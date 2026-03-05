@@ -1,0 +1,317 @@
+.page
+  background: var(--bg-dark)
+  color: var(--text-white)
+  min-height: 100vh
+
+.container
+  max-width: var(--container)
+  margin: 0 auto
+  padding: 0 24px
+
+// Hero
+.hero
+  padding: 120px 24px 80px
+  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-section) 100%)
+
+.heroInner
+  max-width: var(--container)
+  margin: 0 auto
+
+.heroContent
+  max-width: 800px
+
+.dirBadge
+  display: inline-block
+  padding: 6px 16px
+  background: var(--lavender-soft)
+  border-radius: var(--radius-full)
+  font-size: 13px
+  font-weight: 600
+  color: var(--lavender)
+  margin-bottom: 12px
+  margin-right: 8px
+
+.badge
+  display: inline-block
+  padding: 6px 16px
+  background: var(--coral-soft)
+  border-radius: var(--radius-full)
+  font-size: 13px
+  font-weight: 700
+  color: var(--coral)
+  margin-bottom: 12px
+
+.title
+  font-family: var(--font-serif)
+  font-size: clamp(36px, 5vw, 56px)
+  line-height: 1.15
+  margin-bottom: 20px
+
+.shortDesc
+  font-size: 18px
+  line-height: 1.6
+  color: var(--text-light)
+  margin-bottom: 28px
+  max-width: 650px
+
+.meta
+  display: flex
+  flex-wrap: wrap
+  gap: 12px
+  margin-bottom: 32px
+
+.metaItem
+  padding: 8px 16px
+  background: rgba(255, 255, 255, 0.06)
+  border-radius: var(--radius-full)
+  font-size: 14px
+  color: var(--text-light)
+
+.heroCta
+  display: flex
+  gap: 16px
+  flex-wrap: wrap
+
+.btnPrimary
+  display: inline-block
+  padding: 16px 32px
+  background: var(--coral-gradient)
+  color: white
+  border-radius: var(--radius-full)
+  font-weight: 700
+  font-size: 16px
+  text-decoration: none
+  transition: transform 0.2s, box-shadow 0.2s
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 8px 24px rgba(232, 108, 79, 0.3)
+
+.btnOutline
+  display: inline-block
+  padding: 16px 32px
+  border: 1px solid rgba(255, 255, 255, 0.2)
+  color: var(--text-white)
+  border-radius: var(--radius-full)
+  font-weight: 600
+  font-size: 16px
+  text-decoration: none
+  transition: border-color 0.2s
+  &:hover
+    border-color: rgba(255, 255, 255, 0.5)
+
+// Sections
+.section
+  padding: 80px 24px
+  @media (max-width: 768px)
+    padding: 56px 20px
+
+.sectionAlt
+  padding: 80px 24px
+  background: var(--bg-section)
+  @media (max-width: 768px)
+    padding: 56px 20px
+
+.sectionTitle
+  font-family: var(--font-serif)
+  font-size: clamp(28px, 4vw, 40px)
+  margin-bottom: 40px
+  text-align: center
+
+// Audience
+.audienceGrid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
+  gap: 20px
+
+.audienceCard
+  background: var(--bg-card)
+  border-radius: var(--radius-lg)
+  padding: 28px
+  font-size: 16px
+  line-height: 1.6
+  color: var(--text-light)
+  border: 1px solid var(--border-dark)
+
+// Pains
+.painGrid
+  display: flex
+  flex-wrap: wrap
+  gap: 12px
+  justify-content: center
+
+.painCard
+  padding: 12px 24px
+  background: rgba(232, 108, 79, 0.08)
+  border: 1px solid rgba(232, 108, 79, 0.2)
+  border-radius: var(--radius-full)
+  font-size: 15px
+  color: var(--coral)
+
+// Results
+.resultsGrid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+  gap: 16px
+  max-width: 800px
+  margin: 0 auto
+
+.resultCard
+  display: flex
+  align-items: flex-start
+  gap: 12px
+  padding: 16px 20px
+  background: var(--bg-card)
+  border-radius: var(--radius-md)
+  font-size: 16px
+  line-height: 1.5
+  color: var(--text-light)
+
+.resultIcon
+  color: var(--green-tag)
+  font-weight: 700
+  font-size: 18px
+  flex-shrink: 0
+
+// Modules
+.modulesGrid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+  gap: 20px
+
+.moduleCard
+  background: var(--bg-card)
+  border-radius: var(--radius-lg)
+  padding: 28px
+  border: 1px solid var(--border-dark)
+  transition: border-color 0.2s
+  &:hover
+    border-color: var(--coral)
+
+.moduleNum
+  font-size: 14px
+  font-weight: 700
+  color: var(--coral)
+  margin-bottom: 8px
+
+.moduleTitle
+  font-size: 18px
+  font-weight: 700
+  margin-bottom: 8px
+
+.moduleDesc
+  font-size: 15px
+  line-height: 1.6
+  color: var(--text-light)
+
+// Tariffs
+.tariffsGrid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
+  gap: 24px
+  max-width: 900px
+  margin: 0 auto
+
+.tariffCard
+  background: var(--bg-card)
+  border-radius: var(--radius-lg)
+  padding: 32px 28px
+  border: 1px solid var(--border-dark)
+  text-align: center
+  display: flex
+  flex-direction: column
+
+.tariffPopular
+  border-color: var(--coral)
+  position: relative
+  &::before
+    content: 'Популярный'
+    position: absolute
+    top: -12px
+    left: 50%
+    transform: translateX(-50%)
+    background: var(--coral-gradient)
+    color: white
+    padding: 4px 16px
+    border-radius: var(--radius-full)
+    font-size: 12px
+    font-weight: 700
+
+.tariffName
+  font-size: 22px
+  font-weight: 700
+  margin-bottom: 20px
+
+.tariffFeatures
+  list-style: none
+  text-align: left
+  margin-bottom: 28px
+  flex: 1
+  li
+    padding: 8px 0
+    font-size: 15px
+    color: var(--text-light)
+    border-bottom: 1px solid var(--border-dark)
+    &::before
+      content: '✓ '
+      color: var(--green-tag)
+
+.tariffBtn
+  display: block
+  padding: 14px 28px
+  background: var(--coral-gradient)
+  color: white
+  border-radius: var(--radius-full)
+  font-weight: 700
+  text-decoration: none
+  transition: transform 0.2s
+  &:hover
+    transform: translateY(-2px)
+
+// Methods
+.methodsWrap
+  display: flex
+  flex-wrap: wrap
+  gap: 12px
+  justify-content: center
+
+.methodTag
+  padding: 10px 20px
+  background: var(--lavender-soft)
+  border-radius: var(--radius-full)
+  font-size: 15px
+  color: var(--lavender)
+
+// Limitations
+.limitationsWrap
+  max-width: 700px
+  margin: 0 auto
+  display: flex
+  flex-direction: column
+  gap: 16px
+
+.limitationItem
+  display: flex
+  align-items: flex-start
+  gap: 12px
+  font-size: 15px
+  line-height: 1.6
+  color: var(--text-light)
+
+.limitIcon
+  flex-shrink: 0
+
+// CTA
+.ctaSection
+  padding: 80px 24px
+  background: var(--bg-section)
+  text-align: center
+
+.ctaTitle
+  font-family: var(--font-serif)
+  font-size: clamp(28px, 4vw, 40px)
+  margin-bottom: 16px
+
+.ctaDesc
+  font-size: 18px
+  color: var(--text-light)
+  margin-bottom: 32px
