@@ -2,7 +2,7 @@
 import AnimatedSection from '@/components/atoms/AnimatedSection'
 import s from './Cta.module.sass'
 
-export default function Cta() {
+export default function Cta({ data } = {}) {
   return (
     <section className={s.section}>
       <AnimatedSection>

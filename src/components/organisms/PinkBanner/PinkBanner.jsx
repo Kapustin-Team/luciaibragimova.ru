@@ -2,7 +2,7 @@
 import AnimatedSection from '@/components/atoms/AnimatedSection'
 import s from './PinkBanner.module.sass'
 
-export default function PinkBanner() {
+export default function PinkBanner({ data } = {}) {
   return (
     <section className={s.section}>
       <AnimatedSection>

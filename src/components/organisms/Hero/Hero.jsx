@@ -9,25 +9,30 @@ const heroShapes = [
   { shape: 'circle', color: 'rgba(214, 232, 240, 0.06)', size: '160px', style: { bottom: '-40px', right: '30%' } },
 ]
 
-export default function Hero() {
+export default function Hero({ data } = {}) {
+  const title = data?.title || 'Верните доверие\nи взаимопонимание\nс подростком'
+  const desc = data?.description || 'Авторские программы семейного психолога с 25-летним опытом. Сотни семей уже прошли этот путь.'
+  const stats = data?.stats || ['25 лет опыта', '500+ семей', '14 курсов']
+  const ctaPrimary = data?.ctaPrimary || 'Выбрать курс'
+  const ctaPrimaryLink = data?.ctaPrimaryLink || '#courses'
+  const ctaSecondary = data?.ctaSecondary || 'Бесплатная консультация'
+  const ctaSecondaryLink = data?.ctaSecondaryLink || '#'
+
   return (
     <section className={s.hero}>
       <DecorativeShapes items={heroShapes} />
       <div className={s.inner}>
         <div className={s.content}>
           <h1 className={s.title}>
-            Верните доверие{'\n'}и взаимопонимание{'\n'}с подростком
+            {title.split('\n').map((line, i) => <span key={i}>{line}{i < title.split('\n').length - 1 && <br />}</span>)}
           </h1>
-          <p className={s.desc}>
-            Авторские программы семейного психолога с 25-летним опытом.
-            Сотни семей уже прошли этот путь.
-          </p>
+          <p className={s.desc}>{desc}</p>
           <div className={s.stat}>
-            <span className={s.statText}>25 лет опыта · 500+ семей · 14 курсов</span>
+            <span className={s.statText}>{Array.isArray(stats) ? stats.join(' · ') : stats}</span>
           </div>
           <div className={s.buttons}>
-            <a href="#courses" className={s.btnPrimary}>Выбрать курс</a>
-            <a href="#" className={s.btnOutline}>Бесплатная консультация</a>
+            <a href={ctaPrimaryLink} className={s.btnPrimary}>{ctaPrimary}</a>
+            <a href={ctaSecondaryLink} className={s.btnOutline}>{ctaSecondary}</a>
           </div>
         </div>
         <div className={s.imageWrap}>

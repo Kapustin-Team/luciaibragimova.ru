@@ -10,7 +10,7 @@ const facts = [
   'Сотни восстановленных семей',
 ]
 
-export default function About() {
+export default function About({ data } = {}) {
   return (
     <section className={s.section} id="about">
       <div className={s.inner}>

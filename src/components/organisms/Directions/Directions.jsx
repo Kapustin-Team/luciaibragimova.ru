@@ -15,7 +15,7 @@ const decorShapes = [
   { shape: 'blob1', color: 'rgba(245, 215, 160, 0.06)', size: '180px', style: { bottom: '-40px', left: '5%' } },
 ]
 
-export default function Directions() {
+export default function Directions({ data, directions } = {}) {
   return (
     <section className={s.section} id="directions">
       <DecorativeShapes items={decorShapes} />

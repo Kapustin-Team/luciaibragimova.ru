@@ -2,7 +2,7 @@
 import AnimatedSection from '@/components/atoms/AnimatedSection'
 import s from './FeaturedCourse.module.sass'
 
-export default function FeaturedCourse() {
+export default function FeaturedCourse({ data } = {}) {
   return (
     <section className={s.section}>
       <AnimatedSection>
