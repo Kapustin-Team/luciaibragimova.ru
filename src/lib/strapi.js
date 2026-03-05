@@ -3,14 +3,9 @@ const STRAPI_TOKEN = process.env.STRAPI_TOKEN || ''
 
 async function fetchStrapi(path, params = {}) {
   const url = new URL(`/api${path}`, STRAPI_URL)
-  
+
   Object.entries(params).forEach(([key, value]) => {
-    if (typeof value === 'object') {
-      // Handle nested params like populate
-      flattenParams(key, value, url.searchParams)
-    } else {
-      url.searchParams.set(key, value)
-    }
+    url.searchParams.set(key, String(value))
   })
 
   const headers = { 'Content-Type': 'application/json' }
@@ -18,35 +13,22 @@ async function fetchStrapi(path, params = {}) {
     headers['Authorization'] = `Bearer ${STRAPI_TOKEN}`
   }
 
-  const res = await fetch(url.toString(), {
-    headers,
-    next: { revalidate: 60 },
-  })
+  try {
+    const res = await fetch(url.toString(), {
+      headers,
+      next: { revalidate: 60 },
+    })
 
-  if (!res.ok) {
-    console.error(`Strapi fetch error: ${res.status} ${path}`)
+    if (!res.ok) {
+      console.error(`Strapi fetch error: ${res.status} ${path} ${url.search}`)
+      return null
+    }
+
+    const json = await res.json()
+    return json.data
+  } catch (e) {
+    console.error(`Strapi fetch exception: ${path}`, e.message)
     return null
-  }
-
-  const json = await res.json()
-  return json.data
-}
-
-function flattenParams(prefix, obj, searchParams) {
-  if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean') {
-    searchParams.set(prefix, String(obj))
-    return
-  }
-  if (Array.isArray(obj)) {
-    obj.forEach((item, i) => {
-      flattenParams(`${prefix}[${i}]`, item, searchParams)
-    })
-    return
-  }
-  if (typeof obj === 'object' && obj !== null) {
-    Object.entries(obj).forEach(([key, value]) => {
-      flattenParams(`${prefix}[${key}]`, value, searchParams)
-    })
   }
 }
 
@@ -54,8 +36,8 @@ function flattenParams(prefix, obj, searchParams) {
 
 export async function getHomepage() {
   return fetchStrapi('/homepage', {
-    'populate[blocks][populate]': '*',
-    'populate[seo][populate]': '*',
+    'populate[0]': 'seo',
+    'populate[1]': 'blocks',
   })
 }
 
@@ -68,10 +50,10 @@ export async function getDirections() {
 
 export async function getCourses() {
   return fetchStrapi('/courses', {
-    'populate[direction]': '*',
-    'populate[tariffs]': '*',
-    'populate[image]': '*',
-    'populate[author][populate]': '*',
+    'populate[0]': 'direction',
+    'populate[1]': 'tariffs',
+    'populate[2]': 'image',
+    'populate[3]': 'author',
     'sort': 'order:asc',
     'pagination[pageSize]': '50',
   })
@@ -80,16 +62,16 @@ export async function getCourses() {
 export async function getCourseBySlug(slug) {
   const data = await fetchStrapi('/courses', {
     'filters[slug][$eq]': slug,
-    'populate[direction]': '*',
-    'populate[targetAudience]': '*',
-    'populate[results]': '*',
-    'populate[modules]': '*',
-    'populate[tariffs]': '*',
-    'populate[faqs]': '*',
-    'populate[reviews]': '*',
-    'populate[relatedCourses][populate]': '*',
-    'populate[author][populate]': '*',
-    'populate[image]': '*',
+    'populate[0]': 'direction',
+    'populate[1]': 'targetAudience',
+    'populate[2]': 'results',
+    'populate[3]': 'modules',
+    'populate[4]': 'tariffs',
+    'populate[5]': 'faqs',
+    'populate[6]': 'reviews',
+    'populate[7]': 'relatedCourses',
+    'populate[8]': 'author',
+    'populate[9]': 'image',
   })
   return data?.[0] || null
 }
