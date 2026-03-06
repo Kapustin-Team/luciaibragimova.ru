@@ -1,5 +1,4 @@
-// Course Detail Page
-// Matches Figma node 33:38589 — orange hero, peach feature sections, white content, orange CTA
+// Course Detail Page — Figma 26:12215 inspired hero + info cards
 
 .container
   max-width: var(--container)
@@ -10,11 +9,11 @@
   @media (max-width: 768px)
     padding: 0 24px
 
-// ─── Hero (Figma 33:38591) ────────────────────────────────────────────────────
-// Full-bleed orange bg, text in accent-orange-dark, split layout
+// ─── Hero (Figma 26:12215) ─────────────────────────────────────────────────
+// Light bg, badge pills, large title, description, blue CTA + photo right
 
 .hero
-  background: var(--accent-orange)
+  background: var(--bg-hero)
   padding: 140px 80px 80px
   @media (max-width: 768px)
     padding: 100px 24px 60px
@@ -24,175 +23,150 @@
   margin: 0 auto
   display: grid
   grid-template-columns: 1fr 1fr
-  gap: 80px
+  gap: 64px
   align-items: center
   @media (max-width: 900px)
     grid-template-columns: 1fr
+    gap: 40px
 
 .heroLeft
   display: flex
   flex-direction: column
-  gap: 16px
+  gap: 20px
 
-.dirBadge
-  display: inline-block
+.heroBadges
+  display: flex
+  gap: 8px
+  flex-wrap: wrap
+
+.badgeFilled
+  display: inline-flex
+  align-items: center
+  padding: 6px 15px
+  background: var(--badge-blue-bg)
+  color: var(--text-dark)
+  border-radius: var(--radius-full)
+  font-size: 14px
+  font-weight: 500
+
+.badgeOutline
+  display: inline-flex
+  align-items: center
   padding: 6px 16px
-  background: var(--accent-orange-dark)
-  color: var(--bg-peach)
-  border-radius: var(--radius-sm)
-  font-size: 13px
-  font-weight: 700
-  width: fit-content
+  border: 1px solid rgba(155, 159, 163, 0.5)
+  color: var(--text-dark)
+  border-radius: var(--radius-full)
+  font-size: 14px
+  font-weight: 500
 
 .heroTitle
-  font-size: clamp(36px, 4.5vw, 54px)
+  font-size: clamp(36px, 4.5vw, 58px)
   font-weight: 700
-  color: var(--accent-orange-dark)
+  color: var(--text-dark)
   line-height: 1.14
   letter-spacing: -1.68px
 
 .heroDesc
-  font-size: clamp(16px, 1.5vw, 22px)
+  font-size: clamp(16px, 1.3vw, 18px)
   line-height: 1.55
-  color: var(--accent-orange-dark)
-  max-width: 480px
+  color: var(--text-muted)
+  max-width: 520px
 
-.heroCta
+.heroButtons
   display: flex
-  gap: 12px
+  gap: 8px
   flex-wrap: wrap
   margin-top: 8px
 
-// Dark button (Figma: #452623 bg, #f6ddc4 text, 14px radius)
-.btnDark
+// Primary CTA — vibrant blue (Figma: #2a72f8)
+.btnPrimary
   display: inline-flex
-  padding: 18px 28px
-  background: var(--accent-orange-dark)
-  color: var(--bg-peach)
-  border-radius: var(--radius-btn)
+  align-items: center
+  justify-content: center
+  min-width: 212px
+  padding: 14px 20px
+  background: var(--accent-primary)
+  color: rgba(255, 255, 255, 0.96)
+  border-radius: var(--radius-base)
   font-size: 16px
-  font-weight: 600
+  font-weight: 700
+  letter-spacing: -0.32px
   transition: var(--transition-fast)
   &:hover
-    background: var(--accent-orange-dark-hover)
+    background: var(--accent-primary-hover)
     transform: translateY(-1px)
+    box-shadow: 0 6px 20px rgba(42, 114, 248, 0.3)
 
-// Light button on orange bg
-.btnLight
+// Secondary button — light grey (Figma: rgba(8,8,8,0.06))
+.btnSecondary
   display: inline-flex
-  padding: 18px 28px
-  background: var(--accent-orange-dark-soft)
-  color: var(--accent-orange-dark)
-  border-radius: var(--radius-btn)
+  align-items: center
+  justify-content: center
+  min-width: 212px
+  padding: 14px 20px
+  background: rgba(8, 8, 8, 0.06)
+  color: rgba(8, 8, 8, 0.96)
+  border-radius: var(--radius-base)
   font-size: 16px
-  font-weight: 600
+  font-weight: 700
+  letter-spacing: -0.32px
   transition: var(--transition-fast)
   &:hover
-    background: rgba(69, 38, 35, 0.2)
+    background: rgba(8, 8, 8, 0.10)
 
-// ─── Browser mockup (hero right side) ────────────────────────────────────────
+// ─── Hero right: large photo / placeholder ──────────────────────────────────
 
 .heroRight
   @media (max-width: 900px)
-    display: none
+    order: -1
 
-.browserMock
-  border-radius: var(--radius-lg)
-  overflow: hidden
-  box-shadow: 0 12px 48px rgba(69, 38, 35, 0.25)
-
-.browserBar
-  background: var(--accent-orange-dark)
-  padding: 12px 16px
-  display: flex
-  gap: 6px
-  align-items: center
-
-.dot
-  width: 12px
-  height: 12px
-  border-radius: 50%
-  background: var(--bg-peach-soft)
-  display: inline-block
-
-.browserBody
-  background: var(--bg-peach)
-  min-height: 320px
-
-.browserImg
+.heroImage
   width: 100%
-  height: 100%
+  border-radius: var(--radius-card)
   object-fit: cover
-  display: block
+  box-shadow: var(--shadow-xl)
 
-.browserGradient
-  border-radius: 0
-  min-height: 320px
+// ─── Info cards row (Figma 26:12304) ────────────────────────────────────────
 
-.mockOverlay
-  position: relative
-  z-index: 1
-  text-align: center
-  padding: 24px
-
-.mockLabel
-  font-size: 12px
-  color: var(--text-muted)
-  margin-bottom: 8px
-
-.mockTitle
-  font-size: 18px
-  font-weight: 700
-  color: var(--accent-orange-dark)
-  letter-spacing: -0.4px
-  line-height: 1.3
-
-// ─── Stat bar ───────────────────────────────────────────────────────────────
-
-.statBar
-  background: var(--bg-white)
-  padding: 0 80px
-  margin-top: -40px
-  position: relative
-  z-index: 2
+.infoCards
+  background: var(--bg-hero)
+  padding: 0 80px 80px
   @media (max-width: 768px)
-    padding: 0 24px
-    margin-top: -24px
+    padding: 0 24px 60px
 
-.statBarInner
+.infoCardsInner
   max-width: var(--container)
   margin: 0 auto
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  gap: 28px
+  @media (max-width: 900px)
+    grid-template-columns: repeat(2, 1fr)
+    gap: 16px
+  @media (max-width: 500px)
+    grid-template-columns: 1fr
+
+.infoCard
   background: var(--bg-white)
-  border-radius: var(--radius-2xl)
-  box-shadow: var(--shadow-md)
-  padding: 32px 40px
+  border-radius: var(--radius-card)
+  padding: 16px
   display: flex
-  justify-content: space-around
-  gap: 32px
-  @media (max-width: 768px)
-    flex-direction: column
-    gap: 20px
-    padding: 24px
+  flex-direction: column
+  gap: 8px
 
-.statItem
-  display: flex
-  align-items: center
-  gap: 14px
-
-.statIcon
-  font-size: 28px
-  flex-shrink: 0
-
-.statValue
-  font-size: 18px
-  font-weight: 700
+.infoLabel
+  display: inline-block
+  padding: 2px 8px
+  background: var(--tag-blue-bg)
+  border-radius: var(--radius-lg)
+  font-size: 12px
   color: var(--text-dark)
-  letter-spacing: -0.3px
+  width: fit-content
 
-.statLabel
-  font-size: 13px
-  color: var(--text-muted)
-  margin-top: 2px
+.infoValue
+  font-size: 15px
+  color: var(--text-dark)
+  line-height: 1.35
 
 // ─── Common sections ──────────────────────────────────────────────────────────
 
@@ -222,14 +196,14 @@
 .sectionTitle
   font-size: clamp(28px, 3.5vw, 44px)
   font-weight: 700
-  color: var(--accent-orange-dark)
+  color: var(--text-dark)
   letter-spacing: -1.2px
   line-height: 1.15
   margin-bottom: 16px
 
 .sectionSubtitle
   font-size: clamp(16px, 1.5vw, 22px)
-  color: var(--accent-orange-dark)
+  color: var(--text-muted)
   line-height: 1.5
 
 // ─── Feature split layout (Figma 33:38964) ───────────────────────────────────
@@ -254,14 +228,14 @@
 .featureTitle
   font-size: clamp(24px, 3vw, 40px)
   font-weight: 700
-  color: var(--accent-orange-dark)
+  color: var(--text-dark)
   letter-spacing: -1.2px
   line-height: 1.15
   margin-bottom: 16px
 
 .featureDesc
   font-size: clamp(15px, 1.3vw, 21px)
-  color: var(--accent-orange-dark)
+  color: var(--text-muted)
   line-height: 1.57
 
 .featureRight
@@ -280,7 +254,7 @@
   align-items: flex-start
   gap: 16px
   font-size: clamp(15px, 1.3vw, 21px)
-  color: var(--accent-orange-dark)
+  color: var(--text-dark)
   line-height: 1.4
 
 // Orange square with checkmark (Figma: #e39a4d bg, 8px radius)
@@ -477,16 +451,16 @@
     box-shadow: var(--shadow-card-hover)
 
 .tariffPopular
-  border: 2px solid var(--accent-orange)
-  box-shadow: 0 4px 24px rgba(227, 154, 77, 0.2)
+  border: 2px solid var(--accent-primary)
+  box-shadow: 0 4px 24px rgba(42, 114, 248, 0.2)
 
 .popularBadge
   position: absolute
   top: -14px
   left: 50%
   transform: translateX(-50%)
-  background: var(--accent-orange)
-  color: var(--accent-orange-dark)
+  background: var(--accent-primary)
+  color: var(--text-white)
   padding: 4px 16px
   border-radius: var(--radius-xl)
   font-size: 12px
@@ -546,21 +520,22 @@
 .tariffBtnDark
   display: block
   padding: 14px 24px
-  background: var(--accent-orange-dark)
-  color: var(--bg-peach)
-  border-radius: var(--radius-btn)
+  background: var(--accent-primary)
+  color: var(--text-white)
+  border-radius: var(--radius-base)
   font-size: 14px
   font-weight: 700
   text-align: center
   transition: var(--transition-fast)
   &:hover
-    background: var(--accent-orange-dark-hover)
+    background: var(--accent-primary-hover)
     transform: translateY(-1px)
+    box-shadow: 0 4px 16px rgba(42, 114, 248, 0.3)
 
-// ─── CTA (Figma 33:39189) — orange bg + white card 56px radius ────────────────
+// ─── CTA — blue bg + white card 56px radius ──────────────────────────────────
 
 .ctaSection
-  background: var(--accent-orange)
+  background: var(--accent-blue)
   padding: 120px 80px
   display: flex
   align-items: center
@@ -582,30 +557,32 @@
 .ctaTitle
   font-size: clamp(28px, 3.5vw, 44px)
   font-weight: 700
-  color: var(--accent-orange-dark)
+  color: var(--text-dark)
   letter-spacing: -1.2px
   line-height: 1.15
   margin-bottom: 16px
 
 .ctaDesc
   font-size: clamp(16px, 1.5vw, 22px)
-  color: var(--accent-orange-dark)
+  color: var(--text-muted)
   line-height: 1.5
   margin-bottom: 32px
 
-// CTA button: dark bg + peach text (Figma: #452623 bg, #f6ddc4 text)
+// CTA button: vibrant blue
 .ctaBtn
   display: inline-flex
   padding: 18px 32px
-  background: var(--accent-orange-dark)
-  color: var(--bg-peach)
-  border-radius: var(--radius-btn)
+  background: var(--accent-primary)
+  color: var(--text-white)
+  border-radius: var(--radius-base)
   font-size: 16px
-  font-weight: 600
+  font-weight: 700
+  letter-spacing: -0.32px
   transition: var(--transition-fast)
   &:hover
-    background: var(--accent-orange-dark-hover)
+    background: var(--accent-primary-hover)
     transform: translateY(-1px)
+    box-shadow: 0 6px 20px rgba(42, 114, 248, 0.3)
 
 // ─── Sticky CTA bar ────────────────────────────────────────────────────────
 
@@ -644,11 +621,12 @@
   flex-shrink: 0
   display: inline-flex
   padding: 12px 24px
-  background: var(--accent-orange-dark)
-  color: var(--bg-peach)
-  border-radius: var(--radius-btn)
+  background: var(--accent-primary)
+  color: var(--text-white)
+  border-radius: var(--radius-base)
   font-size: 14px
-  font-weight: 600
+  font-weight: 700
   transition: var(--transition-fast)
   &:hover
-    background: var(--accent-orange-dark-hover)
+    background: var(--accent-primary-hover)
+    box-shadow: 0 4px 16px rgba(42, 114, 248, 0.3)

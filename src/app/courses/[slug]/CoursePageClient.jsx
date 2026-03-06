@@ -51,87 +51,69 @@ export default function CoursePageClient({ course }) {
       <Header />
       <main>
 
-        {/* ─── Hero — orange bg, split layout (Figma 33:38591) ─── */}
+        {/* ─── Hero — light bg, split layout (Figma 26:12215) ─── */}
         <section className={s.hero} ref={heroRef}>
           <div className={s.heroInner}>
             <div className={s.heroLeft}>
-              {c.direction?.title && (
-                <MaskReveal><div className={s.dirBadge}>{c.direction.title}</div></MaskReveal>
-              )}
-              <MaskReveal delay={0.1}><h1 className={s.heroTitle}>{c.title}</h1></MaskReveal>
-              <FadeSlideUp delay={0.2}><p className={s.heroDesc}>{c.shortDescription}</p></FadeSlideUp>
-              <ScalePop delay={0.3} className={s.heroCta}>
-                {c.getcourseLink ? (
-                  <a href={c.getcourseLink} className={s.btnDark} target="_blank" rel="noopener">Записаться на курс</a>
-                ) : (
-                  <a href="#tariffs" className={s.btnDark}>Записаться на курс</a>
+              <div className={s.heroBadges}>
+                {c.direction?.title && (
+                  <MaskReveal><span className={s.badgeFilled}>{c.direction.title}</span></MaskReveal>
                 )}
-                <a href="#program" className={s.btnLight}>Программа курса</a>
+                {c.format && (
+                  <MaskReveal delay={0.05}><span className={s.badgeOutline}>{FORMAT_LABELS[c.format] || c.format}</span></MaskReveal>
+                )}
+              </div>
+              <MaskReveal delay={0.1}><h1 className={s.heroTitle}>{c.title}</h1></MaskReveal>
+              {c.shortDescription && (
+                <FadeSlideUp delay={0.2}><p className={s.heroDesc}>{c.shortDescription}</p></FadeSlideUp>
+              )}
+              <ScalePop delay={0.3} className={s.heroButtons}>
+                <a
+                  href={c.getcourseLink || '#tariffs'}
+                  className={s.btnPrimary}
+                  {...(c.getcourseLink ? { target: '_blank', rel: 'noopener' } : {})}
+                >
+                  Записаться на курс
+                </a>
+                <a href="#program" className={s.btnSecondary}>Программа курса</a>
               </ScalePop>
             </div>
 
-            {/* Browser-window mockup on the right */}
             <div className={s.heroRight}>
-              <div className={s.browserMock}>
-                <div className={s.browserBar}>
-                  <span className={s.dot} />
-                  <span className={s.dot} />
-                  <span className={s.dot} />
-                </div>
-                <div className={s.browserBody}>
-                  {imgSrc ? (
-                    <img src={imgSrc} alt={c.title} className={s.browserImg} />
-                  ) : (
-                    <GradientPlaceholder variant="mixed" aspectRatio="16/10" className={s.browserGradient}>
-                      <div className={s.mockOverlay}>
-                        <p className={s.mockLabel}>Курс от Люции Ибрагимовой</p>
-                        <h3 className={s.mockTitle}>{c.title}</h3>
-                      </div>
-                    </GradientPlaceholder>
-                  )}
-                </div>
-              </div>
+              {imgSrc ? (
+                <img src={imgSrc} alt={c.title} className={s.heroImage} />
+              ) : (
+                <GradientPlaceholder variant="warm" aspectRatio="4/3" className={s.heroImage} />
+              )}
             </div>
           </div>
         </section>
 
-        {/* ─── Stat bar — white bg, horizontal stats with icons ─── */}
-        <section className={s.statBar}>
-          <div className={s.statBarInner}>
+        {/* ─── Info cards row (Figma 26:12304) ─── */}
+        <section className={s.infoCards}>
+          <div className={s.infoCardsInner}>
             {c.format && (
-              <ScalePop delay={0} className={s.statItem}>
-                <span className={s.statIcon}>📋</span>
-                <div>
-                  <div className={s.statValue}>{FORMAT_LABELS[c.format] || c.format}</div>
-                  <div className={s.statLabel}>Формат</div>
-                </div>
+              <ScalePop delay={0} className={s.infoCard}>
+                <span className={s.infoLabel}>Формат</span>
+                <p className={s.infoValue}>{FORMAT_LABELS[c.format] || c.format}</p>
               </ScalePop>
             )}
             {c.duration && (
-              <ScalePop delay={0.1} className={s.statItem}>
-                <span className={s.statIcon}>⏱</span>
-                <div>
-                  <div className={s.statValue}>{c.duration}</div>
-                  <div className={s.statLabel}>Длительность</div>
-                </div>
+              <ScalePop delay={0.1} className={s.infoCard}>
+                <span className={s.infoLabel}>Длительность</span>
+                <p className={s.infoValue}>{c.duration}</p>
               </ScalePop>
             )}
             {c.lessonsCount && (
-              <ScalePop delay={0.2} className={s.statItem}>
-                <span className={s.statIcon}>📚</span>
-                <div>
-                  <div className={s.statValue}>{c.lessonsCount}</div>
-                  <div className={s.statLabel}>Занятий</div>
-                </div>
+              <ScalePop delay={0.2} className={s.infoCard}>
+                <span className={s.infoLabel}>Занятий</span>
+                <p className={s.infoValue}>{c.lessonsCount}</p>
               </ScalePop>
             )}
             {c.participantsCount && (
-              <ScalePop delay={0.3} className={s.statItem}>
-                <span className={s.statIcon}>👥</span>
-                <div>
-                  <div className={s.statValue}>{c.participantsCount}</div>
-                  <div className={s.statLabel}>Участников</div>
-                </div>
+              <ScalePop delay={0.3} className={s.infoCard}>
+                <span className={s.infoLabel}>Участники</span>
+                <p className={s.infoValue}>{c.participantsCount} человек</p>
               </ScalePop>
             )}
           </div>

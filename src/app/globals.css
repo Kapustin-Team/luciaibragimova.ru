@@ -20,8 +20,8 @@
   --bg-card: #f5f5f5;
   --bg-card-hover: #ebebeb;
   --bg-footer: #f0f0f0;
-  --bg-peach: #edd4e8;
-  --bg-peach-soft: rgba(237, 212, 232, 0.35);
+  --bg-peach: #fff7ed;
+  --bg-peach-soft: rgba(255, 247, 237, 0.5);
   --bg-white: #ffffff;
 
   /* ===== Colors — Text ===== */
@@ -29,25 +29,35 @@
   --text-muted: rgba(6, 4, 14, 0.55);
   --text-white: #ffffff;
   --text-on-dark-muted: rgba(255, 255, 255, 0.75);
-  --text-on-dark-soft: rgba(255, 255, 255, 0.82);
+  --text-on-dark-soft: rgba(255, 255, 255, 0.88);
 
   /* ===== Colors — Accent palette ===== */
-  --accent-orange: #c77dba;
-  --accent-orange-hover: #ab65a0;
-  --accent-orange-soft: rgba(199, 125, 186, 0.12);
-  --accent-orange-dark: #2d182a;
-  --accent-orange-dark-hover: #1e0f1c;
-  --accent-orange-dark-soft: rgba(45, 24, 42, 0.12);
-  --accent-orange-dark-muted: rgba(45, 24, 42, 0.08);
+  --accent-orange: #f97316;
+  --accent-orange-hover: #ea580c;
+  --accent-orange-soft: rgba(249, 115, 22, 0.10);
+  --accent-orange-dark: #431407;
+  --accent-orange-dark-hover: #351005;
+  --accent-orange-dark-soft: rgba(67, 20, 7, 0.10);
+  --accent-orange-dark-muted: rgba(67, 20, 7, 0.06);
 
-  --accent-blue: #8ec0cc;
-  --accent-blue-dark: #142a30;
+  --accent-blue: #3b82f6;
+  --accent-blue-dark: #1e3a5f;
 
-  --accent-purple: #e8c088;
-  --accent-purple-dark: #332810;
+  --accent-purple: #8b5cf6;
+  --accent-purple-dark: #2e1065;
 
-  --accent-green-soft: #e6f4ea;
-  --accent-green: #34a853;
+  --accent-green-soft: #d1fae5;
+  --accent-green: #10b981;
+
+  /* Primary CTA color — vibrant blue */
+  --accent-primary: #2a72f8;
+  --accent-primary-hover: #1d62d6;
+  --accent-primary-soft: rgba(42, 114, 248, 0.08);
+
+  /* Tag/badge colors (from Figma) */
+  --tag-blue-bg: #dbedfb;
+  --tag-green-bg: #c4fae7;
+  --badge-blue-bg: #b4d2ff;
 
   /* Legacy aliases */
   --coral: var(--accent-orange);
@@ -86,8 +96,8 @@
   --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.08);
   --shadow-xl: 0 8px 40px rgba(0, 0, 0, 0.08);
   --shadow-2xl: 0 16px 48px rgba(0, 0, 0, 0.12);
-  --shadow-orange: 0 6px 20px rgba(199, 125, 186, 0.3);
-  --shadow-orange-lg: 0 8px 24px rgba(199, 125, 186, 0.35);
+  --shadow-orange: 0 6px 20px rgba(249, 115, 22, 0.3);
+  --shadow-orange-lg: 0 8px 24px rgba(249, 115, 22, 0.35);
   --shadow-card: var(--shadow-sm);
   --shadow-card-hover: 0 8px 32px rgba(0, 0, 0, 0.10);
 
