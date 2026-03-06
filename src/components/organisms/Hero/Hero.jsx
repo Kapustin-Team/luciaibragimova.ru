@@ -12,8 +12,8 @@ export default function Hero({ data } = {}) {
   const desc = data?.description || 'Авторские программы семейного психолога с 25-летним опытом. Сотни семей уже прошли этот путь.'
   const ctaPrimary = data?.ctaPrimary || 'Выбрать курс'
   const ctaPrimaryLink = data?.ctaPrimaryLink || '#courses'
-  const ctaSecondary = data?.ctaSecondary || 'Бесплатная консультация'
-  const ctaSecondaryLink = data?.ctaSecondaryLink || '#faq'
+  const ctaSecondary = data?.ctaSecondary || 'Об авторе'
+  const ctaSecondaryLink = data?.ctaSecondaryLink || '#about'
 
   return (
     <section className={s.hero}>

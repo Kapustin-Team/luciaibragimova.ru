@@ -46,7 +46,7 @@ export default function Header() {
   return (
     <header className={s.header}>
       <div className={s.inner}>
-        <a href="/" className={s.logo}>Школа психологии</a>
+        <a href="/" className={s.logo}>Школа Люции Ибрагимовой</a>
 
         <nav className={`${s.nav} ${menuOpen ? s.navOpen : ''}`}>
           {navLinks.map(({ label, id }) => (

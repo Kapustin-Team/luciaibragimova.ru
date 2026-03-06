@@ -6,14 +6,11 @@ export default function FeaturedCourse({ data } = {}) {
     <section className={s.section}>
       <div className={s.inner}>
         <div className={s.content}>
-          <span className={s.badge}>Главный курс</span>
+          <span className={s.badge}>⭐ Бестселлер</span>
           <h2 className={s.title}>Вовремя</h2>
           <p className={s.desc}>
             Курс для родителей подростков, которые отдаляются, грубят, вредят себе. 5 модулей по 4 лекции — системный подход к восстановлению отношений.
           </p>
-          <a href="/courses/vovremya" className={s.btn}>Узнать подробнее</a>
-        </div>
-        <div className={s.visual}>
           <div className={s.stats}>
             {[
               { num: '5', label: 'модулей' },
@@ -26,6 +23,10 @@ export default function FeaturedCourse({ data } = {}) {
               </div>
             ))}
           </div>
+          <a href="/courses/vovremya" className={s.btn}>Узнать подробнее →</a>
+        </div>
+        <div className={s.visual}>
+          <img src="/courses/course-vovremya.webp" alt="Курс Вовремя" className={s.image} />
         </div>
       </div>
     </section>

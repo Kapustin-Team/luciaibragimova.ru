@@ -1,27 +1,25 @@
 .section
-  background: var(--bg-hero)
-  padding: 120px 40px
+  background: var(--bg-white)
+  padding: 100px 32px
   @media (max-width: 768px)
-    padding: 80px 20px
+    padding: 72px 20px
 
 .inner
-  max-width: var(--container-wide)
+  max-width: var(--container)
   margin: 0 auto
 
 .header
-  text-align: center
-  margin-bottom: 72px
+  margin-bottom: 48px
 
 .sectionTitle
-  font-size: clamp(32px, 4vw, 48px)
+  font-size: clamp(28px, 4vw, 44px)
   font-weight: 700
   color: var(--text-dark)
-  letter-spacing: -1.5px
-  margin-bottom: 14px
-  line-height: 1.1
+  margin-bottom: 8px
+  letter-spacing: -1px
 
 .sectionSubtitle
-  font-size: 18px
+  font-size: 16px
   color: var(--text-muted)
 
 .grid
@@ -34,73 +32,60 @@
     grid-template-columns: 1fr
 
 .card
-  border-radius: var(--radius-xl)
+  position: relative
+  border-radius: var(--radius-card)
   overflow: hidden
+  min-height: 320px
   display: flex
   flex-direction: column
-  transition: transform 0.3s ease, box-shadow 0.3s ease
-  cursor: pointer
+  justify-content: flex-end
+  text-decoration: none
+  color: #ffffff
+  transition: var(--transition-slow)
   &:hover
     transform: translateY(-4px)
-    box-shadow: var(--shadow-2xl)
+    .cardImage
+      transform: scale(1.05)
 
-.cardColorBand
-  height: 180px
-  display: flex
-  align-items: flex-end
-  padding: 20px 24px
+.cardImage
+  position: absolute
+  inset: 0
+  width: 100%
+  height: 100%
+  object-fit: cover
+  transition: transform 0.4s ease
 
-.cardBandOrange
-  background: var(--accent-orange)
+.cardOverlay
+  position: absolute
+  inset: 0
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%, transparent 100%)
 
-.cardBandBlue
-  background: var(--accent-blue)
-
-.cardBandPurple
-  background: var(--accent-purple)
-
-.cardBandDark
-  background: var(--accent-blue-dark)
+.cardContent
+  position: relative
+  z-index: 1
+  padding: 28px 24px
 
 .cardCount
   font-size: 12px
-  font-weight: 700
-  letter-spacing: 0.8px
-  text-transform: uppercase
-  color: var(--text-on-dark-muted)
-  background: rgba(255, 255, 255, 0.2)
-  padding: 4px 12px
-  border-radius: var(--radius-full)
-
-.cardBody
-  background: var(--bg-white)
-  padding: 24px
-  flex: 1
-  display: flex
-  flex-direction: column
+  font-weight: 600
+  color: rgba(255, 255, 255, 0.7)
+  margin-bottom: 8px
+  display: block
 
 .cardTitle
-  font-size: 18px
+  font-size: 22px
   font-weight: 700
-  color: var(--text-dark)
-  letter-spacing: -0.4px
-  margin-bottom: 10px
-  line-height: 1.2
+  color: #ffffff
+  margin-bottom: 8px
+  letter-spacing: -0.5px
 
 .cardDesc
   font-size: 14px
-  color: var(--text-muted)
-  line-height: 1.7
-  flex: 1
-  margin-bottom: 20px
+  color: rgba(255, 255, 255, 0.8)
+  line-height: 1.5
+  margin-bottom: 12px
 
 .cardLink
-  display: inline-flex
-  align-items: center
-  gap: 6px
   font-size: 14px
   font-weight: 600
-  color: var(--text-dark)
-  transition: gap 0.2s
-  &:hover
-    gap: 10px
+  color: #E93AA3

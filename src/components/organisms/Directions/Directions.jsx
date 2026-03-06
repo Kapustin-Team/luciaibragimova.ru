@@ -2,10 +2,10 @@
 import s from './Directions.module.sass'
 
 const dirs = [
-  { title: 'Рождение семьи', desc: 'Курсы для молодых пар, будущих мам и начинающих родителей.', count: 3, bandClass: s.cardBandOrange },
-  { title: 'Здоровое взросление', desc: 'Работа с подростками и их родителями. Курс «Вовремя» и другие.', count: 4, bandClass: s.cardBandBlue },
-  { title: 'Развитие', desc: 'Тренинги уверенности, коммуникации и самопознания для всей семьи.', count: 4, bandClass: s.cardBandPurple },
-  { title: 'Трансформация', desc: 'Глубинная работа с выгоранием и поиском внутренней опоры.', count: 3, bandClass: s.cardBandDark },
+  { title: 'Рождение семьи', desc: 'Курсы для молодых пар, будущих мам и начинающих родителей.', count: 3, image: '/directions/dir-family.webp' },
+  { title: 'Здоровое взросление', desc: 'Работа с подростками и их родителями. Курс «Вовремя» и другие.', count: 4, image: '/directions/dir-growing.webp' },
+  { title: 'Развитие', desc: 'Тренинги уверенности, коммуникации и самопознания для всей семьи.', count: 4, image: '/directions/dir-development.webp' },
+  { title: 'Трансформация', desc: 'Глубинная работа с выгоранием и поиском внутренней опоры.', count: 3, image: '/directions/dir-transformation.webp' },
 ]
 
 function handleClick(e, dirTitle) {
@@ -31,10 +31,10 @@ export default function Directions({ data, directions } = {}) {
               className={s.card}
               onClick={(e) => handleClick(e, d.title)}
             >
-              <div className={`${s.cardColorBand} ${d.bandClass}`}>
+              <img src={d.image} alt={d.title} className={s.cardImage} loading="lazy" />
+              <div className={s.cardOverlay} />
+              <div className={s.cardContent}>
                 <span className={s.cardCount}>{d.count} программы</span>
-              </div>
-              <div className={s.cardBody}>
                 <h3 className={s.cardTitle}>{d.title}</h3>
                 <p className={s.cardDesc}>{d.desc}</p>
                 <span className={s.cardLink}>Смотреть →</span>

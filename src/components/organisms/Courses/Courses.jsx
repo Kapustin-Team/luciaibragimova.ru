@@ -21,6 +21,24 @@ const COURSE_IMAGES = {
   'igra-lvov': '/courses/course-igra-lvov.webp',
 }
 
+/* Fallback: map course slug → direction name (when Strapi relation is empty) */
+const SLUG_TO_DIR = {
+  'rozhdenie-molodoj-semi': 'Рождение семьи',
+  'mama-zdes': 'Рождение семьи',
+  'lyogkost-materinstva': 'Рождение семьи',
+  'vovremya': 'Здоровое взросление',
+  'podgotovka-ege-oge': 'Здоровое взросление',
+  'odin-za-vsekh': 'Здоровое взросление',
+  'lyogkost-adaptacii': 'Здоровое взросление',
+  'svoi-lyudi': 'Развитие',
+  'podium': 'Развитие',
+  'svet-nochi': 'Развитие',
+  'v-and-d': 'Развитие',
+  'anti-vygoranie': 'Трансформация',
+  'put': 'Трансформация',
+  'igra-lvov': 'Трансформация',
+}
+
 const DIRECTION_NAMES = ['Все', 'Рождение семьи', 'Здоровое взросление', 'Развитие', 'Трансформация']
 const FORMAT_NAMES = ['Все', 'Онлайн', 'Офлайн', 'Гибрид']
 
@@ -29,7 +47,7 @@ function normalizeCourses(strapiCourses) {
   return strapiCourses.map(c => ({
     title: c.title,
     slug: c.slug,
-    dir: c.direction?.title || '',
+    dir: c.direction?.title || SLUG_TO_DIR[c.slug] || '',
     format: FORMAT_MAP[c.format] || c.format,
     duration: c.duration || '',
     desc: c.shortDescription || '',
@@ -47,7 +65,6 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
   const [dirFilter, setDirFilter] = useState(initialDirection || 'Все')
   const [formatFilter, setFormatFilter] = useState(initialFormat || 'Все')
 
-  // Listen for external filter events (from Hero cards, Directions)
   useEffect(() => {
     function handleFilter(e) {
       if (e.detail?.direction) setDirFilter(e.detail.direction)
@@ -67,10 +84,8 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
     <section className={s.section} id="courses">
       <div className={s.inner}>
         <div className={s.header}>
-          <div>
-            <h2 className={s.title}>{title}</h2>
-            <p className={s.subtitle}>{subtitle}</p>
-          </div>
+          <h2 className={s.title}>{title}</h2>
+          <p className={s.subtitle}>{subtitle}</p>
         </div>
 
         <div className={s.filtersWrap}>

@@ -1,3 +1,4 @@
+'use client'
 import s from './Footer.module.sass'
 
 const TelegramIcon = () => (
@@ -18,14 +19,21 @@ const COURSE_SLUGS = {
   'Все курсы': null,
 }
 
+function handleDirClick(e, dirName) {
+  e.preventDefault()
+  const el = document.getElementById('courses')
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
+  window.dispatchEvent(new CustomEvent('filter-courses', { detail: { direction: dirName } }))
+}
+
 const footerCols = [
   {
     title: 'Направления',
     links: [
-      { text: 'Рождение семьи', href: '/#courses' },
-      { text: 'Здоровое взросление', href: '/#courses' },
-      { text: 'Развитие детей и взрослых', href: '/#courses' },
-      { text: 'Трансформация', href: '/#courses' },
+      { text: 'Рождение семьи', href: '/#courses', dir: 'Рождение семьи' },
+      { text: 'Здоровое взросление', href: '/#courses', dir: 'Здоровое взросление' },
+      { text: 'Развитие', href: '/#courses', dir: 'Развитие' },
+      { text: 'Трансформация', href: '/#courses', dir: 'Трансформация' },
     ],
   },
   {
@@ -64,6 +72,7 @@ export default function Footer() {
                     href={link.href}
                     className={s.colLink}
                     {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    {...(link.dir ? { onClick: (e) => handleDirClick(e, link.dir) } : {})}
                   >
                     {link.text}
                   </a>
@@ -88,12 +97,12 @@ export default function Footer() {
       <div className={s.bottom}>
         <div className={s.bottomInner}>
           <div className={s.logoWrap}>
-            <span className={s.footerLogo} style={{ fontWeight: 700, fontSize: '1rem' }}>Школа психологии Люции Ибрагимовой</span>
+            <span className={s.footerLogo} style={{ fontWeight: 700, fontSize: '1rem' }}>Школа Люции Ибрагимовой</span>
             <span className={s.copyright}>© 2026 Люция Ибрагимова. Все права защищены</span>
           </div>
           <div className={s.legal}>
-            <a href="#">Политика конфиденциальности</a>
-            <a href="#">Оферта</a>
+            <a href="/privacy">Политика конфиденциальности</a>
+            <a href="/terms">Оферта</a>
           </div>
         </div>
       </div>

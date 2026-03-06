@@ -1,15 +1,49 @@
 .section
   background: var(--bg-white)
   padding: 20px 32px 80px
+  position: relative
+  overflow: hidden
   @media (max-width: 768px)
     padding: 16px 20px 64px
+
+.decorCircle1
+  position: absolute
+  top: -30px
+  right: 10%
+  width: 200px
+  height: 200px
+  border-radius: 50%
+  background: rgba(233, 58, 163, 0.06)
+  pointer-events: none
+
+.decorCircle2
+  position: absolute
+  bottom: -50px
+  left: 5%
+  width: 160px
+  height: 160px
+  border-radius: 50%
+  background: rgba(64, 10, 75, 0.04)
+  pointer-events: none
+
+.decorDots
+  position: absolute
+  top: 60px
+  right: 5%
+  width: 60px
+  height: 60px
+  background-image: radial-gradient(rgba(64, 10, 75, 0.08) 2px, transparent 2px)
+  background-size: 12px 12px
+  pointer-events: none
 
 .inner
   max-width: var(--container)
   margin: 0 auto
+  position: relative
+  z-index: 1
 
 .card
-  background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-orange-dark) 100%)
+  background: #E93AA3
   border-radius: var(--radius-card)
   padding: 64px 72px
   position: relative
@@ -20,31 +54,30 @@
 .title
   font-size: clamp(24px, 3.5vw, 38px)
   font-weight: 700
-  color: var(--text-white)
+  color: #ffffff
   line-height: 1.2
   margin-bottom: 14px
   max-width: 640px
   letter-spacing: -1px
 
 .highlight
-  background: var(--overlay-white-light)
+  background: rgba(255, 255, 255, 0.2)
   padding: 2px 12px
   border-radius: var(--radius-sm)
 
 .desc
   font-size: 17px
-  color: var(--text-on-dark-soft)
+  color: rgba(255, 255, 255, 0.85)
   margin-bottom: 32px
 
 .btn
   display: inline-flex
   padding: 13px 28px
-  background: var(--bg-white)
-  color: var(--accent-orange-dark)
+  background: #ffffff
+  color: #400a4b
   border-radius: var(--radius-base)
   font-size: 14px
   font-weight: 700
   transition: var(--transition-base)
   &:hover
     transform: translateY(-1px)
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18)
