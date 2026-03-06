@@ -40,20 +40,18 @@ export default function Reviews({ data, reviews: strapiReviews } = {}) {
         <div style={{ perspective: '1000px' }}>
           <div className={s.grid}>
             {reviewsList.map((r, i) => (
-              
-                <div className={s.card}>
-                  <div className={`${s.cardTop} ${topStyles[i % topStyles.length]}`}>
-                    <div className={s.avatarCircle}>{r.initials}</div>
-                  </div>
-                  <div className={s.cardBottom}>
-                    <span className={s.tag}>Отзыв</span>
-                    <div className={s.name}>{r.name}</div>
-                    {r.role && <div className={s.role}>{r.role}</div>}
-                    <p className={s.text}>{r.text}</p>
-                    {r.course && <span className={s.course}>{r.course}</span>}
-                  </div>
+              <div key={i} className={s.card}>
+                <div className={`${s.cardTop} ${topStyles[i % topStyles.length]}`}>
+                  <div className={s.avatarCircle}>{r.initials}</div>
                 </div>
-              
+                <div className={s.cardBottom}>
+                  <span className={s.tag}>Отзыв</span>
+                  <div className={s.name}>{r.name}</div>
+                  {r.role && <div className={s.role}>{r.role}</div>}
+                  <p className={s.text}>{r.text}</p>
+                  {r.course && <span className={s.course}>{r.course}</span>}
+                </div>
+              </div>
             ))}
           </div>
         </div>

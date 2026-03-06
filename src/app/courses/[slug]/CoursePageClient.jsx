@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Header from '@/components/organisms/Header/Header'
 import Footer from '@/components/organisms/Footer/Footer'
 import GradientPlaceholder from '@/components/atoms/GradientPlaceholder'
@@ -10,28 +10,18 @@ const FORMAT_LABELS = { online: 'Онлайн', offline: 'Офлайн', hybrid:
 function ModuleAccordion({ module: m, index: i }) {
   const [open, setOpen] = useState(false)
   return (
-    
+    <div className={`${s.moduleItem} ${open ? s.moduleItemOpen : ''}`}>
       <button className={s.moduleHeader} onClick={() => setOpen(v => !v)}>
         <span className={s.moduleNum}>Модуль {String(i + 1).padStart(2, '0')}</span>
         <span className={s.moduleTitle}>{m.title}</span>
-        <span>
-          ▾
-        </span>
+        <span>▾</span>
       </button>
-      
-        {open && (
-          <div
-            className={s.moduleBody}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-          >
-            <p className={s.moduleDesc}>{m.description}</p>
-          </div>
-        )}
-      
-    
+      {open && (
+        <div className={s.moduleBody}>
+          <p className={s.moduleDesc}>{m.description}</p>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -39,7 +29,14 @@ export default function CoursePageClient({ course }) {
   const c = course
   const imgSrc = c.image?.url || c.image?.formats?.large?.url
   const heroRef = useRef(null)
-  const heroInView = useInView(heroRef, { margin: '-100px' })
+  const [heroInView, setHeroInView] = useState(true)
+  useEffect(() => {
+    const el = heroRef.current
+    if (!el) return
+    const obs = new IntersectionObserver(([e]) => setHeroInView(e.isIntersecting), { rootMargin: '-100px' })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
 
   return (
     <>
@@ -125,10 +122,10 @@ export default function CoursePageClient({ course }) {
               <div style={{ perspective: '1000px' }}>
                 <div className={s.audienceGrid}>
                   {c.targetAudience.map((a, i) => (
-                    
+                    <div key={i} className={s.audienceCard}>
                       <div className={s.audienceNum}>{String(i + 1).padStart(2, '0')}</div>
                       <p>{a.text}</p>
-                    
+                    </div>
                   ))}
                 </div>
               </div>
@@ -148,10 +145,10 @@ export default function CoursePageClient({ course }) {
                 <div className={s.featureRight}>
                   <ul className={s.checkList}>
                     {c.pains.map((pain, i) => (
-                      
+                      <li key={i} className={s.checkItem}>
                         <span className={s.checkBox}>✓</span>
                         <span>{pain}</span>
-                      
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -172,10 +169,10 @@ export default function CoursePageClient({ course }) {
                   <h2 className={s.articleTitle}>Что вы получите</h2>
                   <ul className={s.checkList}>
                     {c.results.map((r, i) => (
-                      
+                      <li key={i} className={s.checkItem}>
                         <span className={s.checkBox}>✓</span>
                         <span>{r.text}</span>
-                      
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -209,13 +206,11 @@ export default function CoursePageClient({ course }) {
                 <div className={s.articleText}>
                   <h2 className={s.articleTitle}>Методики и подходы</h2>
                   <p className={s.articleDesc}>Курс основан на проверенных психологических методиках и современных научных подходах.</p>
-                  
-                    <div className={s.methodsWrap}>
-                      {c.methods.map((m, i) => (
-                        <span key={i} className={s.methodTag}>{m}</span>
-                      ))}
-                    </div>
-                  
+                  <div className={s.methodsWrap}>
+                    {c.methods.map((m, i) => (
+                      <span key={i} className={s.methodTag}>{m}</span>
+                    ))}
+                  </div>
                 </div>
                 <div className={s.articleFigure}>
                   <GradientPlaceholder variant="cool" aspectRatio="740/478" />
@@ -236,7 +231,7 @@ export default function CoursePageClient({ course }) {
               <div style={{ perspective: '1000px' }}>
                 <div className={s.tariffsGrid}>
                   {c.tariffs.map((t, i) => (
-                    
+                    <div key={i} className={`${s.tariffCard} ${t.popular ? s.tariffPopular : ""}`}>
                       {t.popular && <div className={s.popularBadge}>Популярный</div>}
                       <h3 className={s.tariffName}>{t.name}</h3>
                       {t.features?.length > 0 && (
@@ -252,7 +247,7 @@ export default function CoursePageClient({ course }) {
                       <a href={c.getcourseLink || '#'} className={t.popular ? s.tariffBtnDark : s.tariffBtn}>
                         Выбрать тариф
                       </a>
-                    
+                    </div>
                   ))}
                 </div>
               </div>
@@ -272,10 +267,10 @@ export default function CoursePageClient({ course }) {
                 <div className={s.featureRight}>
                   <ul className={s.checkList}>
                     {c.limitations.map((l, i) => (
-                      
+                      <li key={i} className={s.checkItem}>
                         <span className={s.checkBox}>!</span>
                         <span>{l}</span>
-                      
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -296,22 +291,14 @@ export default function CoursePageClient({ course }) {
         </section>
 
         {/* ─── Sticky CTA bar ─── */}
-        
-          {!heroInView && (
-            <div
-              className={s.stickyCta}
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
-            >
-              <div className={s.stickyCtaInner}>
-                <span className={s.stickyCtaTitle}>{c.title}</span>
-                <a href={c.getcourseLink || '#tariffs'} className={s.stickyCtaBtn}>Записаться</a>
-              </div>
+        {!heroInView && (
+          <div className={s.stickyCta}>
+            <div className={s.stickyCtaInner}>
+              <span className={s.stickyCtaTitle}>{c.title}</span>
+              <a href={c.getcourseLink || '#tariffs'} className={s.stickyCtaBtn}>Записаться</a>
             </div>
-          )}
-        
+          </div>
+        )}
 
       </main>
       <Footer />
