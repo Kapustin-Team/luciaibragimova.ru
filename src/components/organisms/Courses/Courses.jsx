@@ -1,7 +1,9 @@
 'use client'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import AnimatedSection from '@/components/atoms/AnimatedSection'
+import MaskReveal from '@/components/atoms/MaskReveal'
+import FadeSlideUp from '@/components/atoms/FadeSlideUp'
+import GradientPlaceholder from '@/components/atoms/GradientPlaceholder'
 import s from './Courses.module.sass'
 
 const FORMAT_MAP = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
@@ -20,6 +22,7 @@ const FALLBACK_COURSES = [
   { title: 'Лёгкость адаптации', dir: 'Здоровое взросление', format: 'Гибрид', duration: 'Программа', desc: 'Адаптация для педагогов, родителей и детей.', slug: 'lyogkost-adaptacii' },
 ]
 
+const GRADIENT_VARIANTS = ['warm', 'cool', 'mixed', 'subtle']
 const filters = ['Все', 'Онлайн', 'Офлайн', 'Гибрид']
 
 function normalizeCourses(strapiCourses) {
@@ -33,6 +36,7 @@ function normalizeCourses(strapiCourses) {
     desc: c.shortDescription || '',
     featured: c.featured || false,
     badge: c.badge || (c.featured ? 'Хит' : null),
+    imageUrl: c.image?.url || c.image?.formats?.small?.url || null,
   }))
 }
 
@@ -47,32 +51,35 @@ export default function Courses({ data, courses: strapiCourses } = {}) {
   return (
     <section className={s.section} id="courses">
       <div className={s.inner}>
-        <AnimatedSection>
-          <div className={s.header}>
-            <div>
-              <h2 className={s.title}>{title}</h2>
-              <p className={s.subtitle}>{subtitle}</p>
-            </div>
-            <div className={s.filters}>
-              {filters.map(f => (
-                <button key={f} className={`${s.filterBtn} ${filter === f ? s.active : ''}`} onClick={() => setFilter(f)}>{f}</button>
-              ))}
-            </div>
+        <div className={s.header}>
+          <div>
+            <MaskReveal><h2 className={s.title}>{title}</h2></MaskReveal>
+            <FadeSlideUp delay={0.1}><p className={s.subtitle}>{subtitle}</p></FadeSlideUp>
           </div>
-        </AnimatedSection>
+          <div className={s.filters}>
+            {filters.map(f => (
+              <button key={f} className={`${s.filterBtn} ${filter === f ? s.active : ''}`} onClick={() => setFilter(f)}>{f}</button>
+            ))}
+          </div>
+        </div>
 
-        <motion.div className={s.grid} layout>
+        <motion.div className={s.grid} layout style={{ perspective: '1000px' }}>
           <AnimatePresence mode="popLayout">
-            {filtered.map((c) => (
+            {filtered.map((c, i) => (
               <motion.div
                 key={c.title}
                 className={`${s.card} ${c.featured ? s.featured : ''}`}
                 layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.25 }}
+                initial={{ opacity: 0, scale: 0.95, rotateY: 8 }}
+                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                exit={{ opacity: 0, scale: 0.95, rotateY: -8 }}
+                transition={{ duration: 0.3 }}
               >
+                {c.imageUrl ? (
+                  <img src={c.imageUrl} alt={c.title} className={s.cardThumb} />
+                ) : (
+                  <GradientPlaceholder variant={GRADIENT_VARIANTS[i % 4]} aspectRatio="16/9" className={s.cardThumb} />
+                )}
                 {c.badge && <span className={s.tag}>{c.badge}</span>}
                 <div className={s.cardMeta}>
                   <span className={s.format}>{c.format}</span>

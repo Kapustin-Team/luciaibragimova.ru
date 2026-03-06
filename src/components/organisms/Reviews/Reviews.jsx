@@ -1,5 +1,7 @@
 'use client'
-import AnimatedSection from '@/components/atoms/AnimatedSection'
+import MaskReveal from '@/components/atoms/MaskReveal'
+import FadeSlideUp from '@/components/atoms/FadeSlideUp'
+import Card3D from '@/components/atoms/Card3D'
 import s from './Reviews.module.sass'
 
 const FALLBACK_REVIEWS = [
@@ -34,29 +36,29 @@ export default function Reviews({ data, reviews: strapiReviews } = {}) {
   return (
     <section className={s.section} id="reviews">
       <div className={s.inner}>
-        <AnimatedSection>
-          <div className={s.header}>
-            <h2 className={s.title}>{title}</h2>
-            <p className={s.subtitle}>{subtitle}</p>
+        <div className={s.header}>
+          <MaskReveal><h2 className={s.title}>{title}</h2></MaskReveal>
+          <FadeSlideUp delay={0.1}><p className={s.subtitle}>{subtitle}</p></FadeSlideUp>
+        </div>
+        <div style={{ perspective: '1000px' }}>
+          <div className={s.grid}>
+            {reviewsList.map((r, i) => (
+              <Card3D key={i} index={i} stagger={0.1}>
+                <div className={s.card}>
+                  <div className={`${s.cardTop} ${topStyles[i % topStyles.length]}`}>
+                    <div className={s.avatarCircle}>{r.initials}</div>
+                  </div>
+                  <div className={s.cardBottom}>
+                    <span className={s.tag}>Отзыв</span>
+                    <div className={s.name}>{r.name}</div>
+                    {r.role && <div className={s.role}>{r.role}</div>}
+                    <p className={s.text}>{r.text}</p>
+                    {r.course && <span className={s.course}>{r.course}</span>}
+                  </div>
+                </div>
+              </Card3D>
+            ))}
           </div>
-        </AnimatedSection>
-        <div className={s.grid}>
-          {reviewsList.map((r, i) => (
-            <AnimatedSection key={i} delay={i * 0.1}>
-              <div className={s.card}>
-                <div className={`${s.cardTop} ${topStyles[i % topStyles.length]}`}>
-                  <div className={s.avatarCircle}>{r.initials}</div>
-                </div>
-                <div className={s.cardBottom}>
-                  <span className={s.tag}>Отзыв</span>
-                  <div className={s.name}>{r.name}</div>
-                  {r.role && <div className={s.role}>{r.role}</div>}
-                  <p className={s.text}>{r.text}</p>
-                  {r.course && <span className={s.course}>{r.course}</span>}
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
         </div>
       </div>
     </section>

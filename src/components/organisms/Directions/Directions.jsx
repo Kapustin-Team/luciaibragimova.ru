@@ -1,5 +1,7 @@
 'use client'
-import AnimatedSection from '@/components/atoms/AnimatedSection'
+import MaskReveal from '@/components/atoms/MaskReveal'
+import FadeSlideUp from '@/components/atoms/FadeSlideUp'
+import Card3D from '@/components/atoms/Card3D'
 import s from './Directions.module.sass'
 
 const dirs = [
@@ -13,27 +15,27 @@ export default function Directions({ data, directions } = {}) {
   return (
     <section className={s.section} id="directions">
       <div className={s.inner}>
-        <AnimatedSection>
-          <div className={s.header}>
-            <h2 className={s.sectionTitle}>Направления обучения</h2>
-            <p className={s.sectionSubtitle}>Выберите то, что актуально для вашей семьи</p>
+        <div className={s.header}>
+          <MaskReveal><h2 className={s.sectionTitle}>Направления обучения</h2></MaskReveal>
+          <FadeSlideUp delay={0.1}><p className={s.sectionSubtitle}>Выберите то, что актуально для вашей семьи</p></FadeSlideUp>
+        </div>
+        <div style={{ perspective: '1000px' }}>
+          <div className={s.grid}>
+            {dirs.map((d, i) => (
+              <Card3D key={d.title} index={i}>
+                <a href="#courses" className={s.card}>
+                  <div className={`${s.cardColorBand} ${d.bandClass}`}>
+                    <span className={s.cardCount}>{d.count} программы</span>
+                  </div>
+                  <div className={s.cardBody}>
+                    <h3 className={s.cardTitle}>{d.title}</h3>
+                    <p className={s.cardDesc}>{d.desc}</p>
+                    <span className={s.cardLink}>Смотреть →</span>
+                  </div>
+                </a>
+              </Card3D>
+            ))}
           </div>
-        </AnimatedSection>
-        <div className={s.grid}>
-          {dirs.map((d, i) => (
-            <AnimatedSection key={i} delay={i * 0.08}>
-              <a href="#courses" className={s.card}>
-                <div className={`${s.cardColorBand} ${d.bandClass}`}>
-                  <span className={s.cardCount}>{d.count} программы</span>
-                </div>
-                <div className={s.cardBody}>
-                  <h3 className={s.cardTitle}>{d.title}</h3>
-                  <p className={s.cardDesc}>{d.desc}</p>
-                  <span className={s.cardLink}>Смотреть →</span>
-                </div>
-              </a>
-            </AnimatedSection>
-          ))}
         </div>
       </div>
     </section>

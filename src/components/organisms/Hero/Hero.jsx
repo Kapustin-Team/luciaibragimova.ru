@@ -1,4 +1,7 @@
 'use client'
+import MaskReveal from '@/components/atoms/MaskReveal'
+import FadeSlideUp from '@/components/atoms/FadeSlideUp'
+import ScalePop from '@/components/atoms/ScalePop'
 import s from './Hero.module.sass'
 
 export default function Hero({ data } = {}) {
@@ -13,16 +16,20 @@ export default function Hero({ data } = {}) {
     <section className={s.hero}>
       <div className={s.inner}>
         <div className={s.content}>
-          <h1 className={s.title}>
-            {title.split('\n').map((line, i, arr) => (
-              <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-            ))}
-          </h1>
-          <p className={s.desc}>{desc}</p>
-          <div className={s.buttons}>
-            <a href={ctaPrimaryLink} className={s.btnPrimary}>{ctaPrimary}</a>
-            <a href={ctaSecondaryLink} className={s.btnOutline}>{ctaSecondary}</a>
-          </div>
+          <MaskReveal>
+            <h1 className={s.title}>
+              {title.split('\n').map((line, i, arr) => (
+                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+              ))}
+            </h1>
+          </MaskReveal>
+          <FadeSlideUp delay={0.15}><p className={s.desc}>{desc}</p></FadeSlideUp>
+          <ScalePop delay={0.3}>
+            <div className={s.buttons}>
+              <a href={ctaPrimaryLink} className={s.btnPrimary}>{ctaPrimary}</a>
+              <a href={ctaSecondaryLink} className={s.btnOutline}>{ctaSecondary}</a>
+            </div>
+          </ScalePop>
         </div>
 
         <div className={s.cards}>

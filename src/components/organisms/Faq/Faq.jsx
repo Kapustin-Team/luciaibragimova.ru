@@ -1,7 +1,8 @@
 'use client'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import AnimatedSection from '@/components/atoms/AnimatedSection'
+import MaskReveal from '@/components/atoms/MaskReveal'
+import FadeSlideUp from '@/components/atoms/FadeSlideUp'
 import s from './Faq.module.sass'
 
 const FALLBACK_FAQS = [
@@ -43,14 +44,12 @@ export default function Faq({ data, faqs: strapiFaqs } = {}) {
   return (
     <section className={s.section} id="faq">
       <div className={s.inner}>
-        <AnimatedSection>
-          <h2 className={s.title}>{title}</h2>
-        </AnimatedSection>
+        <MaskReveal><h2 className={s.title}>{title}</h2></MaskReveal>
         <div className={s.list}>
           {faqList.map((f, i) => (
-            <AnimatedSection key={i} delay={i * 0.05}>
+            <FadeSlideUp key={i} delay={i * 0.05}>
               <Item q={f.q} a={f.a} />
-            </AnimatedSection>
+            </FadeSlideUp>
           ))}
         </div>
       </div>
