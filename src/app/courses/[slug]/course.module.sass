@@ -141,9 +141,20 @@
   gap: 16px
   border: 1px solid rgba(64, 10, 75, 0.06)
 
-.infoIcon
-  font-size: 28px
+.infoIconWrap
+  width: 44px
+  height: 44px
+  border-radius: 12px
+  background: rgba(233, 58, 163, 0.1)
+  display: flex
+  align-items: center
+  justify-content: center
   flex-shrink: 0
+
+.infoSvg
+  width: 22px
+  height: 22px
+  color: #E93AA3
 
 .infoLabel
   font-size: 11px
@@ -586,47 +597,4 @@
     background: #d12e8f
     transform: translateY(-1px)
 
-// ─── Sticky CTA bar ──────────────────────────────────────────
 
-.stickyCta
-  position: fixed
-  bottom: 0
-  left: 0
-  right: 0
-  z-index: 100
-  background: rgba(255, 255, 255, 0.92)
-  backdrop-filter: blur(16px)
-  -webkit-backdrop-filter: blur(16px)
-  border-top: 1px solid rgba(0, 0, 0, 0.06)
-  padding: 12px 24px
-
-.stickyCtaInner
-  max-width: var(--container)
-  margin: 0 auto
-  display: flex
-  align-items: center
-  justify-content: space-between
-  gap: 16px
-
-.stickyCtaTitle
-  font-size: 16px
-  font-weight: 600
-  color: #1a1a2e
-  white-space: nowrap
-  overflow: hidden
-  text-overflow: ellipsis
-  flex: 1
-  min-width: 0
-
-.stickyCtaBtn
-  flex-shrink: 0
-  display: inline-flex
-  padding: 12px 24px
-  background: #E93AA3
-  color: #ffffff
-  border-radius: var(--radius-btn)
-  font-size: 14px
-  font-weight: 700
-  transition: var(--transition-fast)
-  &:hover
-    background: #d12e8f

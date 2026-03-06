@@ -1,5 +1,4 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
 import Header from '@/components/organisms/Header/Header'
 import Footer from '@/components/organisms/Footer/Footer'
 import About from '@/components/organisms/About/About'
@@ -8,18 +7,49 @@ import s from './course.module.sass'
 
 const FORMAT_LABELS = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
 
+/* Fallback course images by slug */
+const COURSE_IMAGES = {
+  'rozhdenie-molodoj-semi': '/courses/course-rozhdenie-semi.webp',
+  'mama-zdes': '/courses/course-mama-zdes.webp',
+  'lyogkost-materinstva': '/courses/course-lyogkost-materinstva.webp',
+  'vovremya': '/courses/course-vovremya.webp',
+  'podgotovka-ege-oge': '/courses/course-podgotovka-ege.webp',
+  'odin-za-vsekh': '/courses/course-odin-za-vsekh.webp',
+  'lyogkost-adaptacii': '/courses/course-lyogkost-adaptacii.webp',
+  'svoi-lyudi': '/courses/course-svoi-lyudi.webp',
+  'podium': '/courses/course-podium.webp',
+  'svet-nochi': '/courses/course-svet-nochi.webp',
+  'v-and-d': '/courses/course-v-and-d.webp',
+  'anti-vygoranie': '/courses/course-anti-vygoranie.webp',
+  'put': '/courses/course-put.webp',
+  'igra-lvov': '/courses/course-igra-lvov.webp',
+}
+
+/* SVG icons for info cards */
+const FormatIcon = () => (
+  <svg className={s.infoSvg} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" />
+  </svg>
+)
+const DurationIcon = () => (
+  <svg className={s.infoSvg} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
+  </svg>
+)
+const LessonsIcon = () => (
+  <svg className={s.infoSvg} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M4 19.5A2.5 2.5 0 016.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+  </svg>
+)
+const ParticipantsIcon = () => (
+  <svg className={s.infoSvg} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+  </svg>
+)
+
 export default function CoursePageClient({ course }) {
   const c = course
-  const imgSrc = c.image?.url || c.image?.formats?.large?.url
-  const heroRef = useRef(null)
-  const [heroInView, setHeroInView] = useState(true)
-  useEffect(() => {
-    const el = heroRef.current
-    if (!el) return
-    const obs = new IntersectionObserver(([e]) => setHeroInView(e.isIntersecting), { rootMargin: '-100px' })
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
+  const imgSrc = c.image?.url || c.image?.formats?.large?.url || COURSE_IMAGES[c.slug]
 
   return (
     <>
@@ -27,7 +57,7 @@ export default function CoursePageClient({ course }) {
       <main>
 
         {/* ─── Hero — light bg ─── */}
-        <section className={s.hero} ref={heroRef}>
+        <section className={s.hero}>
           <div className={s.heroInner}>
             <div className={s.heroLeft}>
               <div className={s.heroBadges}>
@@ -63,12 +93,12 @@ export default function CoursePageClient({ course }) {
           </div>
         </section>
 
-        {/* ─── Info cards — stylish pills ─── */}
+        {/* ─── Info cards — SVG icons ─── */}
         <section className={s.infoCards}>
           <div className={s.infoCardsInner}>
             {c.format && (
               <div className={s.infoCard}>
-                <span className={s.infoIcon}>📺</span>
+                <div className={s.infoIconWrap}><FormatIcon /></div>
                 <div>
                   <span className={s.infoLabel}>Формат</span>
                   <p className={s.infoValue}>{FORMAT_LABELS[c.format] || c.format}</p>
@@ -77,7 +107,7 @@ export default function CoursePageClient({ course }) {
             )}
             {c.duration && (
               <div className={s.infoCard}>
-                <span className={s.infoIcon}>⏱</span>
+                <div className={s.infoIconWrap}><DurationIcon /></div>
                 <div>
                   <span className={s.infoLabel}>Длительность</span>
                   <p className={s.infoValue}>{c.duration}</p>
@@ -86,7 +116,7 @@ export default function CoursePageClient({ course }) {
             )}
             {c.lessonsCount && (
               <div className={s.infoCard}>
-                <span className={s.infoIcon}>📚</span>
+                <div className={s.infoIconWrap}><LessonsIcon /></div>
                 <div>
                   <span className={s.infoLabel}>Занятий</span>
                   <p className={s.infoValue}>{c.lessonsCount}</p>
@@ -95,7 +125,7 @@ export default function CoursePageClient({ course }) {
             )}
             {c.participantsCount && (
               <div className={s.infoCard}>
-                <span className={s.infoIcon}>👥</span>
+                <div className={s.infoIconWrap}><ParticipantsIcon /></div>
                 <div>
                   <span className={s.infoLabel}>Участники</span>
                   <p className={s.infoValue}>{c.participantsCount} человек</p>
@@ -149,7 +179,7 @@ export default function CoursePageClient({ course }) {
           </section>
         )}
 
-        {/* ─── Что получите — cards grid instead of checklist ─── */}
+        {/* ─── Что получите — cards grid ─── */}
         {c.results?.length > 0 && (
           <section className={s.section} id="results">
             <div className={s.container}>
@@ -287,16 +317,6 @@ export default function CoursePageClient({ course }) {
             <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>Записаться на курс</a>
           </div>
         </section>
-
-        {/* ─── Sticky CTA bar ─── */}
-        {!heroInView && (
-          <div className={s.stickyCta}>
-            <div className={s.stickyCtaInner}>
-              <span className={s.stickyCtaTitle}>{c.title}</span>
-              <a href={c.getcourseLink || '#tariffs'} className={s.stickyCtaBtn}>Записаться</a>
-            </div>
-          </div>
-        )}
 
       </main>
       <Footer />

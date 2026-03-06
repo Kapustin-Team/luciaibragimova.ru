@@ -28,7 +28,7 @@ export default function Hero({ data } = {}) {
           <p className={s.desc}>{desc}</p>
           <div className={s.buttons}>
             <a href="#courses" className={s.btnPrimary}>Выбрать курс</a>
-            <a href="#faq" className={s.btnOutline}>Бесплатная консультация</a>
+            <a href="#about" className={s.btnOutline}>Об авторе</a>
           </div>
         </div>
 
