@@ -10,10 +10,6 @@ function scrollAndFilter(detail) {
 export default function Hero({ data } = {}) {
   const title = data?.title || 'Верните доверие\nи взаимопонимание\nс подростком'
   const desc = data?.description || 'Авторские программы семейного психолога с 25-летним опытом. Сотни семей уже прошли этот путь.'
-  const ctaPrimary = data?.ctaPrimary || 'Выбрать курс'
-  const ctaPrimaryLink = data?.ctaPrimaryLink || '#courses'
-  const ctaSecondary = data?.ctaSecondary || 'Об авторе'
-  const ctaSecondaryLink = data?.ctaSecondaryLink || '#about'
 
   return (
     <section className={s.hero}>
@@ -31,13 +27,12 @@ export default function Hero({ data } = {}) {
           </h1>
           <p className={s.desc}>{desc}</p>
           <div className={s.buttons}>
-            <a href={ctaPrimaryLink} className={s.btnPrimary}>{ctaPrimary}</a>
-            <a href={ctaSecondaryLink} className={s.btnOutline}>{ctaSecondary}</a>
+            <a href="#courses" className={s.btnPrimary}>Выбрать курс</a>
+            <a href="#faq" className={s.btnOutline}>Бесплатная консультация</a>
           </div>
         </div>
 
         <div className={s.cards}>
-          {/* Card 1 — Online courses */}
           <button
             type="button"
             className={`${s.card} ${s.cardPink} ${s.cardLeft}`}
@@ -53,7 +48,6 @@ export default function Hero({ data } = {}) {
             </div>
           </button>
 
-          {/* Card 2 — Consultations */}
           <a
             href="#faq"
             className={`${s.card} ${s.cardDark} ${s.cardCenter}`}
@@ -68,7 +62,6 @@ export default function Hero({ data } = {}) {
             </div>
           </a>
 
-          {/* Card 3 — Offline */}
           <button
             type="button"
             className={`${s.card} ${s.cardLight} ${s.cardRight}`}

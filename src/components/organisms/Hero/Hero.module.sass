@@ -1,8 +1,14 @@
 .hero
   background: #400a4b
+  min-height: 100vh
+  min-height: 100dvh
   padding: 120px 40px 0
   position: relative
-  overflow: visible
+  overflow: hidden
+  display: flex
+  flex-direction: column
+  @media (max-width: 768px)
+    padding: 100px 20px 0
 
 /* Decorative shapes */
 .decorCircle1
@@ -45,11 +51,15 @@
   align-items: center
   position: relative
   z-index: 1
+  flex: 1
+  justify-content: center
 
 .content
   text-align: center
   max-width: 860px
   margin-bottom: 72px
+  @media (max-width: 768px)
+    margin-bottom: 48px
 
 .title
   font-size: clamp(44px, 5.5vw, 72px)
@@ -72,6 +82,7 @@
   margin-right: auto
   @media (max-width: 768px)
     font-size: 17px
+    margin-bottom: 28px
 
 .buttons
   display: flex
@@ -110,52 +121,59 @@
     border-color: #ffffff
     background: rgba(255, 255, 255, 0.1)
 
-/* Three tilted feature cards */
+/* Three tilted feature cards — larger, overflow hidden */
 .cards
   display: flex
-  gap: 16px
+  gap: 20px
   align-items: flex-end
   width: 100%
   max-width: var(--container-wide)
   justify-content: center
+  margin-top: auto
   @media (max-width: 900px)
-    gap: 10px
+    gap: 12px
   @media (max-width: 640px)
     flex-direction: column
     align-items: center
     padding-bottom: 40px
 
 .card
-  width: calc(33.333% - 11px)
-  max-width: 420px
-  border-radius: var(--radius-xl)
+  width: calc(33.333% - 14px)
+  max-width: 440px
+  min-height: 200px
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0
   overflow: hidden
   flex-shrink: 0
   cursor: pointer
-  transition: var(--transition-base)
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)
   border: none
   font-family: inherit
   text-align: left
   &:hover
-    transform: translateY(-4px)
+    transform: translateY(-12px) !important
   @media (max-width: 900px)
-    width: calc(33.333% - 7px)
+    width: calc(33.333% - 8px)
+    min-height: 160px
   @media (max-width: 640px)
     width: 100%
     max-width: 360px
+    min-height: auto
+    border-radius: var(--radius-xl)
 
 .cardLeft
-  transform: rotate(-4deg) translateY(32px)
+  transform: rotate(-3deg) translateY(48px)
   transform-origin: bottom center
   @media (max-width: 640px)
     transform: none
 
 .cardCenter
-  transform: translateY(0)
+  transform: translateY(12px)
   z-index: 2
+  @media (max-width: 640px)
+    transform: none
 
 .cardRight
-  transform: rotate(4deg) translateY(32px)
+  transform: rotate(3deg) translateY(48px)
   transform-origin: bottom center
   @media (max-width: 640px)
     transform: none
@@ -171,27 +189,31 @@
   background: #e1dceb
 
 .cardHeader
-  padding: 28px 28px 20px
+  padding: 32px 28px 28px
+  @media (max-width: 768px)
+    padding: 24px 20px 20px
 
 .cardTitle
-  font-size: 22px
+  font-size: 24px
   font-weight: 700
   letter-spacing: -0.5px
-  margin-bottom: 8px
+  margin-bottom: 10px
   display: flex
   align-items: center
   gap: 6px
   color: #ffffff
+  @media (max-width: 768px)
+    font-size: 20px
 
 .cardLight .cardTitle
   color: #400a4b
 
 .cardArrow
-  font-size: 18px
+  font-size: 20px
   opacity: 0.7
 
 .cardDesc
-  font-size: 14px
+  font-size: 15px
   line-height: 1.55
   font-weight: 400
   color: rgba(255, 255, 255, 0.85)

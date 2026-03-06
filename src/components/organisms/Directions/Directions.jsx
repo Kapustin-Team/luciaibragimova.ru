@@ -31,9 +31,10 @@ export default function Directions({ data, directions } = {}) {
               className={s.card}
               onClick={(e) => handleClick(e, d.title)}
             >
-              <img src={d.image} alt={d.title} className={s.cardImage} loading="lazy" />
-              <div className={s.cardOverlay} />
-              <div className={s.cardContent}>
+              <div className={s.cardImageWrap}>
+                <img src={d.image} alt={d.title} className={s.cardImage} loading="lazy" />
+              </div>
+              <div className={s.cardBody}>
                 <span className={s.cardCount}>{d.count} программы</span>
                 <h3 className={s.cardTitle}>{d.title}</h3>
                 <p className={s.cardDesc}>{d.desc}</p>
