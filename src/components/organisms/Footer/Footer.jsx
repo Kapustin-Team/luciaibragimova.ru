@@ -22,8 +22,13 @@ const COURSE_SLUGS = {
 function handleDirClick(e, dirName) {
   e.preventDefault()
   const el = document.getElementById('courses')
-  if (el) el.scrollIntoView({ behavior: 'smooth' })
-  window.dispatchEvent(new CustomEvent('filter-courses', { detail: { direction: dirName } }))
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' })
+    window.dispatchEvent(new CustomEvent('filter-courses', { detail: { direction: dirName } }))
+  } else {
+    // Not on homepage — navigate there with filter param
+    window.location.href = `/?direction=${encodeURIComponent(dirName)}#courses`
+  }
 }
 
 const footerCols = [
