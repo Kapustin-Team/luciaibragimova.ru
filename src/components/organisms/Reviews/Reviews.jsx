@@ -1,7 +1,4 @@
 'use client'
-import MaskReveal from '@/components/atoms/MaskReveal'
-import FadeSlideUp from '@/components/atoms/FadeSlideUp'
-import Card3D from '@/components/atoms/Card3D'
 import s from './Reviews.module.sass'
 
 const FALLBACK_REVIEWS = [
@@ -37,13 +34,13 @@ export default function Reviews({ data, reviews: strapiReviews } = {}) {
     <section className={s.section} id="reviews">
       <div className={s.inner}>
         <div className={s.header}>
-          <MaskReveal><h2 className={s.title}>{title}</h2></MaskReveal>
-          <FadeSlideUp delay={0.1}><p className={s.subtitle}>{subtitle}</p></FadeSlideUp>
+          <h2 className={s.title}>{title}</h2>
+          <p className={s.subtitle}>{subtitle}</p>
         </div>
         <div style={{ perspective: '1000px' }}>
           <div className={s.grid}>
             {reviewsList.map((r, i) => (
-              <Card3D key={i} index={i} stagger={0.1}>
+              
                 <div className={s.card}>
                   <div className={`${s.cardTop} ${topStyles[i % topStyles.length]}`}>
                     <div className={s.avatarCircle}>{r.initials}</div>
@@ -56,7 +53,7 @@ export default function Reviews({ data, reviews: strapiReviews } = {}) {
                     {r.course && <span className={s.course}>{r.course}</span>}
                   </div>
                 </div>
-              </Card3D>
+              
             ))}
           </div>
         </div>

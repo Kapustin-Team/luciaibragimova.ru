@@ -1,32 +1,31 @@
 'use client'
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import MaskReveal from '@/components/atoms/MaskReveal'
-import FadeSlideUp from '@/components/atoms/FadeSlideUp'
-import GradientPlaceholder from '@/components/atoms/GradientPlaceholder'
+import { useState, useEffect } from 'react'
 import s from './Courses.module.sass'
 
 const FORMAT_MAP = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
-const FALLBACK_COURSES = [
-  { title: 'Вовремя', dir: 'Здоровое взросление', format: 'Онлайн', duration: '5 модулей · 20 лекций', desc: 'Как вернуть контакт с подростком и предотвратить кризис.', featured: true, slug: 'vovremya' },
-  { title: 'Рождение молодой семьи', dir: 'Рождение семьи', format: 'Онлайн', duration: '5 видеолекций', desc: 'Как построить крепкую семью с первых дней.', slug: 'rozhdenie-molodoj-semi' },
-  { title: 'Мама здесь', dir: 'Рождение семьи', format: 'Онлайн', duration: '6 видеолекций', desc: 'Психологическая подготовка к материнству.', slug: 'mama-zdes' },
-  { title: 'Лёгкость материнства', dir: 'Рождение семьи', format: 'Онлайн', duration: '6 видеолекций', desc: 'Гармония в семье с новорождённым.', slug: 'lyogkost-materinstva' },
-  { title: 'Подготовка к ЕГЭ/ОГЭ', dir: 'Здоровое взросление', format: 'Гибрид', duration: 'Индивидуально', desc: 'Психологическая подготовка к экзаменам.', slug: 'podgotovka-ege-oge' },
-  { title: 'Один за всех', dir: 'Здоровое взросление', format: 'Офлайн', duration: 'Тренинг', desc: 'Командный тренинг для детей и подростков.', slug: 'odin-za-vsekh' },
-  { title: 'Свои люди', dir: 'Развитие', format: 'Онлайн', duration: '5 видеолекций', desc: 'Здоровые границы и отношения с окружающими.', slug: 'svoi-lyudi' },
-  { title: 'Подиум', dir: 'Развитие', format: 'Офлайн', duration: '7 часов', desc: 'Тренинг уверенности и самопрезентации.', slug: 'podium' },
-  { title: 'Анти-выгорание', dir: 'Трансформация', format: 'Онлайн', duration: '3 видеолекции', desc: 'Восстановление ресурса и внутренней опоры.', slug: 'anti-vygoranie' },
-  { title: 'Путь', dir: 'Трансформация', format: 'Офлайн', duration: '2 дня · 12 часов', desc: 'Глубинная трансформационная работа.', slug: 'put' },
-  { title: 'Игра львов', dir: 'Трансформация', format: 'Офлайн', duration: '3 часа', desc: 'Тренинг силы духа и лидерства.', slug: 'igra-lvov' },
-  { title: 'Лёгкость адаптации', dir: 'Здоровое взросление', format: 'Гибрид', duration: 'Программа', desc: 'Адаптация для педагогов, родителей и детей.', slug: 'lyogkost-adaptacii' },
-]
 
-const GRADIENT_VARIANTS = ['warm', 'cool', 'mixed', 'subtle']
-const filters = ['Все', 'Онлайн', 'Офлайн', 'Гибрид']
+const COURSE_IMAGES = {
+  'rozhdenie-molodoj-semi': '/courses/course-rozhdenie-semi.webp',
+  'mama-zdes': '/courses/course-mama-zdes.webp',
+  'lyogkost-materinstva': '/courses/course-lyogkost-materinstva.webp',
+  'vovremya': '/courses/course-vovremya.webp',
+  'podgotovka-ege-oge': '/courses/course-podgotovka-ege.webp',
+  'odin-za-vsekh': '/courses/course-odin-za-vsekh.webp',
+  'lyogkost-adaptacii': '/courses/course-lyogkost-adaptacii.webp',
+  'svoi-lyudi': '/courses/course-svoi-lyudi.webp',
+  'podium': '/courses/course-podium.webp',
+  'svet-nochi': '/courses/course-svet-nochi.webp',
+  'v-and-d': '/courses/course-v-and-d.webp',
+  'anti-vygoranie': '/courses/course-anti-vygoranie.webp',
+  'put': '/courses/course-put.webp',
+  'igra-lvov': '/courses/course-igra-lvov.webp',
+}
+
+const DIRECTION_NAMES = ['Все', 'Рождение семьи', 'Здоровое взросление', 'Развитие', 'Трансформация']
+const FORMAT_NAMES = ['Все', 'Онлайн', 'Офлайн', 'Гибрид']
 
 function normalizeCourses(strapiCourses) {
-  if (!strapiCourses?.length) return FALLBACK_COURSES
+  if (!strapiCourses?.length) return []
   return strapiCourses.map(c => ({
     title: c.title,
     slug: c.slug,
@@ -40,60 +39,104 @@ function normalizeCourses(strapiCourses) {
   }))
 }
 
-export default function Courses({ data, courses: strapiCourses } = {}) {
+export default function Courses({ data, courses: strapiCourses, initialDirection, initialFormat } = {}) {
   const title = data?.title || 'Все курсы и тренинги'
   const subtitle = data?.subtitle || 'Выберите формат, который подходит именно вам'
   const coursesList = normalizeCourses(strapiCourses)
 
-  const [filter, setFilter] = useState('Все')
-  const filtered = filter === 'Все' ? coursesList : coursesList.filter(c => c.format === filter)
+  const [dirFilter, setDirFilter] = useState(initialDirection || 'Все')
+  const [formatFilter, setFormatFilter] = useState(initialFormat || 'Все')
+
+  // Listen for external filter events (from Hero cards, Directions)
+  useEffect(() => {
+    function handleFilter(e) {
+      if (e.detail?.direction) setDirFilter(e.detail.direction)
+      if (e.detail?.format) setFormatFilter(e.detail.format)
+    }
+    window.addEventListener('filter-courses', handleFilter)
+    return () => window.removeEventListener('filter-courses', handleFilter)
+  }, [])
+
+  const filtered = coursesList.filter(c => {
+    const dirMatch = dirFilter === 'Все' || c.dir === dirFilter
+    const formatMatch = formatFilter === 'Все' || c.format === formatFilter
+    return dirMatch && formatMatch
+  })
 
   return (
     <section className={s.section} id="courses">
       <div className={s.inner}>
         <div className={s.header}>
           <div>
-            <MaskReveal><h2 className={s.title}>{title}</h2></MaskReveal>
-            <FadeSlideUp delay={0.1}><p className={s.subtitle}>{subtitle}</p></FadeSlideUp>
-          </div>
-          <div className={s.filters}>
-            {filters.map(f => (
-              <button key={f} className={`${s.filterBtn} ${filter === f ? s.active : ''}`} onClick={() => setFilter(f)}>{f}</button>
-            ))}
+            <h2 className={s.title}>{title}</h2>
+            <p className={s.subtitle}>{subtitle}</p>
           </div>
         </div>
 
-        <motion.div className={s.grid} layout style={{ perspective: '1000px' }}>
-          <AnimatePresence mode="popLayout">
-            {filtered.map((c, i) => (
-              <motion.div
-                key={c.title}
-                className={`${s.card} ${c.featured ? s.featured : ''}`}
-                layout
-                initial={{ opacity: 0, scale: 0.95, rotateY: 8 }}
-                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                exit={{ opacity: 0, scale: 0.95, rotateY: -8 }}
-                transition={{ duration: 0.3 }}
-              >
-                {c.imageUrl ? (
-                  <img src={c.imageUrl} alt={c.title} className={s.cardThumb} />
-                ) : (
-                  <GradientPlaceholder variant={GRADIENT_VARIANTS[i % 4]} aspectRatio="16/9" className={s.cardThumb} />
-                )}
-                {c.badge && <span className={s.tag}>{c.badge}</span>}
-                <div className={s.cardMeta}>
-                  <span className={s.format}>{c.format}</span>
-                  <span className={s.dot}>·</span>
-                  <span className={s.duration}>{c.duration}</span>
-                </div>
-                <h3 className={s.cardTitle}>{c.title}</h3>
-                <p className={s.cardDir}>{c.dir}</p>
-                <p className={s.cardDesc}>{c.desc}</p>
-                <a href={`/courses/${c.slug || '#'}`} className={s.cardLink}>Подробнее →</a>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        <div className={s.filtersWrap}>
+          <div className={s.filterRow}>
+            <span className={s.filterLabel}>Направление:</span>
+            <div className={s.filters}>
+              {DIRECTION_NAMES.map(d => (
+                <button
+                  key={d}
+                  className={`${s.filterBtn} ${dirFilter === d ? s.active : ''}`}
+                  onClick={() => setDirFilter(d)}
+                >
+                  {d}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className={s.filterRow}>
+            <span className={s.filterLabel}>Формат:</span>
+            <div className={s.filters}>
+              {FORMAT_NAMES.map(f => (
+                <button
+                  key={f}
+                  className={`${s.filterBtn} ${formatFilter === f ? s.active : ''}`}
+                  onClick={() => setFormatFilter(f)}
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className={s.grid}>
+          {filtered.map((c) => (
+            <a
+              key={c.title}
+              href={`/courses/${c.slug || '#'}`}
+              className={`${s.card} ${c.featured ? s.featured : ''}`}
+            >
+              {(COURSE_IMAGES[c.slug] || c.imageUrl) ? (
+                <img
+                  src={c.imageUrl || COURSE_IMAGES[c.slug]}
+                  alt={c.title}
+                  className={s.cardThumb}
+                  loading="lazy"
+                />
+              ) : (
+                <div className={s.cardThumbPlaceholder} />
+              )}
+              {c.badge && <span className={s.tag}>{c.badge}</span>}
+              <div className={s.cardMeta}>
+                <span className={s.format}>{c.format}</span>
+                <span className={s.dot}>·</span>
+                <span className={s.duration}>{c.duration}</span>
+              </div>
+              <h3 className={s.cardTitle}>{c.title}</h3>
+              {c.dir && <p className={s.cardDir}>{c.dir}</p>}
+              <p className={s.cardDesc}>{c.desc}</p>
+              <span className={s.cardLink}>Подробнее →</span>
+            </a>
+          ))}
+          {filtered.length === 0 && (
+            <p className={s.empty}>Нет курсов по выбранным фильтрам</p>
+          )}
+        </div>
       </div>
     </section>
   )

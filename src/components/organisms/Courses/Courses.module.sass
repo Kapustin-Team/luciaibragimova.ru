@@ -9,14 +9,7 @@
   margin: 0 auto
 
 .header
-  display: flex
-  justify-content: space-between
-  align-items: flex-end
-  gap: 24px
-  margin-bottom: 48px
-  @media (max-width: 768px)
-    flex-direction: column
-    align-items: flex-start
+  margin-bottom: 32px
 
 .title
   font-size: clamp(28px, 4vw, 44px)
@@ -28,6 +21,24 @@
 .subtitle
   font-size: 16px
   color: var(--text-muted)
+
+.filtersWrap
+  margin-bottom: 40px
+  display: flex
+  flex-direction: column
+  gap: 12px
+
+.filterRow
+  display: flex
+  align-items: center
+  gap: 12px
+  flex-wrap: wrap
+
+.filterLabel
+  font-size: 13px
+  font-weight: 600
+  color: var(--text-muted)
+  min-width: 100px
 
 .filters
   display: flex
@@ -43,17 +54,18 @@
   font-size: 13px
   font-weight: 600
   transition: var(--transition-fast)
+  cursor: pointer
   &:hover
-    border-color: var(--coral)
-    color: var(--coral)
+    border-color: #E93AA3
+    color: #E93AA3
 
 .active
-  background: var(--coral)
-  border-color: var(--coral)
-  color: var(--text-white)
+  background: #E93AA3
+  border-color: #E93AA3
+  color: #ffffff
   &:hover
-    color: var(--text-white)
-    border-color: var(--coral)
+    color: #ffffff
+    border-color: #E93AA3
 
 .grid
   display: grid
@@ -73,29 +85,38 @@
   position: relative
   transition: var(--transition-slow)
   overflow: hidden
+  text-decoration: none
+  color: inherit
   &:hover
     background: var(--bg-card-hover)
     transform: translateY(-3px)
-    box-shadow: var(--shadow-lg)
 
 .cardThumb
   border-radius: var(--radius-lg)
   margin: -28px -28px 20px
   width: calc(100% + 56px)
+  height: 220px
   display: block
   object-fit: cover
 
+.cardThumbPlaceholder
+  border-radius: var(--radius-lg)
+  margin: -28px -28px 20px
+  width: calc(100% + 56px)
+  height: 220px
+  background: linear-gradient(135deg, #e1dceb 0%, #f3f0f8 100%)
+
 .featured
-  background: var(--coral-soft)
+  background: rgba(233, 58, 163, 0.06)
   &:hover
-    background: rgba(227, 154, 77, 0.16)
+    background: rgba(233, 58, 163, 0.12)
 
 .tag
   position: absolute
   top: 20px
   right: 20px
-  background: var(--coral)
-  color: var(--text-white)
+  background: #E93AA3
+  color: #ffffff
   padding: 4px 12px
   border-radius: var(--radius-full)
   font-size: 11px
@@ -110,7 +131,7 @@
   color: var(--text-muted)
 
 .format
-  color: var(--coral)
+  color: #E93AA3
   font-weight: 600
 
 .dot
@@ -146,4 +167,11 @@
   border-top: 1px solid var(--border-default)
   transition: color 0.2s
   &:hover
-    color: var(--coral)
+    color: #E93AA3
+
+.empty
+  grid-column: 1 / -1
+  text-align: center
+  padding: 60px 20px
+  color: var(--text-muted)
+  font-size: 16px

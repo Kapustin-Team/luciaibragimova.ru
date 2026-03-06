@@ -1,40 +1,19 @@
 'use client'
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import MaskReveal from '@/components/atoms/MaskReveal'
-import FadeSlideUp from '@/components/atoms/FadeSlideUp'
 import s from './Faq.module.sass'
 
 const FALLBACK_FAQS = [
-  { q: 'Как проходят онлайн-курсы?', a: 'Вы получаете доступ к видеолекциям и заданиям. Смотрите в удобном темпе, выполняете практику и получаете обратную связь от куратора.' },
-  { q: 'Можно ли оплатить в рассрочку?', a: 'Да, для большинства курсов доступна рассрочка. Свяжитесь с нами для уточнения условий.' },
-  { q: 'Подойдёт ли мне курс «Вовремя»?', a: 'Курс подходит родителям подростков 10–18 лет, которые хотят наладить отношения с ребёнком и предотвратить кризисные ситуации.' },
-  { q: 'Есть ли сертификат?', a: 'Да, после прохождения курса вы получаете именной сертификат школы психологии Люции Ибрагимовой.' },
-  { q: 'Как записаться на офлайн-тренинг?', a: 'Оставьте заявку на сайте или напишите в мессенджерах. Мы сообщим о ближайших датах.' },
+  { q: 'Как проходят онлайн-курсы?', a: 'Вы получаете доступ к видеолекциям в удобное время. К каждой лекции — практическое задание. В Премиум тарифах — групповые встречи и сопровождение.' },
+  { q: 'Можно ли оплатить в рассрочку?', a: 'Да, рассрочка доступна на все курсы. Подробности при записи.' },
+  { q: 'Подойдёт ли мне курс «Вовремя»?', a: 'Курс для родителей подростков 10-17 лет, которые замечают отдаление, грубость, потерю контакта. Если хотя бы один пункт про вас — курс подойдёт.' },
+  { q: 'Есть ли сертификат?', a: 'Да, по окончании вы получаете сертификат о прохождении программы.' },
+  { q: 'Как записаться на офлайн-тренинг?', a: 'Оставьте заявку на сайте или свяжитесь напрямую. Мы сообщим даты ближайших потоков.' },
+  { q: 'Можно ли вернуть деньги?', a: 'Да, в течение 14 дней с момента оплаты, если вы не прошли более 30% курса.' },
+  { q: 'Нужно ли психологическое образование?', a: 'Нет, курсы рассчитаны на широкую аудиторию. Специальных знаний не требуется.' },
 ]
 
 function normalizeFaqs(strapiFaqs) {
   if (!strapiFaqs?.length) return FALLBACK_FAQS
   return strapiFaqs.map(f => ({ q: f.question, a: f.answer }))
-}
-
-function Item({ q, a }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <div className={`${s.item} ${open ? s.itemOpen : ''}`} onClick={() => setOpen(!open)}>
-      <div className={s.question}>
-        <span>{q}</span>
-        <span className={s.icon}>{open ? '−' : '+'}</span>
-      </div>
-      <AnimatePresence>
-        {open && (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
-            <p className={s.answer}>{a}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
 }
 
 export default function Faq({ data, faqs: strapiFaqs } = {}) {
@@ -44,12 +23,13 @@ export default function Faq({ data, faqs: strapiFaqs } = {}) {
   return (
     <section className={s.section} id="faq">
       <div className={s.inner}>
-        <MaskReveal><h2 className={s.title}>{title}</h2></MaskReveal>
+        <h2 className={s.title}>{title}</h2>
         <div className={s.list}>
           {faqList.map((f, i) => (
-            <FadeSlideUp key={i} delay={i * 0.05}>
-              <Item q={f.q} a={f.a} />
-            </FadeSlideUp>
+            <div key={i} className={s.item}>
+              <h3 className={s.question}>{f.q}</h3>
+              <p className={s.answer}>{f.a}</p>
+            </div>
           ))}
         </div>
       </div>

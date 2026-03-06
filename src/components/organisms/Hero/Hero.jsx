@@ -1,8 +1,11 @@
 'use client'
-import MaskReveal from '@/components/atoms/MaskReveal'
-import FadeSlideUp from '@/components/atoms/FadeSlideUp'
-import ScalePop from '@/components/atoms/ScalePop'
 import s from './Hero.module.sass'
+
+function scrollAndFilter(detail) {
+  const el = document.getElementById('courses')
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
+  window.dispatchEvent(new CustomEvent('filter-courses', { detail }))
+}
 
 export default function Hero({ data } = {}) {
   const title = data?.title || 'Верните доверие\nи взаимопонимание\nс подростком'
@@ -10,91 +13,76 @@ export default function Hero({ data } = {}) {
   const ctaPrimary = data?.ctaPrimary || 'Выбрать курс'
   const ctaPrimaryLink = data?.ctaPrimaryLink || '#courses'
   const ctaSecondary = data?.ctaSecondary || 'Бесплатная консультация'
-  const ctaSecondaryLink = data?.ctaSecondaryLink || '#'
+  const ctaSecondaryLink = data?.ctaSecondaryLink || '#faq'
 
   return (
     <section className={s.hero}>
+      {/* Decorative shapes */}
+      <div className={s.decorCircle1} />
+      <div className={s.decorCircle2} />
+      <div className={s.decorDots} />
+
       <div className={s.inner}>
         <div className={s.content}>
-          <MaskReveal>
-            <h1 className={s.title}>
-              {title.split('\n').map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h1>
-          </MaskReveal>
-          <FadeSlideUp delay={0.15}><p className={s.desc}>{desc}</p></FadeSlideUp>
-          <ScalePop delay={0.3}>
-            <div className={s.buttons}>
-              <a href={ctaPrimaryLink} className={s.btnPrimary}>{ctaPrimary}</a>
-              <a href={ctaSecondaryLink} className={s.btnOutline}>{ctaSecondary}</a>
-            </div>
-          </ScalePop>
+          <h1 className={s.title}>
+            {title.split('\n').map((line, i, arr) => (
+              <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+            ))}
+          </h1>
+          <p className={s.desc}>{desc}</p>
+          <div className={s.buttons}>
+            <a href={ctaPrimaryLink} className={s.btnPrimary}>{ctaPrimary}</a>
+            <a href={ctaSecondaryLink} className={s.btnOutline}>{ctaSecondary}</a>
+          </div>
         </div>
 
         <div className={s.cards}>
-          {/* Card 1 — Orange */}
-          <div className={`${s.card} ${s.cardOrange} ${s.cardLeft}`}>
+          {/* Card 1 — Online courses */}
+          <button
+            type="button"
+            className={`${s.card} ${s.cardPink} ${s.cardLeft}`}
+            onClick={() => scrollAndFilter({ format: 'Онлайн' })}
+          >
             <div className={s.cardHeader}>
-              <div className={`${s.cardTitle} ${s.cardTitleOrange}`}>
+              <div className={s.cardTitle}>
                 Онлайн-курсы <span className={s.cardArrow}>›</span>
               </div>
-              <p className={`${s.cardDesc} ${s.cardDescOrange}`}>
+              <p className={s.cardDesc}>
                 Авторские программы по семейной психологии. Смотрите в удобном темпе.
               </p>
             </div>
-            <div className={s.cardImage}>
-              <div className={s.cardPattern}>
-                <div className={`${s.patternRow} ${s.patternRowWide}`} />
-                <div className={`${s.patternRow} ${s.patternRowMedium}`} />
-                <div className={s.patternBlock} />
-                <div className={`${s.patternRow} ${s.patternRowShort}`} />
-                <div className={`${s.patternRow} ${s.patternRowMedium}`} />
-              </div>
-            </div>
-          </div>
+          </button>
 
-          {/* Card 2 — Blue (center, no tilt) */}
-          <div className={`${s.card} ${s.cardBlue} ${s.cardCenter}`}>
+          {/* Card 2 — Consultations */}
+          <a
+            href="#faq"
+            className={`${s.card} ${s.cardDark} ${s.cardCenter}`}
+          >
             <div className={s.cardHeader}>
-              <div className={`${s.cardTitle} ${s.cardTitleBlue}`}>
+              <div className={s.cardTitle}>
                 Консультации <span className={s.cardArrow}>›</span>
               </div>
-              <p className={`${s.cardDesc} ${s.cardDescBlue}`}>
+              <p className={s.cardDesc}>
                 Индивидуальная работа с психологом. Онлайн или очно в Москве.
               </p>
             </div>
-            <div className={s.cardImage}>
-              <div className={s.cardPattern}>
-                <div className={`${s.patternRow} ${s.patternRowMedium}`} />
-                <div className={s.patternBlock} />
-                <div className={`${s.patternRow} ${s.patternRowWide}`} />
-                <div className={`${s.patternRow} ${s.patternRowShort}`} />
-                <div className={s.patternBlock} style={{ height: 32 }} />
-              </div>
-            </div>
-          </div>
+          </a>
 
-          {/* Card 3 — Purple */}
-          <div className={`${s.card} ${s.cardPurple} ${s.cardRight}`}>
+          {/* Card 3 — Offline */}
+          <button
+            type="button"
+            className={`${s.card} ${s.cardLight} ${s.cardRight}`}
+            onClick={() => scrollAndFilter({ format: 'Офлайн' })}
+          >
             <div className={s.cardHeader}>
-              <div className={`${s.cardTitle} ${s.cardTitlePurple}`}>
+              <div className={s.cardTitle}>
                 Живые тренинги <span className={s.cardArrow}>›</span>
               </div>
-              <p className={`${s.cardDesc} ${s.cardDescPurple}`}>
+              <p className={s.cardDesc}>
                 Интенсивы и группы для глубокой трансформации. Для всей семьи.
               </p>
             </div>
-            <div className={s.cardImage}>
-              <div className={s.cardPattern}>
-                <div className={`${s.patternRow} ${s.patternRowShort}`} />
-                <div className={s.patternBlock} style={{ height: 44 }} />
-                <div className={`${s.patternRow} ${s.patternRowWide}`} />
-                <div className={`${s.patternRow} ${s.patternRowMedium}`} />
-                <div className={s.patternBlock} />
-              </div>
-            </div>
-          </div>
+          </button>
         </div>
       </div>
     </section>

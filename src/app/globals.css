@@ -13,57 +13,57 @@
 
   /* ===== Colors — Backgrounds ===== */
   --bg-body: #ffffff;
-  --bg-dark: #06040e;
-  --bg-hero: #f5f5f5;
+  --bg-dark: #400a4b;
+  --bg-hero: #400a4b;
   --bg-section: #ffffff;
-  --bg-section-alt: #f5f5f5;
-  --bg-card: #f5f5f5;
-  --bg-card-hover: #ebebeb;
-  --bg-footer: #f0f0f0;
-  --bg-peach: #fff7ed;
-  --bg-peach-soft: rgba(255, 247, 237, 0.5);
+  --bg-section-alt: #e1dceb;
+  --bg-card: #f3f0f8;
+  --bg-card-hover: #ebe7f2;
+  --bg-footer: #400a4b;
+  --bg-peach: #e1dceb;
+  --bg-peach-soft: rgba(225, 220, 235, 0.5);
   --bg-white: #ffffff;
 
   /* ===== Colors — Text ===== */
-  --text-dark: #06040e;
-  --text-muted: rgba(6, 4, 14, 0.55);
+  --text-dark: #1a1a2e;
+  --text-muted: rgba(26, 26, 46, 0.6);
   --text-white: #ffffff;
-  --text-on-dark-muted: rgba(255, 255, 255, 0.75);
+  --text-on-dark-muted: rgba(255, 255, 255, 0.7);
   --text-on-dark-soft: rgba(255, 255, 255, 0.88);
 
   /* ===== Colors — Accent palette ===== */
-  --accent-orange: #f97316;
-  --accent-orange-hover: #ea580c;
-  --accent-orange-soft: rgba(249, 115, 22, 0.10);
-  --accent-orange-dark: #431407;
-  --accent-orange-dark-hover: #351005;
-  --accent-orange-dark-soft: rgba(67, 20, 7, 0.10);
-  --accent-orange-dark-muted: rgba(67, 20, 7, 0.06);
+  --accent-orange: #E93AA3;
+  --accent-orange-hover: #d12e8f;
+  --accent-orange-soft: rgba(233, 58, 163, 0.10);
+  --accent-orange-dark: #400a4b;
+  --accent-orange-dark-hover: #33083c;
+  --accent-orange-dark-soft: rgba(64, 10, 75, 0.10);
+  --accent-orange-dark-muted: rgba(64, 10, 75, 0.06);
 
-  --accent-blue: #3b82f6;
-  --accent-blue-dark: #1e3a5f;
+  --accent-blue: #7c5cbf;
+  --accent-blue-dark: #400a4b;
 
-  --accent-purple: #8b5cf6;
-  --accent-purple-dark: #2e1065;
+  --accent-purple: #400a4b;
+  --accent-purple-dark: #2a0630;
 
   --accent-green-soft: #d1fae5;
   --accent-green: #10b981;
 
-  /* Primary CTA color — vibrant blue */
-  --accent-primary: #2a72f8;
-  --accent-primary-hover: #1d62d6;
-  --accent-primary-soft: rgba(42, 114, 248, 0.08);
+  /* Primary CTA color */
+  --accent-primary: #E93AA3;
+  --accent-primary-hover: #d12e8f;
+  --accent-primary-soft: rgba(233, 58, 163, 0.08);
 
-  /* Tag/badge colors (from Figma) */
-  --tag-blue-bg: #dbedfb;
+  /* Tag/badge colors */
+  --tag-blue-bg: #e1dceb;
   --tag-green-bg: #c4fae7;
-  --badge-blue-bg: #b4d2ff;
+  --badge-blue-bg: #d4c8e8;
 
   /* Legacy aliases */
   --coral: var(--accent-orange);
   --coral-hover: var(--accent-orange-hover);
   --coral-soft: var(--accent-orange-soft);
-  --coral-gradient: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-orange-hover) 100%);
+  --coral-gradient: linear-gradient(135deg, #E93AA3 0%, #d12e8f 100%);
   --pink: var(--accent-orange);
   --lavender: var(--accent-purple);
   --green-soft: var(--accent-green-soft);
@@ -89,17 +89,17 @@
   --radius-cta: 48px;
   --radius-full: 9999px;
 
-  /* ===== Shadows ===== */
-  --shadow-xs: 0 2px 12px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 2px 16px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.08);
-  --shadow-xl: 0 8px 40px rgba(0, 0, 0, 0.08);
-  --shadow-2xl: 0 16px 48px rgba(0, 0, 0, 0.12);
-  --shadow-orange: 0 6px 20px rgba(249, 115, 22, 0.3);
-  --shadow-orange-lg: 0 8px 24px rgba(249, 115, 22, 0.35);
-  --shadow-card: var(--shadow-sm);
-  --shadow-card-hover: 0 8px 32px rgba(0, 0, 0, 0.10);
+  /* ===== Shadows — ALL REMOVED ===== */
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+  --shadow-2xl: none;
+  --shadow-orange: none;
+  --shadow-orange-lg: none;
+  --shadow-card: none;
+  --shadow-card-hover: none;
 
   /* ===== Layout ===== */
   --container: 1200px;
@@ -143,13 +143,4 @@ h1, h2, h3, h4 {
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
 button { font-family: inherit; cursor: pointer; }
-::selection { background: var(--accent-orange); color: white; }
-
-/* Reduced motion: disable all custom animations */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+::selection { background: #E93AA3; color: white; }

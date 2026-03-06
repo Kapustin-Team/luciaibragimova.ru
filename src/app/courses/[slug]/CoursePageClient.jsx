@@ -1,12 +1,7 @@
 'use client'
 import { useState, useRef } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
 import Header from '@/components/organisms/Header/Header'
 import Footer from '@/components/organisms/Footer/Footer'
-import MaskReveal from '@/components/atoms/MaskReveal'
-import FadeSlideUp from '@/components/atoms/FadeSlideUp'
-import Card3D from '@/components/atoms/Card3D'
-import ScalePop from '@/components/atoms/ScalePop'
 import GradientPlaceholder from '@/components/atoms/GradientPlaceholder'
 import s from './course.module.sass'
 
@@ -15,17 +10,17 @@ const FORMAT_LABELS = { online: 'Онлайн', offline: 'Офлайн', hybrid:
 function ModuleAccordion({ module: m, index: i }) {
   const [open, setOpen] = useState(false)
   return (
-    <FadeSlideUp delay={i * 0.05} className={`${s.moduleItem} ${open ? s.moduleItemOpen : ''}`}>
+    
       <button className={s.moduleHeader} onClick={() => setOpen(v => !v)}>
         <span className={s.moduleNum}>Модуль {String(i + 1).padStart(2, '0')}</span>
         <span className={s.moduleTitle}>{m.title}</span>
-        <motion.span className={s.moduleChevron} animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.3 }}>
+        <span>
           ▾
-        </motion.span>
+        </span>
       </button>
-      <AnimatePresence initial={false}>
+      
         {open && (
-          <motion.div
+          <div
             className={s.moduleBody}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
@@ -33,10 +28,10 @@ function ModuleAccordion({ module: m, index: i }) {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
             <p className={s.moduleDesc}>{m.description}</p>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
-    </FadeSlideUp>
+      
+    
   )
 }
 
@@ -57,17 +52,17 @@ export default function CoursePageClient({ course }) {
             <div className={s.heroLeft}>
               <div className={s.heroBadges}>
                 {c.direction?.title && (
-                  <MaskReveal><span className={s.badgeFilled}>{c.direction.title}</span></MaskReveal>
+                  <span className={s.badgeFilled}>{c.direction.title}</span>
                 )}
                 {c.format && (
-                  <MaskReveal delay={0.05}><span className={s.badgeOutline}>{FORMAT_LABELS[c.format] || c.format}</span></MaskReveal>
+                  <span className={s.badgeOutline}>{FORMAT_LABELS[c.format] || c.format}</span>
                 )}
               </div>
-              <MaskReveal delay={0.1}><h1 className={s.heroTitle}>{c.title}</h1></MaskReveal>
+              <h1 className={s.heroTitle}>{c.title}</h1>
               {c.shortDescription && (
-                <FadeSlideUp delay={0.2}><p className={s.heroDesc}>{c.shortDescription}</p></FadeSlideUp>
+                <p className={s.heroDesc}>{c.shortDescription}</p>
               )}
-              <ScalePop delay={0.3} className={s.heroButtons}>
+              
                 <a
                   href={c.getcourseLink || '#tariffs'}
                   className={s.btnPrimary}
@@ -76,7 +71,7 @@ export default function CoursePageClient({ course }) {
                   Записаться на курс
                 </a>
                 <a href="#program" className={s.btnSecondary}>Программа курса</a>
-              </ScalePop>
+              
             </div>
 
             <div className={s.heroRight}>
@@ -93,28 +88,28 @@ export default function CoursePageClient({ course }) {
         <section className={s.infoCards}>
           <div className={s.infoCardsInner}>
             {c.format && (
-              <ScalePop delay={0} className={s.infoCard}>
+              
                 <span className={s.infoLabel}>Формат</span>
                 <p className={s.infoValue}>{FORMAT_LABELS[c.format] || c.format}</p>
-              </ScalePop>
+              
             )}
             {c.duration && (
-              <ScalePop delay={0.1} className={s.infoCard}>
+              
                 <span className={s.infoLabel}>Длительность</span>
                 <p className={s.infoValue}>{c.duration}</p>
-              </ScalePop>
+              
             )}
             {c.lessonsCount && (
-              <ScalePop delay={0.2} className={s.infoCard}>
+              
                 <span className={s.infoLabel}>Занятий</span>
                 <p className={s.infoValue}>{c.lessonsCount}</p>
-              </ScalePop>
+              
             )}
             {c.participantsCount && (
-              <ScalePop delay={0.3} className={s.infoCard}>
+              
                 <span className={s.infoLabel}>Участники</span>
                 <p className={s.infoValue}>{c.participantsCount} человек</p>
-              </ScalePop>
+              
             )}
           </div>
         </section>
@@ -124,16 +119,16 @@ export default function CoursePageClient({ course }) {
           <section className={s.section}>
             <div className={s.container}>
               <div className={s.centeredHeader}>
-                <MaskReveal><h2 className={s.sectionTitle}>Для кого этот курс</h2></MaskReveal>
-                <FadeSlideUp delay={0.1}><p className={s.sectionSubtitle}>Курс разработан с учётом потребностей разных людей в разных жизненных ситуациях.</p></FadeSlideUp>
+                <h2 className={s.sectionTitle}>Для кого этот курс</h2>
+                <p className={s.sectionSubtitle}>Курс разработан с учётом потребностей разных людей в разных жизненных ситуациях.</p>
               </div>
               <div style={{ perspective: '1000px' }}>
                 <div className={s.audienceGrid}>
                   {c.targetAudience.map((a, i) => (
-                    <Card3D key={i} className={s.audienceCard} index={i}>
+                    
                       <div className={s.audienceNum}>{String(i + 1).padStart(2, '0')}</div>
                       <p>{a.text}</p>
-                    </Card3D>
+                    
                   ))}
                 </div>
               </div>
@@ -147,16 +142,16 @@ export default function CoursePageClient({ course }) {
             <div className={s.container}>
               <div className={s.featureLayout}>
                 <div className={s.featureLeft}>
-                  <MaskReveal><h2 className={s.featureTitle}>Знакомые ситуации?</h2></MaskReveal>
-                  <FadeSlideUp delay={0.1}><p className={s.featureDesc}>Если хотя бы несколько пунктов откликаются — этот курс создан именно для вас.</p></FadeSlideUp>
+                  <h2 className={s.featureTitle}>Знакомые ситуации?</h2>
+                  <p className={s.featureDesc}>Если хотя бы несколько пунктов откликаются — этот курс создан именно для вас.</p>
                 </div>
                 <div className={s.featureRight}>
                   <ul className={s.checkList}>
                     {c.pains.map((pain, i) => (
-                      <FadeSlideUp as="li" key={i} delay={i * 0.05} className={s.checkItem}>
+                      
                         <span className={s.checkBox}>✓</span>
                         <span>{pain}</span>
-                      </FadeSlideUp>
+                      
                     ))}
                   </ul>
                 </div>
@@ -174,13 +169,13 @@ export default function CoursePageClient({ course }) {
                   <GradientPlaceholder variant="warm" aspectRatio="740/478" />
                 </div>
                 <div className={s.articleText}>
-                  <MaskReveal><h2 className={s.articleTitle}>Что вы получите</h2></MaskReveal>
+                  <h2 className={s.articleTitle}>Что вы получите</h2>
                   <ul className={s.checkList}>
                     {c.results.map((r, i) => (
-                      <FadeSlideUp as="li" key={i} delay={i * 0.05} className={s.checkItem}>
+                      
                         <span className={s.checkBox}>✓</span>
                         <span>{r.text}</span>
-                      </FadeSlideUp>
+                      
                     ))}
                   </ul>
                 </div>
@@ -194,8 +189,8 @@ export default function CoursePageClient({ course }) {
           <section className={s.sectionPeach} id="program">
             <div className={s.container}>
               <div className={s.centeredHeader}>
-                <MaskReveal><h2 className={s.sectionTitle}>Программа курса</h2></MaskReveal>
-                <FadeSlideUp delay={0.1}><p className={s.sectionSubtitle}>Структурированная программа, которая ведёт вас шаг за шагом.</p></FadeSlideUp>
+                <h2 className={s.sectionTitle}>Программа курса</h2>
+                <p className={s.sectionSubtitle}>Структурированная программа, которая ведёт вас шаг за шагом.</p>
               </div>
               <div className={s.modulesList}>
                 {c.modules.map((m, i) => (
@@ -212,15 +207,15 @@ export default function CoursePageClient({ course }) {
             <div className={s.container}>
               <div className={s.articleLayoutReverse}>
                 <div className={s.articleText}>
-                  <MaskReveal><h2 className={s.articleTitle}>Методики и подходы</h2></MaskReveal>
-                  <FadeSlideUp delay={0.1}><p className={s.articleDesc}>Курс основан на проверенных психологических методиках и современных научных подходах.</p></FadeSlideUp>
-                  <FadeSlideUp delay={0.2}>
+                  <h2 className={s.articleTitle}>Методики и подходы</h2>
+                  <p className={s.articleDesc}>Курс основан на проверенных психологических методиках и современных научных подходах.</p>
+                  
                     <div className={s.methodsWrap}>
                       {c.methods.map((m, i) => (
                         <span key={i} className={s.methodTag}>{m}</span>
                       ))}
                     </div>
-                  </FadeSlideUp>
+                  
                 </div>
                 <div className={s.articleFigure}>
                   <GradientPlaceholder variant="cool" aspectRatio="740/478" />
@@ -235,13 +230,13 @@ export default function CoursePageClient({ course }) {
           <section className={s.sectionPeach} id="tariffs">
             <div className={s.container}>
               <div className={s.centeredHeader}>
-                <MaskReveal><h2 className={s.sectionTitle}>Выберите тариф</h2></MaskReveal>
-                <FadeSlideUp delay={0.1}><p className={s.sectionSubtitle}>Выберите формат участия, который подходит именно вам.</p></FadeSlideUp>
+                <h2 className={s.sectionTitle}>Выберите тариф</h2>
+                <p className={s.sectionSubtitle}>Выберите формат участия, который подходит именно вам.</p>
               </div>
               <div style={{ perspective: '1000px' }}>
                 <div className={s.tariffsGrid}>
                   {c.tariffs.map((t, i) => (
-                    <Card3D key={i} className={`${s.tariffCard} ${t.popular ? s.tariffPopular : ''}`} index={i} stagger={0.1}>
+                    
                       {t.popular && <div className={s.popularBadge}>Популярный</div>}
                       <h3 className={s.tariffName}>{t.name}</h3>
                       {t.features?.length > 0 && (
@@ -257,7 +252,7 @@ export default function CoursePageClient({ course }) {
                       <a href={c.getcourseLink || '#'} className={t.popular ? s.tariffBtnDark : s.tariffBtn}>
                         Выбрать тариф
                       </a>
-                    </Card3D>
+                    
                   ))}
                 </div>
               </div>
@@ -271,16 +266,16 @@ export default function CoursePageClient({ course }) {
             <div className={s.container}>
               <div className={s.featureLayout}>
                 <div className={s.featureLeft}>
-                  <MaskReveal><h2 className={s.featureTitle}>Важно знать</h2></MaskReveal>
-                  <FadeSlideUp delay={0.1}><p className={s.featureDesc}>Обратите внимание перед записью на курс.</p></FadeSlideUp>
+                  <h2 className={s.featureTitle}>Важно знать</h2>
+                  <p className={s.featureDesc}>Обратите внимание перед записью на курс.</p>
                 </div>
                 <div className={s.featureRight}>
                   <ul className={s.checkList}>
                     {c.limitations.map((l, i) => (
-                      <FadeSlideUp as="li" key={i} delay={i * 0.05} className={s.checkItem}>
+                      
                         <span className={s.checkBox}>!</span>
                         <span>{l}</span>
-                      </FadeSlideUp>
+                      
                     ))}
                   </ul>
                 </div>
@@ -292,18 +287,18 @@ export default function CoursePageClient({ course }) {
         {/* ─── CTA — orange bg + white card 56px radius (Figma 33:39189) ─── */}
         <section className={s.ctaSection}>
           <div className={s.ctaCard}>
-            <MaskReveal><h2 className={s.ctaTitle}>Готовы начать?</h2></MaskReveal>
-            <FadeSlideUp delay={0.1}><p className={s.ctaDesc}>Записывайтесь на курс и сделайте первый шаг к изменениям в вашей жизни</p></FadeSlideUp>
-            <ScalePop delay={0.2}>
+            <h2 className={s.ctaTitle}>Готовы начать?</h2>
+            <p className={s.ctaDesc}>Записывайтесь на курс и сделайте первый шаг к изменениям в вашей жизни</p>
+            
               <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>Записаться на курс</a>
-            </ScalePop>
+            
           </div>
         </section>
 
         {/* ─── Sticky CTA bar ─── */}
-        <AnimatePresence>
+        
           {!heroInView && (
-            <motion.div
+            <div
               className={s.stickyCta}
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
@@ -314,9 +309,9 @@ export default function CoursePageClient({ course }) {
                 <span className={s.stickyCtaTitle}>{c.title}</span>
                 <a href={c.getcourseLink || '#tariffs'} className={s.stickyCtaBtn}>Записаться</a>
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
+        
 
       </main>
       <Footer />

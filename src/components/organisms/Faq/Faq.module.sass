@@ -19,38 +19,22 @@
 .list
   display: flex
   flex-direction: column
-  gap: 8px
+  gap: 12px
 
 .item
   background: var(--bg-white)
   border: 1px solid var(--border-light)
   border-radius: var(--radius-xl)
-  cursor: pointer
   overflow: hidden
-  transition: var(--transition-fast)
-
-.itemOpen
-  border-left: 3px solid var(--coral)
-  box-shadow: var(--shadow-md)
+  padding: 24px 28px
 
 .question
-  display: flex
-  justify-content: space-between
-  align-items: center
-  padding: 20px 24px
-  gap: 16px
-  font-size: 15px
-  font-weight: 600
+  font-size: 16px
+  font-weight: 700
   color: var(--text-dark)
-
-.icon
-  font-size: 18px
-  color: var(--coral)
-  flex-shrink: 0
-  font-weight: 400
+  margin-bottom: 8px
 
 .answer
-  padding: 0 24px 20px
   font-size: 14px
   color: var(--text-muted)
   line-height: 1.8

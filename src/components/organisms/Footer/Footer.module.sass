@@ -1,37 +1,6 @@
 .footer
-  background: var(--bg-footer)
-  border-top: 1px solid var(--border-light)
-
-.related
-  padding: 28px 32px
-  border-bottom: 1px solid var(--border-light)
-
-.relatedInner
-  max-width: var(--container)
-  margin: 0 auto
-  display: flex
-  align-items: center
-  gap: 24px
-  flex-wrap: wrap
-
-.relatedTitle
-  font-size: 11px
-  font-weight: 700
-  color: var(--text-muted)
-  text-transform: uppercase
-  letter-spacing: 1.2px
-
-.relatedLinks
-  display: flex
-  gap: 16px
-  flex-wrap: wrap
-
-.relatedLink
-  font-size: 14px
-  color: var(--text-muted)
-  transition: color 0.2s
-  &:hover
-    color: var(--coral)
+  background: #400a4b
+  color: rgba(255, 255, 255, 0.7)
 
 .main
   padding: 56px 32px 48px
@@ -42,7 +11,7 @@
 
 .cols
   display: grid
-  grid-template-columns: repeat(4, 1fr) 1.5fr
+  grid-template-columns: repeat(3, 1fr) 1.5fr
   gap: 32px
   @media (max-width: 900px)
     grid-template-columns: repeat(2, 1fr)
@@ -57,17 +26,17 @@
 .colTitle
   font-size: 11px
   font-weight: 700
-  color: var(--text-muted)
+  color: rgba(255, 255, 255, 0.5)
   text-transform: uppercase
   letter-spacing: 1.2px
   margin-bottom: 8px
 
 .colLink
   font-size: 14px
-  color: var(--text-muted)
+  color: rgba(255, 255, 255, 0.65)
   transition: color 0.2s
   &:hover
-    color: var(--text-dark)
+    color: #ffffff
 
 .newsletter
   display: flex
@@ -76,12 +45,12 @@
 .newsletterTitle
   font-size: 16px
   font-weight: 600
-  color: var(--text-dark)
+  color: #ffffff
   margin-bottom: 8px
 
 .newsletterDesc
   font-size: 13px
-  color: var(--text-muted)
+  color: rgba(255, 255, 255, 0.6)
   line-height: 1.6
   margin-bottom: 16px
 
@@ -90,8 +59,8 @@
   align-items: center
   justify-content: center
   padding: 10px 24px
-  background: var(--text-dark)
-  color: var(--text-white)
+  background: #E93AA3
+  color: #ffffff
   border-radius: var(--radius-base)
   font-size: 14px
   font-weight: 600
@@ -99,24 +68,24 @@
   width: fit-content
   margin-bottom: 16px
   &:hover
-    background: var(--coral-hover)
+    background: #d12e8f
     transform: translateY(-1px)
-    box-shadow: var(--shadow-orange)
 
 .socials
   display: flex
-  gap: 12px
+  gap: 16px
 
 .socialIcon
-  font-size: 14px
-  color: var(--text-muted)
+  color: rgba(255, 255, 255, 0.5)
   transition: color 0.2s
+  display: flex
+  align-items: center
   &:hover
-    color: var(--text-dark)
+    color: #ffffff
 
 .bottom
   padding: 24px 32px
-  border-top: 1px solid var(--border-light)
+  border-top: 1px solid rgba(255, 255, 255, 0.1)
 
 .bottomInner
   max-width: var(--container)
@@ -135,18 +104,18 @@
   gap: 4px
 
 .footerLogo
-  color: var(--text-dark)
+  color: #ffffff
 
 .copyright
   font-size: 13px
-  color: var(--text-muted)
+  color: rgba(255, 255, 255, 0.5)
 
 .legal
   display: flex
   gap: 20px
   a
     font-size: 13px
-    color: var(--text-muted)
+    color: rgba(255, 255, 255, 0.5)
     transition: color 0.2s
     &:hover
-      color: var(--coral)
+      color: #E93AA3

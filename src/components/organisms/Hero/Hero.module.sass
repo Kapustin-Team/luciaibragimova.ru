@@ -1,8 +1,41 @@
 .hero
-  background: var(--bg-hero)
+  background: #400a4b
   padding: 120px 40px 0
   position: relative
   overflow: hidden
+
+/* Decorative shapes */
+.decorCircle1
+  position: absolute
+  top: -80px
+  right: -60px
+  width: 300px
+  height: 300px
+  border-radius: 50%
+  background: rgba(233, 58, 163, 0.12)
+  pointer-events: none
+
+.decorCircle2
+  position: absolute
+  bottom: 80px
+  left: -100px
+  width: 220px
+  height: 220px
+  border-radius: 50%
+  background: rgba(225, 220, 235, 0.08)
+  pointer-events: none
+
+.decorDots
+  position: absolute
+  top: 160px
+  left: 60px
+  width: 100px
+  height: 100px
+  background-image: radial-gradient(rgba(255,255,255,0.15) 2px, transparent 2px)
+  background-size: 16px 16px
+  pointer-events: none
+  @media (max-width: 768px)
+    display: none
 
 .inner
   max-width: var(--container-wide)
@@ -10,6 +43,8 @@
   display: flex
   flex-direction: column
   align-items: center
+  position: relative
+  z-index: 1
 
 .content
   text-align: center
@@ -19,7 +54,7 @@
 .title
   font-size: clamp(44px, 5.5vw, 72px)
   font-weight: 700
-  color: var(--text-dark)
+  color: #ffffff
   line-height: 1.05
   letter-spacing: -2.5px
   margin-bottom: 28px
@@ -29,7 +64,7 @@
 .desc
   font-size: 20px
   font-weight: 400
-  color: var(--text-muted)
+  color: rgba(255, 255, 255, 0.75)
   line-height: 1.55
   margin-bottom: 40px
   max-width: 540px
@@ -49,16 +84,15 @@
   align-items: center
   justify-content: center
   padding: 18px 40px
-  background: var(--text-dark)
-  color: var(--text-white)
+  background: #E93AA3
+  color: #ffffff
   font-size: 16px
   font-weight: 600
   border-radius: var(--radius-btn)
   transition: var(--transition-base)
   &:hover
-    background: var(--accent-orange)
+    background: #d12e8f
     transform: translateY(-2px)
-    box-shadow: var(--shadow-orange-lg)
 
 .btnOutline
   display: inline-flex
@@ -66,15 +100,15 @@
   justify-content: center
   padding: 18px 36px
   background: transparent
-  color: var(--text-dark)
+  color: #ffffff
   font-size: 16px
   font-weight: 600
   border-radius: var(--radius-btn)
-  border: 1.5px solid var(--border-strong)
+  border: 1.5px solid rgba(255, 255, 255, 0.3)
   transition: var(--transition-base)
   &:hover
-    border-color: var(--text-dark)
-    background: var(--overlay-dark-subtle)
+    border-color: #ffffff
+    background: rgba(255, 255, 255, 0.1)
 
 /* Three tilted feature cards */
 .cards
@@ -97,6 +131,13 @@
   border-radius: var(--radius-xl)
   overflow: hidden
   flex-shrink: 0
+  cursor: pointer
+  transition: var(--transition-base)
+  border: none
+  font-family: inherit
+  text-align: left
+  &:hover
+    transform: translateY(-4px)
   @media (max-width: 900px)
     width: calc(33.333% - 7px)
   @media (max-width: 640px)
@@ -119,17 +160,15 @@
   @media (max-width: 640px)
     transform: none
 
-/* Orange card */
-.cardOrange
-  background: var(--accent-orange)
+/* Card color variants */
+.cardPink
+  background: #E93AA3
 
-/* Blue card */
-.cardBlue
-  background: var(--accent-blue)
+.cardDark
+  background: rgba(255, 255, 255, 0.12)
 
-/* Purple card */
-.cardPurple
-  background: var(--accent-purple)
+.cardLight
+  background: #e1dceb
 
 .cardHeader
   padding: 28px 28px 20px
@@ -142,15 +181,10 @@
   display: flex
   align-items: center
   gap: 6px
+  color: #ffffff
 
-.cardTitleOrange
-  color: var(--accent-orange-dark)
-
-.cardTitleBlue
-  color: var(--accent-blue-dark)
-
-.cardTitlePurple
-  color: var(--accent-purple-dark)
+.cardLight .cardTitle
+  color: #400a4b
 
 .cardArrow
   font-size: 18px
@@ -160,60 +194,7 @@
   font-size: 14px
   line-height: 1.55
   font-weight: 400
+  color: rgba(255, 255, 255, 0.85)
 
-.cardDescOrange
-  color: var(--accent-orange-dark)
-
-.cardDescBlue
-  color: var(--accent-blue-dark)
-
-.cardDescPurple
-  color: var(--accent-purple-dark)
-
-.cardImage
-  width: 100%
-  height: 200px
-  display: flex
-  align-items: center
-  justify-content: center
-  overflow: hidden
-  position: relative
-
-.cardImageInner
-  width: 100%
-  height: 100%
-  display: flex
-  align-items: center
-  justify-content: center
-  opacity: 0.35
-
-/* Decorative content inside card images */
-.cardPattern
-  position: absolute
-  inset: 0
-  display: flex
-  flex-direction: column
-  gap: 8px
-  padding: 16px 20px
-  justify-content: center
-
-.patternRow
-  height: 12px
-  border-radius: var(--radius-xs)
-  background: var(--overlay-dark-medium)
-
-.patternRowWide
-  width: 80%
-
-.patternRowMedium
-  width: 55%
-
-.patternRowShort
-  width: 40%
-
-.patternBlock
-  height: 56px
-  border-radius: var(--radius-md)
-  background: var(--overlay-dark-light)
-  width: 100%
-  margin-top: 6px
+.cardLight .cardDesc
+  color: rgba(64, 10, 75, 0.7)
