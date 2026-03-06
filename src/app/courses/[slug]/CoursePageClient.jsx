@@ -59,7 +59,7 @@ export default function CoursePageClient({ course }) {
               {c.shortDescription && (
                 <p className={s.heroDesc}>{c.shortDescription}</p>
               )}
-              
+              <div className={s.heroButtons}>
                 <a
                   href={c.getcourseLink || '#tariffs'}
                   className={s.btnPrimary}
@@ -68,7 +68,7 @@ export default function CoursePageClient({ course }) {
                   Записаться на курс
                 </a>
                 <a href="#program" className={s.btnSecondary}>Программа курса</a>
-              
+              </div>
             </div>
 
             <div className={s.heroRight}>
@@ -85,28 +85,28 @@ export default function CoursePageClient({ course }) {
         <section className={s.infoCards}>
           <div className={s.infoCardsInner}>
             {c.format && (
-              
+              <div className={s.infoCard}>
                 <span className={s.infoLabel}>Формат</span>
                 <p className={s.infoValue}>{FORMAT_LABELS[c.format] || c.format}</p>
-              
+              </div>
             )}
             {c.duration && (
-              
+              <div className={s.infoCard}>
                 <span className={s.infoLabel}>Длительность</span>
                 <p className={s.infoValue}>{c.duration}</p>
-              
+              </div>
             )}
             {c.lessonsCount && (
-              
+              <div className={s.infoCard}>
                 <span className={s.infoLabel}>Занятий</span>
                 <p className={s.infoValue}>{c.lessonsCount}</p>
-              
+              </div>
             )}
             {c.participantsCount && (
-              
+              <div className={s.infoCard}>
                 <span className={s.infoLabel}>Участники</span>
                 <p className={s.infoValue}>{c.participantsCount} человек</p>
-              
+              </div>
             )}
           </div>
         </section>
@@ -284,9 +284,7 @@ export default function CoursePageClient({ course }) {
           <div className={s.ctaCard}>
             <h2 className={s.ctaTitle}>Готовы начать?</h2>
             <p className={s.ctaDesc}>Записывайтесь на курс и сделайте первый шаг к изменениям в вашей жизни</p>
-            
-              <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>Записаться на курс</a>
-            
+            <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>Записаться на курс</a>
           </div>
         </section>
 
