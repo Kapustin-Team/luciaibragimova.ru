@@ -1,7 +1,7 @@
 'use client'
 import s from './About.module.sass'
 
-const facts = [
+const DEFAULT_HIGHLIGHTS = [
   'Семейный психолог с 25-летним стажем',
   'Автор книг о взаимоотношениях с подростками',
   'Руководитель центра «Время первых»',
@@ -10,19 +10,24 @@ const facts = [
 ]
 
 export default function About({ data } = {}) {
+  const label = data?.label || 'О Люции'
+  const title = data?.title || 'Помогаю семьям вернуть близость и доверие'
+  const description = data?.description || 'Люция Ибрагимова — семейный психолог с 25-летним опытом. Руководитель центра для трудных подростков «Время первых». За более чем 10 лет работы с «безнадёжными» подростками — десятки возвращений в школу, снятий с учётов.'
+  const highlights = data?.highlights?.length ? data.highlights : DEFAULT_HIGHLIGHTS
+  const imageUrl = data?.image?.url || '/lucia-new.webp'
+
   return (
     <section className={s.section} id="about">
       <div className={s.inner}>
         <div className={s.imageWrap}>
-          <img src="/lucia-new.webp" alt="Люция Ибрагимова" className={s.photo} />
+          <img src={imageUrl} alt="Люция Ибрагимова" className={s.photo} />
         </div>
         <div className={s.textCol}>
-          <h2 className={s.title}>Помогаю семьям вернуть близость и доверие</h2>
-          <p className={s.desc}>
-            Люция Ибрагимова — семейный психолог с 25-летним опытом. Руководитель центра для трудных подростков «Время первых». За более чем 10 лет работы с «безнадёжными» подростками — десятки возвращений в школу, снятий с учётов.
-          </p>
+          {label && <span className={s.label}>{label}</span>}
+          <h2 className={s.title}>{title}</h2>
+          <p className={s.desc}>{description}</p>
           <ul className={s.list}>
-            {facts.map((f, i) => (
+            {highlights.map((f, i) => (
               <li key={i} className={s.listItem}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <circle cx="10" cy="10" r="10" fill="rgba(233,58,163,0.12)" />

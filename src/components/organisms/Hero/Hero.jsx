@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import s from './Hero.module.sass'
 
-const subtitles = [
+const DEFAULT_SUBTITLES = [
   'Авторские программы семейного психолога с 25-летним опытом',
   'Сотни семей уже прошли этот путь к доверию',
   'Индивидуальный подход к каждой семье',
@@ -16,10 +16,21 @@ function scrollAndFilter(detail) {
 
 export default function Hero({ data } = {}) {
   const title = data?.title || 'Путь к благополучию\nсемьи'
+  const subtitle = data?.subtitle || null
+  const description = data?.description || null
+  const ctaPrimary = data?.ctaPrimary || 'Выбрать курс'
+  const ctaPrimaryLink = data?.ctaPrimaryLink || '#courses'
+  const ctaSecondary = data?.ctaSecondary || 'Не знаю, с чего начать'
+  const ctaSecondaryLink = data?.ctaSecondaryLink || '#faq'
+  const stats = data?.stats || null
+
+  // Rotating subtitle only when no single subtitle from Strapi
+  const subtitles = subtitle ? [subtitle] : DEFAULT_SUBTITLES
   const [subtitleIdx, setSubtitleIdx] = useState(0)
   const [fade, setFade] = useState(true)
 
   useEffect(() => {
+    if (subtitles.length <= 1) return
     const interval = setInterval(() => {
       setFade(false)
       setTimeout(() => {
@@ -28,7 +39,7 @@ export default function Hero({ data } = {}) {
       }, 400)
     }, 4000)
     return () => clearInterval(interval)
-  }, [])
+  }, [subtitles.length])
 
   return (
     <section className={s.hero}>
@@ -44,12 +55,12 @@ export default function Hero({ data } = {}) {
                 <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
               ))}
             </h1>
-            <p className={`${s.desc} ${fade ? s.fadeIn : s.fadeOut}`}>
-              {subtitles[subtitleIdx]}
+            <p className={`${s.desc} ${subtitles.length > 1 ? (fade ? s.fadeIn : s.fadeOut) : ''}`}>
+              {description || subtitles[subtitleIdx]}
             </p>
             <div className={s.buttons}>
-              <a href="#courses" className={s.btnPrimary}>Выбрать курс</a>
-              <a href="#faq" className={s.btnOutline}>Не знаю, с чего начать</a>
+              <a href={ctaPrimaryLink} className={s.btnPrimary}>{ctaPrimary}</a>
+              <a href={ctaSecondaryLink} className={s.btnOutline}>{ctaSecondary}</a>
             </div>
             <div className={s.location}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

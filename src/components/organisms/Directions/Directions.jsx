@@ -1,7 +1,7 @@
 'use client'
 import s from './Directions.module.sass'
 
-const dirs = [
+const FALLBACK_DIRS = [
   { title: 'Рождение семьи', desc: 'Курсы для молодых пар, будущих мам и начинающих родителей.', count: 3, image: '/directions/dir-family.webp' },
   { title: 'Здоровое взросление', desc: 'Работа с подростками и их родителями. Курс «Вовремя» и другие.', count: 4, image: '/directions/dir-growing.webp' },
   { title: 'Развитие', desc: 'Тренинги уверенности, коммуникации и самопознания для всей семьи.', count: 4, image: '/directions/dir-development.webp' },
@@ -15,13 +15,27 @@ function handleClick(e, dirTitle) {
   window.dispatchEvent(new CustomEvent('filter-courses', { detail: { direction: dirTitle } }))
 }
 
-export default function Directions({ data, directions } = {}) {
+function normalizeDirections(strapiDirections) {
+  if (!strapiDirections?.length) return FALLBACK_DIRS
+  return strapiDirections.map(d => ({
+    title: d.title,
+    desc: d.description || d.shortDescription || '',
+    count: d.coursesCount || d.courses?.length || 0,
+    image: d.image?.url || d.image?.formats?.small?.url || null,
+  }))
+}
+
+export default function Directions({ data, directions: strapiDirections } = {}) {
+  const title = data?.title || 'Направления обучения'
+  const subtitle = data?.subtitle || 'Выберите то, что актуально для вашей семьи'
+  const dirs = normalizeDirections(strapiDirections)
+
   return (
     <section className={s.section} id="directions">
       <div className={s.inner}>
         <div className={s.header}>
-          <h2 className={s.sectionTitle}>Направления обучения</h2>
-          <p className={s.sectionSubtitle}>Выберите то, что актуально для вашей семьи</p>
+          <h2 className={s.sectionTitle}>{title}</h2>
+          <p className={s.sectionSubtitle}>{subtitle}</p>
         </div>
         <div className={s.grid}>
           {dirs.map((d) => (
@@ -31,11 +45,13 @@ export default function Directions({ data, directions } = {}) {
               className={s.card}
               onClick={(e) => handleClick(e, d.title)}
             >
-              <div className={s.cardImageWrap}>
-                <img src={d.image} alt={d.title} className={s.cardImage} loading="lazy" />
-              </div>
+              {d.image && (
+                <div className={s.cardImageWrap}>
+                  <img src={d.image} alt={d.title} className={s.cardImage} loading="lazy" />
+                </div>
+              )}
               <div className={s.cardBody}>
-                <span className={s.cardCount}>{d.count} программы</span>
+                {d.count > 0 && <span className={s.cardCount}>{d.count} программы</span>}
                 <h3 className={s.cardTitle}>{d.title}</h3>
                 <p className={s.cardDesc}>{d.desc}</p>
                 <span className={s.cardLink}>Смотреть →</span>

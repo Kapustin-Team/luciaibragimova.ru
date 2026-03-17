@@ -28,6 +28,7 @@ const BLOCK_MAP = {
   'blocks.reviews-section': Reviews,
   'blocks.cta-section': Cta,
   'blocks.faq-section': Faq,
+  'blocks.trust-block': TrustBlock,
   'blocks.consultations-section': Consultations,
   'blocks.contact-section': ContactBlock,
 }

@@ -2,6 +2,11 @@
 import s from './PinkBanner.module.sass'
 
 export default function PinkBanner({ data } = {}) {
+  const title = data?.title || 'Более <span>500 семей</span> уже прошли путь к гармонии вместе с Люцией'
+  const description = data?.description || '25 лет практики. Автор книг. Руководитель центра «Время первых».'
+  const ctaText = data?.ctaText || 'Узнать больше'
+  const ctaLink = data?.ctaLink || '#about'
+
   return (
     <section className={s.section}>
       <div className={s.decorCircle1} />
@@ -9,11 +14,9 @@ export default function PinkBanner({ data } = {}) {
       <div className={s.decorDots} />
       <div className={s.inner}>
         <div className={s.card}>
-          <h2 className={s.title}>
-            Более <span className={s.highlight}>500 семей</span> уже прошли путь к гармонии вместе с Люцией
-          </h2>
-          <p className={s.desc}>25 лет практики. Автор книг. Руководитель центра «Время первых».</p>
-          <a href="#about" className={s.btn}>Узнать больше</a>
+          <h2 className={s.title} dangerouslySetInnerHTML={{ __html: title.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>') }} />
+          <p className={s.desc}>{description}</p>
+          <a href={ctaLink} className={s.btn}>{ctaText}</a>
         </div>
       </div>
     </section>
