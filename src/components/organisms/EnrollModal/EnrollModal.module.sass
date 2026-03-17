@@ -1,0 +1,146 @@
+.overlay
+  position: fixed
+  inset: 0
+  z-index: 2000
+  background: rgba(0, 0, 0, 0.5)
+  display: flex
+  align-items: center
+  justify-content: center
+  padding: 20px
+
+.modal
+  background: #ffffff
+  border-radius: var(--radius-xl)
+  padding: 40px
+  width: 100%
+  max-width: 440px
+  position: relative
+  max-height: 90vh
+  overflow-y: auto
+  @media (max-width: 500px)
+    padding: 28px 20px
+
+.close
+  position: absolute
+  top: 16px
+  right: 16px
+  background: none
+  border: none
+  color: rgba(26, 26, 46, 0.4)
+  cursor: pointer
+  padding: 4px
+  display: flex
+  transition: color 0.2s
+  &:hover
+    color: var(--text-dark)
+
+.title
+  font-family: var(--font-heading)
+  font-size: 36px
+  color: var(--text-dark)
+  margin-bottom: 16px
+  letter-spacing: 0.5px
+
+.productTag
+  display: flex
+  align-items: center
+  gap: 10px
+  padding: 10px 16px
+  background: var(--accent-primary-soft)
+  border-radius: var(--radius-sm)
+  margin-bottom: 24px
+
+.productLabel
+  font-size: 12px
+  font-weight: 600
+  text-transform: uppercase
+  letter-spacing: 0.5px
+  color: var(--accent-primary)
+
+.productName
+  font-size: 14px
+  font-weight: 600
+  color: var(--text-dark)
+
+.form
+  display: flex
+  flex-direction: column
+  gap: 16px
+
+.field
+  display: flex
+  flex-direction: column
+  gap: 6px
+
+.label
+  font-size: 13px
+  font-weight: 600
+  color: var(--text-dark)
+
+.input, .textarea
+  padding: 12px 16px
+  border: 1px solid var(--border-default)
+  border-radius: var(--radius-sm)
+  font-family: inherit
+  font-size: 15px
+  color: var(--text-dark)
+  transition: border-color 0.2s
+  outline: none
+  &::placeholder
+    color: rgba(26, 26, 46, 0.3)
+  &:focus
+    border-color: var(--accent-primary)
+
+.textarea
+  resize: vertical
+  min-height: 80px
+
+.submit
+  padding: 16px
+  background: var(--accent-primary)
+  color: #ffffff
+  border: none
+  border-radius: var(--radius-btn)
+  font-size: 15px
+  font-weight: 600
+  cursor: pointer
+  transition: var(--transition-base)
+  margin-top: 4px
+  &:hover
+    background: var(--accent-primary-hover)
+    transform: translateY(-1px)
+
+// Success state
+.success
+  display: flex
+  flex-direction: column
+  align-items: center
+  text-align: center
+  padding: 20px 0
+
+.successIcon
+  margin-bottom: 20px
+
+.successTitle
+  font-family: var(--font-heading)
+  font-size: 32px
+  color: var(--text-dark)
+  margin-bottom: 8px
+
+.successText
+  font-size: 15px
+  color: rgba(26, 26, 46, 0.6)
+  margin-bottom: 24px
+
+.successBtn
+  padding: 12px 32px
+  background: var(--text-dark)
+  color: #ffffff
+  border: none
+  border-radius: var(--radius-btn)
+  font-size: 14px
+  font-weight: 600
+  cursor: pointer
+  transition: var(--transition-base)
+  &:hover
+    opacity: 0.9

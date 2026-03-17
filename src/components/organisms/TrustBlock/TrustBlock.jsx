@@ -18,7 +18,7 @@ const ICON_MAP = { heart: HeartIcon, users: UsersIcon, book: BookIcon, shield: S
 
 const DEFAULT_STATS = [
   { icon: 'heart', number: '25+', label: 'лет опыта помощи семьям' },
-  { icon: 'users', number: '3677+', label: 'семьям помогли восстановить отношения' },
+  { icon: 'users', number: '3677+', label: 'семьям помогли восстановить детско-родительские отношения' },
   { icon: 'book', number: '14', label: 'авторских программ' },
   { icon: 'shield', number: '10+', label: 'лет работы с трудными подростками' },
 ]

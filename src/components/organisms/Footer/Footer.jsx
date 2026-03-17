@@ -32,6 +32,7 @@ const aboutLinks = [
   { text: 'Центр «Время первых»', href: 'https://vremyapervyh.ru', external: true },
   { text: 'Отзывы', href: '/#reviews' },
   { text: 'Контакты', href: '/#faq' },
+  { text: 'Учредительные документы', href: '/' },
 ]
 
 export default function Footer({ directions, courses }) {

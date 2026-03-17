@@ -3,6 +3,7 @@ import Header from '@/components/organisms/Header/Header'
 import Footer from '@/components/organisms/Footer/Footer'
 import About from '@/components/organisms/About/About'
 import GradientPlaceholder from '@/components/atoms/GradientPlaceholder'
+import { useEnroll } from '@/components/organisms/EnrollModal/EnrollModal'
 import s from './course.module.sass'
 
 const FORMAT_LABELS = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
@@ -73,6 +74,7 @@ const ParticipantsIcon = () => (
 )
 
 export default function CoursePageClient({ course }) {
+  const { openEnroll } = useEnroll()
   const c = course
   const dirTitle = c.direction?.title || SLUG_TO_DIR[c.slug] || ''
   const theme = DIRECTION_THEMES[dirTitle] || DIRECTION_THEMES['Рождение семьи']
@@ -105,13 +107,13 @@ export default function CoursePageClient({ course }) {
                 <p className={s.heroDesc}>{c.shortDescription}</p>
               )}
               <div className={s.heroButtons}>
-                <a
-                  href={c.getcourseLink || '#tariffs'}
+                <button
+                  type="button"
                   className={s.btnPrimary}
-                  {...(c.getcourseLink ? { target: '_blank', rel: 'noopener' } : {})}
+                  onClick={() => openEnroll({ type: 'course', name: c.title })}
                 >
                   Записаться на курс
-                </a>
+                </button>
                 <a href="#program" className={s.btnSecondary}>Программа курса</a>
               </div>
             </div>
@@ -130,8 +132,8 @@ export default function CoursePageClient({ course }) {
               <div className={s.infoCard}>
                 <div className={s.infoIconWrap}><FormatIcon /></div>
                 <div>
-                  <span className={s.infoLabel}>Формат</span>
-                  <p className={s.infoValue}>{FORMAT_LABELS[c.format] || c.format}</p>
+                  <span className={s.infoLabel}>{FORMAT_LABELS[c.format] || c.format}</span>
+                  <span className={s.infoValue}>Формат</span>
                 </div>
               </div>
             )}
@@ -139,8 +141,8 @@ export default function CoursePageClient({ course }) {
               <div className={s.infoCard}>
                 <div className={s.infoIconWrap}><DurationIcon /></div>
                 <div>
-                  <span className={s.infoLabel}>Длительность</span>
-                  <p className={s.infoValue}>{c.duration}</p>
+                  <span className={s.infoLabel}>{c.duration}</span>
+                  <span className={s.infoValue}>Длительность</span>
                 </div>
               </div>
             )}
@@ -148,8 +150,8 @@ export default function CoursePageClient({ course }) {
               <div className={s.infoCard}>
                 <div className={s.infoIconWrap}><LessonsIcon /></div>
                 <div>
-                  <span className={s.infoLabel}>Занятий</span>
-                  <p className={s.infoValue}>{c.lessonsCount}</p>
+                  <span className={s.infoLabel}>{c.lessonsCount}</span>
+                  <span className={s.infoValue}>Занятий</span>
                 </div>
               </div>
             )}
@@ -157,8 +159,8 @@ export default function CoursePageClient({ course }) {
               <div className={s.infoCard}>
                 <div className={s.infoIconWrap}><ParticipantsIcon /></div>
                 <div>
-                  <span className={s.infoLabel}>Участники</span>
-                  <p className={s.infoValue}>{c.participantsCount} человек</p>
+                  <span className={s.infoLabel}>{c.participantsCount}</span>
+                  <span className={s.infoValue}>Участники</span>
                 </div>
               </div>
             )}
@@ -319,8 +321,8 @@ export default function CoursePageClient({ course }) {
           </section>
         )}
 
-        {/* ─── Отзывы-скриншоты ─── */}
-        {c.reviewScreenshots?.length > 0 && (
+        {/* ─── Отзывы ─── */}
+        {c.reviews?.length > 0 && (
           <section className={s.section}>
             <div className={s.container}>
               <div className={s.centeredHeader}>
@@ -328,14 +330,20 @@ export default function CoursePageClient({ course }) {
                 <p className={s.sectionSubtitle}>Реальные отзывы от тех, кто уже прошёл курс</p>
               </div>
               <div className={s.reviewsGrid}>
-                {c.reviewScreenshots.map((r, i) => (
+                {c.reviews.map((r, i) => (
                   <div key={i} className={s.reviewCard}>
-                    <img
-                      src={r.url || r}
-                      alt={`Отзыв ${i + 1}`}
-                      className={s.reviewImg}
-                      loading="lazy"
-                    />
+                    <div className={s.reviewStars}>
+                      {Array.from({ length: r.rating || 5 }, (_, j) => (
+                        <svg key={j} width="16" height="16" viewBox="0 0 24 24" fill="#E93AA3" stroke="none">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                      ))}
+                    </div>
+                    <p className={s.reviewText}>{r.text}</p>
+                    <div className={s.reviewAuthor}>
+                      <span className={s.reviewName}>{r.name}</span>
+                      {r.role && <span className={s.reviewRole}>{r.role}</span>}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -378,10 +386,14 @@ export default function CoursePageClient({ course }) {
           <div className={s.ctaCard}>
             <h2 className={s.ctaTitle}>Готовы начать свой путь?</h2>
             <p className={s.ctaDesc}>Запишитесь на курс «{c.title}» и сделайте первый шаг к изменениям</p>
-            <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>
+            <button
+              type="button"
+              className={s.ctaBtn}
+              onClick={() => openEnroll({ type: 'course', name: c.title })}
+            >
               Записаться на курс
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-            </a>
+            </button>
           </div>
         </section>
 

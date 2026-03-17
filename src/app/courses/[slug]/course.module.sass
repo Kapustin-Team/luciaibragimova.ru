@@ -82,7 +82,11 @@
   padding: 16px 32px
   background: var(--theme-accent, #E93AA3)
   color: #ffffff
+  border: none
+  outline: none
+  cursor: pointer
   border-radius: var(--radius-btn)
+  font-family: inherit
   font-size: 16px
   font-weight: 700
   transition: var(--transition-fast)
@@ -117,25 +121,23 @@
 
 .infoCardsInner
   max-width: var(--container)
-  margin: 40px auto 0
+  margin: 48px auto 0
   display: grid
-  grid-template-columns: repeat(4, 1fr)
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
   gap: 16px
   @media (max-width: 900px)
-    grid-template-columns: repeat(2, 1fr)
     margin-top: 32px
   @media (max-width: 500px)
     grid-template-columns: 1fr
     margin-top: 24px
 
 .infoCard
-  background: #ffffff
-  border-radius: var(--radius-xl)
-  padding: 20px 24px
+  background: rgba(48, 2, 60, 0.03)
+  border-radius: var(--radius-sm)
+  padding: 24px 28px
   display: flex
-  align-items: center
-  gap: 16px
-  border: 1px solid rgba(64, 10, 75, 0.06)
+  align-items: flex-start
+  gap: 14px
 
 .infoIconWrap
   width: 44px
@@ -153,17 +155,16 @@
   color: var(--theme-accent, #E93AA3)
 
 .infoLabel
-  font-size: 11px
-  font-weight: 600
-  color: rgba(26, 26, 46, 0.4)
-  text-transform: uppercase
-  letter-spacing: 0.5px
-
-.infoValue
+  display: block
   font-size: 16px
   font-weight: 700
-  color: #1a1a2e
-  margin-top: 2px
+  color: var(--text-dark, #1a1a2e)
+
+.infoValue
+  display: block
+  font-size: 13px
+  color: rgba(26, 26, 46, 0.45)
+  margin-top: 3px
 
 // ─── Common sections ──────────────────────────────────────────
 
@@ -627,6 +628,10 @@
   padding: 20px 48px
   background: var(--theme-accent, #E93AA3)
   color: #ffffff
+  border: none
+  outline: none
+  cursor: pointer
+  font-family: inherit
   border-radius: var(--radius-btn)
   font-size: 18px
   font-weight: 700
@@ -637,61 +642,6 @@
   @media (max-width: 768px)
     padding: 18px 36px
     font-size: 16px
-
-// ─── Info cards (format, duration, etc.) ──────────────────
-
-.infoCards
-  margin-top: -40px
-  position: relative
-  z-index: 2
-  padding: 0 80px
-  @media (max-width: 768px)
-    padding: 0 20px
-    margin-top: -24px
-
-.infoCardsInner
-  max-width: var(--container)
-  margin: 0 auto
-  display: grid
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
-  gap: 16px
-
-.infoCard
-  background: #ffffff
-  border: 1px solid var(--border-default)
-  border-radius: var(--radius-card)
-  padding: 24px
-  display: flex
-  align-items: flex-start
-  gap: 14px
-
-.infoIconWrap
-  width: 44px
-  height: 44px
-  border-radius: 12px
-  background: var(--theme-accent-soft, rgba(233, 58, 163, 0.08))
-  display: flex
-  align-items: center
-  justify-content: center
-  flex-shrink: 0
-
-.infoSvg
-  width: 22px
-  height: 22px
-  color: var(--theme-accent, #E93AA3)
-
-.infoLabel
-  font-size: 12px
-  text-transform: uppercase
-  letter-spacing: 0.5px
-  color: rgba(26, 26, 46, 0.4)
-  display: block
-  margin-bottom: 2px
-
-.infoValue
-  font-size: 16px
-  font-weight: 600
-  color: var(--text-dark)
 
 // ─── Hero badges ──────────────────
 
@@ -754,25 +704,48 @@
   &:hover
     border-color: var(--theme-accent, #E93AA3)
 
-// ─── Review screenshots ──────────────────
+// ─── Reviews ──────────────────
 
 .reviewsGrid
   display: grid
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
   gap: 20px
   @media (max-width: 768px)
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr))
+    grid-template-columns: 1fr
     gap: 16px
 
 .reviewCard
-  border-radius: var(--radius-card)
-  overflow: hidden
-  border: 1px solid var(--border-default)
+  background: #ffffff
+  border-radius: var(--radius-xl)
+  border: 1px solid var(--border-light)
+  padding: 28px
+  display: flex
+  flex-direction: column
+  gap: 16px
 
-.reviewImg
-  width: 100%
-  height: auto
-  display: block
+.reviewStars
+  display: flex
+  gap: 2px
+
+.reviewText
+  font-size: 15px
+  line-height: 1.7
+  color: var(--text-dark)
+
+.reviewAuthor
+  display: flex
+  flex-direction: column
+  gap: 2px
+  margin-top: auto
+
+.reviewName
+  font-size: 15px
+  font-weight: 700
+  color: var(--text-dark)
+
+.reviewRole
+  font-size: 13px
+  color: rgba(26, 26, 46, 0.5)
 
 // ─── Tariff name ──────────────────
 

@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import Header from '@/components/organisms/Header/Header'
 import Hero from '@/components/organisms/Hero/Hero'
 import TopBanner from '@/components/organisms/TopBanner/TopBanner'
@@ -50,7 +51,12 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
             {blocks.map((block, i) => {
               const Component = BLOCK_MAP[block.__component]
               if (!Component) return null
-              return <Component key={`${block.__component}-${i}`} data={block} {...sharedData} />
+              return (
+                <React.Fragment key={`${block.__component}-${i}`}>
+                  <Component data={block} {...sharedData} />
+                  {block.__component === 'blocks.hero' && <TrustBlock />}
+                </React.Fragment>
+              )
             })}
           </main>
         </>

@@ -1,0 +1,90 @@
+.wrapper
+  position: fixed
+  bottom: 24px
+  right: 24px
+  z-index: 1000
+  display: flex
+  flex-direction: column
+  align-items: flex-end
+  gap: 12px
+
+.panel
+  background: #ffffff
+  border-radius: var(--radius-xl)
+  padding: 20px
+  width: 260px
+  border: 1px solid var(--border-light)
+
+.panelTitle
+  font-size: 14px
+  font-weight: 600
+  color: var(--text-dark)
+  margin-bottom: 12px
+
+.links
+  display: flex
+  flex-direction: column
+  gap: 4px
+
+.link
+  display: flex
+  align-items: center
+  gap: 12px
+  padding: 8px 10px
+  border-radius: var(--radius-base)
+  transition: var(--transition-fast)
+  &:hover
+    background: var(--accent-primary-soft)
+
+.linkIcon
+  width: 36px
+  height: 36px
+  border-radius: var(--radius-full)
+  display: flex
+  align-items: center
+  justify-content: center
+  color: #ffffff
+  flex-shrink: 0
+
+.linkLabel
+  font-size: 14px
+  font-weight: 500
+  color: var(--text-dark)
+
+.fab
+  width: 56px
+  height: 56px
+  border-radius: var(--radius-full)
+  background: var(--accent-primary)
+  color: #ffffff
+  border: none
+  cursor: pointer
+  display: flex
+  align-items: center
+  justify-content: center
+  transition: var(--transition-base)
+  &:hover
+    background: var(--accent-primary-hover)
+    transform: scale(1.05)
+  &:active
+    transform: scale(0.95)
+
+.fabOpen
+  background: var(--text-dark)
+  &:hover
+    background: var(--text-dark)
+    opacity: 0.9
+
+.fabIcon
+  display: flex
+  align-items: center
+  justify-content: center
+  line-height: 0
+
+@media (max-width: 600px)
+  .wrapper
+    bottom: 16px
+    right: 16px
+  .panel
+    width: calc(100vw - 48px)
+    max-width: 260px
