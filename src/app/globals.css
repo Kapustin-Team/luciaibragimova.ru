@@ -1,9 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&display=swap');
 
 @font-face {
-  font-family: 'Cramaten';
-  src: url('/fonts/Cramaten.ttf') format('truetype');
-  font-weight: 100 900;
+  font-family: 'Bebas Neue';
+  src: url('/fonts/BebasNeue-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/BebasNeue-Book.ttf') format('truetype');
+  font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
@@ -17,7 +25,7 @@
 :root {
   /* ===== Fonts ===== */
   --font-sans: 'DM Sans', -apple-system, 'Helvetica Neue', Arial, sans-serif;
-  --font-heading: 'Cramaten', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'Bebas Neue', 'Arial Narrow', sans-serif;
 
   /* ===== Colors — Backgrounds ===== */
   --bg-body: #ffffff;
