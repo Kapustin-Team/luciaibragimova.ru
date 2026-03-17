@@ -472,6 +472,22 @@
     color: rgba(26, 26, 46, 0.6)
     line-height: 1.5
 
+.tariffIncluded
+  display: flex
+  align-items: flex-start
+  gap: 10px
+  font-size: 14px
+  color: rgba(26, 26, 46, 0.7)
+  line-height: 1.5
+
+.tariffExcluded
+  display: flex
+  align-items: flex-start
+  gap: 10px
+  font-size: 14px
+  color: rgba(26, 26, 46, 0.3)
+  line-height: 1.5
+
 .tariffCheck
   flex-shrink: 0
   width: 18px
@@ -485,6 +501,30 @@
   font-size: 9px
   font-weight: 900
   margin-top: 2px
+
+.tariffCross
+  flex-shrink: 0
+  width: 18px
+  height: 18px
+  background: rgba(26, 26, 46, 0.06)
+  color: rgba(26, 26, 46, 0.25)
+  border-radius: 4px
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  font-size: 9px
+  font-weight: 900
+  margin-top: 2px
+
+.strikethrough
+  text-decoration: line-through
+
+.tariffPrice
+  font-family: var(--font-serif)
+  font-size: 32px
+  font-weight: 700
+  color: var(--text-dark)
+  margin-bottom: 20px
 
 .tariffBtn
   display: block
@@ -586,15 +626,169 @@
 
 .ctaBtn
   display: inline-flex
-  padding: 16px 36px
+  align-items: center
+  gap: 10px
+  padding: 20px 48px
   background: #E93AA3
   color: #ffffff
   border-radius: var(--radius-btn)
-  font-size: 16px
+  font-size: 18px
   font-weight: 700
   transition: var(--transition-fast)
   &:hover
     background: #d12e8f
-    transform: translateY(-1px)
+    transform: translateY(-2px)
+  @media (max-width: 768px)
+    padding: 18px 36px
+    font-size: 16px
 
+// ─── Info cards (format, duration, etc.) ──────────────────
 
+.infoCards
+  margin-top: -40px
+  position: relative
+  z-index: 2
+  padding: 0 80px
+  @media (max-width: 768px)
+    padding: 0 20px
+    margin-top: -24px
+
+.infoCardsInner
+  max-width: var(--container)
+  margin: 0 auto
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+  gap: 16px
+
+.infoCard
+  background: #ffffff
+  border: 1px solid var(--border-default)
+  border-radius: var(--radius-card)
+  padding: 24px
+  display: flex
+  align-items: flex-start
+  gap: 14px
+
+.infoIconWrap
+  width: 44px
+  height: 44px
+  border-radius: 12px
+  background: var(--theme-accent-soft, rgba(233, 58, 163, 0.08))
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-shrink: 0
+
+.infoSvg
+  width: 22px
+  height: 22px
+  color: var(--theme-accent, #E93AA3)
+
+.infoLabel
+  font-size: 12px
+  text-transform: uppercase
+  letter-spacing: 0.5px
+  color: rgba(26, 26, 46, 0.4)
+  display: block
+  margin-bottom: 2px
+
+.infoValue
+  font-size: 16px
+  font-weight: 600
+  color: var(--text-dark)
+
+// ─── Hero badges ──────────────────
+
+.heroBadges
+  display: flex
+  gap: 8px
+  margin-bottom: 16px
+  flex-wrap: wrap
+
+.badgeFilled
+  padding: 6px 16px
+  background: var(--theme-accent, #E93AA3)
+  color: #ffffff
+  border-radius: var(--radius-full)
+  font-size: 13px
+  font-weight: 600
+
+.badgeOutline
+  padding: 6px 16px
+  border: 1px solid var(--theme-accent, #E93AA3)
+  color: var(--theme-accent, #E93AA3)
+  border-radius: var(--radius-full)
+  font-size: 13px
+  font-weight: 600
+
+// ─── Hero buttons ──────────────────
+
+.heroButtons
+  display: flex
+  gap: 12px
+  flex-wrap: wrap
+  margin-top: 32px
+
+.btnPrimary
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  padding: 18px 40px
+  background: var(--theme-accent, #E93AA3)
+  color: #ffffff
+  font-size: 16px
+  font-weight: 600
+  border-radius: var(--radius-btn)
+  transition: var(--transition-base)
+  &:hover
+    opacity: 0.9
+    transform: translateY(-2px)
+
+.btnSecondary
+  display: inline-flex
+  align-items: center
+  padding: 18px 32px
+  background: transparent
+  color: var(--text-dark)
+  font-size: 16px
+  font-weight: 500
+  border-radius: var(--radius-btn)
+  border: 1.5px solid rgba(26, 26, 46, 0.15)
+  transition: var(--transition-base)
+  &:hover
+    border-color: var(--theme-accent, #E93AA3)
+
+// ─── Review screenshots ──────────────────
+
+.reviewsGrid
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+  gap: 20px
+  @media (max-width: 768px)
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr))
+    gap: 16px
+
+.reviewCard
+  border-radius: var(--radius-card)
+  overflow: hidden
+  border: 1px solid var(--border-default)
+
+.reviewImg
+  width: 100%
+  height: auto
+  display: block
+
+// ─── Tariff name ──────────────────
+
+.tariffName
+  font-family: var(--font-serif)
+  font-size: 24px
+  font-weight: 600
+  color: var(--text-dark)
+  margin-bottom: 8px
+
+// ─── Tariff popular ──────────────────
+
+.tariffPopular
+  border-color: var(--theme-accent, #E93AA3) !important
+  position: relative

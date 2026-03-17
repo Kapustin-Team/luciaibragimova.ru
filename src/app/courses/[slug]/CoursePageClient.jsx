@@ -7,7 +7,6 @@ import s from './course.module.sass'
 
 const FORMAT_LABELS = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
 
-/* Fallback course images by slug */
 const COURSE_IMAGES = {
   'rozhdenie-molodoj-semi': '/courses/course-rozhdenie-semi.webp',
   'mama-zdes': '/courses/course-mama-zdes.webp',
@@ -23,6 +22,32 @@ const COURSE_IMAGES = {
   'anti-vygoranie': '/courses/course-anti-vygoranie.webp',
   'put': '/courses/course-put.webp',
   'igra-lvov': '/courses/course-igra-lvov.webp',
+}
+
+/* Slug → direction fallback */
+const SLUG_TO_DIR = {
+  'rozhdenie-molodoj-semi': 'Рождение семьи',
+  'mama-zdes': 'Рождение семьи',
+  'lyogkost-materinstva': 'Рождение семьи',
+  'vovremya': 'Здоровое взросление',
+  'podgotovka-ege-oge': 'Здоровое взросление',
+  'odin-za-vsekh': 'Здоровое взросление',
+  'lyogkost-adaptacii': 'Здоровое взросление',
+  'svoi-lyudi': 'Развитие',
+  'podium': 'Развитие',
+  'svet-nochi': 'Развитие',
+  'v-and-d': 'Развитие',
+  'anti-vygoranie': 'Трансформация',
+  'put': 'Трансформация',
+  'igra-lvov': 'Трансформация',
+}
+
+/* Color schemes per direction */
+const DIRECTION_THEMES = {
+  'Рождение семьи': { accent: '#E93AA3', accentSoft: 'rgba(233,58,163,0.08)', heroGradient: 'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #fbf2e2 100%)' },
+  'Здоровое взросление': { accent: '#7c5cbf', accentSoft: 'rgba(124,92,191,0.08)', heroGradient: 'linear-gradient(135deg, #f3f0f8 0%, #e8e0f4 50%, #d9b9e7 100%)' },
+  'Развитие': { accent: '#2d8a6e', accentSoft: 'rgba(45,138,110,0.08)', heroGradient: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #fbf2e2 100%)' },
+  'Трансформация': { accent: '#30023c', accentSoft: 'rgba(48,2,60,0.06)', heroGradient: 'linear-gradient(135deg, #f8f3fc 0%, #e8ddf2 50%, #d9b9e7 100%)' },
 }
 
 /* SVG icons for info cards */
@@ -49,20 +74,27 @@ const ParticipantsIcon = () => (
 
 export default function CoursePageClient({ course }) {
   const c = course
+  const dirTitle = c.direction?.title || SLUG_TO_DIR[c.slug] || ''
+  const theme = DIRECTION_THEMES[dirTitle] || DIRECTION_THEMES['Рождение семьи']
   const imgSrc = c.image?.url || c.image?.formats?.large?.url || COURSE_IMAGES[c.slug]
 
+  const themeStyle = {
+    '--theme-accent': theme.accent,
+    '--theme-accent-soft': theme.accentSoft,
+  }
+
   return (
-    <>
+    <div style={themeStyle}>
       <Header />
       <main>
 
-        {/* ─── Hero — light bg ─── */}
-        <section className={s.hero}>
+        {/* ─── Hero — direction-colored ─── */}
+        <section className={s.hero} style={{ background: theme.heroGradient }}>
           <div className={s.heroInner}>
             <div className={s.heroLeft}>
               <div className={s.heroBadges}>
-                {c.direction?.title && (
-                  <span className={s.badgeFilled}>{c.direction.title}</span>
+                {dirTitle && (
+                  <span className={s.badgeFilled}>{dirTitle}</span>
                 )}
                 {c.format && (
                   <span className={s.badgeOutline}>{FORMAT_LABELS[c.format] || c.format}</span>
@@ -93,7 +125,7 @@ export default function CoursePageClient({ course }) {
           </div>
         </section>
 
-        {/* ─── Info cards — SVG icons ─── */}
+        {/* ─── Info cards ─── */}
         <section className={s.infoCards}>
           <div className={s.infoCardsInner}>
             {c.format && (
@@ -135,7 +167,7 @@ export default function CoursePageClient({ course }) {
           </div>
         </section>
 
-        {/* ─── Для кого — flexible grid ─── */}
+        {/* ─── Для кого ─── */}
         {c.targetAudience?.length > 0 && (
           <section className={s.section}>
             <div className={s.container}>
@@ -179,7 +211,7 @@ export default function CoursePageClient({ course }) {
           </section>
         )}
 
-        {/* ─── Что получите — cards grid ─── */}
+        {/* ─── Что получите ─── */}
         {c.results?.length > 0 && (
           <section className={s.section} id="results">
             <div className={s.container}>
@@ -199,7 +231,7 @@ export default function CoursePageClient({ course }) {
           </section>
         )}
 
-        {/* ─── Программа — static (always open) ─── */}
+        {/* ─── Программа ─── */}
         {c.modules?.length > 0 && (
           <section className={s.sectionPeach} id="program">
             <div className={s.container}>
@@ -226,7 +258,7 @@ export default function CoursePageClient({ course }) {
           </section>
         )}
 
-        {/* ─── Методики — spacious layout ─── */}
+        {/* ─── Методики ─── */}
         {c.methods?.length > 0 && (
           <section className={s.section}>
             <div className={s.container}>
@@ -246,7 +278,7 @@ export default function CoursePageClient({ course }) {
           </section>
         )}
 
-        {/* ─── Тарифы — centered ─── */}
+        {/* ─── Тарифы — с зачёркнутыми пунктами ─── */}
         {c.tariffs?.length > 0 && (
           <section className={s.sectionPeach} id="tariffs">
             <div className={s.container}>
@@ -255,23 +287,57 @@ export default function CoursePageClient({ course }) {
                 <p className={s.sectionSubtitle}>Выберите формат участия, который подходит именно вам.</p>
               </div>
               <div className={s.tariffsGrid} data-count={c.tariffs.length}>
-                {c.tariffs.map((t, i) => (
-                  <div key={i} className={`${s.tariffCard} ${t.popular ? s.tariffPopular : ''}`}>
-                    {t.popular && <div className={s.popularBadge}>Популярный</div>}
-                    <h3 className={s.tariffName}>{t.name}</h3>
-                    {t.features?.length > 0 && (
+                {c.tariffs.map((t, i) => {
+                  /* Collect ALL features from the most expensive tariff to show crossed-out */
+                  const maxFeatures = c.tariffs.reduce((max, tar) => 
+                    (tar.features?.length || 0) > (max.features?.length || 0) ? tar : max
+                  , c.tariffs[0])
+                  const allFeatures = maxFeatures?.features || []
+                  const myFeatures = new Set(t.features || [])
+
+                  return (
+                    <div key={i} className={`${s.tariffCard} ${t.popular ? s.tariffPopular : ''}`}>
+                      {t.popular && <div className={s.popularBadge}>Популярный</div>}
+                      <h3 className={s.tariffName}>{t.name}</h3>
+                      {t.price && <div className={s.tariffPrice}>{t.price}</div>}
                       <ul className={s.tariffFeatures}>
-                        {t.features.map((f, j) => (
-                          <li key={j}>
-                            <span className={s.tariffCheck}>✓</span>
-                            <span>{f}</span>
+                        {allFeatures.map((f, j) => (
+                          <li key={j} className={myFeatures.has(f) ? s.tariffIncluded : s.tariffExcluded}>
+                            <span className={myFeatures.has(f) ? s.tariffCheck : s.tariffCross}>
+                              {myFeatures.has(f) ? '✓' : '✕'}
+                            </span>
+                            <span className={myFeatures.has(f) ? '' : s.strikethrough}>{f}</span>
                           </li>
                         ))}
                       </ul>
-                    )}
-                    <a href={c.getcourseLink || '#'} className={t.popular ? s.tariffBtnDark : s.tariffBtn}>
-                      Выбрать тариф
-                    </a>
+                      <a href={c.getcourseLink || '#'} className={t.popular ? s.tariffBtnDark : s.tariffBtn}>
+                        Выбрать тариф
+                      </a>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ─── Отзывы-скриншоты ─── */}
+        {c.reviewScreenshots?.length > 0 && (
+          <section className={s.section}>
+            <div className={s.container}>
+              <div className={s.centeredHeader}>
+                <h2 className={s.sectionTitle}>Отзывы участников</h2>
+                <p className={s.sectionSubtitle}>Реальные отзывы от тех, кто уже прошёл курс</p>
+              </div>
+              <div className={s.reviewsGrid}>
+                {c.reviewScreenshots.map((r, i) => (
+                  <div key={i} className={s.reviewCard}>
+                    <img
+                      src={r.url || r}
+                      alt={`Отзыв ${i + 1}`}
+                      className={s.reviewImg}
+                      loading="lazy"
+                    />
                   </div>
                 ))}
               </div>
@@ -306,20 +372,23 @@ export default function CoursePageClient({ course }) {
         {/* ─── About Lucia ─── */}
         <About />
 
-        {/* ─── CTA with SVG decor ─── */}
+        {/* ─── CTA — bigger ─── */}
         <section className={s.ctaSection}>
           <div className={s.ctaDecorCircle1} />
           <div className={s.ctaDecorCircle2} />
           <div className={s.ctaDecorDots} />
           <div className={s.ctaCard}>
-            <h2 className={s.ctaTitle}>Готовы начать?</h2>
-            <p className={s.ctaDesc}>Записывайтесь на курс и сделайте первый шаг к изменениям в вашей жизни</p>
-            <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>Записаться на курс</a>
+            <h2 className={s.ctaTitle}>Готовы начать свой путь?</h2>
+            <p className={s.ctaDesc}>Запишитесь на курс «{c.title}» и сделайте первый шаг к изменениям</p>
+            <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>
+              Записаться на курс
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </a>
           </div>
         </section>
 
       </main>
       <Footer />
-    </>
+    </div>
   )
 }
