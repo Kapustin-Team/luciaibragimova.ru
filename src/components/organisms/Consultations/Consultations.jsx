@@ -2,30 +2,37 @@
 import { FaVideo, FaUsers, FaChild, FaHeart } from 'react-icons/fa'
 import s from './Consultations.module.sass'
 
-const consultations = [
+const ICON_MAP = {
+  video: <FaVideo size={24} />,
+  users: <FaUsers size={24} />,
+  child: <FaChild size={24} />,
+  heart: <FaHeart size={24} />,
+}
+
+const FALLBACK_CONSULTATIONS = [
   {
-    icon: <FaVideo size={24} />,
+    icon: 'video',
     title: 'Индивидуальная консультация',
     desc: 'Разбор вашей ситуации один на один с Люцией. Подходит, если нужен персональный подход к конкретной проблеме.',
     duration: '60 мин',
     format: 'Онлайн / Zoom',
   },
   {
-    icon: <FaUsers size={24} />,
+    icon: 'users',
     title: 'Семейная консультация',
     desc: 'Работа с парой или всей семьёй. Помогает наладить коммуникацию и найти общий язык между поколениями.',
     duration: '90 мин',
     format: 'Онлайн / Zoom',
   },
   {
-    icon: <FaChild size={24} />,
+    icon: 'child',
     title: 'Консультация по подросткам',
     desc: 'Специализированная помощь родителям подростков. Как справиться с кризисом, агрессией и отчуждением.',
     duration: '60 мин',
     format: 'Онлайн / Zoom',
   },
   {
-    icon: <FaHeart size={24} />,
+    icon: 'heart',
     title: 'Поддерживающая сессия',
     desc: 'Короткая сессия для тех, кто уже прошёл курс и нужна точечная поддержка по конкретному вопросу.',
     duration: '30 мин',
@@ -33,18 +40,32 @@ const consultations = [
   },
 ]
 
-export default function Consultations() {
+export default function Consultations({ data, consultationTypes } = {}) {
+  const title = data?.title || 'Консультации'
+  const subtitle = data?.subtitle || 'Индивидуальный подход к вашей ситуации'
+
+  // Use Strapi consultation types if available, otherwise fallback
+  const items = consultationTypes?.length
+    ? consultationTypes.map((ct) => ({
+        icon: ct.icon || 'heart',
+        title: ct.title || ct.name,
+        desc: ct.description,
+        duration: ct.duration,
+        format: ct.format || 'Онлайн / Zoom',
+      }))
+    : FALLBACK_CONSULTATIONS
+
   return (
     <section className={s.section} id="consultations">
       <div className={s.inner}>
         <div className={s.header}>
-          <h2 className={s.title}>Консультации</h2>
-          <p className={s.subtitle}>Индивидуальный подход к вашей ситуации</p>
+          <h2 className={s.title}>{title}</h2>
+          <p className={s.subtitle}>{subtitle}</p>
         </div>
         <div className={s.grid}>
-          {consultations.map((item) => (
+          {items.map((item) => (
             <div key={item.title} className={s.card}>
-              <div className={s.iconWrap}>{item.icon}</div>
+              <div className={s.iconWrap}>{ICON_MAP[item.icon] || ICON_MAP.heart}</div>
               <h3 className={s.cardTitle}>{item.title}</h3>
               <p className={s.cardDesc}>{item.desc}</p>
               <div className={s.meta}>

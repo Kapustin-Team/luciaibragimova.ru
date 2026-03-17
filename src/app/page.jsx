@@ -1,14 +1,15 @@
-import { getHomepage, getDirections, getCourses, getFaqs, getReviews, getTeamMembers } from '@/lib/strapi'
+import { getHomepage, getDirections, getCourses, getFaqs, getReviews, getTeamMembers, getConsultationTypes } from '@/lib/strapi'
 import ClientHome from './ClientHome'
 
 export default async function Home() {
-  const [homepage, directions, courses, faqs, reviews, team] = await Promise.all([
+  const [homepage, directions, courses, faqs, reviews, team, consultationTypes] = await Promise.all([
     getHomepage(),
     getDirections(),
     getCourses(),
     getFaqs(),
     getReviews(),
     getTeamMembers(),
+    getConsultationTypes(),
   ])
 
   return (
@@ -19,6 +20,7 @@ export default async function Home() {
       faqs={faqs || []}
       reviews={reviews || []}
       team={team || []}
+      consultationTypes={consultationTypes || []}
     />
   )
 }

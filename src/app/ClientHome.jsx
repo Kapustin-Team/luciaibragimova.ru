@@ -28,11 +28,13 @@ const BLOCK_MAP = {
   'blocks.reviews-section': Reviews,
   'blocks.cta-section': Cta,
   'blocks.faq-section': Faq,
+  'blocks.consultations-section': Consultations,
+  'blocks.contact-section': ContactBlock,
 }
 
-export default function ClientHome({ homepage, directions, courses, faqs, reviews, team }) {
+export default function ClientHome({ homepage, directions, courses, faqs, reviews, team, consultationTypes }) {
   // Build shared data context for blocks
-  const sharedData = { directions, courses, faqs, reviews, team }
+  const sharedData = { directions, courses, faqs, reviews, team, consultationTypes }
 
   // If homepage has blocks from Strapi, render dynamically
   const blocks = homepage?.blocks || []

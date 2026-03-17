@@ -3,11 +3,11 @@ import { FaTelegramPlane, FaWhatsapp, FaVk } from 'react-icons/fa'
 import { FiPhone, FiMail, FiMapPin } from 'react-icons/fi'
 import styles from './ContactBlock.module.sass'
 
-const contactMethods = [
-  { icon: <FiPhone size={22} />, label: 'Телефон', value: '+7 (343) 000-00-00', href: 'tel:+73430000000' },
-  { icon: <FiMail size={22} />, label: 'Email', value: 'hello@luciaibragimova.ru', href: 'mailto:hello@luciaibragimova.ru' },
-  { icon: <FiMapPin size={22} />, label: 'Адрес', value: 'Екатеринбург', href: null },
-]
+const DEFAULT_CONTACTS = {
+  phone: '+7 (343) 000-00-00',
+  email: 'hello@luciaibragimova.ru',
+  address: 'Екатеринбург',
+}
 
 const socials = [
   { icon: <FaTelegramPlane size={20} />, label: 'Telegram', href: 'https://t.me/ibragimovapsy' },
@@ -15,13 +15,25 @@ const socials = [
   { icon: <FaVk size={20} />, label: 'ВКонтакте', href: 'https://vk.com/ibragimova___lucia' },
 ]
 
-export default function ContactBlock() {
+export default function ContactBlock({ data } = {}) {
+  const title = data?.title || 'Связаться с нами'
+  const subtitle = data?.subtitle || 'Остались вопросы? Мы всегда на связи'
+  const phone = data?.phone || DEFAULT_CONTACTS.phone
+  const email = data?.email || DEFAULT_CONTACTS.email
+  const address = data?.address || DEFAULT_CONTACTS.address
+
+  const contactMethods = [
+    { icon: <FiPhone size={22} />, label: 'Телефон', value: phone, href: `tel:${phone.replace(/[\s()-]/g, '')}` },
+    { icon: <FiMail size={22} />, label: 'Email', value: email, href: `mailto:${email}` },
+    { icon: <FiMapPin size={22} />, label: 'Адрес', value: address, href: null },
+  ]
+
   return (
     <section className={styles.section} id="contact">
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Связаться с нами</h2>
-          <p className={styles.subtitle}>Остались вопросы? Мы всегда на связи</p>
+          <h2 className={styles.title}>{title}</h2>
+          <p className={styles.subtitle}>{subtitle}</p>
         </div>
         <div className={styles.grid}>
           <div className={styles.info}>

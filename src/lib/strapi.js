@@ -36,8 +36,15 @@ async function fetchStrapi(path, params = {}) {
 
 export async function getHomepage() {
   return fetchStrapi('/homepage', {
-    'populate[0]': 'seo',
-    'populate[1]': 'blocks',
+    'populate[seo][populate]': '*',
+    'populate[blocks][populate]': '*',
+  })
+}
+
+export async function getConsultationTypes() {
+  return fetchStrapi('/consultation-types', {
+    'populate': '*',
+    'sort': 'order:asc',
   })
 }
 
