@@ -8,6 +8,20 @@ const FALLBACK_DIRS = [
   { title: 'Трансформация', desc: 'Глубинная работа с выгоранием и поиском внутренней опоры.', count: 3, image: '/directions/dir-transformation.webp' },
 ]
 
+// Local fallback images by keyword match
+const LOCAL_IMAGES = [
+  { keywords: ['рождение', 'семьи', 'семья'], image: '/directions/dir-family.webp' },
+  { keywords: ['взросление', 'подросток', 'здоровое'], image: '/directions/dir-growing.webp' },
+  { keywords: ['развитие', 'детей', 'взрослых'], image: '/directions/dir-development.webp' },
+  { keywords: ['трансформация', 'духовно', 'нравственная'], image: '/directions/dir-transformation.webp' },
+]
+
+function findLocalImage(title) {
+  const lower = (title || '').toLowerCase()
+  const match = LOCAL_IMAGES.find(entry => entry.keywords.some(kw => lower.includes(kw)))
+  return match?.image || null
+}
+
 function handleClick(e, dirTitle) {
   e.preventDefault()
   const el = document.getElementById('courses')
@@ -21,7 +35,7 @@ function normalizeDirections(strapiDirections) {
     title: d.title,
     desc: d.description || d.shortDescription || '',
     count: d.coursesCount || d.courses?.length || 0,
-    image: d.image?.url || d.image?.formats?.small?.url || null,
+    image: d.image?.url || d.image?.formats?.small?.url || findLocalImage(d.title),
   }))
 }
 
