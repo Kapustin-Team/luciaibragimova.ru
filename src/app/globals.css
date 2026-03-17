@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&display=swap');
+
+@font-face {
+  font-family: 'Cramaten';
+  src: url('/fonts/Cramaten.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 * {
   margin: 0;
@@ -9,7 +17,7 @@
 :root {
   /* ===== Fonts ===== */
   --font-sans: 'DM Sans', -apple-system, 'Helvetica Neue', Arial, sans-serif;
-  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-serif: 'Cramaten', 'DM Sans', -apple-system, sans-serif;
 
   /* ===== Colors — Backgrounds ===== */
   --bg-body: #ffffff;
