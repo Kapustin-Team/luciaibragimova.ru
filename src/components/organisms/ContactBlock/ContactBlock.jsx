@@ -30,6 +30,9 @@ export default function ContactBlock({ data } = {}) {
 
   return (
     <section className={styles.section} id="contact">
+      <div className={styles.decorCircle1} />
+      <div className={styles.decorCircle2} />
+      <div className={styles.decorDots} />
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>{title}</h2>

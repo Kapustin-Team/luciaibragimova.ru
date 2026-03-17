@@ -5,42 +5,81 @@
 // ─── Section ────────────────────────────────────────────────────────────────
 
 .section
-  background: var(--bg-card, #f3f0f8)
-  padding: 96px 0
+  background: linear-gradient(180deg, #30023c 0%, #1a0122 100%)
+  padding: 120px 0
+  position: relative
+  overflow: hidden
+  color: #ffffff
 
   +mobile
-    padding: 64px 0
+    padding: 80px 0
+
+// Decorative elements (matching site style)
+.decorCircle1
+  position: absolute
+  width: 500px
+  height: 500px
+  border-radius: 50%
+  background: radial-gradient(circle, rgba(233, 58, 163, 0.15) 0%, transparent 70%)
+  top: -200px
+  right: -150px
+  pointer-events: none
+
+.decorCircle2
+  position: absolute
+  width: 350px
+  height: 350px
+  border-radius: 50%
+  background: radial-gradient(circle, rgba(217, 185, 231, 0.1) 0%, transparent 70%)
+  bottom: -100px
+  left: -100px
+  pointer-events: none
+
+.decorDots
+  position: absolute
+  width: 120px
+  height: 120px
+  top: 80px
+  left: 60px
+  background-image: radial-gradient(rgba(217, 185, 231, 0.2) 2px, transparent 2px)
+  background-size: 16px 16px
+  pointer-events: none
 
 .container
   max-width: 1200px
   margin: 0 auto
   padding: 0 40px
+  position: relative
+  z-index: 1
 
   +mobile
-    padding: 0 20px
+    padding: 0 16px
 
 // ─── Header ─────────────────────────────────────────────────────────────────
 
 .header
-  margin-bottom: 56px
+  margin-bottom: 64px
   text-align: center
 
   +mobile
-    margin-bottom: 40px
+    margin-bottom: 48px
 
 .title
   font-size: clamp(54px, 6vw, 66px)
   font-weight: 400
-  color: var(--text-primary, #1a1523)
-  margin: 0 0 12px
-  line-height: 1.2
+  color: #ffffff
+  margin: 0 0 16px
+  line-height: 1.1
   letter-spacing: -0.02em
 
 .subtitle
   font-size: 18px
-  color: var(--text-secondary, #6b6475)
+  color: rgba(255, 255, 255, 0.6)
   margin: 0
   font-weight: 400
+  max-width: 480px
+  margin-left: auto
+  margin-right: auto
 
   +mobile
     font-size: 16px
@@ -70,48 +109,56 @@
   padding: 0
   display: flex
   flex-direction: column
-  gap: 28px
+  gap: 24px
 
 .contactItem
   display: flex
-  align-items: flex-start
+  align-items: center
   gap: 16px
+  padding: 20px 24px
+  background: rgba(255, 255, 255, 0.06)
+  border: 1px solid rgba(217, 185, 231, 0.15)
+  border-radius: 16px
+  backdrop-filter: blur(8px)
+  transition: background 0.3s ease, border-color 0.3s ease
+
+  &:hover
+    background: rgba(255, 255, 255, 0.1)
+    border-color: rgba(233, 58, 163, 0.3)
 
 .contactIcon
   display: flex
   align-items: center
   justify-content: center
-  width: 44px
-  height: 44px
-  border-radius: var(--radius-sm, 10px)
-  background: var(--bg-base, #ffffff)
-  color: var(--accent-violet, #7b4fa6)
+  width: 48px
+  height: 48px
+  border-radius: 14px
+  background: linear-gradient(135deg, rgba(233, 58, 163, 0.2) 0%, rgba(217, 185, 231, 0.15) 100%)
+  color: #E93AA3
   flex-shrink: 0
-  border: 1px solid var(--border-default, #e2dce8)
 
 .contactText
   display: flex
   flex-direction: column
-  gap: 3px
-  padding-top: 2px
+  gap: 4px
 
 .contactLabel
-  font-size: 12px
+  font-size: 11px
   font-weight: 600
   text-transform: uppercase
-  letter-spacing: 0.08em
-  color: var(--text-tertiary, #9c94a8)
+  letter-spacing: 0.1em
+  color: rgba(217, 185, 231, 0.6)
 
 .contactValue
   font-size: 16px
   font-weight: 500
-  color: var(--text-primary, #1a1523)
+  color: #ffffff
   text-decoration: none
   transition: color 0.2s ease
 
   &:is(a)
     &:hover
-      color: var(--accent-orange, #E93AA3)
+      color: #E93AA3
 
 // ─── Socials ────────────────────────────────────────────────────────────────
 
@@ -121,11 +168,11 @@
   gap: 16px
 
 .socialsLabel
-  font-size: 12px
+  font-size: 11px
   font-weight: 600
   text-transform: uppercase
-  letter-spacing: 0.08em
-  color: var(--text-tertiary, #9c94a8)
+  letter-spacing: 0.1em
+  color: rgba(217, 185, 231, 0.5)
   margin: 0
 
 .socialsRow
@@ -136,31 +183,33 @@
   display: flex
   align-items: center
   justify-content: center
-  width: 44px
-  height: 44px
-  border-radius: var(--radius-sm, 10px)
-  background: var(--bg-base, #ffffff)
-  color: var(--text-secondary, #6b6475)
+  width: 48px
+  height: 48px
+  border-radius: 14px
+  background: rgba(255, 255, 255, 0.06)
+  color: rgba(255, 255, 255, 0.7)
   text-decoration: none
-  border: 1px solid var(--border-default, #e2dce8)
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease
+  border: 1px solid rgba(217, 185, 231, 0.15)
+  transition: all 0.3s ease
 
   &:hover
-    color: var(--accent-orange, #E93AA3)
-    background: var(--bg-base, #ffffff)
-    border-color: var(--accent-orange, #E93AA3)
+    color: #E93AA3
+    background: rgba(233, 58, 163, 0.1)
+    border-color: rgba(233, 58, 163, 0.3)
+    transform: translateY(-2px)
 
 // ─── Right: form ────────────────────────────────────────────────────────────
 
 .formWrap
-  background: var(--bg-base, #ffffff)
-  border-radius: var(--radius-card, 20px)
-  padding: 40px
-  border: 1px solid var(--border-default, #e2dce8)
+  background: rgba(255, 255, 255, 0.05)
+  border-radius: 24px
+  padding: 44px
+  border: 1px solid rgba(217, 185, 231, 0.15)
+  backdrop-filter: blur(12px)
 
   +mobile
     padding: 28px 20px
-    border-radius: var(--radius-sm, 12px)
+    border-radius: 16px
 
 .form
   display: flex
@@ -173,29 +222,29 @@
   gap: 8px
 
 .formLabel
-  font-size: 14px
+  font-size: 13px
   font-weight: 500
-  color: var(--text-secondary, #6b6475)
+  color: rgba(217, 185, 231, 0.7)
 
 .input
   width: 100%
-  padding: 12px 16px
-  border: 1px solid var(--border-default, #e2dce8)
-  border-radius: var(--radius-sm, 10px)
+  padding: 14px 18px
+  border: 1px solid rgba(217, 185, 231, 0.15)
+  border-radius: 12px
   font-size: 15px
-  color: var(--text-primary, #1a1523)
-  background: var(--bg-input, #faf9fc)
+  color: #ffffff
+  background: rgba(255, 255, 255, 0.05)
   outline: none
-  transition: border-color 0.2s ease
+  transition: border-color 0.3s ease, background 0.3s ease
   font-family: inherit
   box-sizing: border-box
 
   &::placeholder
-    color: var(--text-placeholder, #b8b0c2)
+    color: rgba(217, 185, 231, 0.35)
 
   &:focus
-    border-color: var(--accent-violet, #7b4fa6)
-    background: #fff
+    border-color: rgba(233, 58, 163, 0.5)
+    background: rgba(255, 255, 255, 0.08)
 
 .textarea
   @extend .input
@@ -204,22 +253,24 @@
   line-height: 1.5
 
 .submitBtn
-  margin-top: 4px
+  margin-top: 8px
   align-self: flex-start
-  padding: 14px 32px
-  background: var(--accent-orange, #E93AA3)
+  padding: 16px 40px
+  background: linear-gradient(135deg, #E93AA3 0%, #d12e8f 100%)
   color: #ffffff
-  font-size: 15px
+  font-size: 16px
   font-weight: 600
   border: none
-  border-radius: var(--radius-btn, 50px)
+  border-radius: 50px
   cursor: pointer
   font-family: inherit
-  transition: opacity 0.2s ease, transform 0.15s ease
+  transition: all 0.3s ease
   letter-spacing: 0.01em
+  box-shadow: 0 4px 24px rgba(233, 58, 163, 0.3)
 
   &:hover
-    opacity: 0.88
+    transform: translateY(-2px)
+    box-shadow: 0 8px 32px rgba(233, 58, 163, 0.4)
 
   &:active
     transform: scale(0.98)
