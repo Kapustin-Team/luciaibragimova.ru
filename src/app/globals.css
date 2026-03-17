@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&display=swap');
-
 @font-face {
   font-family: 'Cramaten';
   src: url('/fonts/Cramaten.ttf') format('truetype');
-  font-weight: 400;
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
@@ -16,8 +14,8 @@
 
 :root {
   /* ===== Fonts ===== */
-  --font-sans: 'DM Sans', -apple-system, 'Helvetica Neue', Arial, sans-serif;
-  --font-serif: 'Cramaten', 'DM Sans', -apple-system, sans-serif;
+  --font-sans: 'Cramaten', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Cramaten', -apple-system, 'Helvetica Neue', Arial, sans-serif;
 
   /* ===== Colors — Backgrounds ===== */
   --bg-body: #ffffff;
@@ -141,6 +139,8 @@ body {
   background: var(--bg-body);
   color: var(--text-dark);
   font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 17px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -148,7 +148,7 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 a { color: inherit; text-decoration: none; }
