@@ -41,8 +41,8 @@
 .badgeFilled
   display: inline-flex
   padding: 6px 16px
-  background: rgba(233, 58, 163, 0.12)
-  color: #E93AA3
+  background: var(--theme-accent-soft, rgba(233, 58, 163, 0.12))
+  color: var(--theme-accent, #E93AA3)
   border-radius: var(--radius-full)
   font-size: 14px
   font-weight: 600
@@ -80,7 +80,7 @@
   align-items: center
   justify-content: center
   padding: 16px 32px
-  background: #E93AA3
+  background: var(--theme-accent, #E93AA3)
   color: #ffffff
   border-radius: var(--radius-btn)
   font-size: 16px
@@ -145,7 +145,7 @@
   width: 44px
   height: 44px
   border-radius: 12px
-  background: rgba(233, 58, 163, 0.1)
+  background: var(--theme-accent-soft, rgba(233, 58, 163, 0.1))
   display: flex
   align-items: center
   justify-content: center
@@ -154,7 +154,7 @@
 .infoSvg
   width: 22px
   height: 22px
-  color: #E93AA3
+  color: var(--theme-accent, #E93AA3)
 
 .infoLabel
   font-size: 11px
@@ -260,7 +260,7 @@
   flex-shrink: 0
   width: 24px
   height: 24px
-  background: #E93AA3
+  background: var(--theme-accent, #E93AA3)
   color: #ffffff
   border-radius: 6px
   display: inline-flex
@@ -295,7 +295,7 @@
 .audienceNum
   font-size: 32px
   font-weight: 800
-  color: #E93AA3
+  color: var(--theme-accent, #E93AA3)
   opacity: 0.25
   margin-bottom: 12px
   line-height: 1
@@ -323,7 +323,7 @@
 
 .resultIcon
   font-size: 20px
-  color: #E93AA3
+  color: var(--theme-accent, #E93AA3)
   flex-shrink: 0
   margin-top: 2px
 
@@ -340,7 +340,7 @@
   background: #ffffff
   border-radius: var(--radius-xl)
   overflow: hidden
-  border-left: 4px solid #E93AA3
+  border-left: 4px solid var(--theme-accent, #E93AA3)
 
 .moduleHeader
   display: flex
@@ -355,7 +355,7 @@
 .moduleNum
   font-size: 12px
   font-weight: 700
-  color: #E93AA3
+  color: var(--theme-accent, #E93AA3)
   letter-spacing: 0.5px
   flex-shrink: 0
   min-width: 72px
@@ -435,14 +435,14 @@
     width: 100%
 
 .tariffPopular
-  border: 2px solid #E93AA3
+  border: 2px solid var(--theme-accent, #E93AA3)
 
 .popularBadge
   position: absolute
   top: -14px
   left: 50%
   transform: translateX(-50%)
-  background: #E93AA3
+  background: var(--theme-accent, #E93AA3)
   color: #ffffff
   padding: 4px 16px
   border-radius: var(--radius-xl)
@@ -492,8 +492,8 @@
   flex-shrink: 0
   width: 18px
   height: 18px
-  background: rgba(233, 58, 163, 0.12)
-  color: #E93AA3
+  background: var(--theme-accent-soft, rgba(233, 58, 163, 0.12))
+  color: var(--theme-accent, #E93AA3)
   border-radius: 4px
   display: inline-flex
   align-items: center
@@ -537,13 +537,13 @@
   text-align: center
   transition: var(--transition-fast)
   &:hover
-    border-color: #E93AA3
-    color: #E93AA3
+    border-color: var(--theme-accent, #E93AA3)
+    color: var(--theme-accent, #E93AA3)
 
 .tariffBtnDark
   display: block
   padding: 14px 24px
-  background: #E93AA3
+  background: var(--theme-accent, #E93AA3)
   color: #ffffff
   border-radius: var(--radius-btn)
   font-size: 14px
@@ -574,7 +574,7 @@
   width: 240px
   height: 240px
   border-radius: 50%
-  background: rgba(233, 58, 163, 0.1)
+  background: var(--theme-accent-soft, rgba(233, 58, 163, 0.1))
   pointer-events: none
 
 .ctaDecorCircle2
@@ -629,7 +629,7 @@
   align-items: center
   gap: 10px
   padding: 20px 48px
-  background: #E93AA3
+  background: var(--theme-accent, #E93AA3)
   color: #ffffff
   border-radius: var(--radius-btn)
   font-size: 18px
