@@ -13,9 +13,9 @@
 
 .hero
   background: #f8f6fb
-  padding: 140px 80px 80px
+  padding: 140px 80px 60px
   @media (max-width: 768px)
-    padding: 100px 20px 48px
+    padding: 100px 16px 40px
 
 .heroInner
   max-width: var(--container)
@@ -57,7 +57,7 @@
   font-weight: 500
 
 .heroTitle
-  font-size: clamp(36px, 4.5vw, 58px)
+  font-size: clamp(54px, 6.75vw, 87px)
   font-weight: 700
   color: #1a1a2e
   line-height: 1.1
@@ -113,24 +113,20 @@
   border-radius: var(--radius-card)
   object-fit: cover
 
-// ─── Info cards — stylish pills with icons ──────────────────────
-
-.infoCards
-  background: #f8f6fb
-  padding: 0 80px 80px
-  @media (max-width: 768px)
-    padding: 0 20px 48px
+// ─── Info cards — inside hero ──────────────────────
 
 .infoCardsInner
   max-width: var(--container)
-  margin: 0 auto
+  margin: 40px auto 0
   display: grid
   grid-template-columns: repeat(4, 1fr)
   gap: 16px
   @media (max-width: 900px)
     grid-template-columns: repeat(2, 1fr)
+    margin-top: 32px
   @media (max-width: 500px)
     grid-template-columns: 1fr
+    margin-top: 24px
 
 .infoCard
   background: #ffffff
@@ -193,7 +189,7 @@
   margin: 0 auto 48px
 
 .sectionTitle
-  font-size: clamp(36px, 3.5vw, 40px)
+  font-size: clamp(54px, 5.25vw, 60px)
   font-weight: 700
   color: #1a1a2e
   letter-spacing: -1px
@@ -225,7 +221,7 @@
     position: static
 
 .featureTitle
-  font-size: clamp(30px, 3vw, 36px)
+  font-size: clamp(45px, 4.5vw, 54px)
   font-weight: 700
   color: #1a1a2e
   letter-spacing: -1px
@@ -611,7 +607,7 @@
     padding: 40px 24px
 
 .ctaTitle
-  font-size: clamp(36px, 3.5vw, 40px)
+  font-size: clamp(54px, 5.25vw, 60px)
   font-weight: 700
   color: #1a1a2e
   letter-spacing: -1px

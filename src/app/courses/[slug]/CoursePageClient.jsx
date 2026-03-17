@@ -123,10 +123,8 @@ export default function CoursePageClient({ course }) {
               )}
             </div>
           </div>
-        </section>
 
-        {/* ─── Info cards ─── */}
-        <section className={s.infoCards}>
+          {/* ─── Info cards (inside hero) ─── */}
           <div className={s.infoCardsInner}>
             {c.format && (
               <div className={s.infoCard}>
