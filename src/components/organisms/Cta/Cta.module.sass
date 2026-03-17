@@ -66,6 +66,13 @@
   color: var(--text-muted)
   margin-bottom: 36px
 
+.buttons
+  display: flex
+  gap: 16px
+  justify-content: center
+  align-items: center
+  flex-wrap: wrap
+
 .btnPrimary
   display: inline-flex
   padding: 18px 44px
@@ -77,4 +84,19 @@
   transition: var(--transition-base)
   &:hover
     background: #d12e8f
+    transform: translateY(-2px)
+
+.btnOutline
+  display: inline-flex
+  padding: 18px 44px
+  background: transparent
+  color: #6B21A8
+  border: 2px solid #6B21A8
+  border-radius: var(--radius-btn)
+  font-size: 16px
+  font-weight: 600
+  transition: var(--transition-base)
+  &:hover
+    background: #6B21A8
+    color: #ffffff
     transform: translateY(-2px)
