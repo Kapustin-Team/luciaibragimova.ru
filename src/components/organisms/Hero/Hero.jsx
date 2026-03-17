@@ -63,7 +63,7 @@ export default function Hero({ data } = {}) {
           <div className={s.videoWrap}>
             <iframe
               className={s.video}
-              src="https://kinescope.io/embed/"
+              src="https://kinescope.io/embed/o1ZLJ9qRpjsF3acNkduExU"
               allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; web-share"
               frameBorder="0"
               allowFullScreen
