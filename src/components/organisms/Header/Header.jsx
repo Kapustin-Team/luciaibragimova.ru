@@ -14,7 +14,9 @@ const navLinks = [
   { label: 'Отзывы', id: 'reviews' },
 ]
 
-export default function Header() {
+export default function Header({ data } = {}) {
+  const brandName = data?.brandName || 'Люция Ибрагимова'
+  const ctaLabel = data?.ctaLabel || 'Выбрать курс'
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
@@ -54,8 +56,8 @@ export default function Header() {
     <header className={`${s.header} ${scrolled ? s.scrolled : ''}`}>
       <div className={s.inner}>
         <a href="/" className={s.logo}>
-          <img src="/logo.webp" alt="Люция Ибрагимова" className={s.logoImg} />
-          <span className={s.logoText}>Люция Ибрагимова</span>
+          <img src="/logo.webp" alt={brandName} className={s.logoImg} />
+          <span className={s.logoText}>{brandName}</span>
         </a>
 
         <nav className={`${s.nav} ${menuOpen ? s.navOpen : ''}`}>
@@ -80,7 +82,7 @@ export default function Header() {
               className={s.mobileCta}
               onClick={(e) => handleNavClick(e, 'courses')}
             >
-              Выбрать курс
+              {ctaLabel}
             </a>
           </div>
         </nav>
@@ -95,7 +97,7 @@ export default function Header() {
             className={s.viewPlans}
             onClick={(e) => handleNavClick(e, 'courses')}
           >
-            Выбрать курс
+            {ctaLabel}
           </a>
           <button
             className={`${s.burger} ${menuOpen ? s.burgerOpen : ''}`}

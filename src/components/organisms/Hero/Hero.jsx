@@ -23,6 +23,12 @@ export default function Hero({ data } = {}) {
   const ctaSecondary = data?.ctaSecondary || 'Не знаю, с чего начать'
   const ctaSecondaryLink = data?.ctaSecondaryLink || '#faq'
   const stats = data?.stats || null
+  const location = data?.location || 'Екатеринбург · онлайн по всему миру'
+  const cards = data?.cards || [
+    { title: 'Онлайн-курсы', desc: 'Авторские программы по семейной психологии. Смотрите в удобном темпе.', action: { type: 'filter', detail: { format: 'Онлайн' } }, style: 'cardPink', position: 'cardLeft' },
+    { title: 'Консультации', desc: 'Индивидуальная работа с психологом. Онлайн или очно в Екатеринбурге.', action: { type: 'link', href: '#faq' }, style: 'cardDark', position: 'cardCenter' },
+    { title: 'Живые тренинги', desc: 'Интенсивы и группы для глубокой трансформации. Для всей семьи.', action: { type: 'filter', detail: { format: 'Офлайн' } }, style: 'cardLight', position: 'cardRight' },
+  ]
 
   // Rotating subtitle only when no single subtitle from Strapi
   const subtitles = subtitle ? [subtitle] : DEFAULT_SUBTITLES
@@ -67,7 +73,7 @@ export default function Hero({ data } = {}) {
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                 <circle cx="12" cy="10" r="3"/>
               </svg>
-              <span>Екатеринбург · онлайн по всему миру</span>
+              <span>{location}</span>
             </div>
           </div>
 
@@ -83,49 +89,36 @@ export default function Hero({ data } = {}) {
         </div>
 
         <div className={s.cards}>
-          <button
-            type="button"
-            className={`${s.card} ${s.cardPink} ${s.cardLeft}`}
-            onClick={() => scrollAndFilter({ format: 'Онлайн' })}
-          >
-            <div className={s.cardHeader}>
-              <div className={s.cardTitle}>
-                Онлайн-курсы <span className={s.cardArrow}>›</span>
-              </div>
-              <p className={s.cardDesc}>
-                Авторские программы по семейной психологии. Смотрите в удобном темпе.
-              </p>
-            </div>
-          </button>
-
-          <a
-            href="#faq"
-            className={`${s.card} ${s.cardDark} ${s.cardCenter}`}
-          >
-            <div className={s.cardHeader}>
-              <div className={s.cardTitle}>
-                Консультации <span className={s.cardArrow}>›</span>
-              </div>
-              <p className={s.cardDesc}>
-                Индивидуальная работа с психологом. Онлайн или очно в Екатеринбурге.
-              </p>
-            </div>
-          </a>
-
-          <button
-            type="button"
-            className={`${s.card} ${s.cardLight} ${s.cardRight}`}
-            onClick={() => scrollAndFilter({ format: 'Офлайн' })}
-          >
-            <div className={s.cardHeader}>
-              <div className={s.cardTitle}>
-                Живые тренинги <span className={s.cardArrow}>›</span>
-              </div>
-              <p className={s.cardDesc}>
-                Интенсивы и группы для глубокой трансформации. Для всей семьи.
-              </p>
-            </div>
-          </button>
+          {cards.map((card, i) => {
+            const cls = `${s.card} ${s[card.style] || ''} ${s[card.position] || ''}`
+            if (card.action?.type === 'link') {
+              return (
+                <a key={i} href={card.action.href} className={cls}>
+                  <div className={s.cardHeader}>
+                    <div className={s.cardTitle}>
+                      {card.title} <span className={s.cardArrow}>›</span>
+                    </div>
+                    <p className={s.cardDesc}>{card.desc}</p>
+                  </div>
+                </a>
+              )
+            }
+            return (
+              <button
+                key={i}
+                type="button"
+                className={cls}
+                onClick={() => card.action?.detail && scrollAndFilter(card.action.detail)}
+              >
+                <div className={s.cardHeader}>
+                  <div className={s.cardTitle}>
+                    {card.title} <span className={s.cardArrow}>›</span>
+                  </div>
+                  <p className={s.cardDesc}>{card.desc}</p>
+                </div>
+              </button>
+            )
+          })}
         </div>
       </div>
     </section>

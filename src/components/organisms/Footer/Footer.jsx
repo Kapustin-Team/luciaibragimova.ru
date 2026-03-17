@@ -2,14 +2,6 @@
 import { FaTelegramPlane, FaVk, FaYoutube } from 'react-icons/fa'
 import s from './Footer.module.sass'
 
-const COURSE_SLUGS = {
-  'Вовремя': 'vovremya',
-  'Мама здесь': 'mama-zdes',
-  'Свои люди': 'svoi-lyudi',
-  'Анти-выгорание': 'anti-vygoranie',
-  'Все курсы': null,
-}
-
 function handleDirClick(e, dirName) {
   e.preventDefault()
   const el = document.getElementById('courses')
@@ -21,38 +13,52 @@ function handleDirClick(e, dirName) {
   }
 }
 
-const footerCols = [
-  {
-    title: 'Направления',
-    links: [
-      { text: 'Рождение семьи', href: '/#courses', dir: 'Рождение семьи' },
-      { text: 'Здоровое взросление', href: '/#courses', dir: 'Здоровое взросление' },
-      { text: 'Развитие', href: '/#courses', dir: 'Развитие' },
-      { text: 'Трансформация', href: '/#courses', dir: 'Трансформация' },
-    ],
-  },
-  {
-    title: 'Курсы',
-    links: [
-      { text: 'Вовремя', href: '/courses/vovremya' },
-      { text: 'Мама здесь', href: '/courses/mama-zdes' },
-      { text: 'Свои люди', href: '/courses/svoi-lyudi' },
-      { text: 'Анти-выгорание', href: '/courses/anti-vygoranie' },
-      { text: 'Все курсы', href: '/#courses' },
-    ],
-  },
-  {
-    title: 'О школе',
-    links: [
-      { text: 'О Люции', href: '/#about' },
-      { text: 'Центр «Время первых»', href: 'https://vremyapervyh.ru', external: true },
-      { text: 'Отзывы', href: '/#reviews' },
-      { text: 'Контакты', href: '/#faq' },
-    ],
-  },
+const FALLBACK_DIRECTIONS = [
+  { text: 'Рождение семьи', dir: 'Рождение семьи' },
+  { text: 'Здоровое взросление', dir: 'Здоровое взросление' },
+  { text: 'Развитие', dir: 'Развитие' },
+  { text: 'Трансформация', dir: 'Трансформация' },
 ]
 
-export default function Footer() {
+const FALLBACK_COURSES = [
+  { text: 'Вовремя', href: '/courses/vovremya' },
+  { text: 'Мама здесь', href: '/courses/mama-zdes' },
+  { text: 'Свои люди', href: '/courses/svoi-lyudi' },
+  { text: 'Анти-выгорание', href: '/courses/anti-vygoranie' },
+]
+
+const aboutLinks = [
+  { text: 'О Люции', href: '/#about' },
+  { text: 'Центр «Время первых»', href: 'https://vremyapervyh.ru', external: true },
+  { text: 'Отзывы', href: '/#reviews' },
+  { text: 'Контакты', href: '/#faq' },
+]
+
+export default function Footer({ directions, courses }) {
+  const dirLinks = (directions && directions.length > 0)
+    ? directions.map(d => ({
+        text: d.name || d.title,
+        dir: d.name || d.title,
+        href: '/#courses',
+      }))
+    : FALLBACK_DIRECTIONS.map(d => ({ ...d, href: '/#courses' }))
+
+  const courseLinks = (courses && courses.length > 0)
+    ? [
+        ...courses.slice(0, 4).map(c => ({
+          text: c.title || c.name,
+          href: `/courses/${c.slug}`,
+        })),
+        { text: 'Все курсы', href: '/#courses' },
+      ]
+    : [...FALLBACK_COURSES, { text: 'Все курсы', href: '/#courses' }]
+
+  const footerCols = [
+    { title: 'Направления', links: dirLinks },
+    { title: 'Курсы', links: courseLinks },
+    { title: 'О школе', links: aboutLinks },
+  ]
+
   return (
     <footer className={s.footer}>
       <div className={s.main}>

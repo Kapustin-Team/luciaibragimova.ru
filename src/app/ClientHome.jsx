@@ -75,7 +75,7 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
           </main>
         </>
       )}
-      <Footer />
+      <Footer directions={directions} courses={courses} />
     </>
   )
 }
