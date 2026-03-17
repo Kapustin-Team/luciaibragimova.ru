@@ -12,6 +12,7 @@ import Reviews from '@/components/organisms/Reviews/Reviews'
 import Cta from '@/components/organisms/Cta/Cta'
 import Faq from '@/components/organisms/Faq/Faq'
 import TrustBlock from '@/components/organisms/TrustBlock/TrustBlock'
+import Consultations from '@/components/organisms/Consultations/Consultations'
 import ContactBlock from '@/components/organisms/ContactBlock/ContactBlock'
 import Footer from '@/components/organisms/Footer/Footer'
 
@@ -66,6 +67,7 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
             <Reviews reviews={reviews} />
             <Cta />
             <Faq faqs={faqs} />
+            <Consultations />
             <ContactBlock />
           </main>
         </>

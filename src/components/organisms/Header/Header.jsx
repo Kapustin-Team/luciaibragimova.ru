@@ -8,7 +8,7 @@ import s from './Header.module.sass'
 const navLinks = [
   { label: 'О нас', id: 'about' },
   { label: 'Курсы', id: 'courses' },
-  { label: 'Консультации', id: 'faq' },
+  { label: 'Консультации', id: 'consultations' },
   { label: 'Специалисты', id: 'about' },
   { label: 'Контакты', id: 'contact' },
   { label: 'Отзывы', id: 'reviews' },
