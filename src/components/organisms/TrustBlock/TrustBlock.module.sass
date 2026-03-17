@@ -1,0 +1,81 @@
+@use 'sass:color'
+
+=mobile
+  @media (max-width: 768px)
+    @content
+
+.section
+  padding: var(--section-padding)
+  background: var(--bg-section-alt, var(--bg-card))
+  +mobile
+    padding: var(--section-padding-mobile)
+
+.inner
+  max-width: var(--container)
+  margin: 0 auto
+  padding: 0 var(--container-padding, 24px)
+
+.grid
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  gap: 24px
+  +mobile
+    grid-template-columns: repeat(2, 1fr)
+    gap: 16px
+
+.card
+  display: flex
+  flex-direction: column
+  align-items: center
+  text-align: center
+  padding: 40px 24px 36px
+  background: #ffffff
+  border: 1px solid rgba(64, 10, 75, 0.12)
+  border-radius: 16px
+  gap: 12px
+  transition: border-color 0.25s ease
+  &:hover
+    border-color: var(--accent-orange, #E93AA3)
+  +mobile
+    padding: 28px 16px 24px
+
+.iconWrap
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 52px
+  height: 52px
+  border-radius: 50%
+  background: rgba(233, 58, 163, 0.08)
+  flex-shrink: 0
+  +mobile
+    width: 44px
+    height: 44px
+
+.icon
+  width: 26px
+  height: 26px
+  color: var(--accent-orange, #E93AA3)
+  +mobile
+    width: 22px
+    height: 22px
+
+.number
+  display: block
+  font-size: clamp(40px, 5vw, 64px)
+  font-weight: 800
+  line-height: 1
+  letter-spacing: -0.02em
+  color: var(--bg-dark, #400a4b)
+  +mobile
+    font-size: clamp(36px, 8vw, 48px)
+
+.label
+  font-size: 14px
+  font-weight: 400
+  line-height: 1.5
+  color: var(--text-dark, #1a1a2e)
+  opacity: 0.7
+  margin: 0
+  +mobile
+    font-size: 13px

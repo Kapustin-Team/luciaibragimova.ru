@@ -145,7 +145,10 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
               <h3 className={s.cardTitle}>{c.title}</h3>
               {c.dir && <p className={s.cardDir}>{c.dir}</p>}
               <p className={s.cardDesc}>{c.desc}</p>
-              <span className={s.cardLink}>Подробнее →</span>
+              <div className={s.cardActions}>
+                <span className={s.cardLink}>Подробнее →</span>
+                <span className={s.cardBuy}>Купить</span>
+              </div>
             </a>
           ))}
           {filtered.length === 0 && (

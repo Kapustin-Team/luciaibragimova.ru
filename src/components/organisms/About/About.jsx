@@ -6,7 +6,7 @@ const facts = [
   'Автор книг о взаимоотношениях с подростками',
   'Руководитель центра «Время первых»',
   'Работа с подростками на учёте КДН и ПДН',
-  'Сотни восстановленных семей',
+  'Более 3 677 семей восстановили отношения',
 ]
 
 export default function About({ data } = {}) {
@@ -14,7 +14,7 @@ export default function About({ data } = {}) {
     <section className={s.section} id="about">
       <div className={s.inner}>
         <div className={s.imageWrap}>
-          <img src="/lucia.webp" alt="Люция Ибрагимова" className={s.photo} />
+          <img src="/lucia-new.webp" alt="Люция Ибрагимова" className={s.photo} />
         </div>
         <div className={s.textCol}>
           <h2 className={s.title}>Помогаю семьям вернуть близость и доверие</h2>
@@ -32,9 +32,6 @@ export default function About({ data } = {}) {
               </li>
             ))}
           </ul>
-          <a href="https://vremyapervyh.ru" target="_blank" rel="noopener noreferrer" className={s.personalBtn}>
-            Перейти на личный сайт →
-          </a>
         </div>
       </div>
     </section>

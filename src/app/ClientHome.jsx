@@ -11,6 +11,8 @@ import Courses from '@/components/organisms/Courses/Courses'
 import Reviews from '@/components/organisms/Reviews/Reviews'
 import Cta from '@/components/organisms/Cta/Cta'
 import Faq from '@/components/organisms/Faq/Faq'
+import TrustBlock from '@/components/organisms/TrustBlock/TrustBlock'
+import ContactBlock from '@/components/organisms/ContactBlock/ContactBlock'
 import Footer from '@/components/organisms/Footer/Footer'
 
 // Map Strapi block __component to React components
@@ -55,6 +57,7 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
           <Header />
           <main>
             <Hero />
+            <TrustBlock />
             <Directions directions={directions} />
             <PinkBanner />
             <About />
@@ -63,6 +66,7 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
             <Reviews reviews={reviews} />
             <Cta />
             <Faq faqs={faqs} />
+            <ContactBlock />
           </main>
         </>
       )}

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&display=swap');
 
 * {
   margin: 0;
@@ -9,20 +9,22 @@
 :root {
   /* ===== Fonts ===== */
   --font-sans: 'DM Sans', -apple-system, 'Helvetica Neue', Arial, sans-serif;
-  --font-serif: var(--font-sans);
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
 
   /* ===== Colors — Backgrounds ===== */
   --bg-body: #ffffff;
-  --bg-dark: #400a4b;
-  --bg-hero: #400a4b;
+  --bg-dark: #30023c;
+  --bg-hero: #30023c;
   --bg-section: #ffffff;
-  --bg-section-alt: #e1dceb;
-  --bg-card: #f3f0f8;
-  --bg-card-hover: #ebe7f2;
-  --bg-footer: #400a4b;
-  --bg-peach: #e1dceb;
-  --bg-peach-soft: rgba(225, 220, 235, 0.5);
+  --bg-section-alt: #fbf2e2;
+  --bg-card: #f8f3fc;
+  --bg-card-hover: #f0e8f6;
+  --bg-footer: #30023c;
+  --bg-peach: #fbf2e2;
+  --bg-peach-soft: rgba(251, 242, 226, 0.5);
   --bg-white: #ffffff;
+  --bg-lavender: #d9b9e7;
+  --bg-cream: #fbf2e2;
 
   /* ===== Colors — Text ===== */
   --text-dark: #1a1a2e;
@@ -35,16 +37,16 @@
   --accent-orange: #E93AA3;
   --accent-orange-hover: #d12e8f;
   --accent-orange-soft: rgba(233, 58, 163, 0.10);
-  --accent-orange-dark: #400a4b;
-  --accent-orange-dark-hover: #33083c;
-  --accent-orange-dark-soft: rgba(64, 10, 75, 0.10);
-  --accent-orange-dark-muted: rgba(64, 10, 75, 0.06);
+  --accent-orange-dark: #30023c;
+  --accent-orange-dark-hover: #240230;
+  --accent-orange-dark-soft: rgba(48, 2, 60, 0.10);
+  --accent-orange-dark-muted: rgba(48, 2, 60, 0.06);
 
   --accent-blue: #7c5cbf;
-  --accent-blue-dark: #400a4b;
+  --accent-blue-dark: #30023c;
 
-  --accent-purple: #400a4b;
-  --accent-purple-dark: #2a0630;
+  --accent-purple: #30023c;
+  --accent-purple-dark: #1e0128;
 
   --accent-green-soft: #d1fae5;
   --accent-green: #10b981;
@@ -55,9 +57,9 @@
   --accent-primary-soft: rgba(233, 58, 163, 0.08);
 
   /* Tag/badge colors */
-  --tag-blue-bg: #e1dceb;
+  --tag-blue-bg: #d9b9e7;
   --tag-green-bg: #c4fae7;
-  --badge-blue-bg: #d4c8e8;
+  --badge-blue-bg: #d9b9e7;
 
   /* Legacy aliases */
   --coral: var(--accent-orange);
@@ -137,7 +139,8 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
+  font-weight: 600;
 }
 
 a { color: inherit; text-decoration: none; }

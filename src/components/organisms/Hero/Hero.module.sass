@@ -1,14 +1,10 @@
 .hero
-  background: #400a4b
-  min-height: 100vh
-  min-height: 100dvh
-  padding: 120px 40px 0
+  background: var(--bg-hero)
+  padding: 140px 40px 80px
   position: relative
   overflow: hidden
-  display: flex
-  flex-direction: column
   @media (max-width: 768px)
-    padding: 100px 20px 0
+    padding: 110px 20px 48px
 
 /* Decorative shapes */
 .decorCircle1
@@ -18,7 +14,7 @@
   width: 300px
   height: 300px
   border-radius: 50%
-  background: rgba(233, 58, 163, 0.12)
+  background: rgba(217, 185, 231, 0.12)
   pointer-events: none
 
 .decorCircle2
@@ -28,7 +24,7 @@
   width: 220px
   height: 220px
   border-radius: 50%
-  background: rgba(225, 220, 235, 0.08)
+  background: rgba(251, 242, 226, 0.08)
   pointer-events: none
 
 .decorDots
@@ -46,63 +42,74 @@
 .inner
   max-width: var(--container-wide)
   margin: 0 auto
-  display: flex
-  flex-direction: column
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: 60px
   align-items: center
   position: relative
   z-index: 1
-  flex: 1
-  justify-content: center
+  @media (max-width: 900px)
+    grid-template-columns: 1fr
+    gap: 40px
+    text-align: center
 
 .content
-  text-align: center
-  max-width: 860px
-  margin-bottom: 72px
-  @media (max-width: 768px)
-    margin-bottom: 48px
+  @media (max-width: 900px)
+    order: 1
 
 .title
-  font-size: clamp(44px, 5.5vw, 72px)
-  font-weight: 700
+  font-family: var(--font-serif)
+  font-size: clamp(40px, 5vw, 64px)
+  font-weight: 600
   color: #ffffff
-  line-height: 1.05
-  letter-spacing: -2.5px
-  margin-bottom: 28px
-  @media (max-width: 768px)
-    letter-spacing: -1.5px
+  line-height: 1.1
+  letter-spacing: -1px
+  margin-bottom: 24px
 
 .desc
-  font-size: 20px
+  font-size: 19px
   font-weight: 400
   color: rgba(255, 255, 255, 0.75)
   line-height: 1.55
-  margin-bottom: 40px
-  max-width: 540px
-  margin-left: auto
-  margin-right: auto
+  margin-bottom: 36px
+  max-width: 480px
+  min-height: 58px
+  transition: opacity 0.4s ease
+  @media (max-width: 900px)
+    margin-left: auto
+    margin-right: auto
   @media (max-width: 768px)
     font-size: 17px
     margin-bottom: 28px
+    min-height: 52px
+
+.fadeIn
+  opacity: 1
+
+.fadeOut
+  opacity: 0
 
 .buttons
   display: flex
   gap: 12px
-  justify-content: center
   flex-wrap: wrap
+  margin-bottom: 24px
+  @media (max-width: 900px)
+    justify-content: center
 
 .btnPrimary
   display: inline-flex
   align-items: center
   justify-content: center
   padding: 18px 40px
-  background: #E93AA3
+  background: var(--accent-primary)
   color: #ffffff
   font-size: 16px
   font-weight: 600
   border-radius: var(--radius-btn)
   transition: var(--transition-base)
   &:hover
-    background: #d12e8f
+    background: var(--accent-primary-hover)
     transform: translateY(-2px)
 
 .btnOutline
@@ -121,102 +128,30 @@
     border-color: #ffffff
     background: rgba(255, 255, 255, 0.1)
 
-/* Three tilted feature cards — larger, overflow hidden */
-.cards
-  display: flex
-  gap: 20px
-  align-items: flex-end
-  width: 100%
-  max-width: var(--container-wide)
-  justify-content: center
-  margin-top: auto
-  @media (max-width: 900px)
-    gap: 12px
-  @media (max-width: 640px)
-    flex-direction: column
-    align-items: center
-    padding-bottom: 40px
-
-.card
-  width: calc(33.333% - 14px)
-  max-width: 440px
-  min-height: 200px
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0
-  overflow: hidden
-  flex-shrink: 0
-  cursor: pointer
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)
-  border: none
-  font-family: inherit
-  text-align: left
-  &:hover
-    transform: translateY(-12px) !important
-  @media (max-width: 900px)
-    width: calc(33.333% - 8px)
-    min-height: 160px
-  @media (max-width: 640px)
-    width: 100%
-    max-width: 360px
-    min-height: auto
-    border-radius: var(--radius-xl)
-
-.cardLeft
-  transform: rotate(-3deg) translateY(48px)
-  transform-origin: bottom center
-  @media (max-width: 640px)
-    transform: none
-
-.cardCenter
-  transform: translateY(12px)
-  z-index: 2
-  @media (max-width: 640px)
-    transform: none
-
-.cardRight
-  transform: rotate(3deg) translateY(48px)
-  transform-origin: bottom center
-  @media (max-width: 640px)
-    transform: none
-
-/* Card color variants */
-.cardPink
-  background: #E93AA3
-
-.cardDark
-  background: rgba(255, 255, 255, 0.12)
-
-.cardLight
-  background: #e1dceb
-
-.cardHeader
-  padding: 32px 28px 28px
-  @media (max-width: 768px)
-    padding: 24px 20px 20px
-
-.cardTitle
-  font-size: 24px
-  font-weight: 700
-  letter-spacing: -0.5px
-  margin-bottom: 10px
+.location
   display: flex
   align-items: center
-  gap: 6px
-  color: #ffffff
-  @media (max-width: 768px)
-    font-size: 20px
+  gap: 8px
+  color: rgba(255, 255, 255, 0.55)
+  font-size: 14px
+  svg
+    flex-shrink: 0
+    opacity: 0.6
+  @media (max-width: 900px)
+    justify-content: center
 
-.cardLight .cardTitle
-  color: #400a4b
+.videoWrap
+  border-radius: var(--radius-2xl)
+  overflow: hidden
+  aspect-ratio: 16 / 10
+  @media (max-width: 900px)
+    order: 2
+    max-width: 560px
+    margin: 0 auto
 
-.cardArrow
-  font-size: 20px
-  opacity: 0.7
-
-.cardDesc
-  font-size: 15px
-  line-height: 1.55
-  font-weight: 400
-  color: rgba(255, 255, 255, 0.85)
-
-.cardLight .cardDesc
-  color: rgba(64, 10, 75, 0.7)
+.video
+  width: 100%
+  height: 100%
+  object-fit: cover
+  border-radius: var(--radius-2xl)
+  background: rgba(255,255,255,0.06)

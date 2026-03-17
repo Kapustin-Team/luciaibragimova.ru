@@ -2,3 +2,8 @@ node_modules
 .next
 .env
 .env.local
+*.zip
+*.mp4
+logo_extracted/
+lucia-new.jpg
+public/videos/

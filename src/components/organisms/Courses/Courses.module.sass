@@ -74,7 +74,18 @@
   @media (max-width: 1024px)
     grid-template-columns: repeat(2, 1fr)
   @media (max-width: 600px)
-    grid-template-columns: 1fr
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+    display: flex
+    overflow-x: auto
+    scroll-snap-type: x mandatory
+    -webkit-overflow-scrolling: touch
+    gap: 16px
+    padding-bottom: 8px
+    &::-webkit-scrollbar
+      height: 4px
+    &::-webkit-scrollbar-thumb
+      background: var(--border-medium)
+      border-radius: 2px
 
 .card
   background: var(--bg-card)
@@ -90,6 +101,10 @@
   &:hover
     background: var(--bg-card-hover)
     transform: translateY(-3px)
+  @media (max-width: 600px)
+    min-width: 280px
+    scroll-snap-align: start
+    flex-shrink: 0
 
 .cardThumb
   border-radius: var(--radius-lg) var(--radius-lg) 0 0
@@ -160,15 +175,32 @@
   flex: 1
   margin-bottom: 16px
 
+.cardActions
+  display: flex
+  gap: 12px
+  align-items: center
+  padding-top: 14px
+  border-top: 1px solid var(--border-default)
+
 .cardLink
   font-size: 14px
   font-weight: 600
   color: var(--text-dark)
-  padding-top: 14px
-  border-top: 1px solid var(--border-default)
   transition: color 0.2s
   &:hover
     color: #E93AA3
+
+.cardBuy
+  margin-left: auto
+  padding: 8px 20px
+  background: var(--accent-primary)
+  color: #ffffff
+  border-radius: var(--radius-full)
+  font-size: 13px
+  font-weight: 600
+  transition: var(--transition-fast)
+  &:hover
+    background: var(--accent-primary-hover)
 
 .empty
   grid-column: 1 / -1
