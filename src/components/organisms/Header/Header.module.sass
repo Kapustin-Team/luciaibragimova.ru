@@ -103,6 +103,35 @@
     &:hover
       background: #d12e8f
 
+.socials
+  display: flex
+  align-items: center
+  gap: 8px
+  a
+    display: flex
+    align-items: center
+    justify-content: center
+    color: rgba(26, 26, 46, 0.5)
+    transition: color 0.2s
+    &:hover
+      color: #1a1a2e
+  @media (max-width: 768px)
+    display: none
+
+.mobileSocials
+  display: none
+  @media (max-width: 768px)
+    display: flex
+    gap: 16px
+    margin-top: 12px
+    a
+      display: flex
+      align-items: center
+      color: rgba(26, 26, 46, 0.5)
+      transition: color 0.2s
+      &:hover
+        color: #1a1a2e
+
 .right
   display: flex
   align-items: center

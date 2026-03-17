@@ -29,12 +29,15 @@
 .inner
   max-width: var(--container)
   margin: 0 auto
+  position: relative
+  z-index: 1
+
+.topRow
   display: grid
   grid-template-columns: 1fr 1fr
   gap: 72px
   align-items: center
-  position: relative
-  z-index: 1
+  margin-bottom: 48px
   @media (max-width: 900px)
     grid-template-columns: 1fr
     gap: 48px
@@ -82,7 +85,6 @@
 .quote
   border-left: 3px solid #E93AA3
   padding: 16px 0 16px 20px
-  margin-bottom: 32px
   font-size: 15px
   font-style: italic
   color: rgba(255, 255, 255, 0.6)
@@ -98,25 +100,21 @@
   font-weight: 600
 
 .features
-  display: flex
-  gap: 12px
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  gap: 16px
   margin-bottom: 36px
-  flex-wrap: wrap
   @media (max-width: 600px)
-    flex-direction: column
-    gap: 16px
+    grid-template-columns: 1fr
+    gap: 12px
 
 .featureItem
   display: flex
   align-items: flex-start
   gap: 14px
-  flex: 1
-  min-width: 140px
-  padding: 16px
+  padding: 20px 24px
   background: rgba(255, 255, 255, 0.06)
   border-radius: var(--radius-sm)
-  @media (max-width: 600px)
-    padding: 14px
 
 .featureIconWrap
   width: 44px
