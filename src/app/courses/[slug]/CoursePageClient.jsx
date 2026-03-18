@@ -297,12 +297,18 @@ export default function CoursePageClient({ course }) {
                       {t.price && <div className={s.tariffPrice}>{t.price}</div>}
                       {t.features?.length > 0 && (
                         <ul className={s.tariffFeatures}>
-                          {t.features.map((f, j) => (
-                            <li key={j} className={s.tariffIncluded}>
-                              <span className={s.tariffCheck}>✓</span>
-                              <span>{f}</span>
-                            </li>
-                          ))}
+                          {t.features.map((f, j) => {
+                            const excluded = f.startsWith('~') && f.endsWith('~')
+                            const label = excluded ? f.slice(1, -1) : f
+                            return (
+                              <li key={j} className={excluded ? s.tariffExcluded : s.tariffIncluded}>
+                                <span className={excluded ? s.tariffCross : s.tariffCheck}>
+                                  {excluded ? '✕' : '✓'}
+                                </span>
+                                <span className={excluded ? s.strikethrough : ''}>{label}</span>
+                              </li>
+                            )
+                          })}
                         </ul>
                       )}
                       <a href={c.getcourseLink || '#'} className={t.popular ? s.tariffBtnDark : s.tariffBtn}>
