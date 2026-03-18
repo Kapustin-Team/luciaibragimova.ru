@@ -19,7 +19,7 @@ export default function FeaturedCourse({ data } = {}) {
   const description = data?.description || 'Ваш подросток отдаляется, грубит, вредит себе? Курс «Вовремя» — это 5 модулей глубинной работы с отношениями. Вы научитесь слышать, понимать и восстанавливать доверие.'
   const ctaText = data?.ctaText || 'Записаться на курс'
   const ctaLink = data?.ctaLink || '/courses/vovremya'
-  const ctaSecondaryText = data?.ctaSecondaryText || 'Узнать подробнее'
+  const ctaSecondaryText = data?.ctaSecondaryText || null
   const ctaSecondaryLink = data?.ctaSecondaryLink || ctaLink
   const imageUrl = data?.image?.url || '/courses/course-vovremya.webp'
   const quote = data?.quote || '«Каждый родитель способен стать для подростка опорой, а не источником конфликта»'
@@ -80,9 +80,11 @@ export default function FeaturedCourse({ data } = {}) {
             {ctaText}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
           </a>
-          <a href={ctaSecondaryLink} className={s.btnOutline}>
-            {ctaSecondaryText}
-          </a>
+          {ctaSecondaryText && (
+            <a href={ctaSecondaryLink} className={s.btnOutline}>
+              {ctaSecondaryText}
+            </a>
+          )}
         </div>
       </div>
     </section>

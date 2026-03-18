@@ -1,8 +1,11 @@
 'use client'
+import { useState } from 'react'
 import Header from '@/components/organisms/Header/Header'
 import Footer from '@/components/organisms/Footer/Footer'
 import About from '@/components/organisms/About/About'
 import GradientPlaceholder from '@/components/atoms/GradientPlaceholder'
+import ReviewScreenshot from '@/components/atoms/ReviewScreenshot'
+import ReviewLightbox from '@/components/atoms/ReviewLightbox'
 import s from './course.module.sass'
 
 const FORMAT_LABELS = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
@@ -76,6 +79,8 @@ export default function CoursePageClient({ course }) {
   const c = course
   const dirTitle = c.direction?.title || SLUG_TO_DIR[c.slug] || ''
   const theme = DIRECTION_THEMES[dirTitle] || DIRECTION_THEMES['Рождение семьи']
+  const [reviewLightbox, setReviewLightbox] = useState(null)
+  const screenshotReviews = (c.reviews || []).filter(r => r.screenshot)
   const imgSrc = c.image?.url || c.image?.formats?.large?.url || COURSE_IMAGES[c.slug]
 
   const themeStyle = {
@@ -320,32 +325,27 @@ export default function CoursePageClient({ course }) {
         )}
 
         {/* ─── Отзывы ─── */}
-        {c.reviews?.length > 0 && (
+        {screenshotReviews.length > 0 && (
           <section className={s.section}>
             <div className={s.container}>
               <div className={s.centeredHeader}>
                 <h2 className={s.sectionTitle}>Отзывы участников</h2>
                 <p className={s.sectionSubtitle}>Реальные отзывы от тех, кто уже прошёл курс</p>
               </div>
-              <div className={s.reviewsGrid}>
-                {c.reviews.map((r, i) => (
-                  <div key={i} className={s.reviewCard}>
-                    <div className={s.reviewStars}>
-                      {Array.from({ length: r.rating || 5 }, (_, j) => (
-                        <svg key={j} width="16" height="16" viewBox="0 0 24 24" fill="#E93AA3" stroke="none">
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <p className={s.reviewText}>{r.text}</p>
-                    <div className={s.reviewAuthor}>
-                      <span className={s.reviewName}>{r.name}</span>
-                      {r.role && <span className={s.reviewRole}>{r.role}</span>}
-                    </div>
-                  </div>
+              <div className={s.reviewsMasonry}>
+                {screenshotReviews.map((r, i) => (
+                  <ReviewScreenshot key={r.id || i} review={r} index={i} onClick={setReviewLightbox} />
                 ))}
               </div>
             </div>
+            {reviewLightbox !== null && (
+              <ReviewLightbox
+                reviews={screenshotReviews}
+                currentIndex={reviewLightbox}
+                onClose={() => setReviewLightbox(null)}
+                onNavigate={setReviewLightbox}
+              />
+            )}
           </section>
         )}
 

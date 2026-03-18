@@ -25,101 +25,10 @@
   color: var(--text-muted)
   line-height: 1.5
 
-.grid
-  display: grid
-  grid-template-columns: repeat(4, 1fr)
-  gap: 16px
+.masonry
+  columns: 3
+  column-gap: 16px
   @media (max-width: 1024px)
-    grid-template-columns: repeat(2, 1fr)
+    columns: 2
   @media (max-width: 600px)
-    grid-template-columns: 1fr
-
-.card
-  border-radius: var(--radius-xl)
-  background: var(--bg-card)
-  overflow: hidden
-  display: flex
-  flex-direction: column
-  transition: transform 0.3s ease, box-shadow 0.3s ease
-  &:hover
-    transform: translateY(-4px)
-    box-shadow: var(--shadow-card-hover)
-
-/* Colored top band */
-.cardTop
-  height: 160px
-  display: flex
-  align-items: center
-  justify-content: center
-  position: relative
-  overflow: hidden
-
-.cardTop0
-  background: var(--accent-orange)
-
-.cardTop1
-  background: var(--accent-blue)
-
-.cardTop2
-  background: var(--accent-purple)
-
-.cardTop3
-  background: var(--accent-orange)
-
-/* Avatar circle in the colored top */
-.avatarCircle
-  width: 80px
-  height: 80px
-  border-radius: 50%
-  background: var(--overlay-white-medium)
-  display: flex
-  align-items: center
-  justify-content: center
-  font-size: 26px
-  font-weight: 700
-  color: var(--text-white)
-  letter-spacing: -0.5px
-  backdrop-filter: blur(4px)
-  border: 2px solid var(--overlay-white-strong)
-
-.cardBottom
-  padding: 24px
-  display: flex
-  flex-direction: column
-  flex: 1
-  gap: 10px
-
-.tag
-  font-size: 10px
-  font-weight: 700
-  letter-spacing: 1.2px
-  text-transform: uppercase
-  color: var(--text-muted)
-
-.name
-  font-size: 18px
-  font-weight: 700
-  color: var(--text-dark)
-  letter-spacing: -0.3px
-
-.role
-  font-size: 13px
-  color: var(--text-muted)
-  margin-top: -6px
-
-.text
-  font-size: 14px
-  color: var(--text-dark)
-  line-height: 1.7
-  opacity: 0.75
-  flex: 1
-
-.course
-  display: inline-block
-  font-size: 12px
-  font-weight: 600
-  color: var(--accent-orange-dark)
-  padding: 4px 12px
-  background: var(--accent-orange-soft)
-  border-radius: var(--radius-full)
-  align-self: flex-start
+    columns: 1

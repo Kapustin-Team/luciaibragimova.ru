@@ -1,0 +1,44 @@
+.card
+  border-radius: var(--radius-xl)
+  overflow: hidden
+  background: var(--bg-card)
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+  break-inside: avoid
+  margin-bottom: 16px
+  cursor: pointer
+  &:hover
+    transform: translateY(-3px)
+
+.imageWrap
+  position: relative
+  overflow: hidden
+  line-height: 0
+
+.image
+  width: 100%
+  height: auto
+  display: block
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0
+
+.caption
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 8px
+  padding: 14px 18px
+  background: var(--bg-card)
+
+.name
+  font-size: 14px
+  font-weight: 600
+  color: var(--text-dark)
+  letter-spacing: -0.2px
+
+.course
+  font-size: 12px
+  font-weight: 500
+  color: var(--accent-orange)
+  padding: 3px 10px
+  background: var(--accent-orange-soft)
+  border-radius: var(--radius-full)
+  white-space: nowrap

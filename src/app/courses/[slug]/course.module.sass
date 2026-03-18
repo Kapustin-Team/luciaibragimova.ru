@@ -708,46 +708,13 @@
 
 // ─── Reviews ──────────────────
 
-.reviewsGrid
-  display: grid
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
-  gap: 20px
-  @media (max-width: 768px)
-    grid-template-columns: 1fr
-    gap: 16px
-
-.reviewCard
-  background: #ffffff
-  border-radius: var(--radius-xl)
-  border: 1px solid var(--border-light)
-  padding: 28px
-  display: flex
-  flex-direction: column
-  gap: 16px
-
-.reviewStars
-  display: flex
-  gap: 2px
-
-.reviewText
-  font-size: 15px
-  line-height: 1.7
-  color: var(--text-dark)
-
-.reviewAuthor
-  display: flex
-  flex-direction: column
-  gap: 2px
-  margin-top: auto
-
-.reviewName
-  font-size: 15px
-  font-weight: 700
-  color: var(--text-dark)
-
-.reviewRole
-  font-size: 13px
-  color: rgba(26, 26, 46, 0.5)
+.reviewsMasonry
+  columns: 3
+  column-gap: 16px
+  @media (max-width: 1024px)
+    columns: 2
+  @media (max-width: 600px)
+    columns: 1
 
 // ─── Tariff name ──────────────────
 
