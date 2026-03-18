@@ -76,9 +76,10 @@ export async function getCourseBySlug(slug) {
     'populate[4]': 'tariffs',
     'populate[5]': 'faqs',
     'populate[6]': 'reviews.screenshot',
-    'populate[7]': 'relatedCourses',
-    'populate[8]': 'author',
-    'populate[9]': 'image',
+    'populate[7]': 'reviews.video',
+    'populate[8]': 'relatedCourses',
+    'populate[9]': 'author',
+    'populate[10]': 'image',
   })
   return data?.[0] || null
 }
@@ -92,7 +93,8 @@ export async function getFaqs() {
 export async function getReviews() {
   return fetchStrapi('/reviews', {
     'populate[0]': 'screenshot',
-    'populate[1]': 'course',
+    'populate[1]': 'video',
+    'populate[2]': 'course',
   })
 }
 

@@ -1,11 +1,12 @@
 'use client'
 import { useEffect, useCallback } from 'react'
-import { imgUrl } from './ReviewScreenshot'
+import { mediaUrl, isVideo } from './ReviewScreenshot'
 import s from './ReviewLightbox.module.sass'
 
 export default function ReviewLightbox({ reviews, currentIndex, onClose, onNavigate }) {
   const review = reviews[currentIndex]
-  const src = review ? imgUrl(review.screenshot) : null
+  const hasVideo = review ? isVideo(review) : false
+  const src = review ? (hasVideo ? mediaUrl(review.video) : mediaUrl(review.screenshot)) : null
   const hasPrev = currentIndex > 0
   const hasNext = currentIndex < reviews.length - 1
 
@@ -43,7 +44,17 @@ export default function ReviewLightbox({ reviews, currentIndex, onClose, onNavig
           </button>
         )}
 
-        <img src={src} alt={`Отзыв ${review.name || ''}`} className={s.image} />
+        {hasVideo ? (
+          <video
+            key={currentIndex}
+            src={src}
+            className={s.video}
+            controls
+            autoPlay
+          />
+        ) : (
+          <img src={src} alt={`Отзыв ${review.name || ''}`} className={s.image} />
+        )}
 
         {hasNext && (
           <button className={s.navNext} onClick={() => onNavigate(currentIndex + 1)} aria-label="Следующий">

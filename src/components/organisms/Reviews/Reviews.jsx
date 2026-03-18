@@ -9,10 +9,9 @@ export default function Reviews({ data, reviews: strapiReviews } = {}) {
   const subtitle = data?.subtitle || 'Реальные результаты реальных людей'
   const [lightboxIndex, setLightboxIndex] = useState(null)
 
-  // Only show reviews that have screenshots
-  const screenshotReviews = (strapiReviews || []).filter(r => r.screenshot)
+  const mediaReviews = (strapiReviews || []).filter(r => r.screenshot || r.video)
 
-  if (!screenshotReviews.length) return null
+  if (!mediaReviews.length) return null
 
   return (
     <section className={s.section} id="reviews">
@@ -22,14 +21,14 @@ export default function Reviews({ data, reviews: strapiReviews } = {}) {
           <p className={s.subtitle}>{subtitle}</p>
         </div>
         <div className={s.masonry}>
-          {screenshotReviews.map((r, i) => (
+          {mediaReviews.map((r, i) => (
             <ReviewScreenshot key={r.id || i} review={r} index={i} onClick={setLightboxIndex} />
           ))}
         </div>
       </div>
       {lightboxIndex !== null && (
         <ReviewLightbox
-          reviews={screenshotReviews}
+          reviews={mediaReviews}
           currentIndex={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
           onNavigate={setLightboxIndex}

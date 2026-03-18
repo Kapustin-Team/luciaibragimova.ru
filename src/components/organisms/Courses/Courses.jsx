@@ -53,7 +53,7 @@ function normalizeCourses(strapiCourses) {
     desc: c.shortDescription || '',
     featured: c.featured || false,
     badge: c.badge || (c.featured ? 'Хит' : null),
-    imageUrl: c.image?.url || c.image?.formats?.small?.url || null,
+    imageUrl: c.image?.url || c.image?.formats?.small?.url || COURSE_IMAGES[c.slug] || null,
   }))
 }
 
@@ -126,9 +126,9 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
               href={`/courses/${c.slug || '#'}`}
               className={`${s.card} ${c.featured ? s.featured : ''}`}
             >
-              {(COURSE_IMAGES[c.slug] || c.imageUrl) ? (
+              {c.imageUrl ? (
                 <img
-                  src={c.imageUrl || COURSE_IMAGES[c.slug]}
+                  src={c.imageUrl}
                   alt={c.title}
                   className={s.cardThumb}
                   loading="lazy"

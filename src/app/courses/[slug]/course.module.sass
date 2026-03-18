@@ -709,20 +709,19 @@
 // ─── Reviews ──────────────────
 
 .reviewsMasonry
-  columns: 3
-  column-gap: 16px
-  @media (max-width: 1024px)
-    columns: 2
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+  gap: 16px
   @media (max-width: 600px)
-    columns: 1
+    grid-template-columns: 1fr
 
 // ─── Tariff name ──────────────────
 
 .tariffName
-  font-family: var(--font-heading)
-  font-size: 30px
-  font-weight: 400
+  font-size: 24px
+  font-weight: 700
   color: var(--text-dark)
+  letter-spacing: -0.5px
   margin-bottom: 8px
 
 // ─── Tariff popular ──────────────────

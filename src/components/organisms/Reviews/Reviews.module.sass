@@ -5,7 +5,7 @@
     padding: 80px 20px
 
 .inner
-  max-width: var(--container-wide)
+  max-width: var(--container)
   margin: 0 auto
 
 .header
@@ -26,9 +26,8 @@
   line-height: 1.5
 
 .masonry
-  columns: 3
-  column-gap: 16px
-  @media (max-width: 1024px)
-    columns: 2
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+  gap: 16px
   @media (max-width: 600px)
-    columns: 1
+    grid-template-columns: 1fr

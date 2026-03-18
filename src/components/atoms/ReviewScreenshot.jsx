@@ -3,15 +3,20 @@ import s from './ReviewScreenshot.module.sass'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
 
-function imgUrl(media) {
+function mediaUrl(media) {
   if (!media) return null
   const url = media.url || media.formats?.large?.url || media.formats?.medium?.url
   if (!url) return null
   return url.startsWith('http') ? url : `${STRAPI_URL}${url}`
 }
 
+function isVideo(review) {
+  return !!review.video?.url
+}
+
 export default function ReviewScreenshot({ review, index = 0, onClick }) {
-  const src = imgUrl(review.screenshot)
+  const hasVideo = isVideo(review)
+  const src = hasVideo ? mediaUrl(review.video) : mediaUrl(review.screenshot)
   if (!src) return null
 
   const courseName = review.course?.title || ''
@@ -26,12 +31,24 @@ export default function ReviewScreenshot({ review, index = 0, onClick }) {
       onKeyDown={(e) => e.key === 'Enter' && onClick?.(index)}
     >
       <div className={s.imageWrap}>
-        <img
-          src={src}
-          alt={`Отзыв ${review.name || ''}`}
-          className={s.image}
-          loading="lazy"
-        />
+        {hasVideo ? (
+          <>
+            <video src={src} className={s.image} muted preload="metadata" />
+            <div className={s.playOverlay}>
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.45)" />
+                <path d="M19 15l14 9-14 9V15z" fill="white" />
+              </svg>
+            </div>
+          </>
+        ) : (
+          <img
+            src={src}
+            alt={`Отзыв ${review.name || ''}`}
+            className={s.image}
+            loading="lazy"
+          />
+        )}
       </div>
       {(review.name || courseName) && (
         <figcaption className={s.caption}>
@@ -43,4 +60,4 @@ export default function ReviewScreenshot({ review, index = 0, onClick }) {
   )
 }
 
-export { imgUrl }
+export { mediaUrl, isVideo }

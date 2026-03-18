@@ -80,7 +80,7 @@ export default function CoursePageClient({ course }) {
   const dirTitle = c.direction?.title || SLUG_TO_DIR[c.slug] || ''
   const theme = DIRECTION_THEMES[dirTitle] || DIRECTION_THEMES['Рождение семьи']
   const [reviewLightbox, setReviewLightbox] = useState(null)
-  const screenshotReviews = (c.reviews || []).filter(r => r.screenshot)
+  const mediaReviews = (c.reviews || []).filter(r => r.screenshot || r.video)
   const imgSrc = c.image?.url || c.image?.formats?.large?.url || COURSE_IMAGES[c.slug]
 
   const themeStyle = {
@@ -325,7 +325,7 @@ export default function CoursePageClient({ course }) {
         )}
 
         {/* ─── Отзывы ─── */}
-        {screenshotReviews.length > 0 && (
+        {mediaReviews.length > 0 && (
           <section className={s.section}>
             <div className={s.container}>
               <div className={s.centeredHeader}>
@@ -333,14 +333,14 @@ export default function CoursePageClient({ course }) {
                 <p className={s.sectionSubtitle}>Реальные отзывы от тех, кто уже прошёл курс</p>
               </div>
               <div className={s.reviewsMasonry}>
-                {screenshotReviews.map((r, i) => (
+                {mediaReviews.map((r, i) => (
                   <ReviewScreenshot key={r.id || i} review={r} index={i} onClick={setReviewLightbox} />
                 ))}
               </div>
             </div>
             {reviewLightbox !== null && (
               <ReviewLightbox
-                reviews={screenshotReviews}
+                reviews={mediaReviews}
                 currentIndex={reviewLightbox}
                 onClose={() => setReviewLightbox(null)}
                 onNavigate={setReviewLightbox}
