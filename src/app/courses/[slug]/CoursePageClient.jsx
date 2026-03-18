@@ -290,35 +290,26 @@ export default function CoursePageClient({ course }) {
                 <p className={s.sectionSubtitle}>Выберите формат участия, который подходит именно вам.</p>
               </div>
               <div className={s.tariffsGrid} data-count={c.tariffs.length}>
-                {c.tariffs.map((t, i) => {
-                  /* Collect ALL features from the most expensive tariff to show crossed-out */
-                  const maxFeatures = c.tariffs.reduce((max, tar) => 
-                    (tar.features?.length || 0) > (max.features?.length || 0) ? tar : max
-                  , c.tariffs[0])
-                  const allFeatures = maxFeatures?.features || []
-                  const myFeatures = new Set(t.features || [])
-
-                  return (
+                {c.tariffs.map((t, i) => (
                     <div key={i} className={`${s.tariffCard} ${t.popular ? s.tariffPopular : ''}`}>
                       {t.popular && <div className={s.popularBadge}>Популярный</div>}
                       <h3 className={s.tariffName}>{t.name}</h3>
                       {t.price && <div className={s.tariffPrice}>{t.price}</div>}
-                      <ul className={s.tariffFeatures}>
-                        {allFeatures.map((f, j) => (
-                          <li key={j} className={myFeatures.has(f) ? s.tariffIncluded : s.tariffExcluded}>
-                            <span className={myFeatures.has(f) ? s.tariffCheck : s.tariffCross}>
-                              {myFeatures.has(f) ? '✓' : '✕'}
-                            </span>
-                            <span className={myFeatures.has(f) ? '' : s.strikethrough}>{f}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      {t.features?.length > 0 && (
+                        <ul className={s.tariffFeatures}>
+                          {t.features.map((f, j) => (
+                            <li key={j} className={s.tariffIncluded}>
+                              <span className={s.tariffCheck}>✓</span>
+                              <span>{f}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                       <a href={c.getcourseLink || '#'} className={t.popular ? s.tariffBtnDark : s.tariffBtn}>
                         Выбрать тариф
                       </a>
                     </div>
-                  )
-                })}
+                ))}
               </div>
             </div>
           </section>
