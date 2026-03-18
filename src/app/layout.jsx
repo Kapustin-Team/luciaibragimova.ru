@@ -1,6 +1,4 @@
 import './globals.css'
-import Providers from '@/components/Providers'
-import ChatWidget from '@/components/organisms/ChatWidget/ChatWidget'
 
 export const metadata = {
   title: 'Школа Люции Ибрагимовой',
@@ -10,12 +8,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ru">
-      <body>
-        <Providers>
-          {children}
-          <ChatWidget />
-        </Providers>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }

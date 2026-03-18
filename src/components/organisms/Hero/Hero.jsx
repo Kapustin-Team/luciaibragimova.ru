@@ -17,10 +17,11 @@ function scrollAndFilter(detail) {
 
 export default function Hero({ data } = {}) {
   const title = data?.title || 'Путь к благополучию\nсемьи'
+  // Support both: old `subtitle` (string) and new `subtitles` (repeatable component)
   const strapiSubtitles = Array.isArray(data?.subtitles) && data.subtitles.length > 0
     ? data.subtitles.map(s => s.text || s)
+    : data?.subtitle ? [data.subtitle]
     : null
-  const description = data?.description || null
   const ctaPrimary = data?.ctaPrimary || 'Выбрать курс'
   const ctaPrimaryLink = data?.ctaPrimaryLink || '#courses'
   const ctaSecondary = data?.ctaSecondary || 'Не знаю, с чего начать'
@@ -51,50 +52,46 @@ export default function Hero({ data } = {}) {
   }, [subtitles.length])
 
   return (
-    <>
-      <section className={s.hero}>
-        <div className={s.decorCircle1} />
-        <div className={s.decorCircle2} />
-        <div className={s.decorDots} />
+    <section className={s.hero}>
+      <div className={s.decorCircle1} />
+      <div className={s.decorCircle2} />
+      <div className={s.decorDots} />
 
-        <div className={s.inner}>
-          <div className={s.topRow}>
-            <div className={s.content}>
-              <h1 className={s.title}>
-                {title.split('\n').map((line, i, arr) => (
-                  <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-                ))}
-              </h1>
-              <p className={`${s.desc} ${subtitles.length > 1 ? (fade ? s.fadeIn : s.fadeOut) : ''}`}>
-                {description || subtitles[subtitleIdx]}
-              </p>
-              <div className={s.buttons}>
-                <a href={ctaPrimaryLink} className={s.btnPrimary}>{ctaPrimary}</a>
-                <a href={ctaSecondaryLink} className={s.btnOutline}>{ctaSecondary}</a>
-              </div>
-              <div className={s.location}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-                <span>{location}</span>
-              </div>
+      <div className={s.inner}>
+        <div className={s.topRow}>
+          <div className={s.content}>
+            <h1 className={s.title}>
+              {title.split('\n').map((line, i, arr) => (
+                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+              ))}
+            </h1>
+            <p className={`${s.desc} ${subtitles.length > 1 ? (fade ? s.fadeIn : s.fadeOut) : ''}`}>
+              {subtitles[subtitleIdx]}
+            </p>
+            <div className={s.buttons}>
+              <a href={ctaPrimaryLink} className={s.btnPrimary}>{ctaPrimary}</a>
+              <a href={ctaSecondaryLink} className={s.btnOutline}>{ctaSecondary}</a>
             </div>
-
-            <div className={s.videoWrap}>
-              <iframe
-                className={s.video}
-                src="https://kinescope.io/embed/o1ZLJ9qRpjsF3acNkduExU"
-                allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; web-share"
-                frameBorder="0"
-                allowFullScreen
-              />
+            <div className={s.location}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>{location}</span>
             </div>
           </div>
-        </div>
-      </section>
 
-      <div className={s.cardsWrapper}>
+          <div className={s.videoWrap}>
+            <iframe
+              className={s.video}
+              src="https://kinescope.io/embed/o1ZLJ9qRpjsF3acNkduExU"
+              allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; web-share"
+              frameBorder="0"
+              allowFullScreen
+            />
+          </div>
+        </div>
+
         <div className={s.cards}>
           {cards.map((card, i) => {
             const cls = `${s.card} ${s[card.style] || ''} ${s[card.position] || ''}`
@@ -124,6 +121,6 @@ export default function Hero({ data } = {}) {
           })}
         </div>
       </div>
-    </>
+    </section>
   )
 }

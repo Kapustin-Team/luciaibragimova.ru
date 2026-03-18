@@ -10,7 +10,7 @@ const DEFAULT_HIGHLIGHTS = [
 ]
 
 export default function About({ data } = {}) {
-  const label = data?.label || 'О Люции'
+  const label = data?.label || null
   const title = data?.title || 'Помогаю семьям вернуть близость и доверие'
   const description = data?.description || 'Люция Ибрагимова — семейный психолог с 25-летним опытом. Руководитель центра для трудных подростков «Время первых». За более чем 10 лет работы с «безнадёжными» подростками — десятки возвращений в школу, снятий с учётов.'
   const highlights = data?.highlights?.length ? data.highlights : DEFAULT_HIGHLIGHTS

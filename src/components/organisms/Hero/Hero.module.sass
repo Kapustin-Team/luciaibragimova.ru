@@ -1,11 +1,11 @@
 .hero
   background: var(--bg-hero)
-  padding: 140px 40px 80px
+  padding: 140px 40px 0
   position: relative
   overflow: visible
-  z-index: 2
+  z-index: 1
   @media (max-width: 768px)
-    padding: 110px 16px 60px
+    padding: 110px 16px 0
 
 /* Decorative shapes */
 .decorCircle1
@@ -162,21 +162,13 @@
   border: 0
   border-radius: var(--radius-2xl)
 
-.cardsWrapper
-  position: relative
-  z-index: 10
-  background: linear-gradient(to bottom, var(--bg-hero) 0%, var(--bg-hero) 50%, var(--bg-section-alt, #fbf2e2) 50%, var(--bg-section-alt, #fbf2e2) 100%)
-  padding: 20px 40px 40px
-  @media (max-width: 768px)
-    padding: 16px 16px 24px
-
+/* Bottom cards — same as original */
 .cards
   display: flex
   gap: 20px
   align-items: flex-end
   width: 100%
   max-width: var(--container-wide)
-  margin: 0 auto
   justify-content: center
   @media (max-width: 900px)
     gap: 12px
@@ -193,11 +185,12 @@
   overflow: hidden
   flex-shrink: 0
   cursor: pointer
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)
   border: none
-  outline: none
   font-family: inherit
   text-align: left
-  position: relative
+  &:hover
+    transform: translateY(-12px) !important
   @media (max-width: 900px)
     width: calc(33.333% - 8px)
     min-height: 160px
@@ -208,18 +201,19 @@
     border-radius: var(--radius-xl)
 
 .cardLeft
-  transform: rotate(-3deg)
+  transform: rotate(-3deg) translateY(80px)
   transform-origin: bottom center
   @media (max-width: 640px)
     transform: none
 
 .cardCenter
+  transform: translateY(40px)
   z-index: 2
   @media (max-width: 640px)
     transform: none
 
 .cardRight
-  transform: rotate(3deg)
+  transform: rotate(3deg) translateY(80px)
   transform-origin: bottom center
   @media (max-width: 640px)
     transform: none
@@ -228,7 +222,7 @@
   background: #E93AA3
 
 .cardDark
-  background: #3d1848
+  background: rgba(255, 255, 255, 0.12)
 
 .cardLight
   background: var(--bg-lavender)

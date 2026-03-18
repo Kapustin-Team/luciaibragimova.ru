@@ -5,12 +5,12 @@
     @content
 
 .section
-  padding: 40px 32px 80px
-  background: var(--bg-section-alt, var(--bg-card))
+  padding: 80px 32px 80px
+  background: var(--bg-card, #f8f3fc)
   position: relative
-  z-index: 0
+  z-index: 2
   +mobile
-    padding: 80px 20px 48px
+    padding: 80px 20px 56px
 
 .inner
   max-width: var(--container)
@@ -64,8 +64,9 @@
 
 .number
   display: block
+  font-family: var(--font-heading)
   font-size: clamp(40px, 5vw, 64px)
-  font-weight: 800
+  font-weight: 400
   line-height: 1
   letter-spacing: -0.02em
   color: var(--bg-dark, #400a4b)

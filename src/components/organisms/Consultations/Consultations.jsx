@@ -1,6 +1,5 @@
 'use client'
 import { FaVideo, FaUsers, FaChild, FaHeart } from 'react-icons/fa'
-import { useEnroll } from '@/components/organisms/EnrollModal/EnrollModal'
 import s from './Consultations.module.sass'
 
 const ICON_MAP = {
@@ -42,7 +41,6 @@ const FALLBACK_CONSULTATIONS = [
 ]
 
 export default function Consultations({ data, consultationTypes } = {}) {
-  const { openEnroll } = useEnroll()
   const title = data?.title || 'Консультации'
   const subtitle = data?.subtitle || 'Индивидуальный подход к вашей ситуации'
 
@@ -79,13 +77,7 @@ export default function Consultations({ data, consultationTypes } = {}) {
           ))}
         </div>
         <div className={s.cta}>
-          <button
-            type="button"
-            className={s.btn}
-            onClick={() => openEnroll({ type: 'consultation', name: 'Консультация' })}
-          >
-            Записаться на консультацию
-          </button>
+          <a href="#contact" className={s.btn}>Записаться на консультацию</a>
         </div>
       </div>
     </section>

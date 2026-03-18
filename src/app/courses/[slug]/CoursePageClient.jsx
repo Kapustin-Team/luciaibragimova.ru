@@ -3,7 +3,6 @@ import Header from '@/components/organisms/Header/Header'
 import Footer from '@/components/organisms/Footer/Footer'
 import About from '@/components/organisms/About/About'
 import GradientPlaceholder from '@/components/atoms/GradientPlaceholder'
-import { useEnroll } from '@/components/organisms/EnrollModal/EnrollModal'
 import s from './course.module.sass'
 
 const FORMAT_LABELS = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
@@ -45,9 +44,9 @@ const SLUG_TO_DIR = {
 
 /* Color schemes per direction */
 const DIRECTION_THEMES = {
-  'Рождение семьи': { accent: '#E93AA3', accentSoft: 'rgba(233,58,163,0.08)', heroGradient: 'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #fbf2e2 100%)' },
+  'Рождение семьи': { accent: '#E93AA3', accentSoft: 'rgba(233,58,163,0.08)', heroGradient: 'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #f8f3fc 100%)' },
   'Здоровое взросление': { accent: '#7c5cbf', accentSoft: 'rgba(124,92,191,0.08)', heroGradient: 'linear-gradient(135deg, #f3f0f8 0%, #e8e0f4 50%, #d9b9e7 100%)' },
-  'Развитие': { accent: '#2d8a6e', accentSoft: 'rgba(45,138,110,0.08)', heroGradient: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #fbf2e2 100%)' },
+  'Развитие': { accent: '#2d8a6e', accentSoft: 'rgba(45,138,110,0.08)', heroGradient: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #f8f3fc 100%)' },
   'Трансформация': { accent: '#30023c', accentSoft: 'rgba(48,2,60,0.06)', heroGradient: 'linear-gradient(135deg, #f8f3fc 0%, #e8ddf2 50%, #d9b9e7 100%)' },
 }
 
@@ -74,7 +73,6 @@ const ParticipantsIcon = () => (
 )
 
 export default function CoursePageClient({ course }) {
-  const { openEnroll } = useEnroll()
   const c = course
   const dirTitle = c.direction?.title || SLUG_TO_DIR[c.slug] || ''
   const theme = DIRECTION_THEMES[dirTitle] || DIRECTION_THEMES['Рождение семьи']
@@ -107,13 +105,13 @@ export default function CoursePageClient({ course }) {
                 <p className={s.heroDesc}>{c.shortDescription}</p>
               )}
               <div className={s.heroButtons}>
-                <button
-                  type="button"
+                <a
+                  href={c.getcourseLink || '#tariffs'}
                   className={s.btnPrimary}
-                  onClick={() => openEnroll({ type: 'course', name: c.title })}
+                  {...(c.getcourseLink ? { target: '_blank', rel: 'noopener' } : {})}
                 >
                   Записаться на курс
-                </button>
+                </a>
                 <a href="#program" className={s.btnSecondary}>Программа курса</a>
               </div>
             </div>
@@ -386,14 +384,10 @@ export default function CoursePageClient({ course }) {
           <div className={s.ctaCard}>
             <h2 className={s.ctaTitle}>Готовы начать свой путь?</h2>
             <p className={s.ctaDesc}>Запишитесь на курс «{c.title}» и сделайте первый шаг к изменениям</p>
-            <button
-              type="button"
-              className={s.ctaBtn}
-              onClick={() => openEnroll({ type: 'course', name: c.title })}
-            >
+            <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>
               Записаться на курс
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-            </button>
+            </a>
           </div>
         </section>
 

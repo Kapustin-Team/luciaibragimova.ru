@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { useEnroll } from '@/components/organisms/EnrollModal/EnrollModal'
 import s from './Courses.module.sass'
 
 const FORMAT_MAP = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
@@ -59,7 +58,6 @@ function normalizeCourses(strapiCourses) {
 }
 
 export default function Courses({ data, courses: strapiCourses, initialDirection, initialFormat } = {}) {
-  const { openEnroll } = useEnroll()
   const title = data?.title || 'Все курсы и тренинги'
   const subtitle = data?.subtitle || 'Выберите формат, который подходит именно вам'
   const coursesList = normalizeCourses(strapiCourses)
@@ -145,15 +143,10 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
                 <span className={s.duration}>{c.duration}</span>
               </div>
               <h3 className={s.cardTitle}>{c.title}</h3>
-              {c.dir && <p className={s.cardDir}>{c.dir}</p>}
               <p className={s.cardDesc}>{c.desc}</p>
               <div className={s.cardActions}>
                 <span className={s.cardLink}>Подробнее →</span>
-                <span
-                  className={s.cardBuy}
-                  role="button"
-                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); openEnroll({ type: 'course', name: c.title }) }}
-                >Купить</span>
+                <span className={s.cardBuy}>Купить</span>
               </div>
             </a>
           ))}

@@ -1,5 +1,4 @@
 'use client'
-import { useEnroll } from '@/components/organisms/EnrollModal/EnrollModal'
 import s from './FeaturedCourse.module.sass'
 
 const DEFAULT_FEATURES = [
@@ -15,12 +14,13 @@ const ICONS = {
 }
 
 export default function FeaturedCourse({ data } = {}) {
-  const { openEnroll } = useEnroll()
   const label = data?.label?.trim() || 'Бестселлер'
   const title = data?.title || 'Вовремя'
   const description = data?.description || 'Ваш подросток отдаляется, грубит, вредит себе? Курс «Вовремя» — это 5 модулей глубинной работы с отношениями. Вы научитесь слышать, понимать и восстанавливать доверие.'
   const ctaText = data?.ctaText || 'Записаться на курс'
   const ctaLink = data?.ctaLink || '/courses/vovremya'
+  const ctaSecondaryText = data?.ctaSecondaryText || 'Узнать подробнее'
+  const ctaSecondaryLink = data?.ctaSecondaryLink || ctaLink
   const imageUrl = data?.image?.url || '/courses/course-vovremya.webp'
   const quote = data?.quote || '«Каждый родитель способен стать для подростка опорой, а не источником конфликта»'
   const quoteAuthor = data?.quoteAuthor || '— Люция Ибрагимова'
@@ -76,16 +76,12 @@ export default function FeaturedCourse({ data } = {}) {
           ))}
         </div>
         <div className={s.buttons}>
-          <button
-            type="button"
-            className={s.btn}
-            onClick={() => openEnroll({ type: 'course', name: title })}
-          >
-            Записаться на курс
+          <a href={ctaLink} className={s.btn}>
+            {ctaText}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-          </button>
-          <a href={ctaLink} className={s.btnOutline}>
-            Узнать подробнее
+          </a>
+          <a href={ctaSecondaryLink} className={s.btnOutline}>
+            {ctaSecondaryText}
           </a>
         </div>
       </div>
