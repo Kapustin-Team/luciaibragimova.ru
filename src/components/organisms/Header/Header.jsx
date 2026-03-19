@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 import { FaTelegramPlane, FaVk } from 'react-icons/fa'
 
@@ -42,13 +42,21 @@ export default function Header({ data } = {}) {
     }
   }, [menuOpen])
 
-  useEffect(() => {
-    function handleScroll() {
-      setScrolled(window.scrollY > 20)
+  // On home: transparent by default, scrolled = white
+  // On other pages: always white
+  const handleScroll = useCallback(() => {
+    if (!isHome) {
+      setScrolled(true)
+      return
     }
+    setScrolled(window.scrollY > window.innerHeight * 0.7)
+  }, [isHome])
+
+  useEffect(() => {
+    handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [handleScroll])
 
   function handleNavClick(e, id) {
     if (isHome) {
@@ -63,12 +71,22 @@ export default function Header({ data } = {}) {
     return isHome ? `#${id}` : `/#${id}`
   }
 
+  // On home + not scrolled = transparent. Otherwise white.
+  const isTransparent = isHome && !scrolled && !menuOpen
+  const headerStyle = isTransparent
+    ? { background: 'transparent', borderBottomColor: 'transparent', boxShadow: 'none' }
+    : {}
+
   return (
-    <header className={`${s.header} ${scrolled ? s.scrolled : ''}`}>
+    <header
+      className={`${s.header} ${scrolled ? s.scrolled : ''}`}
+      style={headerStyle}
+      data-transparent={isTransparent ? 'true' : undefined}
+    >
       <div className={s.inner}>
         <a href="/" className={s.logo}>
-          <img src="/logo.webp" alt={brandName} className={s.logoImg} />
-          <span className={s.logoText}>{brandName}</span>
+          <img src="/logo-bird.webp" alt={brandName} className={s.logoImg} />
+          <span className={s.logoText}>Психологическая студия<br />Люции Ибрагимовой</span>
         </a>
 
         <nav className={`${s.nav} ${menuOpen ? s.navOpen : ''}`}>

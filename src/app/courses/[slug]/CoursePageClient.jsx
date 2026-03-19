@@ -179,12 +179,22 @@ export default function CoursePageClient({ course }) {
                 <p className={s.sectionSubtitle}>Курс разработан с учётом потребностей разных людей в разных жизненных ситуациях.</p>
               </div>
               <div className={s.audienceGrid} data-count={c.targetAudience.length}>
-                {c.targetAudience.map((a, i) => (
-                  <div key={i} className={s.audienceCard}>
-                    <div className={s.audienceNum}>{String(i + 1).padStart(2, '0')}</div>
-                    <p>{a.text}</p>
-                  </div>
-                ))}
+                {c.targetAudience.map((a, i) => {
+                  const imgUrl = a.image?.url || a.image?.formats?.small?.url
+                  return (
+                    <div key={i} className={`${s.audienceCard} ${imgUrl ? s.audienceCardWithImage : ''}`}>
+                      {imgUrl && (
+                        <div className={s.audienceImageWrap}>
+                          <img src={imgUrl} alt="" className={s.audienceImage} />
+                        </div>
+                      )}
+                      <div className={s.audienceContent}>
+                        <div className={s.audienceNum}>{String(i + 1).padStart(2, '0')}</div>
+                        <p className={s.audienceText}>{a.text}</p>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </section>
@@ -223,12 +233,22 @@ export default function CoursePageClient({ course }) {
                 <p className={s.sectionSubtitle}>Конкретные результаты после прохождения программы</p>
               </div>
               <div className={s.resultsGrid}>
-                {c.results.map((r, i) => (
-                  <div key={i} className={s.resultCard}>
-                    <span className={s.resultIcon}>✦</span>
-                    <p>{r.text}</p>
-                  </div>
-                ))}
+                {c.results.map((r, i) => {
+                  const imgUrl = r.image?.url || r.image?.formats?.small?.url
+                  return (
+                    <div key={i} className={`${s.resultCard} ${imgUrl ? s.resultCardWithImage : ''}`}>
+                      {imgUrl && (
+                        <div className={s.resultImageWrap}>
+                          <img src={imgUrl} alt="" className={s.resultImage} />
+                        </div>
+                      )}
+                      <div className={s.resultContent}>
+                        <span className={s.resultIcon}>✦</span>
+                        <p className={s.resultText}>{r.text}</p>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </section>

@@ -70,8 +70,8 @@ export async function getCourseBySlug(slug) {
   const data = await fetchStrapi('/courses', {
     'filters[slug][$eq]': slug,
     'populate[0]': 'direction',
-    'populate[1]': 'targetAudience',
-    'populate[2]': 'results',
+    'populate[1]': 'targetAudience.image',
+    'populate[2]': 'results.image',
     'populate[3]': 'modules',
     'populate[4]': 'tariffs',
     'populate[5]': 'faqs',

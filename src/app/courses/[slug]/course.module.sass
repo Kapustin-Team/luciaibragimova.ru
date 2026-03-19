@@ -271,59 +271,110 @@
 
 .audienceGrid
   display: grid
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
-  gap: 16px
-  max-width: 900px
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+  gap: 20px
+  max-width: 1000px
   margin: 0 auto
   &[data-count="1"]
-    max-width: 400px
+    max-width: 440px
   &[data-count="2"]
-    max-width: 600px
+    max-width: 700px
 
 .audienceCard
   background: #f3f0f8
   border-radius: var(--radius-xl)
-  padding: 28px
-  font-size: 15px
-  line-height: 1.7
+  padding: 32px
   color: #1a1a2e
   border: 1px solid rgba(64, 10, 75, 0.06)
+  overflow: hidden
+
+.audienceCardWithImage
+  padding: 0
+  display: flex
+  flex-direction: column
+
+.audienceImageWrap
+  width: 100%
+  aspect-ratio: 16 / 10
+  overflow: hidden
+
+.audienceImage
+  width: 100%
+  height: 100%
+  object-fit: cover
+
+.audienceContent
+  padding: 28px 32px 32px
+  .audienceCardWithImage &
+    padding: 24px 28px 28px
 
 .audienceNum
   font-family: var(--font-heading)
-  font-size: 32px
+  font-size: 36px
   font-weight: 400
   color: var(--theme-accent, #E93AA3)
   opacity: 0.25
   margin-bottom: 12px
   line-height: 1
 
+.audienceText
+  font-size: 17px
+  line-height: 1.7
+  font-weight: 500
+
 // ─── Results grid — card style ────────────────────────────────
 
 .resultsGrid
   display: grid
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
-  gap: 16px
-  max-width: 900px
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+  gap: 20px
+  max-width: 1000px
   margin: 0 auto
 
 .resultCard
   background: #f8f6fb
   border-radius: var(--radius-xl)
-  padding: 28px 24px
-  font-size: 15px
-  line-height: 1.7
+  padding: 32px 28px
   color: #1a1a2e
   border: 1px solid rgba(64, 10, 75, 0.06)
   display: flex
+  gap: 16px
+  align-items: flex-start
+  overflow: hidden
+
+.resultCardWithImage
+  flex-direction: column
+  padding: 0
+  gap: 0
+
+.resultImageWrap
+  width: 100%
+  aspect-ratio: 16 / 10
+  overflow: hidden
+
+.resultImage
+  width: 100%
+  height: 100%
+  object-fit: cover
+
+.resultContent
+  display: flex
   gap: 14px
   align-items: flex-start
+  padding: 24px 28px 28px
+  .resultCard:not(.resultCardWithImage) &
+    padding: 0
 
 .resultIcon
-  font-size: 20px
+  font-size: 22px
   color: var(--theme-accent, #E93AA3)
   flex-shrink: 0
   margin-top: 2px
+
+.resultText
+  font-size: 17px
+  line-height: 1.7
+  font-weight: 500
 
 // ─── Modules — always open ────────────────────────────────────
 

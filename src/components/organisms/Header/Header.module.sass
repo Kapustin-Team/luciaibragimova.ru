@@ -4,7 +4,7 @@
   position: sticky
   top: 0
   z-index: 1000
-  transition: all 0.3s ease
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease
 
 .scrolled
   background: rgba(255, 255, 255, 0.98)
@@ -33,19 +33,21 @@
   white-space: nowrap
 
 .logoImg
-  height: 36px
+  height: 40px
   width: auto
   @media (max-width: 960px)
-    height: 30px
+    height: 32px
 
 .logoText
-  font-family: var(--font-heading)
-  font-weight: 400
-  font-size: 22px
+  font-size: 12px
+  font-weight: 600
   color: var(--text-dark)
-  letter-spacing: -0.3px
+  line-height: 1.3
+  letter-spacing: 0.3px
+  text-transform: uppercase
+  transition: color 0.3s ease
   @media (max-width: 960px)
-    font-size: 18px
+    font-size: 10px
 
 .nav
   display: flex

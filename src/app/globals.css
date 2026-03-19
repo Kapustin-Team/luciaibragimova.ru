@@ -32,15 +32,15 @@
   --bg-dark: #30023c;
   --bg-hero: #30023c;
   --bg-section: #ffffff;
-  --bg-section-alt: #f8f3fc;
+  --bg-section-alt: #fbf2e2;
   --bg-card: #f8f3fc;
   --bg-card-hover: #f0e8f6;
   --bg-footer: #30023c;
-  --bg-peach: #f8f3fc;
+  --bg-peach: #fbf2e2;
   --bg-peach-soft: rgba(251, 242, 226, 0.5);
   --bg-white: #ffffff;
   --bg-lavender: #d9b9e7;
-  --bg-cream: #f8f3fc;
+  --bg-cream: #fbf2e2;
 
   /* ===== Colors — Text ===== */
   --text-dark: #1a1a2e;
@@ -174,3 +174,23 @@ a { color: inherit; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
 button { font-family: inherit; cursor: pointer; border: none; outline: none; }
 ::selection { background: #E93AA3; color: white; }
+
+/* ===== Transparent header over hero ===== */
+header[data-transparent] {
+  background: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+header[data-transparent] a,
+header[data-transparent] span {
+  color: #ffffff !important;
+}
+header[data-transparent] nav a:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+header[data-transparent] svg {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+header[data-transparent] button span {
+  background: #ffffff !important;
+}

@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react'
 import s from './Hero.module.sass'
 
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || ''
+
 const DEFAULT_SUBTITLES = [
   'Для родителей подростков',
   'Для женщин, которые ищут опору',
@@ -9,33 +11,46 @@ const DEFAULT_SUBTITLES = [
   'Для тех, кто хочет понять себя и своего ребенка',
 ]
 
-function scrollAndFilter(detail) {
-  const el = document.getElementById('courses')
-  if (el) el.scrollIntoView({ behavior: 'smooth' })
-  window.dispatchEvent(new CustomEvent('filter-courses', { detail }))
-}
+const DEFAULT_BUTTONS = [
+  { label: 'Выбрать курс', href: '#courses', variant: 'primary' },
+  { label: 'Бесплатная консультация', href: '#contact', variant: 'filled' },
+]
 
 export default function Hero({ data } = {}) {
   const title = data?.title || 'Путь к благополучию\nсемьи'
-  // Support both: old `subtitle` (string) and new `subtitles` (repeatable component)
+  const description = data?.description || null
+
+  // Tags / list items (badge pills above title)
+  const tags = Array.isArray(data?.list) && data.list.length > 0
+    ? data.list.map(item => item.text || item)
+    : null
+
+  // Rotating subtitles — only when no description and no tags
   const strapiSubtitles = Array.isArray(data?.subtitles) && data.subtitles.length > 0
     ? data.subtitles.map(s => s.text || s)
     : data?.subtitle ? [data.subtitle]
     : null
-  const ctaPrimary = data?.ctaPrimary || 'Выбрать курс'
-  const ctaPrimaryLink = data?.ctaPrimaryLink || '#courses'
-  const ctaSecondary = data?.ctaSecondary || 'Не знаю, с чего начать'
-  const ctaSecondaryLink = data?.ctaSecondaryLink || '#faq'
-  const stats = data?.stats || null
-  const location = data?.location || 'Екатеринбург · онлайн по всему миру'
-  const cards = data?.cards || [
-    { title: 'Онлайн-курсы', desc: 'Авторские программы по семейной психологии. Смотрите в удобном темпе.', action: { type: 'filter', detail: { format: 'Онлайн' } }, style: 'cardPink', position: 'cardLeft' },
-    { title: 'Консультации', desc: 'Индивидуальная работа с психологом. Онлайн или очно в Екатеринбурге.', action: { type: 'link', href: '#faq' }, style: 'cardDark', position: 'cardCenter' },
-    { title: 'Живые тренинги', desc: 'Интенсивы и группы для глубокой трансформации. Для всей семьи.', action: { type: 'filter', detail: { format: 'Офлайн' } }, style: 'cardLight', position: 'cardRight' },
-  ]
-
-  // Rotating subtitles — from Strapi (JSON array) or fallback
   const subtitles = strapiSubtitles || DEFAULT_SUBTITLES
+
+  // Buttons from Strapi ctaPrimary/ctaSecondary or defaults
+  const buttons = data?.ctaPrimary
+    ? [
+        { label: data.ctaPrimary, href: data.ctaPrimaryLink || '#', variant: 'primary' },
+        ...(data.ctaSecondary ? [{ label: data.ctaSecondary, href: data.ctaSecondaryLink || '#', variant: 'filled' }] : []),
+      ]
+    : DEFAULT_BUTTONS
+
+  // Video background
+  const rawVideoUrl = data?.video?.url
+  const videoUrl = rawVideoUrl
+    ? (rawVideoUrl.startsWith('http') ? rawVideoUrl : STRAPI_URL + rawVideoUrl)
+    : null
+  const rawPosterUrl = data?.poster?.url
+  const posterUrl = rawPosterUrl
+    ? (rawPosterUrl.startsWith('http') ? rawPosterUrl : STRAPI_URL + rawPosterUrl)
+    : null
+
+  // Subtitle rotation
   const [subtitleIdx, setSubtitleIdx] = useState(0)
   const [fade, setFade] = useState(true)
 
@@ -51,74 +66,77 @@ export default function Hero({ data } = {}) {
     return () => clearInterval(interval)
   }, [subtitles.length])
 
+  const variantClass = {
+    primary: s.btnPrimary,
+    filled: s.btnFilled,
+    outline: s.btnOutline,
+  }
+
   return (
-    <section className={s.hero}>
-      <div className={s.decorCircle1} />
-      <div className={s.decorCircle2} />
-      <div className={s.decorDots} />
+    <section className={s.hero} id="hero">
+      {/* Full-screen background video */}
+      {videoUrl ? (
+        <div className={s.videoBg}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={s.videoBgMedia}
+            poster={posterUrl || undefined}
+            src={videoUrl}
+          />
+          <div className={s.videoOverlay} />
+        </div>
+      ) : (
+        <div className={s.videoBg}>
+          <iframe
+            className={s.videoBgIframe}
+            src="https://kinescope.io/embed/o1ZLJ9qRpjsF3acNkduExU?autoplay=1&muted=1&loop=1&controls=0&background=1"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer"
+            frameBorder="0"
+          />
+          <div className={s.videoOverlay} />
+        </div>
+      )}
 
       <div className={s.inner}>
-        <div className={s.topRow}>
-          <div className={s.content}>
-            <h1 className={s.title}>
-              {title.split('\n').map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h1>
-            <p className={`${s.desc} ${subtitles.length > 1 ? (fade ? s.fadeIn : s.fadeOut) : ''}`}>
-              {subtitles[subtitleIdx]}
-            </p>
-            <div className={s.buttons}>
-              <a href={ctaPrimaryLink} className={s.btnPrimary}>{ctaPrimary}</a>
-              <a href={ctaSecondaryLink} className={s.btnOutline}>{ctaSecondary}</a>
-            </div>
-            <div className={s.location}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              <span>{location}</span>
-            </div>
-          </div>
+        {/* Tags / pills */}
+        {tags && (
+          <ul className={s.tags}>
+            {tags.map((tag, i) => (
+              <li key={i} className={s.tag}>{tag}</li>
+            ))}
+          </ul>
+        )}
 
-          <div className={s.videoWrap}>
-            <iframe
-              className={s.video}
-              src="https://kinescope.io/embed/o1ZLJ9qRpjsF3acNkduExU"
-              allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; web-share"
-              frameBorder="0"
-              allowFullScreen
-            />
-          </div>
-        </div>
+        {/* Title */}
+        <h1 className={s.title}>
+          {title.split('\n').map((line, i, arr) => (
+            <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+          ))}
+        </h1>
 
-        <div className={s.cards}>
-          {cards.map((card, i) => {
-            const cls = `${s.card} ${s[card.style] || ''} ${s[card.position] || ''}`
-            function handleClick() {
-              if (card.action?.type === 'link' && card.action.href) {
-                const el = document.querySelector(card.action.href)
-                if (el) el.scrollIntoView({ behavior: 'smooth' })
-              } else if (card.action?.detail) {
-                scrollAndFilter(card.action.detail)
-              }
-            }
-            return (
-              <button
-                key={i}
-                type="button"
-                className={cls}
-                onClick={handleClick}
-              >
-                <div className={s.cardHeader}>
-                  <div className={s.cardTitle}>
-                    {card.title} <span className={s.cardArrow}>›</span>
-                  </div>
-                  <p className={s.cardDesc}>{card.desc}</p>
-                </div>
-              </button>
-            )
-          })}
+        {/* Description or rotating subtitle */}
+        {description ? (
+          <p className={s.desc}>{description}</p>
+        ) : (
+          <p className={`${s.desc} ${subtitles.length > 1 ? (fade ? s.fadeIn : s.fadeOut) : ''}`}>
+            {subtitles[subtitleIdx]}
+          </p>
+        )}
+
+        {/* Buttons */}
+        <div className={s.buttons}>
+          {buttons.map((btn, i) => (
+            <a
+              key={i}
+              href={btn.href || '#'}
+              className={variantClass[btn.variant] || s.btnPrimary}
+            >
+              {btn.label}
+            </a>
+          ))}
         </div>
       </div>
     </section>
