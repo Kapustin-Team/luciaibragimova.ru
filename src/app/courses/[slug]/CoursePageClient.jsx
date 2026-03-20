@@ -132,7 +132,7 @@ export default function CoursePageClient({ course }) {
           </div>
 
           {/* ─── Info cards (inside hero) ─── */}
-          <div className={s.infoCardsInner}>
+          <div className={s.infoCardsInner} style={{ '--info-cards-count': [c.format, c.duration, c.lessonsCount, c.participantsCount].filter(Boolean).length }}>
             {c.format && (
               <div className={s.infoCard}>
                 <div className={s.infoIconWrap}><FormatIcon /></div>
@@ -191,7 +191,13 @@ export default function CoursePageClient({ course }) {
                         </div>
                       )}
                       <div className={s.audienceContent}>
-                        <div className={s.audienceNum}>{String(i + 1).padStart(2, '0')}</div>
+                        {!imgUrl && (
+                          <div className={s.audienceIcon}>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+                            </svg>
+                          </div>
+                        )}
                         <p className={s.audienceText}>{a.text}</p>
                       </div>
                     </div>
@@ -215,7 +221,12 @@ export default function CoursePageClient({ course }) {
                   <ul className={s.checkList}>
                     {c.pains.map((pain, i) => (
                       <li key={i} className={s.checkItem}>
-                        <span className={s.checkBox}>✓</span>
+                        <span className={s.checkBox}>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                            <polyline points="12 8 10 13 14 13 12 17" />
+                          </svg>
+                        </span>
                         <span>{pain}</span>
                       </li>
                     ))}
@@ -294,7 +305,11 @@ export default function CoursePageClient({ course }) {
               <div className={s.methodsGrid}>
                 {c.methods.map((m, i) => (
                   <div key={i} className={s.methodCard}>
-                    <span className={s.methodNum}>{String(i + 1).padStart(2, '0')}</span>
+                    <span className={s.methodIcon}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+                      </svg>
+                    </span>
                     <span className={s.methodName}>{m}</span>
                   </div>
                 ))}

@@ -29,7 +29,7 @@ const FALLBACK_COURSES = [
 
 const aboutLinks = [
   { text: 'О Люции', href: '/#about' },
-  { text: 'Центр «Время первых»', href: 'https://vremyapervyh.ru', external: true },
+  { text: 'Центр «Время первых»', href: 'https://vremyapervih.ru', external: true },
   { text: 'Отзывы', href: '/#reviews' },
   { text: 'Контакты', href: '/#faq' },
   { text: 'Учредительные документы', href: '/' },
