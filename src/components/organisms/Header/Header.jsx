@@ -49,7 +49,7 @@ export default function Header({ data } = {}) {
       setScrolled(true)
       return
     }
-    setScrolled(window.scrollY > window.innerHeight * 0.7)
+    setScrolled(window.scrollY > 80)
   }, [isHome])
 
   useEffect(() => {
@@ -73,14 +73,10 @@ export default function Header({ data } = {}) {
 
   // On home + not scrolled = transparent. Otherwise white.
   const isTransparent = isHome && !scrolled && !menuOpen
-  const headerStyle = isTransparent
-    ? { background: 'transparent', borderBottomColor: 'transparent', boxShadow: 'none' }
-    : {}
 
   return (
     <header
-      className={`${s.header} ${scrolled ? s.scrolled : ''}`}
-      style={headerStyle}
+      className={`${s.header} ${scrolled ? s.scrolled : ''} ${isTransparent ? s.transparent : ''}`}
       data-transparent={isTransparent ? 'true' : undefined}
     >
       <div className={s.inner}>
