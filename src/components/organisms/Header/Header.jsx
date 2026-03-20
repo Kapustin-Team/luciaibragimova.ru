@@ -81,8 +81,11 @@ export default function Header({ data } = {}) {
     >
       <div className={s.inner}>
         <a href="/" className={s.logo}>
-          <img src="/logo-bird.webp" alt={brandName} className={s.logoImg} />
-          <span className={s.logoText}>Психологическая студия<br />Люции Ибрагимовой</span>
+          <img
+            src={isTransparent ? '/logo-light.svg' : '/logo-dark.svg'}
+            alt={brandName}
+            className={s.logoImg}
+          />
         </a>
 
         <nav className={`${s.nav} ${menuOpen ? s.navOpen : ''}`}>
