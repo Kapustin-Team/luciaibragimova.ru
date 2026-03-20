@@ -50,9 +50,9 @@
   --text-on-dark-soft: rgba(255, 255, 255, 0.88);
 
   /* ===== Colors — Accent palette ===== */
-  --accent-orange: #E93AA3;
-  --accent-orange-hover: #d12e8f;
-  --accent-orange-soft: rgba(233, 58, 163, 0.10);
+  --accent-orange: #d9b9e7;
+  --accent-orange-hover: #c4a0d4;
+  --accent-orange-soft: rgba(217, 185, 231, 0.20);
   --accent-orange-dark: #30023c;
   --accent-orange-dark-hover: #240230;
   --accent-orange-dark-soft: rgba(48, 2, 60, 0.10);
@@ -68,9 +68,9 @@
   --accent-green: #10b981;
 
   /* Primary CTA color */
-  --accent-primary: #E93AA3;
-  --accent-primary-hover: #d12e8f;
-  --accent-primary-soft: rgba(233, 58, 163, 0.08);
+  --accent-primary: #d9b9e7;
+  --accent-primary-hover: #c4a0d4;
+  --accent-primary-soft: rgba(217, 185, 231, 0.20);
 
   /* Tag/badge colors */
   --tag-blue-bg: #d9b9e7;
@@ -81,7 +81,7 @@
   --coral: var(--accent-orange);
   --coral-hover: var(--accent-orange-hover);
   --coral-soft: var(--accent-orange-soft);
-  --coral-gradient: linear-gradient(135deg, #E93AA3 0%, #d12e8f 100%);
+  --coral-gradient: linear-gradient(135deg, #d9b9e7 0%, #c4a0d4 100%);
   --pink: var(--accent-orange);
   --lavender: var(--accent-purple);
   --green-soft: var(--accent-green-soft);
@@ -161,6 +161,7 @@ h1, h2 {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 1px;
+  line-height: 1;
 }
 
 h3 {
@@ -172,7 +173,7 @@ h3 {
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
 button { font-family: inherit; cursor: pointer; border: none; outline: none; }
-::selection { background: #E93AA3; color: white; }
+::selection { background: #30023c; color: white; }
 
 /* ===== Transparent header over hero ===== */
 header[data-transparent] {
@@ -183,6 +184,9 @@ header[data-transparent] {
 header[data-transparent] a,
 header[data-transparent] span {
   color: #ffffff !important;
+}
+header[data-transparent] a[class*="viewPlans"] {
+  color: #30023c !important;
 }
 header[data-transparent] nav a:hover {
   background: rgba(255, 255, 255, 0.1) !important;

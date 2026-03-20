@@ -30,8 +30,8 @@ export default function About({ data } = {}) {
             {highlights.map((f, i) => (
               <li key={i} className={s.listItem}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <circle cx="10" cy="10" r="10" fill="rgba(233,58,163,0.12)" />
-                  <path d="M6 10l3 3 5-5" stroke="#E93AA3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="10" cy="10" r="10" fill="rgba(48,2,60,0.12)" />
+                  <path d="M6 10l3 3 5-5" stroke="#30023c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 {f}
               </li>

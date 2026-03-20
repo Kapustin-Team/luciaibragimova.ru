@@ -47,10 +47,10 @@ const SLUG_TO_DIR = {
 
 /* Color schemes per direction */
 const DIRECTION_THEMES = {
-  'Рождение семьи': { accent: '#E93AA3', accentSoft: 'rgba(233,58,163,0.08)', heroGradient: 'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #f8f3fc 100%)' },
-  'Здоровое взросление': { accent: '#7c5cbf', accentSoft: 'rgba(124,92,191,0.08)', heroGradient: 'linear-gradient(135deg, #f3f0f8 0%, #e8e0f4 50%, #d9b9e7 100%)' },
-  'Развитие': { accent: '#2d8a6e', accentSoft: 'rgba(45,138,110,0.08)', heroGradient: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #f8f3fc 100%)' },
-  'Трансформация': { accent: '#30023c', accentSoft: 'rgba(48,2,60,0.06)', heroGradient: 'linear-gradient(135deg, #f8f3fc 0%, #e8ddf2 50%, #d9b9e7 100%)' },
+  'Рождение семьи': { accent: '#30023c', accentSoft: 'rgba(48,2,60,0.08)', heroGradient: 'linear-gradient(135deg, #fdf8ff 0%, #f0e4f8 50%, #f8f3fc 100%)', heroBg: '#f0e4f8' },
+  'Здоровое взросление': { accent: '#7c5cbf', accentSoft: 'rgba(124,92,191,0.08)', heroGradient: 'linear-gradient(135deg, #f3f0f8 0%, #e8e0f4 50%, #d9b9e7 100%)', heroBg: '#e8e0f4' },
+  'Развитие': { accent: '#2d8a6e', accentSoft: 'rgba(45,138,110,0.08)', heroGradient: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #f8f3fc 100%)', heroBg: '#d1fae5' },
+  'Трансформация': { accent: '#30023c', accentSoft: 'rgba(48,2,60,0.06)', heroGradient: 'linear-gradient(135deg, #f8f3fc 0%, #e8ddf2 50%, #d9b9e7 100%)', heroBg: '#e8ddf2' },
 }
 
 /* SVG icons for info cards */
@@ -86,6 +86,8 @@ export default function CoursePageClient({ course }) {
   const themeStyle = {
     '--theme-accent': theme.accent,
     '--theme-accent-soft': theme.accentSoft,
+    '--theme-hero-gradient': theme.heroGradient,
+    '--theme-hero-bg': theme.heroBg,
   }
 
   return (

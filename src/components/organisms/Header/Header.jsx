@@ -127,16 +127,16 @@ export default function Header({ data } = {}) {
           >
             {ctaLabel}
           </a>
-          <button
-            className={`${s.burger} ${menuOpen ? s.burgerOpen : ''}`}
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
         </div>
+        <button
+          className={`${s.burger} ${menuOpen ? s.burgerOpen : ''} ${isTransparent ? s.burgerTransparent : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </div>
     </header>
   )
