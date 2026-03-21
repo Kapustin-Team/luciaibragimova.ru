@@ -128,6 +128,28 @@ export default function CoursePageClient({ course }) {
               ) : (
                 <GradientPlaceholder variant="warm" aspectRatio="4/3" className={s.heroImage} />
               )}
+              {c.teachers?.length > 0 && (
+                <div className={s.heroTeacherCards}>
+                  {c.teachers.slice(0, 2).map((t, i) => {
+                    const src = t.photo?.url || t.photo?.formats?.thumbnail?.url
+                    return (
+                      <div key={i} className={s.heroTeacherCard}>
+                        <div className={s.heroTeacherAvatar}>
+                          {src ? (
+                            <img src={src} alt={t.name} />
+                          ) : (
+                            <span>{t.name?.charAt(0)}</span>
+                          )}
+                        </div>
+                        <div className={s.heroTeacherMeta}>
+                          <span className={s.heroTeacherName}>{t.name}</span>
+                          {t.role && <span className={s.heroTeacherRole}>{t.role}</span>}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           </div>
 
@@ -402,6 +424,41 @@ export default function CoursePageClient({ course }) {
                     ))}
                   </ul>
                 </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ─── Преподаватели ─── */}
+        {c.teachers?.length > 0 && (
+          <section className={s.section} id="teachers">
+            <div className={s.container}>
+              <div className={s.centeredHeader}>
+                <h2 className={s.sectionTitle}>Преподаватели курса</h2>
+                <p className={s.sectionSubtitle}>Опытные специалисты, которые проведут вас через программу</p>
+              </div>
+              <div className={s.teachersGrid} data-count={c.teachers.length}>
+                {c.teachers.map((t, i) => {
+                  const src = t.photo?.url || t.photo?.formats?.small?.url
+                  return (
+                    <div key={i} className={s.teacherCard}>
+                      <div className={s.teacherPhotoWrap}>
+                        {src ? (
+                          <img src={src} alt={t.name} className={s.teacherPhoto} />
+                        ) : (
+                          <div className={s.teacherPhotoPlaceholder}>
+                            {t.name?.charAt(0)}
+                          </div>
+                        )}
+                      </div>
+                      <div className={s.teacherInfo}>
+                        <h3 className={s.teacherName}>{t.name}</h3>
+                        {t.role && <p className={s.teacherRole}>{t.role}</p>}
+                        {t.description && <p className={s.teacherDesc}>{t.description}</p>}
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </section>
