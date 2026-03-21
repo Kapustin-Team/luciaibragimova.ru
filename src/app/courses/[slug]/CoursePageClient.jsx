@@ -131,21 +131,19 @@ export default function CoursePageClient({ course }) {
               {c.teachers?.length > 0 && (
                 <div className={s.heroTeacherCards}>
                   {c.teachers.slice(0, 2).map((t, i) => {
-                    const m = t.member
-                    if (!m) return null
-                    const src = m.photo?.url || m.photo?.formats?.thumbnail?.url
+                    const src = t.photo?.url || t.photo?.formats?.thumbnail?.url
                     return (
                       <div key={i} className={s.heroTeacherCard}>
                         <div className={s.heroTeacherAvatar}>
                           {src ? (
-                            <img src={src} alt={m.name} />
+                            <img src={src} alt={t.name} />
                           ) : (
-                            <span>{m.name?.charAt(0)}</span>
+                            <span>{t.name?.charAt(0)}</span>
                           )}
                         </div>
                         <div className={s.heroTeacherMeta}>
-                          <span className={s.heroTeacherName}>{m.name}</span>
-                          {m.role && <span className={s.heroTeacherRole}>{m.role}</span>}
+                          <span className={s.heroTeacherName}>{t.name}</span>
+                          {t.role && <span className={s.heroTeacherRole}>{t.role}</span>}
                         </div>
                       </div>
                     )
@@ -441,24 +439,22 @@ export default function CoursePageClient({ course }) {
               </div>
               <div className={s.teachersGrid} data-count={c.teachers.length}>
                 {c.teachers.map((t, i) => {
-                  const m = t.member
-                  if (!m) return null
-                  const src = m.photo?.url || m.photo?.formats?.small?.url
+                  const src = t.photo?.url || t.photo?.formats?.small?.url
                   return (
                     <div key={i} className={s.teacherCard}>
                       <div className={s.teacherPhotoWrap}>
                         {src ? (
-                          <img src={src} alt={m.name} className={s.teacherPhoto} />
+                          <img src={src} alt={t.name} className={s.teacherPhoto} />
                         ) : (
                           <div className={s.teacherPhotoPlaceholder}>
-                            {m.name?.charAt(0)}
+                            {t.name?.charAt(0)}
                           </div>
                         )}
                       </div>
                       <div className={s.teacherInfo}>
-                        <h3 className={s.teacherName}>{m.name}</h3>
-                        {m.role && <p className={s.teacherRole}>{m.role}</p>}
-                        {m.bio && <p className={s.teacherDesc}>{m.bio}</p>}
+                        <h3 className={s.teacherName}>{t.name}</h3>
+                        {t.role && <p className={s.teacherRole}>{t.role}</p>}
+                        {t.bio && <p className={s.teacherDesc}>{t.bio}</p>}
                       </div>
                     </div>
                   )
