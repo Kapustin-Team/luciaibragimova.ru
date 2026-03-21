@@ -80,7 +80,7 @@ export async function getCourseBySlug(slug) {
     'populate[8]': 'relatedCourses',
     'populate[9]': 'author',
     'populate[10]': 'image',
-    'populate[11]': 'teachers.photo',
+    'populate[11]': 'teachers.member.photo',
   })
   return data?.[0] || null
 }
