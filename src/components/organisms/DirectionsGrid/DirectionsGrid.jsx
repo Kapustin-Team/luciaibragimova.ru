@@ -1,6 +1,4 @@
 'use client'
-import { useState, useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import s from './DirectionsGrid.module.sass'
 
 const FALLBACK_DIRS = [
@@ -41,11 +39,12 @@ const ICON_MAP = {
 
 /* Each direction has its own accent color */
 const DIR_COLORS = {
-  'Рождение семьи': { accent: '#30023c', soft: 'rgba(48,2,60,0.15)', segment: '#d9b9e7' },
-  'Здоровое взросление': { accent: '#7c5cbf', soft: 'rgba(124,92,191,0.15)', segment: '#7c5cbf' },
-  'Развитие детей и взрослых': { accent: '#2d8a6e', soft: 'rgba(45,138,110,0.15)', segment: '#2d8a6e' },
-  'Духовно-нравственная трансформация': { accent: '#8b5cf6', soft: 'rgba(139,92,246,0.15)', segment: '#8b5cf6' },
+  'Рождение семьи': { segment: '#d9b9e7' },
+  'Здоровое взросление': { segment: '#7c5cbf' },
+  'Развитие детей и взрослых': { segment: '#2d8a6e' },
+  'Духовно-нравственная трансформация': { segment: '#8b5cf6' },
 }
+
 
 /* Fallback: slug → direction title for counting courses */
 const SLUG_TO_DIR = {
@@ -65,8 +64,6 @@ const SLUG_TO_DIR = {
   'igra-lvov': 'Духовно-нравственная трансформация',
 }
 
-const FORMAT_MAP = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
-
 function normalizeDirections(strapiDirections, strapiCourses) {
   if (!strapiDirections?.length) return FALLBACK_DIRS
   const countByDir = {}
@@ -84,29 +81,13 @@ function normalizeDirections(strapiDirections, strapiCourses) {
   }))
 }
 
-function normalizeCourses(strapiCourses) {
-  if (!strapiCourses?.length) return []
-  return strapiCourses.map(c => ({
-    title: c.title,
-    slug: c.slug,
-    dir: c.direction?.title || SLUG_TO_DIR[c.slug] || '',
-    format: FORMAT_MAP[c.format] || c.format || '',
-    duration: c.duration || '',
-    lessonsCount: c.lessonsCount || c.lessons?.length || 0,
-  }))
-}
-
 /* ── Decorative circle: 4 segments matching grid quadrant positions ── */
-/* Grid quadrants: 0=top-left, 1=top-right, 2=bottom-left, 3=bottom-right */
-/* SVG segments (clockwise from top): 0=top-right, 1=bottom-right, 2=bottom-left, 3=top-left */
-/* Mapping: grid index → SVG segment index */
 const GRID_TO_SVG = [3, 0, 2, 1]
 
-function DecorativeCircle({ dirs, activeIndex }) {
+function DecorativeCircle({ dirs }) {
   const r = 54
   const cx = 60, cy = 60
 
-  /* Draw 4 SVG segments (clockwise from -90°) */
   const segments = [0, 1, 2, 3].map(svgIdx => {
     const startAngle = svgIdx * 90 - 90
     const endAngle = startAngle + 90
@@ -117,19 +98,16 @@ function DecorativeCircle({ dirs, activeIndex }) {
     const x2 = cx + r * Math.cos(endRad)
     const y2 = cy + r * Math.sin(endRad)
 
-    /* Find which grid quadrant this SVG segment belongs to */
     const gridIdx = GRID_TO_SVG.indexOf(svgIdx)
     const dirTitle = dirs[gridIdx]?.title
     const color = DIR_COLORS[dirTitle]?.segment || '#d9b9e7'
-    const isActive = activeIndex === gridIdx
 
     return (
       <path
         key={svgIdx}
         d={`M${cx},${cy} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`}
         fill={color}
-        opacity={isActive ? 1 : 0.35}
-        style={{ transition: 'all 0.4s ease' }}
+        opacity={0.65}
       />
     )
   })
@@ -143,20 +121,19 @@ function DecorativeCircle({ dirs, activeIndex }) {
   )
 }
 
+function handleDirectionClick(dirTitle) {
+  const filterName = dirTitle
+  window.dispatchEvent(new CustomEvent('filter-courses', { detail: { direction: filterName } }))
+  const coursesEl = document.getElementById('courses')
+  if (coursesEl) {
+    coursesEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}
+
 export default function DirectionsGrid({ data, directions: strapiDirections, courses: strapiCourses } = {}) {
   const title = data?.title || 'Выберите своё направление'
   const subtitle = data?.subtitle || 'Нажмите — увидите курсы ниже'
   const dirs = normalizeDirections(strapiDirections, strapiCourses)
-  const allCourses = useMemo(() => normalizeCourses(strapiCourses), [strapiCourses])
-
-  const [activeIdx, setActiveIdx] = useState(null)
-
-  const activeDirTitle = activeIdx !== null ? dirs[activeIdx]?.title : null
-  const activeColor = activeDirTitle ? DIR_COLORS[activeDirTitle] : null
-  const filteredCourses = useMemo(() => {
-    if (!activeDirTitle) return []
-    return allCourses.filter(c => c.dir === activeDirTitle)
-  }, [activeDirTitle, allCourses])
 
   return (
     <section className={s.section} id="directions-grid">
@@ -168,14 +145,13 @@ export default function DirectionsGrid({ data, directions: strapiDirections, cou
 
         <div className={s.gridWrap}>
           <div className={s.grid}>
-            {dirs.map((d, i) => {
-              const isActive = activeIdx === i
+            {dirs.map((d) => {
               const icon = ICON_MAP[d.icon] || ICON_MAP.Heart
               return (
                 <button
                   key={d.title}
-                  className={`${s.quadrant} ${isActive ? s.active : ''}`}
-                  onClick={() => setActiveIdx(isActive ? null : i)}
+                  className={s.quadrant}
+                  onClick={() => handleDirectionClick(d.title)}
                 >
                   <div className={s.qIconWrap}>
                     <span className={s.qIcon}>{icon}</span>
@@ -192,56 +168,9 @@ export default function DirectionsGrid({ data, directions: strapiDirections, cou
             })}
           </div>
           <div className={s.circleWrap}>
-            <DecorativeCircle dirs={dirs} activeIndex={activeIdx} />
+            <DecorativeCircle dirs={dirs} />
           </div>
         </div>
-
-        <AnimatePresence mode="wait">
-          {activeIdx !== null && filteredCourses.length > 0 && (
-            <motion.div
-              key={activeDirTitle}
-              className={s.coursesSection}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-            >
-              <div className={s.coursesHeader}>
-                <h3 className={s.coursesTitle}>{activeDirTitle}</h3>
-                <a href="/courses" className={s.allCoursesBtn}>Все курсы</a>
-              </div>
-
-              <div className={s.coursesList}>
-                {filteredCourses.map((c, i) => (
-                  <motion.a
-                    key={c.slug}
-                    href={`/courses/${c.slug}`}
-                    className={s.courseItem}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.06, duration: 0.3 }}
-                  >
-                    <div className={s.courseInfo}>
-                      <span
-                        className={s.courseDot}
-                        style={{ background: c.format === 'Онлайн' ? '#10b981' : c.format === 'Офлайн' ? '#d9b9e7' : c.format === 'Гибрид' ? '#f59e0b' : '#d9b9e7' }}
-                      />
-                      <span className={s.courseName}>{c.title}</span>
-                    </div>
-                    <div className={s.courseActions}>
-                      {c.format && (
-                        <span className={`${s.courseFormat} ${c.format === 'Онлайн' ? s.formatOnline : c.format === 'Офлайн' ? s.formatOffline : s.formatHybrid}`}>
-                          {c.format}
-                        </span>
-                      )}
-                      <span className={s.courseArrow}>→</span>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </section>
   )

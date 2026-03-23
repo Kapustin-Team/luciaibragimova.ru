@@ -3,7 +3,7 @@ import ClientHome from '../ClientHome'
 import PaletteLayout from './PaletteLayout'
 
 export const metadata = {
-  title: 'Палитра 2 — Пыльная роза | Студия Люции Ибрагимовой',
+  title: 'Палитра 2 — Пыльный розовый | Студия Люции Ибрагимовой',
   robots: 'noindex, nofollow',
 }
 

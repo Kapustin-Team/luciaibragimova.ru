@@ -8,14 +8,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'Bebas Neue';
-  src: url('/fonts/BebasNeue-Book.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -206,8 +198,11 @@ h1, h2 {
   font-family: var(--font-heading);
   font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0;
   line-height: 1;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h3 {

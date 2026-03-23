@@ -3,7 +3,7 @@ import ClientHome from '../ClientHome'
 import PaletteLayout from './PaletteLayout'
 
 export const metadata = {
-  title: 'Палитра 3 — Глубокий индиго | Студия Люции Ибрагимовой',
+  title: 'Палитра 3 — Тёмный фиолетовый | Студия Люции Ибрагимовой',
   robots: 'noindex, nofollow',
 }
 
