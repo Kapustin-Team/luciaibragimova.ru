@@ -1,5 +1,4 @@
 import './globals.css'
-import { DevTools } from './DevTools'
 
 export const metadata = {
   title: 'Студия Люции Ибрагимовой',
@@ -21,7 +20,6 @@ export default function RootLayout({ children }) {
     <html lang="ru">
       <body>
         {children}
-        <DevTools />
       </body>
     </html>
   )
