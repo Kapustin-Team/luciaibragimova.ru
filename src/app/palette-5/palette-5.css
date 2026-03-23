@@ -310,27 +310,19 @@
   background: #6a9dad !important;
 }
 
-/* --- DIRECTIONS --- */
-[data-palette="5"] [class*="Directions"][class*="__sectionTitle"] {
-  color: #0f2a2a !important;
+/* --- DIRECTIONS GRID --- */
+[data-palette="5"] [class*="DirectionsGrid"][class*="__sectionTitle"] {
+  color: #ffffff !important;
 }
-[data-palette="5"] [class*="Directions"][class*="__sectionSubtitle"] {
-  color: rgba(15, 42, 42, 0.55) !important;
+[data-palette="5"] [class*="DirectionsGrid"][class*="__qIcon"] {
+  color: #7ab0be !important;
 }
-[data-palette="5"] [class*="Directions"][class*="__card"] {
-  border-color: rgba(20, 60, 75, 0.08) !important;
+[data-palette="5"] [class*="DirectionsGrid"][class*="__qIconWrap"] {
+  background: rgba(122, 176, 190, 0.15) !important;
 }
-[data-palette="5"] [class*="Directions"][class*="__cardCount"] {
-  color: #1a4a5c !important;
-}
-[data-palette="5"] [class*="Directions"][class*="__cardTitle"] {
-  color: #0f2a2a !important;
-}
-[data-palette="5"] [class*="Directions"][class*="__cardDesc"] {
-  color: rgba(15, 42, 42, 0.55) !important;
-}
-[data-palette="5"] [class*="Directions"][class*="__cardLink"] {
-  color: #1a4a5c !important;
+[data-palette="5"] [class*="DirectionsGrid"][class*="__formatOffline"] {
+  color: #7ab0be !important;
+  background: rgba(122, 176, 190, 0.12) !important;
 }
 
 /* --- TRANSPARENT HEADER OVERRIDES --- */
