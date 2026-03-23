@@ -71,7 +71,7 @@ export async function getCourseBySlug(slug) {
     'filters[slug][$eq]': slug,
     'populate[0]': 'direction',
     'populate[1]': 'targetAudience.image',
-    'populate[2]': 'results.image',
+    'populate[2]': 'results',
     'populate[3]': 'modules',
     'populate[4]': 'tariffs',
     'populate[5]': 'faqs',
@@ -81,6 +81,9 @@ export async function getCourseBySlug(slug) {
     'populate[9]': 'author',
     'populate[10]': 'image',
     'populate[11]': 'teachers.photo',
+    'populate[12]': 'resultsImage',
+    'populate[13]': 'methods',
+    'populate[14]': 'limitations',
   })
   return data?.[0] || null
 }
@@ -101,7 +104,7 @@ export async function getReviews() {
 
 export async function getTeamMembers() {
   return fetchStrapi('/team-members', {
-    'populate': '*',
+    'populate[0]': 'photo',
     'sort': 'order:asc',
   })
 }

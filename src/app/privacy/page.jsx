@@ -2,7 +2,7 @@ import Header from '@/components/organisms/Header/Header'
 import Footer from '@/components/organisms/Footer/Footer'
 
 export const metadata = {
-  title: 'Политика конфиденциальности — Школа Люции Ибрагимовой',
+  title: 'Политика конфиденциальности — Студия Люции Ибрагимовой',
 }
 
 export default function PrivacyPage() {

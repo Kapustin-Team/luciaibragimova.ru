@@ -2,7 +2,7 @@ import Header from '@/components/organisms/Header/Header'
 import Footer from '@/components/organisms/Footer/Footer'
 
 export const metadata = {
-  title: 'Договор оферты — Школа Люции Ибрагимовой',
+  title: 'Договор оферты — Студия Люции Ибрагимовой',
 }
 
 export default function TermsPage() {

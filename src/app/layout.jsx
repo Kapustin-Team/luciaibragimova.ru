@@ -1,7 +1,8 @@
 import './globals.css'
+import { DevTools } from './DevTools'
 
 export const metadata = {
-  title: 'Школа Люции Ибрагимовой',
+  title: 'Студия Люции Ибрагимовой',
   description: 'Авторские программы семейного психолога с 25-летним опытом. Курсы для родителей и подростков.',
   manifest: '/manifest.json',
   icons: {
@@ -18,7 +19,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ru">
-      <body>{children}</body>
+      <body>
+        {children}
+        <DevTools />
+      </body>
     </html>
   )
 }

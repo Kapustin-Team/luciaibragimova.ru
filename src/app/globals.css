@@ -77,6 +77,52 @@
   --tag-green-bg: #c4fae7;
   --badge-blue-bg: #d9b9e7;
 
+  /* ===== Component-level colors (for palette overrides) ===== */
+  --btn-accent-bg: #d9b9e7;
+  --btn-accent-bg-hover: #c4a0d4;
+  --btn-accent-text: #30023c;
+  --badge-accent-bg: #d9b9e7;
+  --badge-accent-text: #30023c;
+  --tab-active-bg: #d9b9e7;
+  --tab-active-text: #30023c;
+  --tab-hover-border: #d9b9e7;
+  --tab-hover-text: #30023c;
+  --icon-accent-color: #d9b9e7;
+  --icon-accent-bg: rgba(217, 185, 231, 0.25);
+  --icon-accent-bg-light: rgba(217, 185, 231, 0.2);
+  --quote-border-color: #d9b9e7;
+  --quote-author-color: #d9b9e7;
+  --feature-icon-color: #d9b9e7;
+  --pink-banner-bg: #d9b9e7;
+  --pink-banner-text: #30023c;
+  --pink-banner-text-muted: rgba(48, 2, 60, 0.75);
+  --cta-section-bg: #e1dceb;
+  --cta-btn-outline-text: #30023c;
+  --cta-btn-outline-border: #30023c;
+  --featured-section-bg: var(--bg-dark);
+  --featured-decor-circle: rgba(217, 185, 231, 0.12);
+  --featured-image-accent: rgba(217, 185, 231, 0.3);
+  --mobile-menu-bg: #5c2d82;
+  --mobile-cta-text: #5c2d82;
+  --format-text-color: #30023c;
+  --card-featured-bg: rgba(48, 2, 60, 0.06);
+  --card-featured-bg-hover: rgba(48, 2, 60, 0.12);
+  --card-thumb-placeholder: linear-gradient(135deg, #e1dceb 0%, #f3f0f8 100%);
+  --card-link-hover: #30023c;
+  --card-buy-text: #30023c;
+  --decor-circle-1: rgba(48, 2, 60, 0.06);
+  --decor-circle-2: rgba(64, 10, 75, 0.04);
+  --decor-dots: rgba(64, 10, 75, 0.08);
+  --cta-decor-circle-1: rgba(48, 2, 60, 0.1);
+  --cta-decor-circle-2: rgba(64, 10, 75, 0.08);
+  --cta-decor-dots: rgba(64, 10, 75, 0.12);
+  --footer-btn-bg: #d9b9e7;
+  --footer-btn-bg-hover: #c4a0d4;
+  --footer-btn-text: #30023c;
+  --footer-link-hover: #d9b9e7;
+  --selection-bg: #30023c;
+  --header-viewplans-transparent-text: #30023c;
+
   /* Legacy aliases */
   --coral: var(--accent-orange);
   --coral-hover: var(--accent-orange-hover);
@@ -173,7 +219,7 @@ h3 {
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
 button { font-family: inherit; cursor: pointer; border: none; outline: none; }
-::selection { background: #30023c; color: white; }
+::selection { background: var(--selection-bg, #30023c); color: white; }
 
 /* ===== Transparent header over hero ===== */
 header[data-transparent] {
@@ -186,7 +232,7 @@ header[data-transparent] span {
   color: #ffffff !important;
 }
 header[data-transparent] a[class*="viewPlans"] {
-  color: #30023c !important;
+  color: var(--header-viewplans-transparent-text, #30023c) !important;
 }
 header[data-transparent] nav a:hover {
   background: rgba(255, 255, 255, 0.1) !important;

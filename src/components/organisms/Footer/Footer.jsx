@@ -57,7 +57,7 @@ export default function Footer({ directions, courses }) {
   const footerCols = [
     { title: 'Направления', links: dirLinks },
     { title: 'Курсы', links: courseLinks },
-    { title: 'О школе', links: aboutLinks },
+    { title: 'О студии', links: aboutLinks },
   ]
 
   return (
@@ -99,7 +99,7 @@ export default function Footer({ directions, courses }) {
       <div className={s.bottom}>
         <div className={s.bottomInner}>
           <div className={s.logoWrap}>
-            <span className={s.footerLogo} style={{ fontWeight: 700, fontSize: '1rem' }}>Школа Люции Ибрагимовой</span>
+            <span className={s.footerLogo} style={{ fontWeight: 700, fontSize: '1rem' }}>Студия Люции Ибрагимовой</span>
             <span className={s.copyright}>© 2026 Люция Ибрагимова. Все права защищены</span>
           </div>
           <div className={s.legal}>

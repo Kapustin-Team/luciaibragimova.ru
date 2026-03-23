@@ -1,0 +1,160 @@
+'use client'
+import { useRef, useState, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import AnimatedSection from '@/components/atoms/AnimatedSection'
+import s from './Team.module.sass'
+
+export default function Team({ data, team: teamMembers } = {}) {
+  const title = data?.title || 'Наша команда'
+  const subtitle = data?.subtitle || 'Специалисты, которым доверяют'
+  const scrollRef = useRef(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+  const [expandedId, setExpandedId] = useState(null)
+
+  const members = (teamMembers || []).map(m => ({
+    id: m.id || m.documentId,
+    name: m.name,
+    role: m.role,
+    bio: m.bio,
+    specialization: m.specialization,
+    photo: m.photo?.url || m.photo?.formats?.medium?.url || m.photo?.formats?.small?.url || null,
+  }))
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 10)
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10)
+  }, [])
+
+  const scroll = (dir) => {
+    const el = scrollRef.current
+    if (!el) return
+    const cardWidth = el.querySelector('[data-team-card]')?.offsetWidth || 320
+    el.scrollBy({ left: dir * (cardWidth + 16), behavior: 'smooth' })
+    setTimeout(updateScrollState, 400)
+  }
+
+  const handleToggleBio = (id) => {
+    setExpandedId(prev => prev === id ? null : id)
+  }
+
+  if (!members.length) return null
+
+  return (
+    <section className={s.section} id="team">
+      <div className={s.inner}>
+        <AnimatedSection className={s.header}>
+          <div className={s.headerLeft}>
+            <h2 className={s.title}>{title}</h2>
+            <p className={s.subtitle}>{subtitle}</p>
+          </div>
+          {members.length > 3 && (
+            <div className={s.arrows}>
+              <button
+                className={`${s.arrow} ${!canScrollLeft ? s.arrowDisabled : ''}`}
+                onClick={() => scroll(-1)}
+                aria-label="Назад"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <button
+                className={`${s.arrow} ${!canScrollRight ? s.arrowDisabled : ''}`}
+                onClick={() => scroll(1)}
+                aria-label="Вперёд"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+          )}
+        </AnimatedSection>
+
+        <div
+          className={s.track}
+          ref={scrollRef}
+          onScroll={updateScrollState}
+        >
+          {members.map((member, i) => (
+            <motion.div
+              className={s.card}
+              key={member.id || i}
+              data-team-card
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+            >
+              <div className={s.cardPhotoWrap}>
+                {member.photo ? (
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    className={s.cardPhoto}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className={s.cardPhotoPlaceholder}>
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                      <circle cx="24" cy="18" r="10" stroke="currentColor" strokeWidth="2" />
+                      <path d="M6 44c0-9.941 8.059-18 18-18s18 8.059 18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                  </div>
+                )}
+                <div className={s.cardOverlay} />
+              </div>
+
+              <div className={s.cardBody}>
+                <h3 className={s.cardName}>{member.name}</h3>
+                <span className={s.cardRole}>{member.role}</span>
+                {member.specialization && (
+                  <span className={s.cardSpec}>{member.specialization}</span>
+                )}
+
+                {member.bio && (
+                  <>
+                    <button
+                      className={s.bioToggle}
+                      onClick={() => handleToggleBio(member.id || i)}
+                    >
+                      {expandedId === (member.id || i) ? 'Скрыть' : 'Подробнее'}
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        className={expandedId === (member.id || i) ? s.bioArrowUp : ''}
+                      >
+                        <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+                    <AnimatePresence>
+                      {expandedId === (member.id || i) && (
+                        <motion.p
+                          className={s.cardBio}
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        >
+                          {member.bio}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+                  </>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Decorative element */}
+      <div className={s.decor} aria-hidden="true" />
+    </section>
+  )
+}

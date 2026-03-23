@@ -76,13 +76,13 @@ export default function Header({ data } = {}) {
 
   return (
     <header
-      className={`${s.header} ${scrolled ? s.scrolled : ''} ${isTransparent ? s.transparent : ''}`}
+      className={`${s.header} ${scrolled ? s.scrolled : ''} ${isTransparent ? s.transparent : ''} ${menuOpen ? s.menuOpen : ''}`}
       data-transparent={isTransparent ? 'true' : undefined}
     >
       <div className={s.inner}>
         <a href="/" className={s.logo}>
           <img
-            src={isTransparent ? '/logo-light.svg' : '/logo-dark.svg'}
+            src={isTransparent || menuOpen ? '/logo-light.svg' : '/logo-dark.svg'}
             alt={brandName}
             className={s.logoImg}
           />

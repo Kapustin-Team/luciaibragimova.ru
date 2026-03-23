@@ -4,6 +4,7 @@ import Header from '@/components/organisms/Header/Header'
 import Hero from '@/components/organisms/Hero/Hero'
 import TopBanner from '@/components/organisms/TopBanner/TopBanner'
 import Directions from '@/components/organisms/Directions/Directions'
+import DirectionsGrid from '@/components/organisms/DirectionsGrid/DirectionsGrid'
 import PinkBanner from '@/components/organisms/PinkBanner/PinkBanner'
 import About from '@/components/organisms/About/About'
 import FeaturedCourse from '@/components/organisms/FeaturedCourse/FeaturedCourse'
@@ -14,6 +15,7 @@ import Faq from '@/components/organisms/Faq/Faq'
 import TrustBlock from '@/components/organisms/TrustBlock/TrustBlock'
 import Consultations from '@/components/organisms/Consultations/Consultations'
 import ContactBlock from '@/components/organisms/ContactBlock/ContactBlock'
+import Team from '@/components/organisms/Team/Team'
 import Footer from '@/components/organisms/Footer/Footer'
 import ChatWidget from '@/components/organisms/ChatWidget/ChatWidget'
 
@@ -21,7 +23,7 @@ import ChatWidget from '@/components/organisms/ChatWidget/ChatWidget'
 const BLOCK_MAP = {
   'blocks.top-banner': TopBanner,
   'blocks.hero': Hero,
-  'blocks.directions-grid': Directions,
+  'blocks.directions-grid': DirectionsGrid,
   'blocks.pink-banner': PinkBanner,
   'blocks.about': About,
   'blocks.featured-course': FeaturedCourse,
@@ -32,6 +34,7 @@ const BLOCK_MAP = {
   'blocks.trust-block': TrustBlock,
   'blocks.consultations-section': Consultations,
   'blocks.contact-section': ContactBlock,
+  'blocks.team-section': Team,
 }
 
 export default function ClientHome({ homepage, directions, courses, faqs, reviews, team, consultationTypes }) {
@@ -70,7 +73,7 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
         <Hero />
         <TopBanner />
         <TrustBlock />
-        <Directions directions={directions} />
+        <DirectionsGrid directions={directions} courses={courses} />
         <PinkBanner />
         <About />
         <FeaturedCourse />

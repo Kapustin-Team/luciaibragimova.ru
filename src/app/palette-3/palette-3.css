@@ -1,0 +1,339 @@
+/*
+ * Palette 3 — "Deep Indigo"
+ * Trust, depth, professionalism. Cleaner blue-purple evolution.
+ *
+ * Overrides both CSS variables AND hardcoded SASS module colors.
+ */
+
+:root {
+  /* ===== Colors — Backgrounds ===== */
+  --bg-body: #fafaff;
+  --bg-dark: #1a1040;
+  --bg-hero: #1a1040;
+  --bg-section-alt: #f8f2e8;
+  --bg-card: #f4f1fa;
+  --bg-card-hover: #ebe6f5;
+  --bg-footer: #1a1040;
+  --bg-peach: #f8f2e8;
+  --bg-peach-soft: rgba(248, 242, 232, 0.5);
+  --bg-lavender: #b8a9d4;
+  --bg-cream: #f8f2e8;
+  --bg-white: #ffffff;
+
+  /* ===== Colors — Text ===== */
+  --text-dark: #1a1a2e;
+  --text-muted: rgba(26, 26, 46, 0.6);
+  --text-white: #ffffff;
+  --text-on-dark-muted: rgba(255, 255, 255, 0.7);
+  --text-on-dark-soft: rgba(255, 255, 255, 0.88);
+
+  /* ===== Colors — Accent palette ===== */
+  --accent-orange: #9b8abf;
+  --accent-orange-hover: #8a78af;
+  --accent-orange-soft: rgba(155, 138, 191, 0.20);
+  --accent-orange-dark: #2d1b69;
+  --accent-orange-dark-hover: #221255;
+  --accent-orange-dark-soft: rgba(45, 27, 105, 0.10);
+  --accent-orange-dark-muted: rgba(45, 27, 105, 0.06);
+
+  --accent-blue: #6c5ba7;
+  --accent-blue-dark: #1a1040;
+
+  --accent-purple: #2d1b69;
+  --accent-purple-dark: #1a1040;
+
+  --accent-green-soft: rgba(16, 185, 129, 0.15);
+  --accent-green: #10b981;
+
+  /* Primary CTA color */
+  --accent-primary: #9b8abf;
+  --accent-primary-hover: #8a78af;
+  --accent-primary-soft: rgba(155, 138, 191, 0.20);
+
+  /* Tag/badge colors */
+  --tag-blue-bg: #b8a9d4;
+  --tag-green-bg: #c4fae7;
+  --badge-blue-bg: #b8a9d4;
+
+  /* Component-level variables */
+  --btn-accent-bg: #9b8abf;
+  --btn-accent-bg-hover: #8a78af;
+  --btn-accent-text: #2d1b69;
+  --badge-accent-bg: #9b8abf;
+  --badge-accent-text: #2d1b69;
+  --tab-active-bg: #9b8abf;
+  --tab-active-text: #2d1b69;
+  --tab-hover-border: #9b8abf;
+  --tab-hover-text: #2d1b69;
+  --icon-accent-color: #9b8abf;
+  --icon-accent-bg: rgba(155, 138, 191, 0.25);
+  --icon-accent-bg-light: rgba(155, 138, 191, 0.2);
+  --quote-border-color: #9b8abf;
+  --quote-author-color: #9b8abf;
+  --feature-icon-color: #9b8abf;
+  --pink-banner-bg: #9b8abf;
+  --pink-banner-text: #2d1b69;
+  --pink-banner-text-muted: rgba(45, 27, 105, 0.75);
+  --cta-section-bg: #ddd6ec;
+  --cta-btn-outline-text: #2d1b69;
+  --cta-btn-outline-border: #2d1b69;
+  --featured-section-bg: #1a1040;
+  --featured-decor-circle: rgba(155, 138, 191, 0.12);
+  --featured-image-accent: rgba(155, 138, 191, 0.3);
+  --mobile-menu-bg: #4a3080;
+  --mobile-cta-text: #4a3080;
+  --format-text-color: #2d1b69;
+  --card-featured-bg: rgba(45, 27, 105, 0.06);
+  --card-featured-bg-hover: rgba(45, 27, 105, 0.12);
+  --card-thumb-placeholder: linear-gradient(135deg, #ddd6ec 0%, #f4f1fa 100%);
+  --card-link-hover: #2d1b69;
+  --card-buy-text: #2d1b69;
+  --decor-circle-1: rgba(45, 27, 105, 0.06);
+  --decor-circle-2: rgba(40, 25, 90, 0.04);
+  --decor-dots: rgba(40, 25, 90, 0.08);
+  --cta-decor-circle-1: rgba(45, 27, 105, 0.1);
+  --cta-decor-circle-2: rgba(40, 25, 90, 0.08);
+  --cta-decor-dots: rgba(40, 25, 90, 0.12);
+  --footer-btn-bg: #9b8abf;
+  --footer-btn-bg-hover: #8a78af;
+  --footer-btn-text: #2d1b69;
+  --footer-link-hover: #9b8abf;
+  --selection-bg: #2d1b69;
+  --header-viewplans-transparent-text: #2d1b69;
+
+  /* Legacy aliases */
+  --coral: var(--accent-orange);
+  --coral-hover: var(--accent-orange-hover);
+  --coral-soft: var(--accent-orange-soft);
+  --coral-gradient: linear-gradient(135deg, #9b8abf 0%, #8a78af 100%);
+  --pink: var(--accent-orange);
+  --lavender: var(--accent-purple);
+  --green-soft: var(--accent-green-soft);
+  --green-tag: var(--accent-green);
+}
+
+::selection {
+  background: #2d1b69;
+  color: white;
+}
+
+/* ==========================================================================
+   HARDCODED COLOR OVERRIDES via [data-palette="3"] + [class*="..."]
+   ========================================================================== */
+
+/* --- HEADER --- */
+[data-palette="3"] [class*="viewPlans"] {
+  background: #9b8abf !important;
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="viewPlans"]:hover {
+  background: #8a78af !important;
+}
+[data-palette="3"] [class*="mobileCta"] {
+  color: #4a3080 !important;
+}
+[data-palette="3"] [class*="Header"][class*="__navLink"] {
+  color: rgba(26, 26, 46, 0.6) !important;
+}
+[data-palette="3"] [class*="Header"][class*="__navLink"]:hover {
+  color: #1a1a2e !important;
+}
+[data-palette="3"] [class*="burger"] span {
+  background: #1a1a2e !important;
+}
+[data-palette="3"] [class*="burgerTransparent"] span {
+  background: #ffffff !important;
+}
+[data-palette="3"] [class*="burgerOpen"] span {
+  background: #ffffff !important;
+}
+[data-palette="3"] [class*="Header"][class*="__socials"] a {
+  color: rgba(26, 26, 46, 0.5) !important;
+}
+[data-palette="3"] [class*="Header"][class*="__socials"] a:hover {
+  color: #1a1a2e !important;
+}
+[data-palette="3"] [class*="logoText"] {
+  color: #1a1a2e !important;
+}
+
+/* --- COURSES --- */
+[data-palette="3"] [class*="Courses"][class*="__filterBtn"]:hover {
+  border-color: #9b8abf !important;
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="Courses"][class*="__active"] {
+  background: #9b8abf !important;
+  border-color: #9b8abf !important;
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="Courses"][class*="__active"]:hover {
+  color: #2d1b69 !important;
+  border-color: #9b8abf !important;
+}
+[data-palette="3"] [class*="Courses"][class*="__tag"] {
+  background: #9b8abf !important;
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="Courses"][class*="__format"] {
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="Courses"][class*="__featured"] {
+  background: rgba(45, 27, 105, 0.06) !important;
+}
+[data-palette="3"] [class*="Courses"][class*="__featured"]:hover {
+  background: rgba(45, 27, 105, 0.12) !important;
+}
+[data-palette="3"] [class*="Courses"][class*="__cardLink"]:hover {
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="Courses"][class*="__cardBuy"] {
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="Courses"][class*="__cardThumbPlaceholder"] {
+  background: linear-gradient(135deg, #ddd6ec 0%, #f4f1fa 100%) !important;
+}
+
+/* --- PINK BANNER --- */
+[data-palette="3"] [class*="PinkBanner"][class*="__card"] {
+  background: #9b8abf !important;
+}
+[data-palette="3"] [class*="PinkBanner"][class*="__title"] {
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="PinkBanner"][class*="__desc"] {
+  color: rgba(45, 27, 105, 0.75) !important;
+}
+[data-palette="3"] [class*="PinkBanner"][class*="__btn"] {
+  background: #ffffff !important;
+  color: #1a1040 !important;
+}
+[data-palette="3"] [class*="PinkBanner"][class*="__decorCircle1"] {
+  background: rgba(45, 27, 105, 0.06) !important;
+}
+[data-palette="3"] [class*="PinkBanner"][class*="__decorCircle2"] {
+  background: rgba(40, 25, 90, 0.04) !important;
+}
+[data-palette="3"] [class*="PinkBanner"][class*="__decorDots"] {
+  background-image: radial-gradient(rgba(40, 25, 90, 0.08) 2px, transparent 2px) !important;
+}
+
+/* --- FEATURED COURSE --- */
+[data-palette="3"] [class*="FeaturedCourse"][class*="__badge"] {
+  background: #9b8abf !important;
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="FeaturedCourse"][class*="__btn"] {
+  background: #9b8abf !important;
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="FeaturedCourse"][class*="__btn"]:hover {
+  background: #8a78af !important;
+}
+[data-palette="3"] [class*="FeaturedCourse"][class*="__quote"] {
+  border-left-color: #9b8abf !important;
+}
+[data-palette="3"] [class*="FeaturedCourse"][class*="__quoteAuthor"] {
+  color: #9b8abf !important;
+}
+[data-palette="3"] [class*="FeaturedCourse"][class*="__featureIcon"] {
+  color: #9b8abf !important;
+}
+[data-palette="3"] [class*="FeaturedCourse"][class*="__featureIconWrap"] {
+  background: rgba(155, 138, 191, 0.25) !important;
+}
+[data-palette="3"] [class*="FeaturedCourse"][class*="__decorCircle"] {
+  background: rgba(155, 138, 191, 0.12) !important;
+}
+[data-palette="3"] [class*="FeaturedCourse"][class*="__imageAccent"] {
+  border-color: rgba(155, 138, 191, 0.3) !important;
+}
+
+/* --- CONSULTATIONS --- */
+[data-palette="3"] [class*="Consultations"][class*="__btn"] {
+  background: #9b8abf !important;
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="Consultations"][class*="__btn"]:hover {
+  background: #8a78af !important;
+}
+[data-palette="3"] [class*="Consultations"][class*="__iconWrap"] {
+  background: rgba(155, 138, 191, 0.2) !important;
+  color: #2d1b69 !important;
+}
+
+/* --- CTA SECTION --- */
+[data-palette="3"] [class*="Cta"][class*="__section"] {
+  background: #ddd6ec !important;
+}
+[data-palette="3"] [class*="Cta"][class*="__btnPrimary"] {
+  background: #9b8abf !important;
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="Cta"][class*="__btnPrimary"]:hover {
+  background: #8a78af !important;
+}
+[data-palette="3"] [class*="Cta"][class*="__btnOutline"] {
+  color: #2d1b69 !important;
+  border-color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="Cta"][class*="__decorCircle1"] {
+  background: rgba(45, 27, 105, 0.1) !important;
+}
+[data-palette="3"] [class*="Cta"][class*="__decorCircle2"] {
+  background: rgba(40, 25, 90, 0.08) !important;
+}
+[data-palette="3"] [class*="Cta"][class*="__decorDots"] {
+  background-image: radial-gradient(rgba(40, 25, 90, 0.12) 2px, transparent 2px) !important;
+}
+
+/* --- FOOTER --- */
+[data-palette="3"] [class*="Footer"][class*="__signUpBtn"] {
+  background: #9b8abf !important;
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="Footer"][class*="__signUpBtn"]:hover {
+  background: #8a78af !important;
+}
+[data-palette="3"] [class*="Footer"][class*="__legal"] a:hover {
+  color: #9b8abf !important;
+}
+
+/* --- ABOUT --- */
+[data-palette="3"] [class*="About"][class*="__listItem"] svg circle {
+  fill: rgba(45, 27, 105, 0.12) !important;
+}
+[data-palette="3"] [class*="About"][class*="__listItem"] svg path {
+  stroke: #2d1b69 !important;
+}
+[data-palette="3"] [class*="About"][class*="__personalBtn"]:hover {
+  background: #8a78af !important;
+}
+
+/* --- DIRECTIONS --- */
+[data-palette="3"] [class*="Directions"][class*="__sectionTitle"] {
+  color: #1a1a2e !important;
+}
+[data-palette="3"] [class*="Directions"][class*="__sectionSubtitle"] {
+  color: rgba(26, 26, 46, 0.55) !important;
+}
+[data-palette="3"] [class*="Directions"][class*="__card"] {
+  border-color: rgba(40, 25, 90, 0.08) !important;
+}
+[data-palette="3"] [class*="Directions"][class*="__cardCount"] {
+  color: #2d1b69 !important;
+}
+[data-palette="3"] [class*="Directions"][class*="__cardTitle"] {
+  color: #1a1a2e !important;
+}
+[data-palette="3"] [class*="Directions"][class*="__cardDesc"] {
+  color: rgba(26, 26, 46, 0.55) !important;
+}
+[data-palette="3"] [class*="Directions"][class*="__cardLink"] {
+  color: #2d1b69 !important;
+}
+
+/* --- TRANSPARENT HEADER OVERRIDES --- */
+[data-palette="3"] header[data-transparent] a[class*="viewPlans"] {
+  color: #2d1b69 !important;
+}

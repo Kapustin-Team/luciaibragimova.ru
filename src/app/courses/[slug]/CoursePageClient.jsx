@@ -6,7 +6,37 @@ import About from '@/components/organisms/About/About'
 import GradientPlaceholder from '@/components/atoms/GradientPlaceholder'
 import ReviewScreenshot from '@/components/atoms/ReviewScreenshot'
 import ReviewLightbox from '@/components/atoms/ReviewLightbox'
+import { FaBook, FaBrain, FaHeart, FaShieldAlt, FaStar, FaUsers, FaLightbulb, FaEye, FaLeaf, FaSun, FaCheck, FaExclamationTriangle, FaInfoCircle, FaClock, FaBan } from 'react-icons/fa'
+import { HiSparkles } from 'react-icons/hi'
 import s from './course.module.sass'
+
+const METHOD_ICON_MAP = {
+  book: <FaBook size={20} />,
+  brain: <FaBrain size={20} />,
+  heart: <FaHeart size={20} />,
+  shield: <FaShieldAlt size={20} />,
+  star: <FaStar size={20} />,
+  users: <FaUsers size={20} />,
+  lightbulb: <FaLightbulb size={20} />,
+  eye: <FaEye size={20} />,
+  leaf: <FaLeaf size={20} />,
+  sun: <FaSun size={20} />,
+  sparkle: <HiSparkles size={20} />,
+  check: <FaCheck size={20} />,
+}
+
+const LIMITATION_ICON_MAP = {
+  alert: <FaExclamationTriangle size={18} />,
+  info: <FaInfoCircle size={18} />,
+  clock: <FaClock size={18} />,
+  ban: <FaBan size={18} />,
+  heart: <FaHeart size={18} />,
+  shield: <FaShieldAlt size={18} />,
+  users: <FaUsers size={18} />,
+  star: <FaStar size={18} />,
+  check: <FaCheck size={18} />,
+  eye: <FaEye size={18} />,
+}
 
 const FORMAT_LABELS = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
 
@@ -117,7 +147,7 @@ export default function CoursePageClient({ course }) {
                   className={s.btnPrimary}
                   {...(c.getcourseLink ? { target: '_blank', rel: 'noopener' } : {})}
                 >
-                  Записаться на курс
+                  Выбрать тариф
                 </a>
                 <a href="#program" className={s.btnSecondary}>Программа курса</a>
               </div>
@@ -267,23 +297,22 @@ export default function CoursePageClient({ course }) {
                 <h2 className={s.sectionTitle}>Что вы получите</h2>
                 <p className={s.sectionSubtitle}>Конкретные результаты после прохождения программы</p>
               </div>
-              <div className={s.resultsGrid}>
-                {c.results.map((r, i) => {
-                  const imgUrl = r.image?.url || r.image?.formats?.small?.url
-                  return (
-                    <div key={i} className={`${s.resultCard} ${imgUrl ? s.resultCardWithImage : ''}`}>
-                      {imgUrl && (
-                        <div className={s.resultImageWrap}>
-                          <img src={imgUrl} alt="" className={s.resultImage} />
-                        </div>
-                      )}
-                      <div className={s.resultContent}>
-                        <span className={s.resultIcon}>✦</span>
-                        <p className={s.resultText}>{r.text}</p>
-                      </div>
-                    </div>
-                  )
-                })}
+              <div className={`${s.resultsLayout} ${!c.resultsImage?.url ? s.resultsLayoutCentered : ''}`}>
+                {c.resultsImage?.url && (
+                  <div className={s.resultsImageCol}>
+                    <img src={c.resultsImage.url} alt="" className={s.resultsImage} />
+                  </div>
+                )}
+                <ul className={s.resultsList}>
+                  {c.results.map((r, i) => (
+                    <li key={i} className={s.resultsItem}>
+                      <span className={s.resultsCheckIcon}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      </span>
+                      <span className={s.resultsItemText}>{r.text}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </section>
@@ -325,16 +354,18 @@ export default function CoursePageClient({ course }) {
                 <p className={s.sectionSubtitle}>Курс основан на проверенных психологических методиках и современных научных подходах.</p>
               </div>
               <div className={s.methodsGrid}>
-                {c.methods.map((m, i) => (
-                  <div key={i} className={s.methodCard}>
-                    <span className={s.methodIcon}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
-                      </svg>
-                    </span>
-                    <span className={s.methodName}>{m}</span>
-                  </div>
-                ))}
+                {c.methods.map((m, i) => {
+                  const text = typeof m === 'string' ? m : m.text
+                  const icon = typeof m === 'string' ? 'book' : (m.icon || 'book')
+                  return (
+                    <div key={i} className={s.methodCard}>
+                      <span className={s.methodIcon}>
+                        {METHOD_ICON_MAP[icon] || METHOD_ICON_MAP.book}
+                      </span>
+                      <span className={s.methodName}>{text}</span>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </section>
@@ -349,9 +380,12 @@ export default function CoursePageClient({ course }) {
                 <p className={s.sectionSubtitle}>Выберите формат участия, который подходит именно вам.</p>
               </div>
               <div className={s.tariffsGrid} data-count={c.tariffs.length}>
-                {c.tariffs.map((t, i) => (
-                    <div key={i} className={`${s.tariffCard} ${t.popular ? s.tariffPopular : ''}`}>
-                      {t.popular && <div className={s.popularBadge}>Популярный</div>}
+                {c.tariffs.map((t, i) => {
+                  const isPopular = t.popular
+                  const badgeLabel = t.badgeText || 'Популярный'
+                  return (
+                    <div key={i} className={`${s.tariffCard} ${isPopular ? s.tariffPopular : ''}`}>
+                      {isPopular && <div className={s.popularBadge}>{badgeLabel}</div>}
                       <h3 className={s.tariffName}>{t.name}</h3>
                       {t.price && <div className={s.tariffPrice}>{t.price}</div>}
                       {t.features?.length > 0 && (
@@ -370,11 +404,12 @@ export default function CoursePageClient({ course }) {
                           })}
                         </ul>
                       )}
-                      <a href={c.getcourseLink || '#'} className={t.popular ? s.tariffBtnDark : s.tariffBtn}>
+                      <a href={c.getcourseLink || '#'} className={isPopular ? s.tariffBtnDark : s.tariffBtn}>
                         Выбрать тариф
                       </a>
                     </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           </section>
@@ -416,12 +451,18 @@ export default function CoursePageClient({ course }) {
                 </div>
                 <div className={s.featureRight}>
                   <ul className={s.checkList}>
-                    {c.limitations.map((l, i) => (
-                      <li key={i} className={s.checkItem}>
-                        <span className={s.checkBox}>!</span>
-                        <span>{l}</span>
-                      </li>
-                    ))}
+                    {c.limitations.map((l, i) => {
+                      const text = typeof l === 'string' ? l : l.text
+                      const icon = typeof l === 'string' ? 'alert' : (l.icon || 'alert')
+                      return (
+                        <li key={i} className={s.checkItem}>
+                          <span className={s.checkBox}>
+                            {LIMITATION_ICON_MAP[icon] || LIMITATION_ICON_MAP.alert}
+                          </span>
+                          <span>{text}</span>
+                        </li>
+                      )
+                    })}
                   </ul>
                 </div>
               </div>
@@ -476,7 +517,7 @@ export default function CoursePageClient({ course }) {
             <h2 className={s.ctaTitle}>Готовы начать свой путь?</h2>
             <p className={s.ctaDesc}>Запишитесь на курс «{c.title}» и сделайте первый шаг к изменениям</p>
             <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>
-              Записаться на курс
+              Выбрать тариф
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </a>
           </div>
