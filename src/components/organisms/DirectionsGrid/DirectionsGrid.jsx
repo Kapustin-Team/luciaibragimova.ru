@@ -172,11 +172,10 @@ export default function DirectionsGrid({ data, directions: strapiDirections, cou
               const isActive = activeIdx === i
               const icon = ICON_MAP[d.icon] || ICON_MAP.Heart
               return (
-                <motion.button
+                <button
                   key={d.title}
                   className={`${s.quadrant} ${isActive ? s.active : ''}`}
                   onClick={() => setActiveIdx(isActive ? null : i)}
-                  whileTap={{ scale: 0.97 }}
                 >
                   <div className={s.qIconWrap}>
                     <span className={s.qIcon}>{icon}</span>
@@ -188,7 +187,7 @@ export default function DirectionsGrid({ data, directions: strapiDirections, cou
                     </span>
                     {d.desc && <p className={s.qDesc}>{d.desc}</p>}
                   </div>
-                </motion.button>
+                </button>
               )
             })}
           </div>
