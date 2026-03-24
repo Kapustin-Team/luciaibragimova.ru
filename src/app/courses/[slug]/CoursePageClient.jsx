@@ -141,16 +141,6 @@ export default function CoursePageClient({ course }) {
               {c.shortDescription && (
                 <p className={s.heroDesc}>{c.shortDescription}</p>
               )}
-              <div className={s.heroButtons}>
-                <a
-                  href={c.getcourseLink || '#tariffs'}
-                  className={s.btnPrimary}
-                  {...(c.getcourseLink ? { target: '_blank', rel: 'noopener' } : {})}
-                >
-                  Выбрать тариф
-                </a>
-                <a href="#program" className={s.btnSecondary}>Программа курса</a>
-              </div>
             </div>
             <div className={s.heroRight}>
               {imgSrc ? (
@@ -158,29 +148,39 @@ export default function CoursePageClient({ course }) {
               ) : (
                 <GradientPlaceholder variant="warm" aspectRatio="4/3" className={s.heroImage} />
               )}
-              {c.teachers?.length > 0 && (
-                <div className={s.heroTeachers}>
-                  {c.teachers.slice(0, 2).map((t, i) => {
-                    const src = t.photo?.url || t.photo?.formats?.thumbnail?.url
-                    return (
-                      <div key={i} className={s.heroTeacherItem}>
-                        <div className={s.heroTeacherAvatar}>
-                          {src ? (
-                            <img src={src} alt={t.name} />
-                          ) : (
-                            <span>{t.name?.charAt(0)}</span>
-                          )}
-                        </div>
-                        <div className={s.heroTeacherMeta}>
-                          <span className={s.heroTeacherName}>{t.name}</span>
-                          {t.role && <span className={s.heroTeacherRole}>{t.role}</span>}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              )}
             </div>
+            <div className={s.heroButtons}>
+              <a
+                href={c.getcourseLink || '#tariffs'}
+                className={s.btnPrimary}
+                {...(c.getcourseLink ? { target: '_blank', rel: 'noopener' } : {})}
+              >
+                Выбрать тариф
+              </a>
+              <a href="#program" className={s.btnSecondary}>Программа курса</a>
+            </div>
+            {c.teachers?.length > 0 && (
+              <div className={s.heroTeachers}>
+                {c.teachers.slice(0, 2).map((t, i) => {
+                  const src = t.photo?.url || t.photo?.formats?.thumbnail?.url
+                  return (
+                    <div key={i} className={s.heroTeacherItem}>
+                      <div className={s.heroTeacherAvatar}>
+                        {src ? (
+                          <img src={src} alt={t.name} />
+                        ) : (
+                          <span>{t.name?.charAt(0)}</span>
+                        )}
+                      </div>
+                      <div className={s.heroTeacherMeta}>
+                        <span className={s.heroTeacherName}>{t.name}</span>
+                        {t.role && <span className={s.heroTeacherRole}>{t.role}</span>}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           {/* ─── Info cards (inside hero) ─── */}
