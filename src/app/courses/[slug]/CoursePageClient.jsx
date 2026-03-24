@@ -159,11 +159,11 @@ export default function CoursePageClient({ course }) {
                 <GradientPlaceholder variant="warm" aspectRatio="4/3" className={s.heroImage} />
               )}
               {c.teachers?.length > 0 && (
-                <div className={s.heroTeacherCards}>
+                <div className={s.heroTeachers}>
                   {c.teachers.slice(0, 2).map((t, i) => {
                     const src = t.photo?.url || t.photo?.formats?.thumbnail?.url
                     return (
-                      <div key={i} className={s.heroTeacherCard}>
+                      <div key={i} className={s.heroTeacherItem}>
                         <div className={s.heroTeacherAvatar}>
                           {src ? (
                             <img src={src} alt={t.name} />
