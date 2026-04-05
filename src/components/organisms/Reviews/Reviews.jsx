@@ -1,14 +1,11 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
-import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import ReviewScreenshot from '@/components/atoms/ReviewScreenshot'
 import ReviewLightbox from '@/components/atoms/ReviewLightbox'
 import s from './Reviews.module.sass'
 
 export default function Reviews({ data, reviews: strapiReviews } = {}) {
-  const title = data?.title || 'Истории учеников'
-  const subtitle = data?.subtitle || 'Реальные результаты реальных людей'
   const [activeIndex, setActiveIndex] = useState(0)
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [isPaused, setIsPaused] = useState(false)
@@ -36,10 +33,6 @@ export default function Reviews({ data, reviews: strapiReviews } = {}) {
   return (
     <SectionReveal className={s.section} id="reviews">
       <div className={s.inner}>
-        <div className={s.header}>
-          <CharReveal as="h2" className={s.title}>{title}</CharReveal>
-          <p className={s.subtitle}>{subtitle}</p>
-        </div>
         <div
           className={s.carousel}
           onMouseEnter={() => setIsPaused(true)}

@@ -12,29 +12,11 @@ function imageUrl(media) {
 }
 
 export default function Cta({ data } = {}) {
-  const title = data?.title || 'Начните путь к гармонии'
-  const subtitle = data?.subtitle || 'Выберите программу — онлайн, офлайн или гибрид.'
-  const ctaPrimary = data?.ctaPrimary || 'Выбрать курс'
-  const ctaPrimaryLink = data?.ctaPrimaryLink || '#courses'
-  const imgSrc = imageUrl(data?.image)
+  const src = imageUrl(data?.image) || '/interrior/img285.jpg'
 
   return (
     <SectionReveal className={s.section}>
-      <div className={imgSrc ? s.split : s.splitNoImage}>
-        {imgSrc && (
-          <div className={s.imageCol}>
-            <img src={imgSrc} alt="" className={s.image} />
-          </div>
-        )}
-        <div className={s.contentCol}>
-          <h2 className={s.title}>{title}</h2>
-          <p className={s.subtitle}>{subtitle}</p>
-          <a href={ctaPrimaryLink} className={s.linkBtn}>
-            {ctaPrimary}
-            <span className={s.arrow}>&rarr;</span>
-          </a>
-        </div>
-      </div>
+      <img src={src} alt="" className={s.image} />
     </SectionReveal>
   )
 }
