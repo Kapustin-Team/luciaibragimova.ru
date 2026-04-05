@@ -1,5 +1,6 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import s from './Hero.module.sass'
 
@@ -61,11 +62,15 @@ export default function Hero({ data } = {}) {
     outline: s.btnOutline,
   }
 
+  const heroRef = useRef(null)
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
+
   return (
-    <section className={s.hero} id="hero">
+    <section className={s.hero} id="hero" ref={heroRef}>
       {/* Static hero background */}
       <div className={s.videoBg}>
-        <img src="/interrior/img265.jpg" alt="" className={s.videoBgMedia} />
+        <motion.img src="/interrior/img265.jpg" alt="" className={s.videoBgMedia} style={{ y: bgY }} />
         <div className={s.videoOverlay} />
       </div>
 

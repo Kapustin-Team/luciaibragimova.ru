@@ -1,4 +1,6 @@
 'use client'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import s from './FeaturedCourse.module.sass'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
@@ -20,11 +22,15 @@ export default function FeaturedCourse({ data, courses } = {}) {
   const ctaLink = data?.ctaLink || (course?.slug ? `/courses/${course.slug}` : '#courses')
   const imgSrc = mediaUrl(data?.image || course?.image) || '/interrior/img275.jpg'
 
+  const imageRef = useRef(null)
+  const { scrollYProgress } = useScroll({ target: imageRef, offset: ['start end', 'end start'] })
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '-10%'])
+
   return (
     <SectionReveal className={s.section}>
       <div className={s.inner}>
-        <div className={s.imageWrap}>
-          <img src={imgSrc} alt={title} className={s.image} />
+        <div className={s.imageWrap} ref={imageRef}>
+          <motion.img src={imgSrc} alt={title} className={s.image} style={{ y: imgY }} />
         </div>
         <div className={s.panel}>
           <CharReveal as="h2" className={s.title}>{title}</CharReveal>
