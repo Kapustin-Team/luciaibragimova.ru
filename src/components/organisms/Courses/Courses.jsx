@@ -53,7 +53,6 @@ function normalizeCourses(strapiCourses) {
     duration: c.duration || '',
     desc: c.shortDescription || '',
     featured: c.featured || false,
-    badge: c.badge || (c.featured ? 'Хит' : null),
     imageUrl: c.image?.url || c.image?.formats?.small?.url || COURSE_IMAGES[c.slug] || null,
   }))
 }
@@ -138,7 +137,6 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
                 <div className={s.cardThumbPlaceholder} />
               )}
               <span className={s.cardOverlay} />
-              {c.badge && <span className={s.tag}>{c.badge}</span>}
               <div className={s.cardMeta}>
                 <span className={s.format}>{c.format}</span>
                 <span className={s.dot}>·</span>
