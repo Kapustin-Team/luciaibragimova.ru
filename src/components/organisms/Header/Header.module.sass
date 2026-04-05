@@ -21,7 +21,6 @@
 
 .scrolled
   background: rgba(247, 231, 222, 0.98)
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06)
   .inner
     height: 60px
 
@@ -105,10 +104,9 @@
     content: ''
     position: absolute
     bottom: 2px
-    left: 50%
-    transform: translateX(-50%)
+    left: 0
     width: 0
-    height: 2px
+    height: 1px
     background: currentColor
     transition: width 0.3s ease
   &:hover
@@ -194,13 +192,13 @@
   padding: 10px 24px
   text-transform: uppercase
   letter-spacing: 1.5px
-  background: #744C32
+  background: #25140C
   border-radius: var(--radius-btn)
   white-space: nowrap
   transition: var(--transition-base)
   text-decoration: none
   &:hover
-    background: #5E3D28
+    background: #3a2518
   @media (max-width: 960px)
     display: none
 

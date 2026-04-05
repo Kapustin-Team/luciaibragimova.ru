@@ -21,7 +21,6 @@ import ChatWidget from '@/components/organisms/ChatWidget/ChatWidget'
 // Map Strapi block __component to React components
 const BLOCK_MAP = {
   'blocks.hero': Hero,
-  'blocks.directions-grid': DirectionsGrid,
   'blocks.pink-banner': PinkBanner,
   'blocks.about': About,
   'blocks.featured-course': FeaturedCourse,
@@ -68,7 +67,6 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
       <main>
         <Hero />
         <TrustBlock />
-        <DirectionsGrid directions={directions} courses={courses} />
         <PinkBanner />
         <About />
         <FeaturedCourse />
