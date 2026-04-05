@@ -17,16 +17,14 @@ export default function FeaturedCourse({ data, courses } = {}) {
   const description = data?.description || course?.description || 'Откройте для себя программу, которая изменит вашу жизнь.'
   const ctaText = data?.ctaText || 'Подробнее'
   const ctaLink = data?.ctaLink || (course?.slug ? `/courses/${course.slug}` : '#courses')
-  const imgSrc = mediaUrl(data?.image || course?.image)
+  const imgSrc = mediaUrl(data?.image || course?.image) || '/interrior/img275.jpg'
 
   return (
     <section className={s.section}>
       <div className={s.inner}>
-        {imgSrc && (
-          <div className={s.imageWrap}>
-            <img src={imgSrc} alt={title} className={s.image} />
-          </div>
-        )}
+        <div className={s.imageWrap}>
+          <img src={imgSrc} alt={title} className={s.image} />
+        </div>
         <div className={s.panel}>
           <CharReveal as="h2" className={s.title}>{title}</CharReveal>
           <p className={s.desc}>{description}</p>

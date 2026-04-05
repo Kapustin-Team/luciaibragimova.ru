@@ -11,9 +11,14 @@ export default function PinkBanner({ data } = {}) {
     <section className={s.section}>
       <div className={s.inner}>
         <div className={s.card}>
-          <h2 className={s.title} dangerouslySetInnerHTML={{ __html: title.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>') }} />
-          <p className={s.desc}>{description}</p>
-          <a href={ctaLink} className={s.btn}>{ctaText}</a>
+          <div className={s.textCol}>
+            <h2 className={s.title} dangerouslySetInnerHTML={{ __html: title.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>') }} />
+            <p className={s.desc}>{description}</p>
+            <a href={ctaLink} className={s.btn}>{ctaText}</a>
+          </div>
+          <div className={s.imageCol}>
+            <img src="/interrior/img238.jpg" alt="" className={s.cardImage} />
+          </div>
         </div>
       </div>
     </section>
