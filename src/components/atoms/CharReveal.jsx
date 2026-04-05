@@ -7,13 +7,13 @@ const containerVariants = {
   hidden: {},
   visible: (delay = 0) => ({
     transition: {
-      staggerChildren: 0.025,
+      staggerChildren: 0.045,
       delayChildren: delay,
     },
   }),
 }
 
-const charVariants = {
+const wordVariants = {
   hidden: { y: '110%' },
   visible: {
     y: 0,
@@ -22,11 +22,12 @@ const charVariants = {
 }
 
 /**
- * Per-character heading reveal animation.
+ * Per-word heading reveal animation.
  *
- * Splits text content into individually animated characters that slide up
- * from below. Handles mixed children: plain text, <br />, and <span> with
- * className (recursive splitting for styled fragments).
+ * Splits text content into individually animated words that slide up
+ * from below. Each word is a single inline-block unit, preventing
+ * mid-word line breaks. Handles mixed children: plain text, <br />,
+ * and <span> with className (recursive splitting for styled fragments).
  *
  * @param {string} as — HTML tag to render (e.g. 'h1', 'h2')
  * @param {string} className — CSS class for the heading element
@@ -38,15 +39,22 @@ export default function CharReveal({ as: Tag = 'h2', className, delay = 0, child
 
   const renderChildren = (nodes) =>
     Children.map(nodes, (child) => {
-      // Plain text → split into characters
+      // Plain text → split into words (preserving whitespace tokens)
       if (typeof child === 'string') {
-        return [...child].map((char, i) => (
-          <span key={i} style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'top', paddingBottom: '0.15em' }}>
-            <motion.span style={{ display: 'inline-block' }} variants={charVariants}>
-              {char === ' ' ? '\u00A0' : char}
-            </motion.span>
-          </span>
-        ))
+        return child.split(/(\s+)/).map((token, i) => {
+          // Whitespace tokens → plain non-breaking space separator
+          if (/^\s+$/.test(token)) {
+            return <span key={`ws-${i}`}>{'\u00A0'}</span>
+          }
+          // Word tokens → animated inline-block unit
+          return (
+            <span key={i} style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'top', paddingBottom: '0.15em' }}>
+              <motion.span style={{ display: 'inline-block' }} variants={wordVariants}>
+                {token}
+              </motion.span>
+            </span>
+          )
+        })
       }
 
       // React element
