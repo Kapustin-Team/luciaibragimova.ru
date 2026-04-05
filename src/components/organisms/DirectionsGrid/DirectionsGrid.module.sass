@@ -35,7 +35,7 @@
   display: grid
   grid-template-columns: 1fr 1fr
   grid-template-rows: 1fr 1fr
-  gap: 2px
+  gap: 4px
   border-radius: var(--radius-2xl)
   overflow: hidden
   @media (max-width: 600px)
@@ -58,7 +58,7 @@
   gap: 14px
   font-family: inherit
   color: var(--text-white)
-  padding: 32px
+  padding: 40px 36px
   /* Reserve space for circle — only inner edges */
   &:nth-child(1)
     padding-right: 80px
@@ -71,7 +71,7 @@
   &:hover
     background: rgba(255, 255, 255, 0.08)
   @media (max-width: 768px)
-    padding: 24px
+    padding: 32px
     gap: 12px
     &:nth-child(1)
       padding-right: 60px
@@ -82,7 +82,7 @@
     &:nth-child(4)
       padding-left: 60px
   @media (max-width: 480px)
-    padding: 16px
+    padding: 20px
     gap: 8px
     &:nth-child(1)
       padding-right: 40px
