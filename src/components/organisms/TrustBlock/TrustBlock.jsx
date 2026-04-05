@@ -1,28 +1,86 @@
 'use client'
 import s from './TrustBlock.module.sass'
+import CharReveal from '@/components/atoms/CharReveal'
 
-const DEFAULT_STATS = [
-  { number: '25+', label: 'лет практики' },
-  { number: '3677+', label: 'семей прошли обучение' },
-  { number: '14', label: 'авторских программ' },
-  { number: '10+', label: 'лет работы с подростками' },
+const DEFAULT_STEPS = [
+  {
+    number: '01',
+    title: 'Знакомство',
+    description: 'Первая встреча и диагностическая беседа для определения вашего запроса и целей обучения',
+  },
+  {
+    number: '02',
+    title: 'Диагностика',
+    description: 'Определение уровня подготовки и подбор оптимальной программы под ваши задачи',
+  },
+  {
+    number: '03',
+    title: 'Программа',
+    description: 'Индивидуальный план обучения с учётом вашего опыта, графика и профессиональных целей',
+  },
+  {
+    number: '04',
+    title: 'Обучение',
+    description: 'Теоретические и практические занятия с опытными преподавателями и супервизорами',
+  },
+  {
+    number: '05',
+    title: 'Практика',
+    description: 'Работа с реальными случаями под наблюдением куратора для закрепления навыков',
+  },
+  {
+    number: '06',
+    title: 'Результат',
+    description: 'Выпуск с профессиональными компетенциями, сертификатом и поддержкой сообщества',
+  },
 ]
 
 export default function TrustBlock({ data } = {}) {
-  const title = data?.title || 'Наша студия в цифрах'
-  const stats = data?.stats?.length ? data.stats : DEFAULT_STATS
+  const label = data?.label || 'Процесс'
+  const heading =
+    data?.title ||
+    'Каждый шаг продуман, чтобы дать вам уверенность и профессиональные навыки'
+  const steps = data?.steps?.length
+    ? data.steps
+    : data?.stats?.length
+      ? data.stats
+      : DEFAULT_STEPS
 
   return (
     <section className={s.section} id="trust">
       <div className={s.inner}>
-        <h2 className={s.heading}>{title}</h2>
-        <div className={s.scroll}>
-          {stats.map((stat, i) => (
-            <div key={i} className={s.card}>
-              <div className={s.number}>{stat.number}</div>
-              <div className={s.label}>{stat.label}</div>
-            </div>
-          ))}
+        <p className={s.label}>{label}</p>
+        <CharReveal as="h2" className={s.heading}>
+          {heading}
+        </CharReveal>
+
+        <div className={s.track}>
+          {steps.map((step, i) => {
+            const number = step.number || String(i + 1).padStart(2, '0')
+            return (
+              <div key={i} className={s.card}>
+                <div className={s.cardContent}>
+                  <div className={s.stepNumber}>{number}</div>
+                  {step.title && <div className={s.title}>{step.title}</div>}
+                  {(step.description || step.label) && (
+                    <p className={s.description}>
+                      {step.description || step.label}
+                    </p>
+                  )}
+                </div>
+                <div className={s.imageWrap}>
+                  {step.image && (
+                    <img
+                      className={s.image}
+                      src={step.image.url || step.image}
+                      alt={step.title || `Шаг ${number}`}
+                      loading="lazy"
+                    />
+                  )}
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>
