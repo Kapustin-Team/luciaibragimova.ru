@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import CharReveal from '@/components/atoms/CharReveal'
 import s from './Faq.module.sass'
 
 const FALLBACK_FAQS = [
@@ -29,7 +30,7 @@ export default function Faq({ data, faqs: strapiFaqs } = {}) {
   return (
     <section className={s.section} id="faq">
       <div className={s.inner}>
-        <h2 className={s.title}>{title}</h2>
+        <CharReveal as="h2" className={s.title}>{title}</CharReveal>
         <div className={s.items}>
           {faqList.map((f, i) => (
             <div key={i} className={`${s.item} ${openIndex === i ? s.itemOpen : ''}`}>
