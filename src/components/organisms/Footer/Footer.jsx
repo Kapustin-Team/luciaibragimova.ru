@@ -111,9 +111,13 @@ export default function Footer({ directions, courses }) {
           </div>
         </div>
       </div>
-      <div className={s.largeBrand}>
-        Студия Люции Ибрагимовой
-      </div>
+      <svg className={s.largeBrand} viewBox="0 0 1000 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <text x="50%" y="50%" dominantBaseline="central" textAnchor="middle"
+          fill="rgba(255, 255, 255, 0.06)"
+          style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontWeight: 400 }}>
+          Студия Люции Ибрагимовой
+        </text>
+      </svg>
     </footer>
   )
 }
