@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import CharReveal from '@/components/atoms/CharReveal'
+import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Faq.module.sass'
 
 const FALLBACK_FAQS = [
@@ -28,7 +29,7 @@ export default function Faq({ data, faqs: strapiFaqs } = {}) {
   if (!faqList.length) return null
 
   return (
-    <section className={s.section} id="faq">
+    <SectionReveal className={s.section} id="faq">
       <div className={s.inner}>
         <CharReveal as="h2" className={s.title}>{title}</CharReveal>
         <div className={s.items}>
@@ -47,6 +48,6 @@ export default function Faq({ data, faqs: strapiFaqs } = {}) {
           ))}
         </div>
       </div>
-    </section>
+    </SectionReveal>
   )
 }

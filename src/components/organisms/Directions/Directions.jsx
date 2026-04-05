@@ -1,5 +1,6 @@
 'use client'
 import CharReveal from '@/components/atoms/CharReveal'
+import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Directions.module.sass'
 
 const FALLBACK_DIRS = [
@@ -46,7 +47,7 @@ export default function Directions({ data, directions: strapiDirections } = {}) 
   const dirs = normalizeDirections(strapiDirections)
 
   return (
-    <section className={s.section} id="directions">
+    <SectionReveal className={s.section} id="directions">
       <div className={s.inner}>
         <div className={s.header}>
           <CharReveal as="h2" className={s.sectionTitle}>{title}</CharReveal>
@@ -75,6 +76,6 @@ export default function Directions({ data, directions: strapiDirections } = {}) 
           ))}
         </div>
       </div>
-    </section>
+    </SectionReveal>
   )
 }

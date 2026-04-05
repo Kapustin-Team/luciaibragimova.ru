@@ -1,4 +1,5 @@
 'use client'
+import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './PinkBanner.module.sass'
 
 export default function PinkBanner({ data } = {}) {
@@ -8,7 +9,7 @@ export default function PinkBanner({ data } = {}) {
   const ctaLink = data?.ctaLink || '#about'
 
   return (
-    <section className={s.section}>
+    <SectionReveal className={s.section}>
       <div className={s.inner}>
         <div className={s.card}>
           <div className={s.textCol}>
@@ -21,6 +22,6 @@ export default function PinkBanner({ data } = {}) {
           </div>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   )
 }

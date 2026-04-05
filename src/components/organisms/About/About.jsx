@@ -1,5 +1,6 @@
 'use client'
 import CharReveal from '@/components/atoms/CharReveal'
+import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './About.module.sass'
 
 const DEFAULT_HIGHLIGHTS = [
@@ -18,7 +19,7 @@ export default function About({ data } = {}) {
   const imageUrl = data?.image?.url || '/lucia-new.webp'
 
   return (
-    <section className={s.section} id="about">
+    <SectionReveal className={s.section} id="about">
       <div className={s.inner}>
         <div className={s.imageWrap}>
           <img src={imageUrl} alt="Люция Ибрагимова" className={s.photo} />
@@ -40,6 +41,6 @@ export default function About({ data } = {}) {
           </ul>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   )
 }

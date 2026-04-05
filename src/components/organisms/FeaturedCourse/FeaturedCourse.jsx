@@ -1,6 +1,7 @@
 'use client'
 import s from './FeaturedCourse.module.sass'
 import CharReveal from '@/components/atoms/CharReveal'
+import SectionReveal from '@/components/atoms/SectionReveal'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
 
@@ -20,7 +21,7 @@ export default function FeaturedCourse({ data, courses } = {}) {
   const imgSrc = mediaUrl(data?.image || course?.image) || '/interrior/img275.jpg'
 
   return (
-    <section className={s.section}>
+    <SectionReveal className={s.section}>
       <div className={s.inner}>
         <div className={s.imageWrap}>
           <img src={imgSrc} alt={title} className={s.image} />
@@ -31,6 +32,6 @@ export default function FeaturedCourse({ data, courses } = {}) {
           <a href={ctaLink} className={s.btn}>{ctaText}</a>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   )
 }

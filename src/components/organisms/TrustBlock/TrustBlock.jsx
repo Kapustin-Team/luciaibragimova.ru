@@ -1,6 +1,7 @@
 'use client'
 import s from './TrustBlock.module.sass'
 import CharReveal from '@/components/atoms/CharReveal'
+import SectionReveal from '@/components/atoms/SectionReveal'
 
 const DEFAULT_STEPS = [
   {
@@ -53,7 +54,7 @@ export default function TrustBlock({ data } = {}) {
       : DEFAULT_STEPS
 
   return (
-    <section className={s.section} id="trust">
+    <SectionReveal className={s.section} id="trust">
       <div className={s.inner}>
         <p className={s.label}>{label}</p>
         <CharReveal as="h2" className={s.heading}>
@@ -89,6 +90,6 @@ export default function TrustBlock({ data } = {}) {
           })}
         </div>
       </div>
-    </section>
+    </SectionReveal>
   )
 }

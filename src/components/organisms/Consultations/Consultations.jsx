@@ -1,6 +1,7 @@
 'use client'
 import { FaVideo, FaUsers, FaChild, FaHeart } from 'react-icons/fa'
 import CharReveal from '@/components/atoms/CharReveal'
+import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Consultations.module.sass'
 
 const ICON_MAP = {
@@ -57,7 +58,7 @@ export default function Consultations({ data, consultationTypes } = {}) {
     : FALLBACK_CONSULTATIONS
 
   return (
-    <section className={s.section} id="consultations">
+    <SectionReveal className={s.section} id="consultations">
       <div className={s.inner}>
         <div className={s.header}>
           <CharReveal as="h2" className={s.title}>{title}</CharReveal>
@@ -81,6 +82,6 @@ export default function Consultations({ data, consultationTypes } = {}) {
           <a href="#contact" className={s.btn}>Записаться на консультацию</a>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   )
 }

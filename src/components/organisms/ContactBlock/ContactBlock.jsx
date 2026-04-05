@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './ContactBlock.module.sass'
 import submitContact from '@/lib/submitContact'
 
@@ -49,18 +50,18 @@ export default function ContactBlock() {
 
   if (sent) {
     return (
-      <section className={s.section} id="contact">
+      <SectionReveal className={s.section} id="contact">
         <div className={s.successCard}>
           <div className={s.successIcon}>✓</div>
           <h2 className={s.successTitle}>Заявка отправлена!</h2>
           <p className={s.successText}>Мы свяжемся с вами в ближайшее время</p>
         </div>
-      </section>
+      </SectionReveal>
     )
   }
 
   return (
-    <section className={s.section} id="contact">
+    <SectionReveal className={s.section} id="contact">
       <form className={s.inner} onSubmit={handleSubmit}>
         {/* Left — quiz questions */}
         <div className={s.quizSide}>
@@ -124,6 +125,6 @@ export default function ContactBlock() {
           </button>
         </div>
       </form>
-    </section>
+    </SectionReveal>
   )
 }

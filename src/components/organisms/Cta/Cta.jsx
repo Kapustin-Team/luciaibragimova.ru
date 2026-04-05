@@ -1,4 +1,5 @@
 'use client'
+import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Cta.module.sass'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
@@ -18,7 +19,7 @@ export default function Cta({ data } = {}) {
   const imgSrc = imageUrl(data?.image)
 
   return (
-    <section className={s.section}>
+    <SectionReveal className={s.section}>
       <div className={imgSrc ? s.split : s.splitNoImage}>
         {imgSrc && (
           <div className={s.imageCol}>
@@ -34,6 +35,6 @@ export default function Cta({ data } = {}) {
           </a>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   )
 }

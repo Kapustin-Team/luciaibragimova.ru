@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 import CharReveal from '@/components/atoms/CharReveal'
+import SectionReveal from '@/components/atoms/SectionReveal'
 import ReviewScreenshot from '@/components/atoms/ReviewScreenshot'
 import ReviewLightbox from '@/components/atoms/ReviewLightbox'
 import s from './Reviews.module.sass'
@@ -33,7 +34,7 @@ export default function Reviews({ data, reviews: strapiReviews } = {}) {
   if (!mediaReviews.length) return null
 
   return (
-    <section className={s.section} id="reviews">
+    <SectionReveal className={s.section} id="reviews">
       <div className={s.inner}>
         <div className={s.header}>
           <CharReveal as="h2" className={s.title}>{title}</CharReveal>
@@ -88,6 +89,6 @@ export default function Reviews({ data, reviews: strapiReviews } = {}) {
           onNavigate={setLightboxIndex}
         />
       )}
-    </section>
+    </SectionReveal>
   )
 }

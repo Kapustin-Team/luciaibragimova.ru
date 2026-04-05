@@ -2,6 +2,7 @@
 import { useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
+import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Team.module.sass'
 
 export default function Team({ data, team: teamMembers } = {}) {
@@ -43,7 +44,7 @@ export default function Team({ data, team: teamMembers } = {}) {
   if (!members.length) return null
 
   return (
-    <section className={s.section} id="team">
+    <SectionReveal className={s.section} id="team">
       <div className={s.inner}>
         <div className={s.header}>
           <div className={s.headerLeft}>
@@ -155,6 +156,6 @@ export default function Team({ data, team: teamMembers } = {}) {
 
       {/* Decorative element */}
       <div className={s.decor} aria-hidden="true" />
-    </section>
+    </SectionReveal>
   )
 }
