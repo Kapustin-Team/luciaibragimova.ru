@@ -1,6 +1,9 @@
 .section
-  background: var(--bg-cream)
+  background: var(--bg-dark)
   padding: var(--section-padding)
+  overflow: clip
+  --text-dark: #FFFFFF
+  --text-muted: rgba(255, 255, 255, 0.6)
   @media (max-width: 768px)
     padding: 36px 20px
 
@@ -31,19 +34,20 @@
     grid-template-columns: 1fr
 
 .card
-  background: var(--bg-card)
+  background: rgba(255, 255, 255, 0.06)
   border-radius: var(--radius-card)
   padding: 32px
+  backdrop-filter: blur(8px)
   transition: var(--transition-slow)
   &:hover
-    background: var(--bg-card-hover)
+    background: rgba(255, 255, 255, 0.1)
     transform: translateY(-3px)
 
 .iconWrap
   width: 52px
   height: 52px
   border-radius: 14px
-  background: rgba(217, 185, 231, 0.2)
+  background: rgba(217, 185, 231, 0.15)
   display: flex
   align-items: center
   justify-content: center
@@ -67,13 +71,13 @@
   align-items: center
   gap: 8px
   font-size: 13px
-  color: rgba(26, 26, 46, 0.4)
+  color: rgba(255, 255, 255, 0.4)
 
 .metaItem
   font-weight: 500
 
 .metaDot
-  color: rgba(26, 26, 46, 0.2)
+  color: rgba(255, 255, 255, 0.2)
 
 .cta
   text-align: center
@@ -84,14 +88,13 @@
   align-items: center
   gap: 8px
   padding: 16px 40px
-  background: #744C32
-  color: #FFFFFF
-
+  background: #FFFFFF
+  color: #25140C
   border-radius: var(--radius-btn)
   font-size: 15px
   font-weight: 600
   text-decoration: none
   transition: var(--transition-base)
   &:hover
-    background: #5E3D28
+    background: #F7E7DE
     transform: translateY(-2px)
