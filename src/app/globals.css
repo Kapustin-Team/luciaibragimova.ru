@@ -234,7 +234,7 @@ header[data-transparent] a[class*="viewPlans"] {
   color: var(--header-viewplans-transparent-text, #25140C) !important;
 }
 header[data-transparent] nav a:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  /* underline uses currentColor on ::after — inherits white from transparent state */
 }
 header[data-transparent] svg {
   color: rgba(255, 255, 255, 0.7) !important;
