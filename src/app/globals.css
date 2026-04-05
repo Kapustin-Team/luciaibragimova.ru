@@ -160,8 +160,8 @@
   --container-wide: 1280px;
   --container-narrow: 800px;
   --header-height: 68px;
-  --section-padding: 120px 40px;
-  --section-padding-mobile: 64px 20px;
+  --section-padding: 140px 48px;
+  --section-padding-mobile: 80px 24px;
 
   /* ===== Transitions ===== */
   --transition-fast: all 0.2s ease;
