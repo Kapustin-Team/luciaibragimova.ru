@@ -29,7 +29,7 @@ export default function Faq({ data, faqs: strapiFaqs } = {}) {
   if (!faqList.length) return null
 
   return (
-    <SectionReveal className={s.section} id="faq">
+    <SectionReveal className={s.section} id="faq" variant="mask">
       <div className={s.inner}>
         <CharReveal as="h2" className={s.title}>{title}</CharReveal>
         <div className={s.items}>

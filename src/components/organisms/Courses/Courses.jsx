@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Courses.module.sass'
@@ -121,34 +122,41 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
         </div>
 
         <div className={s.grid}>
-          {filtered.map((c) => (
-            <a
+          {filtered.map((c, i) => (
+            <motion.div
               key={c.title}
-              href={`/courses/${c.slug || '#'}`}
-              className={`${s.card} ${c.featured ? s.featured : ''}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
             >
-              {c.imageUrl ? (
-                <img
-                  src={c.imageUrl}
-                  alt={c.title}
-                  className={s.cardThumb}
-                  loading="lazy"
-                />
-              ) : (
-                <div className={s.cardThumbPlaceholder} />
-              )}
-              <span className={s.cardOverlay} />
-              <div className={s.cardMeta}>
-                <span className={s.format}>{c.format}</span>
-                <span className={s.dot}>·</span>
-                <span className={s.duration}>{c.duration}</span>
-              </div>
-              <h3 className={s.cardTitle}>{c.title}</h3>
-              <p className={s.cardDesc}>{c.desc}</p>
-              <div className={s.cardActions}>
-                <span className={s.cardLink}>Подробнее →</span>
-              </div>
-            </a>
+              <a
+                href={`/courses/${c.slug || '#'}`}
+                className={`${s.card} ${c.featured ? s.featured : ''}`}
+              >
+                {c.imageUrl ? (
+                  <img
+                    src={c.imageUrl}
+                    alt={c.title}
+                    className={s.cardThumb}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className={s.cardThumbPlaceholder} />
+                )}
+                <span className={s.cardOverlay} />
+                <div className={s.cardMeta}>
+                  <span className={s.format}>{c.format}</span>
+                  <span className={s.dot}>·</span>
+                  <span className={s.duration}>{c.duration}</span>
+                </div>
+                <h3 className={s.cardTitle}>{c.title}</h3>
+                <p className={s.cardDesc}>{c.desc}</p>
+                <div className={s.cardActions}>
+                  <span className={s.cardLink}>Подробнее →</span>
+                </div>
+              </a>
+            </motion.div>
           ))}
           {filtered.length === 0 && (
             <p className={s.empty}>Нет курсов по выбранным фильтрам</p>

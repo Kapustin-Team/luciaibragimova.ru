@@ -19,7 +19,7 @@ export default function About({ data } = {}) {
   const imageUrl = data?.image?.url || '/lucia-new.webp'
 
   return (
-    <SectionReveal className={s.section} id="about">
+    <SectionReveal className={s.section} id="about" variant="mask">
       <div className={s.inner}>
         <div className={s.imageWrap}>
           <img src={imageUrl} alt="Люция Ибрагимова" className={s.photo} />

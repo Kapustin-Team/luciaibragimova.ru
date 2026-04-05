@@ -1,4 +1,5 @@
 'use client'
+import { motion } from 'framer-motion'
 import { FaVideo, FaUsers, FaChild, FaHeart } from 'react-icons/fa'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
@@ -65,8 +66,15 @@ export default function Consultations({ data, consultationTypes } = {}) {
           <p className={s.subtitle}>{subtitle}</p>
         </div>
         <div className={s.grid}>
-          {items.map((item) => (
-            <div key={item.title} className={s.card}>
+          {items.map((item, i) => (
+            <motion.div
+              key={item.title}
+              className={s.card}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+            >
               <div className={s.iconWrap}>{ICON_MAP[item.icon] || ICON_MAP.heart}</div>
               <h3 className={s.cardTitle}>{item.title}</h3>
               <p className={s.cardDesc}>{item.desc}</p>
@@ -75,7 +83,7 @@ export default function Consultations({ data, consultationTypes } = {}) {
                 <span className={s.metaDot}>·</span>
                 <span className={s.metaItem}>{item.format}</span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
         <div className={s.cta}>

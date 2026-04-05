@@ -1,4 +1,5 @@
 'use client'
+import { motion } from 'framer-motion'
 import s from './TrustBlock.module.sass'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
@@ -65,7 +66,14 @@ export default function TrustBlock({ data } = {}) {
           {steps.map((step, i) => {
             const number = step.number || String(i + 1).padStart(2, '0')
             return (
-              <div key={i} className={s.card}>
+              <motion.div
+                key={i}
+                className={s.card}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+              >
                 <div className={s.cardContent}>
                   <div className={s.stepNumber}>{number}</div>
                   {step.title && <div className={s.title}>{step.title}</div>}
@@ -85,7 +93,7 @@ export default function TrustBlock({ data } = {}) {
                     />
                   )}
                 </div>
-              </div>
+              </motion.div>
             )
           })}
         </div>

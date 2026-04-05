@@ -50,7 +50,7 @@ export default function ContactBlock() {
 
   if (sent) {
     return (
-      <SectionReveal className={s.section} id="contact">
+      <SectionReveal className={s.section} id="contact" variant="mask">
         <div className={s.successCard}>
           <div className={s.successIcon}>✓</div>
           <h2 className={s.successTitle}>Заявка отправлена!</h2>
@@ -61,7 +61,7 @@ export default function ContactBlock() {
   }
 
   return (
-    <SectionReveal className={s.section} id="contact">
+    <SectionReveal className={s.section} id="contact" variant="mask">
       <form className={s.inner} onSubmit={handleSubmit}>
         {/* Left — quiz questions */}
         <div className={s.quizSide}>

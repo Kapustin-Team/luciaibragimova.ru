@@ -27,7 +27,7 @@ export default function FeaturedCourse({ data, courses } = {}) {
   const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '-10%'])
 
   return (
-    <SectionReveal className={s.section}>
+    <SectionReveal className={s.section} variant="mask">
       <div className={s.inner}>
         <div className={s.imageWrap} ref={imageRef}>
           <motion.img src={imgSrc} alt={title} className={s.image} style={{ y: imgY }} />

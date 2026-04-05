@@ -1,4 +1,5 @@
 'use client'
+import { motion } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Directions.module.sass'
@@ -54,25 +55,32 @@ export default function Directions({ data, directions: strapiDirections } = {}) 
           <p className={s.sectionSubtitle}>{subtitle}</p>
         </div>
         <div className={s.grid}>
-          {dirs.map((d) => (
-            <a
+          {dirs.map((d, i) => (
+            <motion.div
               key={d.title}
-              href="#courses"
-              className={s.card}
-              onClick={(e) => handleClick(e, d.title)}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
             >
-              {d.image && (
-                <div className={s.cardImageWrap}>
-                  <img src={d.image} alt={d.title} className={s.cardImage} loading="lazy" />
+              <a
+                href="#courses"
+                className={s.card}
+                onClick={(e) => handleClick(e, d.title)}
+              >
+                {d.image && (
+                  <div className={s.cardImageWrap}>
+                    <img src={d.image} alt={d.title} className={s.cardImage} loading="lazy" />
+                  </div>
+                )}
+                <div className={s.cardBody}>
+                  {d.count > 0 && <span className={s.cardCount}>{d.count} программы</span>}
+                  <h3 className={s.cardTitle}>{d.title}</h3>
+                  <p className={s.cardDesc}>{d.desc}</p>
+                  <span className={s.cardLink}>Смотреть →</span>
                 </div>
-              )}
-              <div className={s.cardBody}>
-                {d.count > 0 && <span className={s.cardCount}>{d.count} программы</span>}
-                <h3 className={s.cardTitle}>{d.title}</h3>
-                <p className={s.cardDesc}>{d.desc}</p>
-                <span className={s.cardLink}>Смотреть →</span>
-              </div>
-            </a>
+              </a>
+            </motion.div>
           ))}
         </div>
       </div>
