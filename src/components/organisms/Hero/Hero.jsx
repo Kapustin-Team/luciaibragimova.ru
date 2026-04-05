@@ -65,7 +65,7 @@ export default function Hero({ data } = {}) {
     <section className={s.hero} id="hero">
       {/* Static hero background */}
       <div className={s.videoBg}>
-        <img src="/images/hero.png" alt="" className={s.videoBgMedia} />
+        <img src="/interrior/img265.jpg" alt="" className={s.videoBgMedia} />
         <div className={s.videoOverlay} />
       </div>
 
