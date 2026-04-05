@@ -2,7 +2,6 @@
 
 import Header from '@/components/organisms/Header/Header'
 import Hero from '@/components/organisms/Hero/Hero'
-import TopBanner from '@/components/organisms/TopBanner/TopBanner'
 import Directions from '@/components/organisms/Directions/Directions'
 import DirectionsGrid from '@/components/organisms/DirectionsGrid/DirectionsGrid'
 import PinkBanner from '@/components/organisms/PinkBanner/PinkBanner'
@@ -21,7 +20,6 @@ import ChatWidget from '@/components/organisms/ChatWidget/ChatWidget'
 
 // Map Strapi block __component to React components
 const BLOCK_MAP = {
-  'blocks.top-banner': TopBanner,
   'blocks.hero': Hero,
   'blocks.directions-grid': DirectionsGrid,
   'blocks.pink-banner': PinkBanner,
@@ -43,10 +41,9 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
   const hasBlocks = blocks.length > 0
 
   if (hasBlocks) {
-    // Extract hero and top-banner, render rest normally
-    const topBanner = blocks.find(b => b.__component === 'blocks.top-banner')
+    // Extract hero, render rest normally
     const heroBlock = blocks.find(b => b.__component === 'blocks.hero')
-    const otherBlocks = blocks.filter(b => b.__component !== 'blocks.top-banner' && b.__component !== 'blocks.hero')
+    const otherBlocks = blocks.filter(b => b.__component !== 'blocks.hero')
 
     return (
       <>

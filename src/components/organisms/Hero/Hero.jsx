@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react'
 import CharReveal from '@/components/atoms/CharReveal'
 import s from './Hero.module.sass'
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || ''
-
 const DEFAULT_SUBTITLES = [
   'Для родителей подростков',
   'Для женщин, которые ищут опору',
@@ -41,16 +39,6 @@ export default function Hero({ data } = {}) {
       ]
     : DEFAULT_BUTTONS
 
-  // Video background
-  const rawVideoUrl = data?.video?.url
-  const videoUrl = rawVideoUrl
-    ? (rawVideoUrl.startsWith('http') ? rawVideoUrl : STRAPI_URL + rawVideoUrl)
-    : null
-  const rawPosterUrl = data?.poster?.url
-  const posterUrl = rawPosterUrl
-    ? (rawPosterUrl.startsWith('http') ? rawPosterUrl : STRAPI_URL + rawPosterUrl)
-    : null
-
   // Subtitle rotation
   const [subtitleIdx, setSubtitleIdx] = useState(0)
   const [fade, setFade] = useState(true)
@@ -75,31 +63,11 @@ export default function Hero({ data } = {}) {
 
   return (
     <section className={s.hero} id="hero">
-      {/* Full-screen background video */}
-      {videoUrl ? (
-        <div className={s.videoBg}>
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className={s.videoBgMedia}
-            poster={posterUrl || undefined}
-            src={videoUrl}
-          />
-          <div className={s.videoOverlay} />
-        </div>
-      ) : posterUrl ? (
-        <div className={s.videoBg}>
-          <img src={posterUrl} alt="" className={s.videoBgMedia} />
-          <div className={s.videoOverlay} />
-        </div>
-      ) : (
-        <div className={s.videoBg}>
-          <img src="/images/hero.png" alt="" className={s.videoBgMedia} />
-          <div className={s.videoOverlay} />
-        </div>
-      )}
+      {/* Static hero background */}
+      <div className={s.videoBg}>
+        <img src="/images/hero.png" alt="" className={s.videoBgMedia} />
+        <div className={s.videoOverlay} />
+      </div>
 
       <div className={s.inner}>
         {/* Tags / pills */}

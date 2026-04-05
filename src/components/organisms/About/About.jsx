@@ -25,7 +25,7 @@ export default function About({ data } = {}) {
         </div>
         <div className={s.textCol}>
           {label && <span className={s.label}>{label}</span>}
-          <CharReveal as="h2" className={s.title}>{title}</CharReveal>
+          <CharReveal as="h3" className={s.title}>{title}</CharReveal>
           <p className={s.desc}>{description}</p>
           <ul className={s.list}>
             {highlights.map((f, i) => (
