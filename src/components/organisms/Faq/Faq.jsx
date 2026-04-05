@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import s from './Faq.module.sass'
 
 const FALLBACK_FAQS = [
@@ -17,18 +18,30 @@ function normalizeFaqs(strapiFaqs) {
 }
 
 export default function Faq({ data, faqs: strapiFaqs } = {}) {
-  const title = data?.title || 'Частые вопросы'
+  const title = data?.title || 'часто задаваемые вопросы'
   const faqList = normalizeFaqs(strapiFaqs)
+  const [openIndex, setOpenIndex] = useState(null)
+
+  const toggle = (i) => setOpenIndex(openIndex === i ? null : i)
+
+  if (!faqList.length) return null
 
   return (
     <section className={s.section} id="faq">
       <div className={s.inner}>
         <h2 className={s.title}>{title}</h2>
-        <div className={s.list}>
+        <div className={s.items}>
           {faqList.map((f, i) => (
-            <div key={i} className={s.item}>
-              <h3 className={s.question}>{f.q}</h3>
-              <p className={s.answer}>{f.a}</p>
+            <div key={i} className={`${s.item} ${openIndex === i ? s.itemOpen : ''}`}>
+              <button className={s.itemHeader} onClick={() => toggle(i)}>
+                <span className={s.question}>{f.q}</span>
+                <span className={s.icon} />
+              </button>
+              {openIndex === i && f.a && (
+                <div className={s.answer}>
+                  <p>{f.a}</p>
+                </div>
+              )}
             </div>
           ))}
         </div>

@@ -53,7 +53,6 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
         <Header />
         <main>
           {heroBlock && <Hero data={heroBlock} {...sharedData} />}
-          {topBanner && <TopBanner data={topBanner} {...sharedData} />}
           {otherBlocks.map((block, i) => {
             const Component = BLOCK_MAP[block.__component]
             if (!Component) return null
@@ -71,7 +70,6 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
       <Header />
       <main>
         <Hero />
-        <TopBanner />
         <TrustBlock />
         <DirectionsGrid directions={directions} courses={courses} />
         <PinkBanner />

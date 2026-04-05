@@ -4,7 +4,7 @@
   display: flex
   flex-direction: column
   justify-content: center
-  overflow: hidden
+  overflow: clip
   z-index: 1
   color: #ffffff
   margin-top: calc(var(--header-height) * -1)
@@ -45,7 +45,7 @@
   left: 0
   width: 100%
   height: 100%
-  background: rgba(0, 0, 0, 0.45)
+  background: rgba(0, 0, 0, 0.35)
   z-index: 1
 
 .inner
@@ -53,7 +53,7 @@
   z-index: 2
   max-width: var(--container-wide)
   margin: 0 auto
-  padding: 80px 40px
+  padding: 120px 48px
   width: 100%
   @media (max-width: 768px)
     padding: 60px 16px
@@ -86,20 +86,20 @@
 
 .title
   font-family: var(--font-heading)
-  font-size: clamp(52px, 7vw, 88px)
+  font-size: clamp(56px, 8vw, 100px)
   font-weight: 400
   color: #ffffff
   line-height: 1.05
-  letter-spacing: -1px
+  letter-spacing: -2px
   margin-bottom: 24px
-  max-width: 800px
+  max-width: 900px
 
 .desc
-  font-size: 18px
+  font-size: 20px
   font-weight: 400
   color: rgba(255, 255, 255, 0.8)
   line-height: 1.6
-  margin-bottom: 36px
+  margin-bottom: 48px
   max-width: 640px
   min-height: 28px
   transition: opacity 0.4s ease
@@ -126,8 +126,10 @@
   padding: 16px 36px
   background: var(--btn-accent-bg)
   color: var(--btn-accent-text)
-  font-size: 16px
-  font-weight: 600
+  font-size: 13px
+  font-weight: 500
+  text-transform: uppercase
+  letter-spacing: 2px
   border-radius: var(--radius-btn)
   transition: var(--transition-base)
   text-decoration: none
@@ -142,10 +144,12 @@
   padding: 16px 36px
   background: transparent
   color: #ffffff
-  font-size: 16px
-  font-weight: 600
+  font-size: 13px
+  font-weight: 500
+  text-transform: uppercase
+  letter-spacing: 2px
   border-radius: var(--radius-btn)
-  border: 1.5px solid rgba(255, 255, 255, 0.4)
+  border: 1px solid rgba(255, 255, 255, 0.4)
   transition: var(--transition-base)
   text-decoration: none
   &:hover
@@ -160,10 +164,12 @@
   padding: 16px 36px
   background: transparent
   color: #ffffff
-  font-size: 16px
-  font-weight: 600
+  font-size: 13px
+  font-weight: 500
+  text-transform: uppercase
+  letter-spacing: 2px
   border-radius: var(--radius-btn)
-  border: 1.5px solid rgba(255, 255, 255, 0.4)
+  border: 1px solid rgba(255, 255, 255, 0.4)
   transition: var(--transition-base)
   text-decoration: none
   &:hover

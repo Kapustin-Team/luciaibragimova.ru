@@ -1,15 +1,15 @@
 .section
   background: var(--bg-section-alt)
-  padding: 100px 32px
+  padding: 140px 40px
   @media (max-width: 768px)
-    padding: 72px 20px
+    padding: 80px 20px
 
 .inner
   max-width: var(--container)
   margin: 0 auto
   display: grid
   grid-template-columns: 1fr 1fr
-  gap: 80px
+  gap: 100px
   align-items: center
   @media (max-width: 900px)
     grid-template-columns: 1fr
@@ -42,29 +42,29 @@
   margin-bottom: 20px
 
 .title
-  font-size: clamp(54px, 6vw, 66px)
+  font-size: clamp(48px, 5.5vw, 72px)
   color: var(--text-dark)
   line-height: 1
   letter-spacing: -1px
   margin-bottom: 18px
 
 .desc
-  font-size: 16px
+  font-size: 18px
   color: var(--text-muted)
-  line-height: 1.8
-  margin-bottom: 28px
+  line-height: 1.7
+  margin-bottom: 36px
 
 .list
   list-style: none
   display: flex
   flex-direction: column
-  gap: 12px
+  gap: 16px
 
 .listItem
   display: flex
   align-items: center
-  gap: 12px
-  font-size: 15px
+  gap: 16px
+  font-size: 16px
   color: var(--text-dark)
   svg
     flex-shrink: 0
@@ -89,5 +89,5 @@
   transition: var(--transition-base)
   text-decoration: none
   &:hover
-    background: #c4a0d4
+    background: #5E3D28
     transform: translateY(-2px)

@@ -1,7 +1,7 @@
 'use client'
 import { useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import AnimatedSection from '@/components/atoms/AnimatedSection'
+import CharReveal from '@/components/atoms/CharReveal'
 import s from './Team.module.sass'
 
 export default function Team({ data, team: teamMembers } = {}) {
@@ -45,9 +45,9 @@ export default function Team({ data, team: teamMembers } = {}) {
   return (
     <section className={s.section} id="team">
       <div className={s.inner}>
-        <AnimatedSection className={s.header}>
+        <div className={s.header}>
           <div className={s.headerLeft}>
-            <h2 className={s.title}>{title}</h2>
+            <CharReveal as="h2" className={s.title}>{title}</CharReveal>
             <p className={s.subtitle}>{subtitle}</p>
           </div>
           {members.length > 3 && (
@@ -72,7 +72,7 @@ export default function Team({ data, team: teamMembers } = {}) {
               </button>
             </div>
           )}
-        </AnimatedSection>
+        </div>
 
         <div
           className={s.track}

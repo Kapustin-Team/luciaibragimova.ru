@@ -28,7 +28,7 @@ export function WaveLine({ className, color = 'rgba(217,185,231,0.3)', width = 4
   )
 }
 
-export function HalfCircle({ className, color = '#e1dceb', size = 200, direction = 'right' }) {
+export function HalfCircle({ className, color = '#F7E7DE', size = 200, direction = 'right' }) {
   const rotation = { right: 0, left: 180, up: -90, down: 90 }[direction] || 0
   return (
     <svg className={className} width={size / 2} height={size} viewBox="0 0 100 200" fill="none" style={{ position: 'absolute', pointerEvents: 'none', transform: `rotate(${rotation}deg)` }}>

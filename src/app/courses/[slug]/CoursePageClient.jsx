@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import CharReveal from '@/components/atoms/CharReveal'
 import Header from '@/components/organisms/Header/Header'
 import Footer from '@/components/organisms/Footer/Footer'
 import About from '@/components/organisms/About/About'
@@ -75,12 +76,12 @@ const SLUG_TO_DIR = {
   'igra-lvov': 'Трансформация',
 }
 
-/* Color schemes per direction */
+/* Color schemes per direction — unified premium palette */
 const DIRECTION_THEMES = {
-  'Рождение семьи': { accent: '#30023c', accentSoft: 'rgba(48,2,60,0.08)', heroGradient: 'linear-gradient(135deg, #fdf8ff 0%, #f0e4f8 50%, #f8f3fc 100%)', heroBg: '#f0e4f8' },
-  'Здоровое взросление': { accent: '#7c5cbf', accentSoft: 'rgba(124,92,191,0.08)', heroGradient: 'linear-gradient(135deg, #f3f0f8 0%, #e8e0f4 50%, #d9b9e7 100%)', heroBg: '#e8e0f4' },
-  'Развитие': { accent: '#2d8a6e', accentSoft: 'rgba(45,138,110,0.08)', heroGradient: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #f8f3fc 100%)', heroBg: '#d1fae5' },
-  'Трансформация': { accent: '#30023c', accentSoft: 'rgba(48,2,60,0.06)', heroGradient: 'linear-gradient(135deg, #f8f3fc 0%, #e8ddf2 50%, #d9b9e7 100%)', heroBg: '#e8ddf2' },
+  'Рождение семьи': { accent: '#744C32', accentSoft: 'rgba(116,76,50,0.08)', heroGradient: 'linear-gradient(135deg, #F7E7DE 0%, #FFFFFF 50%, #F7E7DE 100%)', heroBg: '#F7E7DE' },
+  'Здоровое взросление': { accent: '#744C32', accentSoft: 'rgba(116,76,50,0.08)', heroGradient: 'linear-gradient(135deg, #FFFFFF 0%, #F7E7DE 50%, #FFFFFF 100%)', heroBg: '#F7E7DE' },
+  'Развитие': { accent: '#744C32', accentSoft: 'rgba(116,76,50,0.08)', heroGradient: 'linear-gradient(135deg, #F7E7DE 0%, #FFFFFF 50%, #F7E7DE 100%)', heroBg: '#F7E7DE' },
+  'Трансформация': { accent: '#744C32', accentSoft: 'rgba(116,76,50,0.08)', heroGradient: 'linear-gradient(135deg, #FFFFFF 0%, #F7E7DE 50%, #FFFFFF 100%)', heroBg: '#F7E7DE' },
 }
 
 /* SVG icons for info cards */
@@ -137,7 +138,7 @@ export default function CoursePageClient({ course }) {
                   <span className={s.badgeOutline}>{FORMAT_LABELS[c.format] || c.format}</span>
                 )}
               </div>
-              <h1 className={s.heroTitle}>{c.title}</h1>
+              <CharReveal as="h1" className={s.heroTitle}>{c.title}</CharReveal>
               {c.shortDescription && (
                 <p className={s.heroDesc}>{c.shortDescription}</p>
               )}
@@ -229,7 +230,7 @@ export default function CoursePageClient({ course }) {
           <section className={s.section}>
             <div className={s.container}>
               <div className={s.centeredHeader}>
-                <h2 className={s.sectionTitle}>Для кого этот курс</h2>
+                <CharReveal as="h2" className={s.sectionTitle}>Для кого этот курс</CharReveal>
                 <p className={s.sectionSubtitle}>Курс разработан с учётом потребностей разных людей в разных жизненных ситуациях.</p>
               </div>
               <div className={s.audienceGrid} data-count={c.targetAudience.length}>
@@ -266,7 +267,7 @@ export default function CoursePageClient({ course }) {
             <div className={s.container}>
               <div className={s.featureLayout}>
                 <div className={s.featureLeft}>
-                  <h2 className={s.featureTitle}>Знакомые ситуации?</h2>
+                  <CharReveal as="h2" className={s.featureTitle}>Знакомые ситуации?</CharReveal>
                   <p className={s.featureDesc}>Если хотя бы несколько пунктов откликаются — этот курс создан именно для вас.</p>
                 </div>
                 <div className={s.featureRight}>
@@ -294,7 +295,7 @@ export default function CoursePageClient({ course }) {
           <section className={s.section} id="results">
             <div className={s.container}>
               <div className={s.centeredHeader}>
-                <h2 className={s.sectionTitle}>Что вы получите</h2>
+                <CharReveal as="h2" className={s.sectionTitle}>Что вы получите</CharReveal>
                 <p className={s.sectionSubtitle}>Конкретные результаты после прохождения программы</p>
               </div>
               <div className={`${s.resultsLayout} ${!c.resultsImage?.url ? s.resultsLayoutCentered : ''}`}>
@@ -323,7 +324,7 @@ export default function CoursePageClient({ course }) {
           <section className={s.sectionPeach} id="program">
             <div className={s.container}>
               <div className={s.centeredHeader}>
-                <h2 className={s.sectionTitle}>Программа курса</h2>
+                <CharReveal as="h2" className={s.sectionTitle}>Программа курса</CharReveal>
                 <p className={s.sectionSubtitle}>Структурированная программа, которая ведёт вас шаг за шагом.</p>
               </div>
               <div className={s.modulesList}>
@@ -350,7 +351,7 @@ export default function CoursePageClient({ course }) {
           <section className={s.section}>
             <div className={s.container}>
               <div className={s.centeredHeader}>
-                <h2 className={s.sectionTitle}>Методики и подходы</h2>
+                <CharReveal as="h2" className={s.sectionTitle}>Методики и подходы</CharReveal>
                 <p className={s.sectionSubtitle}>Курс основан на проверенных психологических методиках и современных научных подходах.</p>
               </div>
               <div className={s.methodsGrid}>
@@ -376,7 +377,7 @@ export default function CoursePageClient({ course }) {
           <section className={s.sectionPeach} id="tariffs">
             <div className={s.container}>
               <div className={s.centeredHeader}>
-                <h2 className={s.sectionTitle}>Выберите тариф</h2>
+                <CharReveal as="h2" className={s.sectionTitle}>Выберите тариф</CharReveal>
                 <p className={s.sectionSubtitle}>Выберите формат участия, который подходит именно вам.</p>
               </div>
               <div className={s.tariffsGrid} data-count={c.tariffs.length}>
@@ -420,7 +421,7 @@ export default function CoursePageClient({ course }) {
           <section className={s.section}>
             <div className={s.container}>
               <div className={s.centeredHeader}>
-                <h2 className={s.sectionTitle}>Отзывы участников</h2>
+                <CharReveal as="h2" className={s.sectionTitle}>Отзывы участников</CharReveal>
                 <p className={s.sectionSubtitle}>Реальные отзывы от тех, кто уже прошёл курс</p>
               </div>
               <div className={s.reviewsMasonry}>
@@ -446,7 +447,7 @@ export default function CoursePageClient({ course }) {
             <div className={s.container}>
               <div className={s.featureLayout}>
                 <div className={s.featureLeft}>
-                  <h2 className={s.featureTitle}>Важно знать</h2>
+                  <CharReveal as="h2" className={s.featureTitle}>Важно знать</CharReveal>
                   <p className={s.featureDesc}>Обратите внимание перед записью на курс.</p>
                 </div>
                 <div className={s.featureRight}>
@@ -475,7 +476,7 @@ export default function CoursePageClient({ course }) {
           <section className={s.section} id="teachers">
             <div className={s.container}>
               <div className={s.centeredHeader}>
-                <h2 className={s.sectionTitle}>Преподаватели курса</h2>
+                <CharReveal as="h2" className={s.sectionTitle}>Преподаватели курса</CharReveal>
                 <p className={s.sectionSubtitle}>Опытные специалисты, которые проведут вас через программу</p>
               </div>
               <div className={s.teachersGrid} data-count={c.teachers.length}>
@@ -514,7 +515,7 @@ export default function CoursePageClient({ course }) {
           <div className={s.ctaDecorCircle2} />
           <div className={s.ctaDecorDots} />
           <div className={s.ctaCard}>
-            <h2 className={s.ctaTitle}>Готовы начать свой путь?</h2>
+            <CharReveal as="h2" className={s.ctaTitle}>Готовы начать свой путь?</CharReveal>
             <p className={s.ctaDesc}>Запишитесь на курс «{c.title}» и сделайте первый шаг к изменениям</p>
             <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>
               Выбрать тариф

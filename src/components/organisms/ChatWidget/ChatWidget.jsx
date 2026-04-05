@@ -14,7 +14,7 @@ const MaxIcon = ({ size = 20 }) => (
 const links = [
   { icon: <FaPhoneAlt size={18} />, label: 'Позвонить', href: 'tel:+73430000000', color: '#10b981' },
   { icon: <FaTelegramPlane size={18} />, label: 'Telegram', href: 'https://t.me/ibragimovapsy', color: '#2AABEE' },
-  { icon: <MaxIcon size={18} />, label: 'Max', href: 'https://max.me/ibragimovapsy', color: '#30023c' },
+  { icon: <MaxIcon size={18} />, label: 'Max', href: 'https://max.me/ibragimovapsy', color: '#25140C' },
   { icon: <FaVk size={18} />, label: 'ВКонтакте', href: 'https://vk.com/ibragimova___lucia', color: '#4C75A3' },
 ]
 

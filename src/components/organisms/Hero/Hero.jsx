@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import CharReveal from '@/components/atoms/CharReveal'
 import s from './Hero.module.sass'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || ''
@@ -88,14 +89,14 @@ export default function Hero({ data } = {}) {
           />
           <div className={s.videoOverlay} />
         </div>
+      ) : posterUrl ? (
+        <div className={s.videoBg}>
+          <img src={posterUrl} alt="" className={s.videoBgMedia} />
+          <div className={s.videoOverlay} />
+        </div>
       ) : (
         <div className={s.videoBg}>
-          <iframe
-            className={s.videoBgIframe}
-            src="https://kinescope.io/embed/o1ZLJ9qRpjsF3acNkduExU?autoplay=1&muted=1&loop=1&controls=0&background=1"
-            allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer"
-            frameBorder="0"
-          />
+          <img src="/images/hero.png" alt="" className={s.videoBgMedia} />
           <div className={s.videoOverlay} />
         </div>
       )}
@@ -111,11 +112,11 @@ export default function Hero({ data } = {}) {
         )}
 
         {/* Title */}
-        <h1 className={s.title}>
+        <CharReveal as="h1" className={s.title}>
           {title.split('\n').map((line, i, arr) => (
             <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
           ))}
-        </h1>
+        </CharReveal>
 
         {/* Description or rotating subtitle */}
         {description ? (

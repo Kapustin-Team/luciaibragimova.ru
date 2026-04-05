@@ -1,4 +1,5 @@
 'use client'
+import CharReveal from '@/components/atoms/CharReveal'
 import s from './About.module.sass'
 
 const DEFAULT_HIGHLIGHTS = [
@@ -24,14 +25,14 @@ export default function About({ data } = {}) {
         </div>
         <div className={s.textCol}>
           {label && <span className={s.label}>{label}</span>}
-          <h2 className={s.title}>{title}</h2>
+          <CharReveal as="h2" className={s.title}>{title}</CharReveal>
           <p className={s.desc}>{description}</p>
           <ul className={s.list}>
             {highlights.map((f, i) => (
               <li key={i} className={s.listItem}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <circle cx="10" cy="10" r="10" fill="rgba(48,2,60,0.12)" />
-                  <path d="M6 10l3 3 5-5" stroke="#30023c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="10" cy="10" r="10" fill="rgba(116,76,50,0.12)" />
+                  <path d="M6 10l3 3 5-5" stroke="#25140C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 {f}
               </li>

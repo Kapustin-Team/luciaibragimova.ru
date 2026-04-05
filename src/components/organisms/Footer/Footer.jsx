@@ -64,6 +64,9 @@ export default function Footer({ directions, courses }) {
     <footer className={s.footer}>
       <div className={s.main}>
         <div className={s.inner}>
+          <div className={s.brandStatement}>
+            искусство гармонии,<br />в движении
+          </div>
           <div className={s.cols}>
             {footerCols.map(col => (
               <div key={col.title} className={s.col}>
@@ -107,6 +110,9 @@ export default function Footer({ directions, courses }) {
             <a href="/terms">Оферта</a>
           </div>
         </div>
+      </div>
+      <div className={s.largeBrand}>
+        Студия Люции Ибрагимовой
       </div>
     </footer>
   )

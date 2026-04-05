@@ -1,5 +1,6 @@
 'use client'
 import { FaVideo, FaUsers, FaChild, FaHeart } from 'react-icons/fa'
+import CharReveal from '@/components/atoms/CharReveal'
 import s from './Consultations.module.sass'
 
 const ICON_MAP = {
@@ -59,7 +60,7 @@ export default function Consultations({ data, consultationTypes } = {}) {
     <section className={s.section} id="consultations">
       <div className={s.inner}>
         <div className={s.header}>
-          <h2 className={s.title}>{title}</h2>
+          <CharReveal as="h2" className={s.title}>{title}</CharReveal>
           <p className={s.subtitle}>{subtitle}</p>
         </div>
         <div className={s.grid}>

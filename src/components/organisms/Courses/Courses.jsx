@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import CharReveal from '@/components/atoms/CharReveal'
 import s from './Courses.module.sass'
 
 const FORMAT_MAP = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
@@ -84,7 +85,7 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
     <section className={s.section} id="courses">
       <div className={s.inner}>
         <div className={s.header}>
-          <h2 className={s.title}>{title}</h2>
+          <CharReveal as="h2" className={s.title}>{title}</CharReveal>
           <p className={s.subtitle}>{subtitle}</p>
         </div>
 

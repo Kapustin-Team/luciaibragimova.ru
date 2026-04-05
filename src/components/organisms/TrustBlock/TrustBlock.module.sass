@@ -1,84 +1,49 @@
-@use 'sass:color'
-
-=mobile
-  @media (max-width: 768px)
-    @content
-
 .section
-  padding: 80px 32px 80px
-  background: var(--bg-section-alt, var(--bg-card))
-  position: relative
-  z-index: 2
-  +mobile
-    padding: 80px 20px 56px
+  background: var(--bg-cream)
+  padding: var(--section-padding)
+  @media (max-width: 768px)
+    padding: var(--section-padding-mobile)
 
 .inner
-  max-width: var(--container)
+  max-width: var(--container-wide)
   margin: 0 auto
-  padding: 0 var(--container-padding, 24px)
 
-.grid
-  display: grid
-  grid-template-columns: repeat(4, 1fr)
-  gap: 24px
-  +mobile
-    grid-template-columns: repeat(2, 1fr)
-    gap: 16px
+.heading
+  font-family: var(--font-heading)
+  font-style: italic
+  font-weight: 400
+  font-size: clamp(48px, 5.5vw, 72px)
+  color: var(--text-dark)
+  letter-spacing: -1px
+  line-height: 1.08
+  margin-bottom: 64px
+
+.scroll
+  display: flex
+  overflow-x: auto
+  scrollbar-width: none
+  &::-webkit-scrollbar
+    display: none
 
 .card
-  display: flex
-  flex-direction: column
-  align-items: center
-  text-align: center
-  padding: 40px 24px 36px
-  background: #ffffff
-  border: 1px solid rgba(64, 10, 75, 0.12)
-  border-radius: 16px
-  gap: 12px
-  transition: border-color 0.25s ease
-  &:hover
-    border-color: var(--accent-orange)
-  +mobile
-    padding: 28px 16px 24px
-
-.iconWrap
-  display: flex
-  align-items: center
-  justify-content: center
-  width: 52px
-  height: 52px
-  border-radius: 50%
-  background: rgba(48, 2, 60, 0.08)
-  flex-shrink: 0
-  +mobile
-    width: 44px
-    height: 44px
-
-.icon
-  width: 26px
-  height: 26px
-  color: var(--accent-orange)
-  +mobile
-    width: 22px
-    height: 22px
+  flex: 0 0 auto
+  min-width: 280px
+  padding: 32px
+  border-left: 1px solid rgba(37, 20, 12, 0.1)
+  &:first-child
+    border-left: none
 
 .number
-  display: block
   font-family: var(--font-heading)
-  font-size: clamp(40px, 5vw, 64px)
+  font-style: italic
   font-weight: 400
+  font-size: clamp(48px, 5vw, 64px)
+  color: var(--text-dark)
+  letter-spacing: -1px
   line-height: 1
-  letter-spacing: -0.02em
-  color: var(--bg-dark, #400a4b)
-  +mobile
-    font-size: clamp(36px, 8vw, 48px)
+  margin-bottom: 16px
 
 .label
-  font-size: 14px
-  font-weight: 400
-  line-height: 1.5
-  color: var(--text-dark, #1a1a2e)
-  opacity: 0.7
-  margin: 0
-  +mobile
-    font-size: 13px
+  font-size: 16px
+  font-weight: 600
+  color: var(--text-dark)

@@ -1,4 +1,5 @@
 'use client'
+import CharReveal from '@/components/atoms/CharReveal'
 import s from './DirectionsGrid.module.sass'
 
 const FALLBACK_DIRS = [
@@ -39,10 +40,10 @@ const ICON_MAP = {
 
 /* Each direction has its own accent color */
 const DIR_COLORS = {
-  'Рождение семьи': { segment: '#d9b9e7' },
-  'Здоровое взросление': { segment: '#7c5cbf' },
-  'Развитие детей и взрослых': { segment: '#2d8a6e' },
-  'Духовно-нравственная трансформация': { segment: '#8b5cf6' },
+  'Рождение семьи': { segment: '#744C32' },
+  'Здоровое взросление': { segment: '#744C32' },
+  'Развитие детей и взрослых': { segment: '#744C32' },
+  'Духовно-нравственная трансформация': { segment: '#744C32' },
 }
 
 
@@ -100,7 +101,7 @@ function DecorativeCircle({ dirs }) {
 
     const gridIdx = GRID_TO_SVG.indexOf(svgIdx)
     const dirTitle = dirs[gridIdx]?.title
-    const color = DIR_COLORS[dirTitle]?.segment || '#d9b9e7'
+    const color = DIR_COLORS[dirTitle]?.segment || '#744C32'
 
     return (
       <path
@@ -139,7 +140,7 @@ export default function DirectionsGrid({ data, directions: strapiDirections, cou
     <section className={s.section} id="directions-grid">
       <div className={s.inner}>
         <div className={s.header}>
-          <h2 className={s.sectionTitle}>{title}</h2>
+          <CharReveal as="h2" className={s.sectionTitle}>{title}</CharReveal>
           <p className={s.sectionSubtitle}>{subtitle}</p>
         </div>
 

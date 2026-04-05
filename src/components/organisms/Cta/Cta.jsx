@@ -1,29 +1,37 @@
 'use client'
 import s from './Cta.module.sass'
 
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+
+function imageUrl(media) {
+  if (!media) return null
+  const url = media.url || media.formats?.large?.url || media.formats?.medium?.url
+  if (!url) return null
+  return url.startsWith('http') ? url : `${STRAPI_URL}${url}`
+}
+
 export default function Cta({ data } = {}) {
-  const title = data?.title || 'Начните путь\nк гармонии'
+  const title = data?.title || 'Начните путь к гармонии'
   const subtitle = data?.subtitle || 'Выберите программу — онлайн, офлайн или гибрид.'
   const ctaPrimary = data?.ctaPrimary || 'Выбрать курс'
   const ctaPrimaryLink = data?.ctaPrimaryLink || '#courses'
-  const ctaSecondary = data?.ctaSecondary || null
-  const ctaSecondaryLink = data?.ctaSecondaryLink || '#contact'
+  const imgSrc = imageUrl(data?.image)
 
   return (
     <section className={s.section}>
-      <div className={s.decorCircle1} />
-      <div className={s.decorCircle2} />
-      <div className={s.decorDots} />
-      <div className={s.outer}>
-        <div className={s.card}>
-          <h2 className={s.title} dangerouslySetInnerHTML={{ __html: title.replace(/\n/g, '<br />') }} />
-          <p className={s.subtitle}>{subtitle}</p>
-          <div className={s.buttons}>
-            <a href={ctaPrimaryLink} className={s.btnPrimary}>{ctaPrimary}</a>
-            {ctaSecondary && (
-              <a href={ctaSecondaryLink} className={s.btnOutline}>{ctaSecondary}</a>
-            )}
+      <div className={imgSrc ? s.split : s.splitNoImage}>
+        {imgSrc && (
+          <div className={s.imageCol}>
+            <img src={imgSrc} alt="" className={s.image} />
           </div>
+        )}
+        <div className={s.contentCol}>
+          <h2 className={s.title}>{title}</h2>
+          <p className={s.subtitle}>{subtitle}</p>
+          <a href={ctaPrimaryLink} className={s.linkBtn}>
+            {ctaPrimary}
+            <span className={s.arrow}>&rarr;</span>
+          </a>
         </div>
       </div>
     </section>

@@ -1,8 +1,8 @@
 .section
-  background: var(--bg-white)
-  padding: 50px 32px
+  background: var(--bg-cream)
+  padding: var(--section-padding)
   @media (max-width: 768px)
-    padding: 36px 20px
+    padding: var(--section-padding-mobile)
 
 .inner
   max-width: var(--container)
@@ -13,22 +13,82 @@
   margin-bottom: 72px
 
 .title
-  font-size: clamp(54px, 6vw, 66px)
+  font-size: clamp(48px, 5.5vw, 72px)
   font-weight: 400
   color: var(--text-dark)
-  letter-spacing: -1.5px
+  letter-spacing: -1px
   margin-bottom: 14px
-  line-height: 1.1
+  line-height: 1.08
 
 .subtitle
   font-size: 18px
   color: var(--text-muted)
   line-height: 1.5
 
-.masonry
-  display: grid
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
-  gap: 16px
-  align-items: stretch
-  @media (max-width: 600px)
-    grid-template-columns: 1fr
+.carousel
+  position: relative
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 24px
+  @media (max-width: 768px)
+    gap: 12px
+
+.slide
+  display: flex
+  justify-content: center
+  max-width: 600px
+  width: 100%
+  animation: fadeIn 0.4s ease
+  @media (max-width: 768px)
+    max-width: 100%
+
+.arrowLeft,
+.arrowRight
+  flex-shrink: 0
+  width: 48px
+  height: 48px
+  display: flex
+  align-items: center
+  justify-content: center
+  background: transparent
+  border: 1px solid var(--border-medium)
+  color: var(--text-dark)
+  cursor: pointer
+  transition: var(--transition-fast)
+  &:hover
+    border-color: var(--text-dark)
+    background: rgba(37, 20, 12, 0.04)
+  @media (max-width: 768px)
+    width: 36px
+    height: 36px
+
+.dots
+  display: flex
+  justify-content: center
+  gap: 8px
+  margin-top: 40px
+
+.dot,
+.dotActive
+  width: 8px
+  height: 8px
+  border-radius: 50%
+  border: none
+  padding: 0
+  cursor: pointer
+  transition: var(--transition-fast)
+
+.dot
+  background: rgba(37, 20, 12, 0.2)
+  &:hover
+    background: rgba(37, 20, 12, 0.4)
+
+.dotActive
+  background: var(--accent-orange)
+
+@keyframes fadeIn
+  from
+    opacity: 0
+  to
+    opacity: 1

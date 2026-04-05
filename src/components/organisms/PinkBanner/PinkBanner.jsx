@@ -9,9 +9,6 @@ export default function PinkBanner({ data } = {}) {
 
   return (
     <section className={s.section}>
-      <div className={s.decorCircle1} />
-      <div className={s.decorCircle2} />
-      <div className={s.decorDots} />
       <div className={s.inner}>
         <div className={s.card}>
           <h2 className={s.title} dangerouslySetInnerHTML={{ __html: title.replace(/\*\*(.*?)\*\*/g, '<span class="highlight">$1</span>') }} />

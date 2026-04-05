@@ -1,8 +1,8 @@
 .section
-  background: var(--bg-white)
-  padding: 50px 32px
+  background: var(--bg-cream)
+  padding: var(--section-padding)
   @media (max-width: 768px)
-    padding: 36px 20px
+    padding: var(--section-padding-mobile)
 
 .inner
   max-width: var(--container)
@@ -47,7 +47,7 @@
 
 .filterBtn
   padding: 8px 20px
-  border-radius: var(--radius-full)
+  border-radius: 100px
   border: 1.5px solid var(--border-medium)
   background: transparent
   color: var(--text-muted)
@@ -56,21 +56,22 @@
   transition: var(--transition-fast)
   cursor: pointer
   &:hover
-    border-color: #d9b9e7
-    color: #30023c
+    border-color: #744C32
+    color: #25140C
 
 .active
-  background: #d9b9e7
-  border-color: #d9b9e7
-  color: #30023c
+  background: #744C32
+  border-color: #744C32
+  color: #FFFFFF
   &:hover
-    color: #30023c
-    border-color: #d9b9e7
+    color: #FFFFFF
+    border-color: #744C32
 
 .grid
   display: grid
   grid-template-columns: repeat(3, 1fr)
   gap: 16px
+  row-gap: 48px
   @media (max-width: 1024px)
     grid-template-columns: repeat(2, 1fr)
   @media (max-width: 600px)
@@ -89,9 +90,6 @@
       display: none
 
 .card
-  background: var(--bg-card)
-  border-radius: var(--radius-card)
-  padding: 28px
   display: flex
   flex-direction: column
   position: relative
@@ -99,9 +97,6 @@
   overflow: hidden
   text-decoration: none
   color: inherit
-  &:hover
-    background: var(--bg-card-hover)
-    transform: translateY(-3px)
   @media (max-width: 600px)
     min-width: 75vw
     max-width: 75vw
@@ -109,47 +104,50 @@
     flex-shrink: 0
 
 .cardThumb
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0
-  margin: -28px -28px 20px
-  width: calc(100% + 56px)
-  max-width: calc(100% + 56px)
+  margin-bottom: 20px
+  width: 100%
+  max-width: 100%
   height: 220px
   display: block
   object-fit: cover
 
 .cardThumbPlaceholder
   border-radius: var(--radius-lg)
-  margin: -28px -28px 20px
-  width: calc(100% + 56px)
+  margin-bottom: 20px
+  width: 100%
   height: 220px
-  background: linear-gradient(135deg, #e1dceb 0%, #f3f0f8 100%)
+  background: linear-gradient(135deg, #F7E7DE 0%, #FFFFFF 100%)
 
 .featured
-  background: rgba(48, 2, 60, 0.06)
-  &:hover
-    background: rgba(48, 2, 60, 0.12)
+  // no special background
 
 .tag
   position: absolute
   top: 20px
   right: 20px
-  background: #d9b9e7
-  color: #30023c
+  background: #744C32
+  color: #FFFFFF
   padding: 4px 12px
   border-radius: var(--radius-full)
   font-size: 11px
   font-weight: 700
+
+.cardBody
+  padding: 16px 0
 
 .cardMeta
   display: flex
   align-items: center
   gap: 6px
   margin-bottom: 14px
-  font-size: 12px
+  font-size: 13px
+  font-weight: 500
+  text-transform: uppercase
+  letter-spacing: 0.13px
   color: var(--text-muted)
 
 .format
-  color: #30023c
+  color: #25140C
   font-weight: 600
 
 .dot
@@ -159,11 +157,14 @@
   color: var(--text-muted)
 
 .cardTitle
-  font-size: 19px
+  font-family: var(--font-heading)
+  font-style: italic
   font-weight: 400
+  font-size: 24px
+  letter-spacing: -0.26px
+  line-height: 1.2
   color: var(--text-dark)
   margin-bottom: 4px
-  letter-spacing: -0.4px
 
 .cardDir
   font-size: 13px
@@ -181,8 +182,6 @@
   display: flex
   gap: 12px
   align-items: center
-  padding-top: 14px
-  border-top: 1px solid var(--border-default)
 
 .cardLink
   font-size: 14px
@@ -190,19 +189,21 @@
   color: var(--text-dark)
   transition: color 0.2s
   &:hover
-    color: #30023c
+    color: #25140C
 
 .cardBuy
   margin-left: auto
-  padding: 8px 20px
-  background: var(--accent-primary)
-  color: #30023c
-  border-radius: var(--radius-full)
-  font-size: 13px
+  padding: 10px 24px
+  border: 1px solid #744C32
+  border-radius: 100px
+  background: transparent
+  color: #744C32
+  font-size: 14px
   font-weight: 600
   transition: var(--transition-fast)
   &:hover
-    background: var(--accent-primary-hover)
+    background: #744C32
+    color: #fff
 
 .empty
   grid-column: 1 / -1
