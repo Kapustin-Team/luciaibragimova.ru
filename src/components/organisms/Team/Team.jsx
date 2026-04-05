@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState, useCallback } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
@@ -8,9 +8,6 @@ import s from './Team.module.sass'
 export default function Team({ data, team: teamMembers } = {}) {
   const title = data?.title || 'Наша команда'
   const subtitle = data?.subtitle || 'Специалисты, которым доверяют'
-  const scrollRef = useRef(null)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
   const [expandedId, setExpandedId] = useState(null)
 
   const members = (teamMembers || []).map(m => ({
@@ -22,21 +19,6 @@ export default function Team({ data, team: teamMembers } = {}) {
     photo: m.photo?.url || m.photo?.formats?.medium?.url || m.photo?.formats?.small?.url || null,
   }))
 
-  const updateScrollState = useCallback(() => {
-    const el = scrollRef.current
-    if (!el) return
-    setCanScrollLeft(el.scrollLeft > 10)
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10)
-  }, [])
-
-  const scroll = (dir) => {
-    const el = scrollRef.current
-    if (!el) return
-    const cardWidth = el.querySelector('[data-team-card]')?.offsetWidth || 320
-    el.scrollBy({ left: dir * (cardWidth + 16), behavior: 'smooth' })
-    setTimeout(updateScrollState, 400)
-  }
-
   const handleToggleBio = (id) => {
     setExpandedId(prev => prev === id ? null : id)
   }
@@ -47,44 +29,15 @@ export default function Team({ data, team: teamMembers } = {}) {
     <SectionReveal className={s.section} id="team">
       <div className={s.inner}>
         <div className={s.header}>
-          <div className={s.headerLeft}>
-            <CharReveal as="h2" className={s.title}>{title}</CharReveal>
-            <p className={s.subtitle}>{subtitle}</p>
-          </div>
-          {members.length > 3 && (
-            <div className={s.arrows}>
-              <button
-                className={`${s.arrow} ${!canScrollLeft ? s.arrowDisabled : ''}`}
-                onClick={() => scroll(-1)}
-                aria-label="Назад"
-              >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-              <button
-                className={`${s.arrow} ${!canScrollRight ? s.arrowDisabled : ''}`}
-                onClick={() => scroll(1)}
-                aria-label="Вперёд"
-              >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            </div>
-          )}
+          <CharReveal as="h2" className={s.title}>{title}</CharReveal>
+          <p className={s.subtitle}>{subtitle}</p>
         </div>
 
-        <div
-          className={s.track}
-          ref={scrollRef}
-          onScroll={updateScrollState}
-        >
+        <div className={s.track}>
           {members.map((member, i) => (
             <motion.div
               className={s.card}
               key={member.id || i}
-              data-team-card
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-30px' }}

@@ -13,19 +13,9 @@
   z-index: 1
 
 .header
-  display: flex
-  align-items: flex-end
-  justify-content: space-between
   margin-bottom: 40px
-  gap: 20px
   @media (max-width: 600px)
-    flex-direction: column
-    align-items: flex-start
     margin-bottom: 28px
-
-.headerLeft
-  display: flex
-  flex-direction: column
 
 .title
   font-size: clamp(40px, 4.5vw, 52px)
@@ -39,57 +29,14 @@
   font-weight: 500
   margin-top: 4px
 
-.arrows
-  display: flex
-  gap: 8px
-  flex-shrink: 0
-  @media (max-width: 600px)
-    display: none
-
-.arrow
-  width: 44px
-  height: 44px
-  border-radius: 50%
-  border: 1.5px solid rgba(255, 255, 255, 0.25)
-  background: transparent
-  color: var(--text-white)
-  display: flex
-  align-items: center
-  justify-content: center
-  transition: var(--transition-fast)
-  cursor: pointer
-  &:hover
-    background: rgba(255, 255, 255, 0.1)
-    border-color: rgba(255, 255, 255, 0.45)
-
-.arrowDisabled
-  opacity: 0.3
-  pointer-events: none
-
-// --- Horizontal scroll track ---
+// --- CSS grid track ---
 .track
-  display: flex
-  gap: 16px
-  overflow-x: auto
-  scroll-snap-type: x mandatory
-  scroll-padding-left: 0px
-  -webkit-overflow-scrolling: touch
-  padding-bottom: 8px
-  scrollbar-width: none
-  &::-webkit-scrollbar
-    display: none
-  @media (max-width: 600px)
-    margin: 0 -20px
-    padding-left: 20px
-    padding-right: 20px
-    scroll-padding-left: 20px
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+  gap: 20px
 
 // --- Card ---
 .card
-  min-width: 300px
-  max-width: 300px
-  flex-shrink: 0
-  scroll-snap-align: start
   border-radius: var(--radius-2xl)
   overflow: hidden
   background: rgba(255, 255, 255, 0.06)
@@ -99,9 +46,6 @@
     background: rgba(255, 255, 255, 0.1)
     .cardOverlay
       opacity: 0
-  @media (max-width: 600px)
-    min-width: 260px
-    max-width: 260px
 
 .cardPhotoWrap
   position: relative
