@@ -1,5 +1,6 @@
 'use client'
 import s from './FeaturedCourse.module.sass'
+import CharReveal from '@/components/atoms/CharReveal'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
 
@@ -27,7 +28,7 @@ export default function FeaturedCourse({ data, courses } = {}) {
           </div>
         )}
         <div className={s.panel}>
-          <h2 className={s.title}>{title}</h2>
+          <CharReveal as="h2" className={s.title}>{title}</CharReveal>
           <p className={s.desc}>{description}</p>
           <a href={ctaLink} className={s.btn}>{ctaText}</a>
         </div>
