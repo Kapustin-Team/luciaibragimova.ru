@@ -137,6 +137,7 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
               ) : (
                 <div className={s.cardThumbPlaceholder} />
               )}
+              <span className={s.cardOverlay} />
               {c.badge && <span className={s.tag}>{c.badge}</span>}
               <div className={s.cardMeta}>
                 <span className={s.format}>{c.format}</span>
@@ -147,7 +148,6 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
               <p className={s.cardDesc}>{c.desc}</p>
               <div className={s.cardActions}>
                 <span className={s.cardLink}>Подробнее →</span>
-                <span className={s.cardBuy}>Купить</span>
               </div>
             </a>
           ))}
