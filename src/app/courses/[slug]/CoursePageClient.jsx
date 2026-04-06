@@ -66,6 +66,11 @@ export default function CoursePageClient({ course }) {
   const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const heroBgY = useTransform(heroProgress, [0, 1], ['0%', '20%'])
 
+  // CTA section scroll-linked scale — subtle zoom-in as it enters viewport
+  const ctaRef = useRef(null)
+  const { scrollYProgress: ctaProgress } = useScroll({ target: ctaRef, offset: ['start end', 'end start'] })
+  const ctaScale = useTransform(ctaProgress, [0, 0.5], [0.96, 1])
+
   // Results image parallax — upward shift as section enters viewport
   const resultsImageRef = useRef(null)
   const { scrollYProgress: resultsProgress } = useScroll({ target: resultsImageRef, offset: ['start end', 'end start'] })
@@ -560,7 +565,7 @@ export default function CoursePageClient({ course }) {
         <About />
 
         {/* ─── CTA — clean, dark bg, large text ─── */}
-        <section className={s.ctaSection}>
+        <motion.section ref={ctaRef} className={s.ctaSection} style={{ scale: ctaScale }}>
           <div>
             <CharReveal as="h2" className={s.ctaTitle}>Готовы начать свой путь?</CharReveal>
             <p className={s.ctaDesc}>Запишитесь на курс «{c.title}» и сделайте первый шаг к изменениям</p>
@@ -568,7 +573,7 @@ export default function CoursePageClient({ course }) {
               Выбрать тариф
             </a>
           </div>
-        </section>
+        </motion.section>
 
       </main>
       <Footer hideBrand />
