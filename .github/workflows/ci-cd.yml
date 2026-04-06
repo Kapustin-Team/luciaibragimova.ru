@@ -81,5 +81,5 @@ jobs:
 
     - name: Deploy to Coolify
       run: |
-        curl -X GET "https://app.coolify.io/api/v1/deploy?uuid=b4skwg8gw8wowwoo8gko0g44&force=false" \
+        curl -X GET "https://app.coolify.io/api/v1/deploy?uuid=b4skwg8gw8wowwoo8gko0g44&force=true" \
           -H "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}"
