@@ -440,7 +440,7 @@ export default function CoursePageClient({ course }) {
         </section>
 
       </main>
-      <Footer />
+      <Footer hideBrand />
     </>
   )
 }

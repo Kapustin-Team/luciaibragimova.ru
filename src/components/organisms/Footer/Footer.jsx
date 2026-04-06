@@ -35,7 +35,7 @@ const aboutLinks = [
   { text: 'Учредительные документы', href: '/' },
 ]
 
-export default function Footer({ directions, courses }) {
+export default function Footer({ directions, courses, hideBrand }) {
   const dirLinks = (directions && directions.length > 0)
     ? directions.map(d => ({
         text: d.name || d.title,
@@ -64,9 +64,11 @@ export default function Footer({ directions, courses }) {
     <footer className={s.footer}>
       <div className={s.main}>
         <div className={s.inner}>
-          <div className={s.brandStatement}>
-            искусство гармонии,<br />в движении
-          </div>
+          {!hideBrand && (
+            <div className={s.brandStatement}>
+              искусство гармонии,<br />в движении
+            </div>
+          )}
           <div className={s.cols}>
             {footerCols.map(col => (
               <div key={col.title} className={s.col}>

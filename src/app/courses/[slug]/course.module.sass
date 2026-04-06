@@ -126,7 +126,7 @@
   max-width: var(--container)
   margin: 0 auto
   display: grid
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr))
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
   gap: 0
   @media (max-width: 600px)
     grid-template-columns: 1fr
@@ -150,6 +150,9 @@
   letter-spacing: -0.03em
   color: var(--text-dark)
   line-height: 1
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
 
 .infoLabel
   font-family: var(--font-sans)
