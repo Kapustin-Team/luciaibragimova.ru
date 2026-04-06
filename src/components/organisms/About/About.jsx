@@ -1,4 +1,6 @@
 'use client'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './About.module.sass'
@@ -18,11 +20,15 @@ export default function About({ data } = {}) {
   const highlights = data?.highlights?.length ? data.highlights : DEFAULT_HIGHLIGHTS
   const imageUrl = data?.image?.url || '/lucia-new.webp'
 
+  const imageRef = useRef(null)
+  const { scrollYProgress } = useScroll({ target: imageRef, offset: ['start end', 'end start'] })
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '-10%'])
+
   return (
     <SectionReveal className={s.section} id="about" variant="mask">
       <div className={s.inner}>
-        <div className={s.imageWrap}>
-          <img src={imageUrl} alt="Люция Ибрагимова" className={s.photo} />
+        <div className={s.imageWrap} ref={imageRef}>
+          <motion.img style={{ y: imgY }} src={imageUrl} alt="Люция Ибрагимова" className={s.photo} />
         </div>
         <div className={s.textCol}>
           {label && <span className={s.label}>{label}</span>}
