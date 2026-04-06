@@ -19,7 +19,7 @@ async function fetchStrapi(path, params = {}) {
   try {
     const res = await fetch(url.toString(), {
       headers,
-      next: { revalidate: 60 },
+      cache: 'no-store',
     })
 
     if (!res.ok) {
