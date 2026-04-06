@@ -33,8 +33,6 @@ jobs:
 
     - name: Build
       run: npm run build
-      env:
-        STRAPI_TOKEN: ${{ secrets.STRAPI_TOKEN }}
 
   build-and-push:
     needs: lint-and-build
@@ -80,8 +78,6 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        build-args: |
-          STRAPI_TOKEN=${{ secrets.STRAPI_TOKEN }}
 
     - name: Deploy to Coolify
       run: |
