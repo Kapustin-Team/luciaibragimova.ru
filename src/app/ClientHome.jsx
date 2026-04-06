@@ -104,7 +104,7 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
 
   if (hasBlocks) {
     const heroBlock = blocks.find((b) => b.__component === 'blocks.hero')
-    const otherBlocks = blocks.filter((b) => b.__component !== 'blocks.hero')
+    const otherBlocks = blocks.filter((b) => b.__component !== 'blocks.hero' && b.__component !== 'blocks.top-banner')
 
     return (
       <>
@@ -130,7 +130,6 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
     <>
       <Header />
       <main>
-        <TopBanner />
         <Hero />
         <DirectionsGrid directions={directionsState} courses={coursesState} />
         <TrustBlock />

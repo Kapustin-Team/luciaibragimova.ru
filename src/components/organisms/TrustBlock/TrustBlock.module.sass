@@ -28,7 +28,9 @@
 // --- Grid track ---
 .track
   display: grid
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr))
+  grid-template-columns: repeat(4, 1fr)
+  @media (max-width: 900px)
+    grid-template-columns: repeat(2, 1fr)
   @media (max-width: 600px)
     grid-template-columns: 1fr
 
@@ -68,7 +70,6 @@
   font-size: 15px
   color: var(--text-muted)
   line-height: 1.5
-  max-width: 300px
 
 .imageWrap
   aspect-ratio: 3/2

@@ -157,8 +157,8 @@
   --shadow-card-hover: none;
 
   /* ===== Layout ===== */
-  --container: 1200px;
-  --container-wide: 1280px;
+  --container: 1840px;
+  --container-wide: 1840px;
   --container-narrow: 800px;
   --header-height: 68px;
   --section-padding: 140px 48px;
