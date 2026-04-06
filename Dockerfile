@@ -15,7 +15,9 @@ RUN npm run build
 
 FROM base AS runner
 WORKDIR /app
+ARG STRAPI_TOKEN
 ENV NODE_ENV=production
+ENV STRAPI_TOKEN=${STRAPI_TOKEN}
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public

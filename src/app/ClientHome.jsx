@@ -4,6 +4,7 @@ import Header from '@/components/organisms/Header/Header'
 import Hero from '@/components/organisms/Hero/Hero'
 import Directions from '@/components/organisms/Directions/Directions'
 import DirectionsGrid from '@/components/organisms/DirectionsGrid/DirectionsGrid'
+import TopBanner from '@/components/organisms/TopBanner/TopBanner'
 import PinkBanner from '@/components/organisms/PinkBanner/PinkBanner'
 import About from '@/components/organisms/About/About'
 import FeaturedCourse from '@/components/organisms/FeaturedCourse/FeaturedCourse'
@@ -20,7 +21,10 @@ import ChatWidget from '@/components/organisms/ChatWidget/ChatWidget'
 
 // Map Strapi block __component to React components
 const BLOCK_MAP = {
+  'blocks.top-banner': TopBanner,
   'blocks.hero': Hero,
+  'blocks.directions-grid': DirectionsGrid,
+  'blocks.directions': Directions,
   'blocks.pink-banner': PinkBanner,
   'blocks.about': About,
   'blocks.featured-course': FeaturedCourse,
@@ -51,7 +55,10 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
           {heroBlock && <Hero data={heroBlock} {...sharedData} />}
           {otherBlocks.map((block, i) => {
             const Component = BLOCK_MAP[block.__component]
-            if (!Component) return null
+            if (!Component) {
+              console.warn(`Unknown homepage block: ${block.__component}`)
+              return null
+            }
             return <Component key={`${block.__component}-${i}`} data={block} {...sharedData} />
           })}
         </main>
@@ -65,16 +72,19 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
     <>
       <Header />
       <main>
+        <TopBanner />
         <Hero />
+        <DirectionsGrid directions={directions} courses={courses} />
         <TrustBlock />
         <PinkBanner />
         <About />
-        <FeaturedCourse />
+        <FeaturedCourse courses={courses} />
         <Courses courses={courses} />
         <Reviews reviews={reviews} />
         <Cta />
         <Faq faqs={faqs} />
-        <Consultations />
+        <Consultations consultationTypes={consultationTypes} />
+        <Team team={team} />
         <ContactBlock />
       </main>
       <Footer directions={directions} courses={courses} />
