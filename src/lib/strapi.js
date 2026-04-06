@@ -1,6 +1,9 @@
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
 const STRAPI_TOKEN = process.env.STRAPI_TOKEN || ''
 
+// Build-time diagnostic — logged during `next build` to confirm token is available
+console.log(`[strapi] token=${STRAPI_TOKEN ? 'set (' + STRAPI_TOKEN.length + ' chars)' : 'NOT SET'}`)
+
 async function fetchStrapi(path, params = {}) {
   const url = new URL(`/api${path}`, STRAPI_URL)
 
