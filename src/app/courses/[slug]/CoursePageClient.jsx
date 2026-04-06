@@ -1,6 +1,6 @@
 'use client'
 import { useState, useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import Header from '@/components/organisms/Header/Header'
@@ -78,6 +78,71 @@ export default function CoursePageClient({ course }) {
     c.participantsCount && { number: c.participantsCount, label: 'Участники' },
   ].filter(Boolean)
 
+  // ─── Scroll-linked sticky info section (≥3 items) ───
+  const useScrollInfo = infoItems.length >= 3
+  const infoCount = Math.max(infoItems.length, 1) // avoid div-by-zero
+  const infoScrollRef = useRef(null)
+  const { scrollYProgress: infoProgress } = useScroll({
+    target: infoScrollRef,
+    offset: ['start start', 'end end'],
+  })
+  const [activeInfoIndex, setActiveInfoIndex] = useState(0)
+  useMotionValueEvent(infoProgress, 'change', (v) => {
+    if (useScrollInfo) {
+      setActiveInfoIndex(Math.min(Math.round(v * (infoCount - 1)), infoCount - 1))
+    }
+  })
+
+  // Per-item opacity/y transforms — always create 4 (hooks can't be conditional).
+  // Each item i of N gets:
+  //   opacity: [0 → 1 → 1 → 0] within its segment, with crossfade margin
+  //   y: [30 → 0 → 0 → -30] subtle slide
+  // First item starts visible; last item stays visible.
+  const margin = 0.05
+  const safeRange = { input: [0, 1], output: [0, 0] }
+  const makeOpRange = (i, N) => {
+    if (i >= N) return safeRange // phantom slot — never rendered
+    const segStart = i / N
+    const segEnd = (i + 1) / N
+    if (N === 1) return { input: [0, 1], output: [1, 1] }
+    if (i === 0) return { input: [0, segEnd - margin, segEnd, segEnd + margin], output: [1, 1, 1, 0] }
+    if (i === N - 1) return { input: [segStart - margin, segStart, segStart + margin, 1], output: [0, 0, 1, 1] }
+    return {
+      input: [segStart - margin, segStart, segEnd - margin, segEnd, segEnd + margin],
+      output: [0, 1, 1, 1, 0],
+    }
+  }
+  const makeYRange = (i, N) => {
+    if (i >= N) return safeRange // phantom slot — never rendered
+    const segStart = i / N
+    const segEnd = (i + 1) / N
+    if (N === 1) return { input: [0, 1], output: [0, 0] }
+    if (i === 0) return { input: [0, segEnd, segEnd + margin], output: [0, 0, -30] }
+    if (i === N - 1) return { input: [segStart - margin, segStart, 1], output: [30, 0, 0] }
+    return {
+      input: [segStart - margin, segStart, segEnd, segEnd + margin],
+      output: [30, 0, 0, -30],
+    }
+  }
+  const op0 = makeOpRange(0, infoCount)
+  const op1 = makeOpRange(1, infoCount)
+  const op2 = makeOpRange(2, infoCount)
+  const op3 = makeOpRange(3, infoCount)
+  const y0 = makeYRange(0, infoCount)
+  const y1 = makeYRange(1, infoCount)
+  const y2 = makeYRange(2, infoCount)
+  const y3 = makeYRange(3, infoCount)
+  const infoOp0 = useTransform(infoProgress, op0.input, op0.output)
+  const infoOp1 = useTransform(infoProgress, op1.input, op1.output)
+  const infoOp2 = useTransform(infoProgress, op2.input, op2.output)
+  const infoOp3 = useTransform(infoProgress, op3.input, op3.output)
+  const infoY0 = useTransform(infoProgress, y0.input, y0.output)
+  const infoY1 = useTransform(infoProgress, y1.input, y1.output)
+  const infoY2 = useTransform(infoProgress, y2.input, y2.output)
+  const infoY3 = useTransform(infoProgress, y3.input, y3.output)
+  const itemOpacities = [infoOp0, infoOp1, infoOp2, infoOp3]
+  const itemYs = [infoY0, infoY1, infoY2, infoY3]
+
   return (
     <>
       <Header hasHero />
@@ -105,8 +170,8 @@ export default function CoursePageClient({ course }) {
           </div>
         </section>
 
-        {/* ─── Info cards — TrustBlock style with numbers ─── */}
-        {infoItems.length > 0 && (
+        {/* ─── Info — flat grid (≤2 items) or scroll-linked sticky (≥3) ─── */}
+        {infoItems.length > 0 && !useScrollInfo && (
           <section className={s.infoSection}>
             <div className={s.infoGrid}>
               {infoItems.map((item, i) => (
@@ -124,6 +189,19 @@ export default function CoursePageClient({ course }) {
               ))}
             </div>
           </section>
+        )}
+        {useScrollInfo && (
+          <div ref={infoScrollRef} className={s.infoScroll} style={{ '--info-count': infoItems.length }}>
+            <div className={s.infoSticky}>
+              {infoItems.map((item, i) => (
+                <motion.div key={i} className={s.infoSlide} style={{ opacity: itemOpacities[i], y: itemYs[i] }}>
+                  <span className={s.infoSlideNumber}>{item.number}</span>
+                  <span className={s.infoSlideLabel}>{item.label}</span>
+                </motion.div>
+              ))}
+              <div className={s.infoProgress}>{activeInfoIndex + 1} / {infoItems.length}</div>
+            </div>
+          </div>
         )}
 
         {/* ─── Для кого ─── */}
