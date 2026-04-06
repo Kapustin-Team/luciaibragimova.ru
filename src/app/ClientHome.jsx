@@ -29,7 +29,7 @@ const BLOCK_MAP = {
   'blocks.about': About,
   'blocks.featured-course': FeaturedCourse,
   'blocks.courses-catalog': Courses,
-  'blocks.reviews-section': Reviews,
+  // 'blocks.reviews-section': Reviews, // hidden per user request
   'blocks.cta-section': Cta,
   'blocks.faq-section': Faq,
   'blocks.trust-block': TrustBlock,
@@ -56,7 +56,9 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
           {otherBlocks.map((block, i) => {
             const Component = BLOCK_MAP[block.__component]
             if (!Component) {
-              console.warn(`Unknown homepage block: ${block.__component}`)
+              if (block.__component !== 'blocks.reviews-section') {
+                console.warn(`Unknown homepage block: ${block.__component}`)
+              }
               return null
             }
             return <Component key={`${block.__component}-${i}`} data={block} {...sharedData} />
@@ -80,7 +82,6 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
         <About />
         <FeaturedCourse courses={courses} />
         <Courses courses={courses} />
-        <Reviews reviews={reviews} />
         <Cta />
         <Faq faqs={faqs} />
         <Consultations consultationTypes={consultationTypes} />

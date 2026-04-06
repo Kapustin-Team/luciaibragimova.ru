@@ -28,9 +28,7 @@
 // --- Grid track ---
 .track
   display: grid
-  grid-template-columns: repeat(3, 1fr)
-  @media (max-width: 900px)
-    grid-template-columns: repeat(2, 1fr)
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr))
   @media (max-width: 600px)
     grid-template-columns: 1fr
 
@@ -41,9 +39,6 @@
   flex-direction: column
   &:first-child
     border-left: none
-  @media (max-width: 900px)
-    &:nth-child(2n+1)
-      border-left: none
   @media (max-width: 600px)
     border-left: none
 
