@@ -8,19 +8,22 @@ async function fetchStrapi(path, params = {}) {
   })
 
   try {
-    const res = await fetch(url.toString(), {
+    const fullUrl = url.toString()
+    console.log(`[strapi] fetching: ${fullUrl}`)
+    const res = await fetch(fullUrl, {
       cache: 'no-store',
     })
 
     if (!res.ok) {
-      console.error(`Strapi fetch error: ${res.status} ${path} ${url.search}`)
+      console.error(`[strapi] error: ${res.status} ${path} ${url.search}`)
       return null
     }
 
     const json = await res.json()
+    console.log(`[strapi] ok: ${path} → ${Array.isArray(json.data) ? json.data.length + ' items' : json.data ? 'object' : 'null'}`)
     return json.data
   } catch (e) {
-    console.error(`Strapi fetch exception: ${path}`, e.message)
+    console.error(`[strapi] exception: ${path}`, e.message)
     return null
   }
 }
