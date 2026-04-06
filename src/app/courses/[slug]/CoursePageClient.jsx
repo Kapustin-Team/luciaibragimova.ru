@@ -1,10 +1,11 @@
 'use client'
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
+import SectionReveal from '@/components/atoms/SectionReveal'
 import Header from '@/components/organisms/Header/Header'
 import Footer from '@/components/organisms/Footer/Footer'
 import About from '@/components/organisms/About/About'
-import GradientPlaceholder from '@/components/atoms/GradientPlaceholder'
 import ReviewScreenshot from '@/components/atoms/ReviewScreenshot'
 import ReviewLightbox from '@/components/atoms/ReviewLightbox'
 import { FaBook, FaBrain, FaHeart, FaShieldAlt, FaStar, FaUsers, FaLightbulb, FaEye, FaLeaf, FaSun, FaCheck, FaExclamationTriangle, FaInfoCircle, FaClock, FaBan } from 'react-icons/fa'
@@ -12,31 +13,17 @@ import { HiSparkles } from 'react-icons/hi'
 import s from './course.module.sass'
 
 const METHOD_ICON_MAP = {
-  book: <FaBook size={20} />,
-  brain: <FaBrain size={20} />,
-  heart: <FaHeart size={20} />,
-  shield: <FaShieldAlt size={20} />,
-  star: <FaStar size={20} />,
-  users: <FaUsers size={20} />,
-  lightbulb: <FaLightbulb size={20} />,
-  eye: <FaEye size={20} />,
-  leaf: <FaLeaf size={20} />,
-  sun: <FaSun size={20} />,
-  sparkle: <HiSparkles size={20} />,
-  check: <FaCheck size={20} />,
+  book: <FaBook size={20} />, brain: <FaBrain size={20} />, heart: <FaHeart size={20} />,
+  shield: <FaShieldAlt size={20} />, star: <FaStar size={20} />, users: <FaUsers size={20} />,
+  lightbulb: <FaLightbulb size={20} />, eye: <FaEye size={20} />, leaf: <FaLeaf size={20} />,
+  sun: <FaSun size={20} />, sparkle: <HiSparkles size={20} />, check: <FaCheck size={20} />,
 }
 
 const LIMITATION_ICON_MAP = {
-  alert: <FaExclamationTriangle size={18} />,
-  info: <FaInfoCircle size={18} />,
-  clock: <FaClock size={18} />,
-  ban: <FaBan size={18} />,
-  heart: <FaHeart size={18} />,
-  shield: <FaShieldAlt size={18} />,
-  users: <FaUsers size={18} />,
-  star: <FaStar size={18} />,
-  check: <FaCheck size={18} />,
-  eye: <FaEye size={18} />,
+  alert: <FaExclamationTriangle size={18} />, info: <FaInfoCircle size={18} />,
+  clock: <FaClock size={18} />, ban: <FaBan size={18} />, heart: <FaHeart size={18} />,
+  shield: <FaShieldAlt size={18} />, users: <FaUsers size={18} />, star: <FaStar size={18} />,
+  check: <FaCheck size={18} />, eye: <FaEye size={18} />,
 }
 
 const FORMAT_LABELS = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
@@ -58,98 +45,47 @@ const COURSE_IMAGES = {
   'igra-lvov': '/courses/course-igra-lvov.webp',
 }
 
-/* Slug → direction fallback */
 const SLUG_TO_DIR = {
-  'rozhdenie-molodoj-semi': 'Рождение семьи',
-  'mama-zdes': 'Рождение семьи',
-  'lyogkost-materinstva': 'Рождение семьи',
-  'vovremya': 'Здоровое взросление',
-  'podgotovka-ege-oge': 'Здоровое взросление',
-  'odin-za-vsekh': 'Здоровое взросление',
-  'lyogkost-adaptacii': 'Здоровое взросление',
-  'svoi-lyudi': 'Развитие',
-  'podium': 'Развитие',
-  'svet-nochi': 'Развитие',
-  'v-and-d': 'Развитие',
-  'anti-vygoranie': 'Трансформация',
-  'put': 'Трансформация',
-  'igra-lvov': 'Трансформация',
+  'rozhdenie-molodoj-semi': 'Рождение семьи', 'mama-zdes': 'Рождение семьи',
+  'lyogkost-materinstva': 'Рождение семьи', 'vovremya': 'Здоровое взросление',
+  'podgotovka-ege-oge': 'Здоровое взросление', 'odin-za-vsekh': 'Здоровое взросление',
+  'lyogkost-adaptacii': 'Здоровое взросление', 'svoi-lyudi': 'Развитие',
+  'podium': 'Развитие', 'svet-nochi': 'Развитие', 'v-and-d': 'Развитие',
+  'anti-vygoranie': 'Трансформация', 'put': 'Трансформация', 'igra-lvov': 'Трансформация',
 }
-
-/* Color schemes per direction — unified premium palette */
-const DIRECTION_THEMES = {
-  'Рождение семьи': { accent: '#744C32', accentSoft: 'rgba(116,76,50,0.08)', heroGradient: 'linear-gradient(135deg, #F7E7DE 0%, #FFFFFF 50%, #F7E7DE 100%)', heroBg: '#F7E7DE' },
-  'Здоровое взросление': { accent: '#744C32', accentSoft: 'rgba(116,76,50,0.08)', heroGradient: 'linear-gradient(135deg, #FFFFFF 0%, #F7E7DE 50%, #FFFFFF 100%)', heroBg: '#F7E7DE' },
-  'Развитие': { accent: '#744C32', accentSoft: 'rgba(116,76,50,0.08)', heroGradient: 'linear-gradient(135deg, #F7E7DE 0%, #FFFFFF 50%, #F7E7DE 100%)', heroBg: '#F7E7DE' },
-  'Трансформация': { accent: '#744C32', accentSoft: 'rgba(116,76,50,0.08)', heroGradient: 'linear-gradient(135deg, #FFFFFF 0%, #F7E7DE 50%, #FFFFFF 100%)', heroBg: '#F7E7DE' },
-}
-
-/* SVG icons for info cards */
-const FormatIcon = () => (
-  <svg className={s.infoSvg} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" />
-  </svg>
-)
-const DurationIcon = () => (
-  <svg className={s.infoSvg} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
-  </svg>
-)
-const LessonsIcon = () => (
-  <svg className={s.infoSvg} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M4 19.5A2.5 2.5 0 016.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
-  </svg>
-)
-const ParticipantsIcon = () => (
-  <svg className={s.infoSvg} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
-  </svg>
-)
 
 export default function CoursePageClient({ course }) {
   const c = course
   const dirTitle = c.direction?.title || SLUG_TO_DIR[c.slug] || ''
-  const theme = DIRECTION_THEMES[dirTitle] || DIRECTION_THEMES['Рождение семьи']
   const [reviewLightbox, setReviewLightbox] = useState(null)
   const mediaReviews = (c.reviews || []).filter(r => r.screenshot || r.video)
-  const imgSrc = c.image?.url || c.image?.formats?.large?.url || COURSE_IMAGES[c.slug]
+  const imgSrc = c.image?.url || c.image?.formats?.large?.url || COURSE_IMAGES[c.slug] || '/interrior/img265.jpg'
 
-  const themeStyle = {
-    '--theme-accent': theme.accent,
-    '--theme-accent-soft': theme.accentSoft,
-    '--theme-hero-gradient': theme.heroGradient,
-    '--theme-hero-bg': theme.heroBg,
-  }
+  const infoItems = [
+    c.format && { number: FORMAT_LABELS[c.format] || c.format, label: 'Формат' },
+    c.duration && { number: c.duration, label: 'Длительность' },
+    c.lessonsCount && { number: c.lessonsCount, label: 'Занятий' },
+    c.participantsCount && { number: c.participantsCount, label: 'Участники' },
+  ].filter(Boolean)
 
   return (
-    <div style={themeStyle}>
+    <>
       <Header />
       <main>
 
-        {/* ─── Hero — direction-colored ─── */}
-        <section className={s.hero} style={{ background: theme.heroGradient }}>
+        {/* ─── Hero — full-screen photo bg ─── */}
+        <section className={s.hero}>
+          <div className={s.heroBg}>
+            <img src={imgSrc} alt={c.title} className={s.heroBgImage} />
+            <div className={s.heroOverlay} />
+          </div>
           <div className={s.heroInner}>
-            <div className={s.heroLeft}>
-              <div className={s.heroBadges}>
-                {dirTitle && (
-                  <span className={s.badgeFilled}>{dirTitle}</span>
-                )}
-                {c.format && (
-                  <span className={s.badgeOutline}>{FORMAT_LABELS[c.format] || c.format}</span>
-                )}
-              </div>
-              <CharReveal as="h1" className={s.heroTitle}>{c.title}</CharReveal>
-              {c.shortDescription && (
-                <p className={s.heroDesc}>{c.shortDescription}</p>
-              )}
+            <div className={s.heroBadges}>
+              {dirTitle && <span className={s.badgeFilled}>{dirTitle}</span>}
+              {c.format && <span className={s.badgeOutline}>{FORMAT_LABELS[c.format] || c.format}</span>}
             </div>
-            <div className={s.heroRight}>
-              {imgSrc ? (
-                <img src={imgSrc} alt={c.title} className={s.heroImage} />
-              ) : (
-                <GradientPlaceholder variant="warm" aspectRatio="4/3" className={s.heroImage} />
-              )}
-            </div>
+            <CharReveal as="h1" className={s.heroTitle}>{c.title}</CharReveal>
+            {c.shortDescription && <p className={s.heroDesc}>{c.shortDescription}</p>}
             <div className={s.heroButtons}>
               <a
                 href={c.getcourseLink || '#tariffs'}
@@ -160,74 +96,33 @@ export default function CoursePageClient({ course }) {
               </a>
               <a href="#program" className={s.btnSecondary}>Программа курса</a>
             </div>
-            {c.teachers?.length > 0 && (
-              <div className={s.heroTeachers}>
-                {c.teachers.slice(0, 2).map((t, i) => {
-                  const src = t.photo?.url || t.photo?.formats?.thumbnail?.url
-                  return (
-                    <div key={i} className={s.heroTeacherItem}>
-                      <div className={s.heroTeacherAvatar}>
-                        {src ? (
-                          <img src={src} alt={t.name} />
-                        ) : (
-                          <span>{t.name?.charAt(0)}</span>
-                        )}
-                      </div>
-                      <div className={s.heroTeacherMeta}>
-                        <span className={s.heroTeacherName}>{t.name}</span>
-                        {t.role && <span className={s.heroTeacherRole}>{t.role}</span>}
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* ─── Info cards (inside hero) ─── */}
-          <div className={s.infoCardsInner} style={{ '--info-cards-count': [c.format, c.duration, c.lessonsCount, c.participantsCount].filter(Boolean).length }}>
-            {c.format && (
-              <div className={s.infoCard}>
-                <div className={s.infoIconWrap}><FormatIcon /></div>
-                <div>
-                  <span className={s.infoLabel}>{FORMAT_LABELS[c.format] || c.format}</span>
-                  <span className={s.infoValue}>Формат</span>
-                </div>
-              </div>
-            )}
-            {c.duration && (
-              <div className={s.infoCard}>
-                <div className={s.infoIconWrap}><DurationIcon /></div>
-                <div>
-                  <span className={s.infoLabel}>{c.duration}</span>
-                  <span className={s.infoValue}>Длительность</span>
-                </div>
-              </div>
-            )}
-            {c.lessonsCount && (
-              <div className={s.infoCard}>
-                <div className={s.infoIconWrap}><LessonsIcon /></div>
-                <div>
-                  <span className={s.infoLabel}>{c.lessonsCount}</span>
-                  <span className={s.infoValue}>Занятий</span>
-                </div>
-              </div>
-            )}
-            {c.participantsCount && (
-              <div className={s.infoCard}>
-                <div className={s.infoIconWrap}><ParticipantsIcon /></div>
-                <div>
-                  <span className={s.infoLabel}>{c.participantsCount}</span>
-                  <span className={s.infoValue}>Участники</span>
-                </div>
-              </div>
-            )}
           </div>
         </section>
 
+        {/* ─── Info cards — TrustBlock style with numbers ─── */}
+        {infoItems.length > 0 && (
+          <section className={s.infoSection}>
+            <div className={s.infoGrid}>
+              {infoItems.map((item, i) => (
+                <motion.div
+                  key={i}
+                  className={s.infoCard}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+                >
+                  <span className={s.infoNumber}>{item.number}</span>
+                  <span className={s.infoLabel}>{item.label}</span>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* ─── Для кого ─── */}
         {c.targetAudience?.length > 0 && (
-          <section className={s.section}>
+          <SectionReveal variant="mask" className={s.section}>
             <div className={s.container}>
               <div className={s.centeredHeader}>
                 <CharReveal as="h2" className={s.sectionTitle}>Для кого этот курс</CharReveal>
@@ -237,7 +132,14 @@ export default function CoursePageClient({ course }) {
                 {c.targetAudience.map((a, i) => {
                   const imgUrl = a.image?.url || a.image?.formats?.small?.url
                   return (
-                    <div key={i} className={`${s.audienceCard} ${imgUrl ? s.audienceCardWithImage : ''}`}>
+                    <motion.div
+                      key={i}
+                      className={`${s.audienceCard} ${imgUrl ? s.audienceCardWithImage : ''}`}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-30px' }}
+                      transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+                    >
                       {imgUrl && (
                         <div className={s.audienceImageWrap}>
                           <img src={imgUrl} alt="" className={s.audienceImage} />
@@ -253,17 +155,17 @@ export default function CoursePageClient({ course }) {
                         )}
                         <p className={s.audienceText}>{a.text}</p>
                       </div>
-                    </div>
+                    </motion.div>
                   )
                 })}
               </div>
             </div>
-          </section>
+          </SectionReveal>
         )}
 
         {/* ─── Знакомые ситуации ─── */}
         {c.pains?.length > 0 && (
-          <section className={s.sectionPeach}>
+          <SectionReveal className={s.sectionAlt}>
             <div className={s.container}>
               <div className={s.featureLayout}>
                 <div className={s.featureLeft}>
@@ -274,12 +176,7 @@ export default function CoursePageClient({ course }) {
                   <ul className={s.checkList}>
                     {c.pains.map((pain, i) => (
                       <li key={i} className={s.checkItem}>
-                        <span className={s.checkBox}>
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                            <polyline points="12 8 10 13 14 13 12 17" />
-                          </svg>
-                        </span>
+                        <span className={s.checkBox}>♡</span>
                         <span>{pain}</span>
                       </li>
                     ))}
@@ -287,12 +184,12 @@ export default function CoursePageClient({ course }) {
                 </div>
               </div>
             </div>
-          </section>
+          </SectionReveal>
         )}
 
         {/* ─── Что получите ─── */}
         {c.results?.length > 0 && (
-          <section className={s.section} id="results">
+          <SectionReveal variant="mask" className={s.section} id="results">
             <div className={s.container}>
               <div className={s.centeredHeader}>
                 <CharReveal as="h2" className={s.sectionTitle}>Что вы получите</CharReveal>
@@ -316,12 +213,12 @@ export default function CoursePageClient({ course }) {
                 </ul>
               </div>
             </div>
-          </section>
+          </SectionReveal>
         )}
 
         {/* ─── Программа ─── */}
         {c.modules?.length > 0 && (
-          <section className={s.sectionPeach} id="program">
+          <SectionReveal className={s.sectionAlt} id="program">
             <div className={s.container}>
               <div className={s.centeredHeader}>
                 <CharReveal as="h2" className={s.sectionTitle}>Программа курса</CharReveal>
@@ -329,7 +226,14 @@ export default function CoursePageClient({ course }) {
               </div>
               <div className={s.modulesList}>
                 {c.modules.map((m, i) => (
-                  <div key={i} className={s.moduleItem}>
+                  <motion.div
+                    key={i}
+                    className={s.moduleItem}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-30px' }}
+                    transition={{ duration: 0.4, delay: i * 0.08, ease: 'easeOut' }}
+                  >
                     <div className={s.moduleHeader}>
                       <span className={s.moduleNum}>Модуль {String(i + 1).padStart(2, '0')}</span>
                       <h3 className={s.moduleTitle}>{m.title}</h3>
@@ -339,42 +243,49 @@ export default function CoursePageClient({ course }) {
                         <p className={s.moduleDesc}>{m.description}</p>
                       </div>
                     )}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
-          </section>
+          </SectionReveal>
         )}
 
         {/* ─── Методики ─── */}
         {c.methods?.length > 0 && (
-          <section className={s.section}>
+          <SectionReveal variant="mask" className={s.section}>
             <div className={s.container}>
               <div className={s.centeredHeader}>
                 <CharReveal as="h2" className={s.sectionTitle}>Методики и подходы</CharReveal>
-                <p className={s.sectionSubtitle}>Курс основан на проверенных психологических методиках и современных научных подходах.</p>
+                <p className={s.sectionSubtitle}>Курс основан на проверенных психологических методиках.</p>
               </div>
               <div className={s.methodsGrid}>
                 {c.methods.map((m, i) => {
                   const text = typeof m === 'string' ? m : m.text
                   const icon = typeof m === 'string' ? 'book' : (m.icon || 'book')
                   return (
-                    <div key={i} className={s.methodCard}>
+                    <motion.div
+                      key={i}
+                      className={s.methodCard}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-30px' }}
+                      transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+                    >
                       <span className={s.methodIcon}>
                         {METHOD_ICON_MAP[icon] || METHOD_ICON_MAP.book}
                       </span>
                       <span className={s.methodName}>{text}</span>
-                    </div>
+                    </motion.div>
                   )
                 })}
               </div>
             </div>
-          </section>
+          </SectionReveal>
         )}
 
-        {/* ─── Тарифы — с зачёркнутыми пунктами ─── */}
+        {/* ─── Тарифы ─── */}
         {c.tariffs?.length > 0 && (
-          <section className={s.sectionPeach} id="tariffs">
+          <SectionReveal className={s.sectionAlt} id="tariffs">
             <div className={s.container}>
               <div className={s.centeredHeader}>
                 <CharReveal as="h2" className={s.sectionTitle}>Выберите тариф</CharReveal>
@@ -385,7 +296,14 @@ export default function CoursePageClient({ course }) {
                   const isPopular = t.popular
                   const badgeLabel = t.badgeText || 'Популярный'
                   return (
-                    <div key={i} className={`${s.tariffCard} ${isPopular ? s.tariffPopular : ''}`}>
+                    <motion.div
+                      key={i}
+                      className={`${s.tariffCard} ${isPopular ? s.tariffPopular : ''}`}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-30px' }}
+                      transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+                    >
                       {isPopular && <div className={s.popularBadge}>{badgeLabel}</div>}
                       <h3 className={s.tariffName}>{t.name}</h3>
                       {t.price && <div className={s.tariffPrice}>{t.price}</div>}
@@ -405,20 +323,20 @@ export default function CoursePageClient({ course }) {
                           })}
                         </ul>
                       )}
-                      <a href={c.getcourseLink || '#'} className={isPopular ? s.tariffBtnDark : s.tariffBtn}>
+                      <a href={c.getcourseLink || '#'} className={s.tariffBtn}>
                         Выбрать тариф
                       </a>
-                    </div>
+                    </motion.div>
                   )
                 })}
               </div>
             </div>
-          </section>
+          </SectionReveal>
         )}
 
         {/* ─── Отзывы ─── */}
         {mediaReviews.length > 0 && (
-          <section className={s.section}>
+          <SectionReveal variant="mask" className={s.section}>
             <div className={s.container}>
               <div className={s.centeredHeader}>
                 <CharReveal as="h2" className={s.sectionTitle}>Отзывы участников</CharReveal>
@@ -438,12 +356,12 @@ export default function CoursePageClient({ course }) {
                 onNavigate={setReviewLightbox}
               />
             )}
-          </section>
+          </SectionReveal>
         )}
 
         {/* ─── Ограничения ─── */}
         {c.limitations?.length > 0 && (
-          <section className={s.section}>
+          <SectionReveal className={s.sectionAlt}>
             <div className={s.container}>
               <div className={s.featureLayout}>
                 <div className={s.featureLeft}>
@@ -468,12 +386,12 @@ export default function CoursePageClient({ course }) {
                 </div>
               </div>
             </div>
-          </section>
+          </SectionReveal>
         )}
 
         {/* ─── Преподаватели ─── */}
         {c.teachers?.length > 0 && (
-          <section className={s.section} id="teachers">
+          <SectionReveal variant="mask" className={s.section} id="teachers">
             <div className={s.container}>
               <div className={s.centeredHeader}>
                 <CharReveal as="h2" className={s.sectionTitle}>Преподаватели курса</CharReveal>
@@ -483,14 +401,19 @@ export default function CoursePageClient({ course }) {
                 {c.teachers.map((t, i) => {
                   const src = t.photo?.url || t.photo?.formats?.small?.url
                   return (
-                    <div key={i} className={s.teacherCard}>
+                    <motion.div
+                      key={i}
+                      className={s.teacherCard}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-30px' }}
+                      transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+                    >
                       <div className={s.teacherPhotoWrap}>
                         {src ? (
                           <img src={src} alt={t.name} className={s.teacherPhoto} />
                         ) : (
-                          <div className={s.teacherPhotoPlaceholder}>
-                            {t.name?.charAt(0)}
-                          </div>
+                          <div className={s.teacherPhotoPlaceholder}>{t.name?.charAt(0)}</div>
                         )}
                       </div>
                       <div className={s.teacherInfo}>
@@ -498,34 +421,30 @@ export default function CoursePageClient({ course }) {
                         {t.role && <p className={s.teacherRole}>{t.role}</p>}
                         {t.bio && <p className={s.teacherDesc}>{t.bio}</p>}
                       </div>
-                    </div>
+                    </motion.div>
                   )
                 })}
               </div>
             </div>
-          </section>
+          </SectionReveal>
         )}
 
         {/* ─── About Lucia ─── */}
         <About />
 
-        {/* ─── CTA — bigger ─── */}
+        {/* ─── CTA — clean, dark bg, large text ─── */}
         <section className={s.ctaSection}>
-          <div className={s.ctaDecorCircle1} />
-          <div className={s.ctaDecorCircle2} />
-          <div className={s.ctaDecorDots} />
-          <div className={s.ctaCard}>
+          <div>
             <CharReveal as="h2" className={s.ctaTitle}>Готовы начать свой путь?</CharReveal>
             <p className={s.ctaDesc}>Запишитесь на курс «{c.title}» и сделайте первый шаг к изменениям</p>
             <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>
               Выбрать тариф
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </a>
           </div>
         </section>
 
       </main>
       <Footer />
-    </div>
+    </>
   )
 }

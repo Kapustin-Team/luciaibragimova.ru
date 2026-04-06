@@ -1,198 +1,200 @@
-// Course Detail Page
+// Course Detail Page — Premium Style (matches homepage)
 
 .container
   max-width: var(--container)
   margin: 0 auto
-  padding: 0 80px
+  padding: 0 48px
   @media (max-width: 1100px)
     padding: 0 40px
   @media (max-width: 768px)
     padding: 0 20px
 
-// ─── Hero — light bg ──────────────────────────────────────
+// ─── Hero — fullscreen photo bg like homepage ─────────────────
 
 .hero
-  background: #f8f6fb
-  padding: 140px 80px 60px
-  @media (max-width: 768px)
-    padding: 100px 16px 40px
-
-.heroInner
-  max-width: var(--container)
-  margin: 0 auto
-  display: grid
-  grid-template-columns: 1fr 1.2fr
-  grid-template-rows: auto auto
-  gap: 48px 64px
-  @media (max-width: 900px)
-    grid-template-columns: 1fr
-    gap: 32px
-
-.heroLeft
+  position: relative
+  min-height: 100svh
   display: flex
   flex-direction: column
-  gap: 20px
+  justify-content: flex-end
+  overflow: clip
+  color: #ffffff
+  margin-top: calc(var(--header-height) * -1)
+  padding-top: var(--header-height)
+
+.heroBg
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 0
+
+.heroBgImage
+  object-fit: cover
+  width: 100%
+  height: 100%
+  position: absolute
+  top: 0
+  left: 0
+
+.heroOverlay
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background: rgba(0, 0, 0, 0.4)
+  z-index: 1
+
+.heroInner
+  position: relative
+  z-index: 2
+  max-width: 100%
+  padding: 40px 48px 80px
+  width: 100%
+  @media (max-width: 768px)
+    padding: 20px 20px 48px
 
 .heroBadges
   display: flex
   gap: 8px
+  margin-bottom: 24px
   flex-wrap: wrap
 
 .badgeFilled
   display: inline-flex
-  padding: 6px 16px
-  background: var(--theme-accent-soft, rgba(116, 76, 50, 0.12))
-  color: var(--theme-accent, #25140C)
+  padding: 8px 20px
+  background: rgba(255, 255, 255, 0.15)
+  backdrop-filter: blur(4px)
+  color: #ffffff
   border-radius: var(--radius-full)
   font-size: 14px
-  font-weight: 600
+  font-weight: 500
+  border: 1px solid rgba(255, 255, 255, 0.2)
 
 .badgeOutline
   display: inline-flex
-  padding: 6px 16px
-  border: 1px solid rgba(116, 76, 50, 0.2)
-  color: var(--bg-dark)
+  padding: 8px 20px
+  border: 1px solid rgba(255, 255, 255, 0.3)
+  color: rgba(255, 255, 255, 0.9)
   border-radius: var(--radius-full)
   font-size: 14px
   font-weight: 500
 
 .heroTitle
   font-family: var(--font-heading)
-  font-size: clamp(54px, 6.75vw, 87px)
+  font-size: clamp(40px, 5.5vw, 72px)
   font-weight: 400
-  color: #25140C
-  line-height: 1
-  letter-spacing: -1px
+  color: #ffffff
+  line-height: 1.05
+  letter-spacing: -2px
+  margin-bottom: 16px
+  max-width: 900px
 
 .heroDesc
-  font-size: 17px
+  font-size: 18px
   line-height: 1.6
-  color: rgba(26, 26, 46, 0.6)
-  max-width: 520px
+  color: rgba(255, 255, 255, 0.8)
+  max-width: 600px
+  margin-bottom: 32px
 
 .heroButtons
   display: flex
   gap: 12px
   flex-wrap: wrap
-  margin-top: 8px
 
 .btnPrimary
   display: inline-flex
   align-items: center
   justify-content: center
-  padding: 16px 32px
-  background: var(--theme-accent, #25140C)
-  color: #ffffff
-  border: none
-  outline: none
-  cursor: pointer
+  padding: 12px 28px
+  background: var(--btn-accent-bg)
+  color: var(--btn-accent-text)
+  font-size: 13px
+  font-weight: 400
+  letter-spacing: -1px
   border-radius: var(--radius-btn)
-  font-family: inherit
-  font-size: 16px
-  font-weight: 700
-  transition: var(--transition-fast)
+  transition: var(--transition-base)
+  text-decoration: none
   &:hover
-    background: color-mix(in srgb, var(--theme-accent, #25140C) 70%, black)
-    transform: translateY(-1px)
+    background: var(--btn-accent-bg-hover)
+    transform: translateY(-2px)
 
 .btnSecondary
   display: inline-flex
   align-items: center
   justify-content: center
-  padding: 16px 32px
-  background: rgba(116, 76, 50, 0.06)
-  color: var(--bg-dark)
+  padding: 12px 28px
+  background: transparent
+  color: #ffffff
+  font-size: 13px
+  font-weight: 400
+  letter-spacing: -1px
   border-radius: var(--radius-btn)
-  font-size: 16px
-  font-weight: 700
-  transition: var(--transition-fast)
+  border: 1px solid rgba(255, 255, 255, 0.4)
+  transition: var(--transition-base)
+  text-decoration: none
   &:hover
-    background: rgba(116, 76, 50, 0.12)
+    border-color: #ffffff
+    background: rgba(255, 255, 255, 0.1)
 
-.heroRight
-  display: flex
-  flex-direction: column
-  gap: 20px
-  @media (max-width: 900px)
-    order: -1
+// ─── Info cards — TrustBlock style (below hero) ───────────────
 
-.heroImage
-  width: 100%
-  max-height: 420px
-  border-radius: var(--radius-card)
-  object-fit: cover
+.infoSection
+  background: var(--bg-cream)
+  padding: 80px 48px
+  @media (max-width: 768px)
+    padding: 56px 20px
 
-// ─── Info cards — inside hero ──────────────────────
-
-.infoCardsInner
+.infoGrid
   max-width: var(--container)
-  margin: 48px auto 0
+  margin: 0 auto
   display: grid
-  grid-template-columns: repeat(var(--info-cards-count, 4), 1fr)
-  gap: 16px
-  @media (max-width: 900px)
-    grid-template-columns: repeat(2, 1fr)
-    margin-top: 32px
-  @media (max-width: 500px)
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr))
+  gap: 0
+  @media (max-width: 600px)
     grid-template-columns: 1fr
-    margin-top: 24px
 
 .infoCard
-  background: #ffffff
-  border-radius: var(--radius-base)
-  padding: 20px 24px
+  border-left: 1px solid rgba(29, 29, 29, 0.1)
+  padding: 32px 24px
   display: flex
-  align-items: center
-  gap: 14px
-  box-shadow: 0 2px 12px rgba(116, 76, 50, 0.08)
+  flex-direction: column
+  gap: 8px
+  &:first-child
+    border-left: none
+  @media (max-width: 600px)
+    border-left: none
 
-.infoIconWrap
-  width: 44px
-  height: 44px
-  border-radius: 12px
-  background: var(--theme-hero-bg, #f0e4f8)
-  display: flex
-  align-items: center
-  justify-content: center
-  flex-shrink: 0
-
-.infoSvg
-  width: 20px
-  height: 20px
-  color: var(--theme-accent, #25140C)
+.infoNumber
+  font-family: var(--font-heading)
+  font-style: italic
+  font-weight: 400
+  font-size: clamp(36px, 4vw, 52px)
+  letter-spacing: -0.03em
+  color: var(--text-dark)
+  line-height: 1
 
 .infoLabel
-  display: block
-  font-size: 17px
-  font-weight: 700
-  color: var(--text-dark, #25140C)
-  white-space: nowrap
-  overflow: hidden
-  text-overflow: ellipsis
+  font-family: var(--font-sans)
+  font-size: 15px
+  color: var(--text-muted)
+  line-height: 1.4
 
-.infoValue
-  display: block
-  font-size: 12px
-  color: rgba(26, 26, 46, 0.45)
-  margin-top: 2px
-
-// ─── Common sections ──────────────────────────────────────────
+// ─── Common sections — ALL beige, no white ────────────────────
 
 .section
-  padding: 100px 80px
-  background: #ffffff
-  @media (max-width: 1100px)
-    padding: 80px 40px
+  padding: var(--section-padding)
+  background: var(--bg-cream)
   @media (max-width: 768px)
-    padding: 56px 20px
+    padding: var(--section-padding-mobile)
 
-.sectionPeach
-  padding: 100px 80px
-  background: var(--theme-hero-bg, #FFFFFF)
-  @media (max-width: 1100px)
-    padding: 80px 40px
+.sectionAlt
+  padding: var(--section-padding)
+  background: var(--bg-section)
   @media (max-width: 768px)
-    padding: 56px 20px
+    padding: var(--section-padding-mobile)
 
 .centeredHeader
   text-align: center
@@ -201,16 +203,16 @@
 
 .sectionTitle
   font-family: var(--font-heading)
-  font-size: clamp(54px, 5.25vw, 60px)
+  font-size: clamp(36px, 4.5vw, 56px)
   font-weight: 400
-  color: #25140C
+  color: var(--text-dark)
   letter-spacing: -1px
-  line-height: 1
+  line-height: 1.05
   margin-bottom: 12px
 
 .sectionSubtitle
   font-size: 16px
-  color: rgba(26, 26, 46, 0.55)
+  color: var(--text-muted)
   line-height: 1.6
 
 // ─── Feature split layout ────────────────────────────────────
@@ -234,16 +236,16 @@
 
 .featureTitle
   font-family: var(--font-heading)
-  font-size: clamp(45px, 4.5vw, 54px)
+  font-size: clamp(36px, 4.5vw, 52px)
   font-weight: 400
-  color: #25140C
+  color: var(--text-dark)
   letter-spacing: -1px
-  line-height: 1
+  line-height: 1.05
   margin-bottom: 12px
 
 .featureDesc
   font-size: 16px
-  color: rgba(26, 26, 46, 0.55)
+  color: var(--text-muted)
   line-height: 1.6
 
 .featureRight
@@ -262,25 +264,25 @@
   align-items: center
   gap: 14px
   font-size: 17px
-  color: #25140C
+  color: var(--text-dark)
   line-height: 1.6
 
 .checkBox
   flex-shrink: 0
   width: 44px
   height: 44px
-  background: var(--theme-accent-soft, rgba(116, 76, 50, 0.08))
-  color: var(--theme-accent, #25140C)
+  background: rgba(116, 76, 50, 0.08)
+  color: var(--text-dark)
   border-radius: 12px
   display: inline-flex
   align-items: center
   justify-content: center
 
-// ─── Audience grid — flexible for 1-4 cards ──────────────────
+// ─── Audience grid ───────────────────────────────────────────
 
 .audienceGrid
   display: grid
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
   gap: 20px
   max-width: 1000px
   margin: 0 auto
@@ -290,11 +292,10 @@
     max-width: 700px
 
 .audienceCard
-  background: var(--theme-hero-bg, #FFFFFF)
+  background: var(--bg-section)
   border-radius: var(--radius-xl)
   padding: 32px
-  color: #25140C
-  border: 1px solid rgba(116, 76, 50, 0.06)
+  color: var(--text-dark)
   overflow: hidden
 
 .audienceCardWithImage
@@ -321,8 +322,8 @@
   width: 44px
   height: 44px
   border-radius: 12px
-  background: var(--theme-accent-soft, rgba(116, 76, 50, 0.08))
-  color: var(--theme-accent, #25140C)
+  background: rgba(116, 76, 50, 0.08)
+  color: var(--text-dark)
   display: flex
   align-items: center
   justify-content: center
@@ -333,7 +334,7 @@
   line-height: 1.7
   font-weight: 500
 
-// ─── Results — one photo + list ───────────────────────────────
+// ─── Results ──────────────────────────────────────────────────
 
 .resultsLayout
   display: grid
@@ -377,8 +378,8 @@
   width: 32px
   height: 32px
   border-radius: 50%
-  background: rgba(217, 185, 231, 0.2)
-  color: var(--accent-purple, #25140C)
+  background: rgba(116, 76, 50, 0.1)
+  color: var(--text-dark)
   display: flex
   align-items: center
   justify-content: center
@@ -391,7 +392,7 @@
   font-weight: 500
   color: var(--text-dark)
 
-// ─── Modules — always open ────────────────────────────────────
+// ─── Modules ──────────────────────────────────────────────────
 
 .modulesList
   display: flex
@@ -401,10 +402,10 @@
   margin: 0 auto
 
 .moduleItem
-  background: #ffffff
+  background: var(--bg-section)
   border-radius: var(--radius-xl)
   overflow: hidden
-  border-left: 4px solid var(--theme-accent, #25140C)
+  border-left: 4px solid var(--text-dark)
 
 .moduleHeader
   display: flex
@@ -419,7 +420,7 @@
 .moduleNum
   font-size: 12px
   font-weight: 700
-  color: var(--theme-accent, #25140C)
+  color: var(--text-dark)
   letter-spacing: 0.5px
   flex-shrink: 0
   min-width: 72px
@@ -427,7 +428,7 @@
 .moduleTitle
   font-size: 21px
   font-weight: 700
-  color: #25140C
+  color: var(--text-dark)
   letter-spacing: -0.3px
   line-height: 1.3
 
@@ -440,9 +441,9 @@
 .moduleDesc
   font-size: 14px
   line-height: 1.7
-  color: rgba(26, 26, 46, 0.55)
+  color: var(--text-muted)
 
-// ─── Methods — card grid ──────────────────────────────────────
+// ─── Methods ──────────────────────────────────────────────────
 
 .methodsGrid
   display: grid
@@ -452,7 +453,7 @@
   margin: 0 auto
 
 .methodCard
-  background: var(--theme-hero-bg, #FFFFFF)
+  background: var(--bg-section)
   border-radius: var(--radius-xl)
   padding: 20px 24px
   display: flex
@@ -465,8 +466,8 @@
   width: 44px
   height: 44px
   border-radius: 12px
-  background: var(--theme-accent-soft, rgba(116, 76, 50, 0.1))
-  color: var(--theme-accent, #25140C)
+  background: rgba(116, 76, 50, 0.08)
+  color: var(--text-dark)
   display: flex
   align-items: center
   justify-content: center
@@ -474,9 +475,9 @@
 .methodName
   font-size: 17px
   font-weight: 600
-  color: #25140C
+  color: var(--text-dark)
 
-// ─── Tariffs — centered ───────────────────────────────────────
+// ─── Tariffs ──────────────────────────────────────────────────
 
 .tariffsGrid
   display: flex
@@ -491,10 +492,10 @@
     margin: 0 auto
 
 .tariffCard
-  background: #ffffff
+  background: var(--bg-section)
   border-radius: var(--radius-3xl)
   padding: 36px 32px
-  border: 1px solid rgba(116, 76, 50, 0.08)
+  border: 1px solid rgba(116, 76, 50, 0.06)
   display: flex
   flex-direction: column
   position: relative
@@ -504,7 +505,7 @@
     width: 100%
 
 .tariffPopular
-  border: 2px solid var(--theme-accent, #25140C)
+  border: 2px solid var(--text-dark)
   box-shadow: 0 8px 32px rgba(116, 76, 50, 0.15)
   transform: scale(1.03)
   @media (max-width: 768px)
@@ -515,7 +516,7 @@
   top: -14px
   left: 50%
   transform: translateX(-50%)
-  background: var(--theme-accent, #25140C)
+  background: var(--text-dark)
   color: #ffffff
   padding: 6px 20px
   border-radius: var(--radius-full)
@@ -527,7 +528,7 @@
 .tariffName
   font-size: 22px
   font-weight: 700
-  color: #25140C
+  color: var(--text-dark)
   letter-spacing: -0.5px
   margin-bottom: 20px
 
@@ -544,7 +545,7 @@
   align-items: flex-start
   gap: 10px
   font-size: 16px
-  color: #25140C
+  color: var(--text-dark)
   font-weight: 400
   line-height: 1.5
 
@@ -553,7 +554,7 @@
   align-items: flex-start
   gap: 10px
   font-size: 16px
-  color: #25140C59
+  color: var(--text-muted)
   font-weight: 400
   line-height: 1.5
 
@@ -561,8 +562,8 @@
   flex-shrink: 0
   width: 18px
   height: 18px
-  background: var(--theme-accent-soft, rgba(116, 76, 50, 0.12))
-  color: var(--theme-accent, #25140C)
+  background: rgba(116, 76, 50, 0.12)
+  color: var(--text-dark)
   border-radius: 4px
   display: inline-flex
   align-items: center
@@ -595,10 +596,10 @@
   color: var(--text-dark)
   margin-bottom: 20px
 
-.tariffBtn
+.tariffBtn, .tariffBtnDark
   display: block
   padding: 18px 24px
-  background: var(--theme-accent, #25140C)
+  background: var(--text-dark)
   color: #ffffff
   border: none
   border-radius: var(--radius-btn)
@@ -606,244 +607,59 @@
   font-weight: 700
   text-align: center
   transition: var(--transition-fast)
+  text-decoration: none
   &:hover
-    background: color-mix(in srgb, var(--theme-accent, #25140C) 70%, black)
+    background: #3a2518
     transform: translateY(-1px)
 
-.tariffBtnDark
-  display: block
-  padding: 18px 24px
-  background: var(--theme-accent, #25140C)
-  color: #ffffff
-  border-radius: var(--radius-btn)
-  font-size: 16px
-  font-weight: 700
-  text-align: center
-  transition: var(--transition-fast)
-  &:hover
-    background: color-mix(in srgb, var(--theme-accent, #25140C) 70%, black)
-    transform: translateY(-1px)
-
-// ─── CTA with SVG decor ──────────────────────────────────────
+// ─── CTA — clean, no vector decor ────────────────────────────
 
 .ctaSection
-  background: #F7E7DE
-  padding: 100px 80px
+  background: var(--bg-dark)
+  padding: var(--section-padding)
   display: flex
   align-items: center
   justify-content: center
-  position: relative
-  overflow: hidden
-  @media (max-width: 768px)
-    padding: 56px 20px
-
-.ctaDecorCircle1
-  position: absolute
-  top: -50px
-  right: -60px
-  width: 240px
-  height: 240px
-  border-radius: 50%
-  background: var(--theme-accent-soft, rgba(116, 76, 50, 0.1))
-  pointer-events: none
-
-.ctaDecorCircle2
-  position: absolute
-  bottom: -40px
-  left: -40px
-  width: 180px
-  height: 180px
-  border-radius: 50%
-  background: rgba(116, 76, 50, 0.06)
-  pointer-events: none
-
-.ctaDecorDots
-  position: absolute
-  top: 30px
-  left: 60px
-  width: 80px
-  height: 80px
-  background-image: radial-gradient(rgba(116, 76, 50, 0.1) 2px, transparent 2px)
-  background-size: 14px 14px
-  pointer-events: none
-
-.ctaCard
-  background: #ffffff
-  border-radius: 48px
-  padding: 72px 56px
   text-align: center
-  max-width: 720px
-  width: 100%
-  position: relative
-  z-index: 1
   @media (max-width: 768px)
-    border-radius: var(--radius-card)
-    padding: 40px 24px
+    padding: var(--section-padding-mobile)
 
 .ctaTitle
   font-family: var(--font-heading)
-  font-size: clamp(54px, 5.25vw, 60px)
+  font-size: clamp(40px, 5.5vw, 72px)
   font-weight: 400
-  color: #25140C
-  letter-spacing: -1px
-  line-height: 1
-  margin-bottom: 12px
+  color: #ffffff
+  letter-spacing: -2px
+  line-height: 1.05
+  margin-bottom: 16px
 
 .ctaDesc
-  font-size: 16px
-  color: rgba(26, 26, 46, 0.55)
+  font-size: 18px
+  color: rgba(255, 255, 255, 0.7)
   line-height: 1.6
-  margin-bottom: 28px
+  margin-bottom: 32px
+  max-width: 600px
+  margin-left: auto
+  margin-right: auto
 
 .ctaBtn
   display: inline-flex
   align-items: center
   gap: 10px
-  padding: 20px 48px
-  background: var(--theme-accent, #25140C)
-  color: #ffffff
-  border: none
-  outline: none
-  cursor: pointer
-  font-family: inherit
-  border-radius: var(--radius-btn)
-  font-size: 18px
-  font-weight: 700
-  transition: var(--transition-fast)
-  &:hover
-    background: color-mix(in srgb, var(--theme-accent, #25140C) 70%, black)
-    transform: translateY(-2px)
-  @media (max-width: 768px)
-    padding: 18px 36px
-    font-size: 16px
-
-// ─── Hero badges ──────────────────
-
-.heroBadges
-  display: flex
-  gap: 8px
-  margin-bottom: 16px
-  flex-wrap: wrap
-
-.badgeFilled
-  padding: 6px 16px
-  background: var(--theme-accent, #25140C)
-  color: #ffffff
-  border-radius: var(--radius-full)
-  font-size: 13px
-  font-weight: 600
-
-.badgeOutline
-  padding: 6px 16px
-  border: 1px solid var(--theme-accent, #25140C)
-  color: var(--theme-accent, #25140C)
-  border-radius: var(--radius-full)
-  font-size: 13px
-  font-weight: 600
-
-// ─── Hero buttons ──────────────────
-
-.heroButtons
-  grid-column: 1 / 2
-  grid-row: 2 / 3
-  display: flex
-  gap: 12px
-  flex-wrap: wrap
-  align-self: start
-  @media (max-width: 900px)
-    grid-column: 1
-    grid-row: auto
-
-.btnPrimary
-  display: inline-flex
-  align-items: center
-  gap: 8px
-  padding: 18px 40px
-  background: var(--theme-accent, #25140C)
-  color: #ffffff
-  font-size: 16px
-  font-weight: 600
-  border-radius: var(--radius-btn)
-  transition: var(--transition-base)
-  &:hover
-    background: color-mix(in srgb, var(--theme-accent, #25140C) 70%, black)
-    transform: translateY(-2px)
-
-.btnSecondary
-  display: inline-flex
-  align-items: center
-  padding: 18px 32px
-  background: transparent
+  padding: 14px 36px
+  background: #F7E7DE
   color: var(--text-dark)
-  font-size: 16px
-  font-weight: 500
+  border: none
   border-radius: var(--radius-btn)
-  border: 1.5px solid rgba(26, 26, 46, 0.15)
-  transition: var(--transition-base)
-  &:hover
-    border-color: var(--theme-accent, #25140C)
-
-// ─── Hero teachers (under photo, no card bg) ──────────────────
-
-.heroTeachers
-  grid-column: 2 / 3
-  grid-row: 2 / 3
-  display: flex
-  gap: 32px
-  flex-wrap: wrap
-  align-self: center
-  @media (max-width: 900px)
-    grid-column: 1
-    grid-row: auto
-    gap: 16px
-
-.heroTeacherItem
-  display: flex
-  align-items: center
-  gap: 12px
-
-.heroTeacherAvatar
-  width: 44px
-  height: 44px
-  border-radius: 50%
-  overflow: hidden
-  flex-shrink: 0
-  background: var(--theme-accent-soft, rgba(116, 76, 50, 0.08))
-  img
-    width: 100%
-    height: 100%
-    object-fit: cover
-  span
-    width: 100%
-    height: 100%
-    display: flex
-    align-items: center
-    justify-content: center
-    color: var(--theme-accent, #25140C)
-    font-size: 18px
-    font-weight: 700
-
-.heroTeacherMeta
-  display: flex
-  flex-direction: column
-  gap: 1px
-
-.heroTeacherName
   font-size: 15px
-  font-weight: 700
-  color: #25140C
-  line-height: 1.25
+  font-weight: 500
+  transition: var(--transition-fast)
+  text-decoration: none
+  &:hover
+    background: #ffffff
+    transform: translateY(-2px)
 
-.heroTeacherRole
-  font-size: 13px
-  color: rgba(26, 26, 46, 0.5)
-  line-height: 1.35
-  line-height: 1.35
-  @media (max-width: 900px)
-    font-size: 13px
-    color: rgba(26, 26, 46, 0.5)
-
-// ─── Teachers section ──────────────────
+// ─── Teachers ─────────────────────────────────────────────────
 
 .teachersGrid
   display: grid
@@ -857,14 +673,13 @@
     max-width: 700px
 
 .teacherCard
-  background: var(--theme-hero-bg, #FFFFFF)
+  background: var(--bg-section)
   border-radius: var(--radius-3xl)
   padding: 32px 28px
   display: flex
   flex-direction: column
   align-items: center
   text-align: center
-  border: 1px solid rgba(116, 76, 50, 0.06)
 
 .teacherPhotoWrap
   width: 120px
@@ -873,8 +688,6 @@
   overflow: hidden
   margin-bottom: 20px
   flex-shrink: 0
-  background: #ffffff
-  box-shadow: 0 4px 20px rgba(116, 76, 50, 0.1)
 
 .teacherPhoto
   width: 100%
@@ -884,8 +697,8 @@
 .teacherPhotoPlaceholder
   width: 100%
   height: 100%
-  background: var(--theme-accent-soft, rgba(116, 76, 50, 0.08))
-  color: var(--theme-accent, #25140C)
+  background: rgba(116, 76, 50, 0.08)
+  color: var(--text-dark)
   display: flex
   align-items: center
   justify-content: center
@@ -900,21 +713,21 @@
 .teacherName
   font-size: 20px
   font-weight: 700
-  color: #25140C
+  color: var(--text-dark)
   letter-spacing: -0.3px
 
 .teacherRole
   font-size: 14px
   font-weight: 600
-  color: rgba(26, 26, 46, 0.7)
+  color: var(--text-muted)
 
 .teacherDesc
   font-size: 14px
   line-height: 1.6
-  color: rgba(26, 26, 46, 0.55)
+  color: var(--text-muted)
   margin-top: 8px
 
-// ─── Reviews ──────────────────
+// ─── Reviews ──────────────────────────────────────────────────
 
 .reviewsMasonry
   display: grid
@@ -922,4 +735,3 @@
   gap: 16px
   @media (max-width: 600px)
     grid-template-columns: 1fr
-
