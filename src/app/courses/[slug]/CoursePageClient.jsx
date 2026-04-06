@@ -156,8 +156,22 @@ export default function CoursePageClient({ course }) {
           </div>
           <div className={s.heroInner}>
             <CharReveal as="h1" className={s.heroTitle}>{c.title}</CharReveal>
-            {c.shortDescription && <p className={s.heroDesc}>{c.shortDescription}</p>}
-            <div className={s.heroButtons}>
+            {c.shortDescription && (
+              <motion.p
+                className={s.heroDesc}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4, ease: 'easeOut' }}
+              >
+                {c.shortDescription}
+              </motion.p>
+            )}
+            <motion.div
+              className={s.heroButtons}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6, ease: 'easeOut' }}
+            >
               <a
                 href={c.getcourseLink || '#tariffs'}
                 className={s.btnPrimary}
@@ -166,7 +180,7 @@ export default function CoursePageClient({ course }) {
                 Выбрать тариф
               </a>
               <a href="#program" className={s.btnSecondary}>Программа курса</a>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -259,10 +273,17 @@ export default function CoursePageClient({ course }) {
                 <div className={s.featureRight}>
                   <ul className={s.checkList}>
                     {c.pains.map((pain, i) => (
-                      <li key={i} className={s.checkItem}>
+                      <motion.li
+                        key={i}
+                        className={s.checkItem}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-30px' }}
+                        transition={{ duration: 0.4, delay: i * 0.07, ease: 'easeOut' }}
+                      >
                         <span className={s.checkBox}>♡</span>
                         <span>{pain}</span>
-                      </li>
+                      </motion.li>
                     ))}
                   </ul>
                 </div>
@@ -287,12 +308,19 @@ export default function CoursePageClient({ course }) {
                 )}
                 <ul className={s.resultsList}>
                   {c.results.map((r, i) => (
-                    <li key={i} className={s.resultsItem}>
+                    <motion.li
+                      key={i}
+                      className={s.resultsItem}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-30px' }}
+                      transition={{ duration: 0.4, delay: i * 0.08, ease: 'easeOut' }}
+                    >
                       <span className={s.resultsCheckIcon}>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                       </span>
                       <span className={s.resultsItemText}>{r.text}</span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
               </div>
@@ -428,7 +456,15 @@ export default function CoursePageClient({ course }) {
               </div>
               <div className={s.reviewsMasonry}>
                 {mediaReviews.map((r, i) => (
-                  <ReviewScreenshot key={r.id || i} review={r} index={i} onClick={setReviewLightbox} />
+                  <motion.div
+                    key={r.id || i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-30px' }}
+                    transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+                  >
+                    <ReviewScreenshot review={r} index={i} onClick={setReviewLightbox} />
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -458,12 +494,19 @@ export default function CoursePageClient({ course }) {
                       const text = typeof l === 'string' ? l : l.text
                       const icon = typeof l === 'string' ? 'alert' : (l.icon || 'alert')
                       return (
-                        <li key={i} className={s.checkItem}>
+                        <motion.li
+                          key={i}
+                          className={s.checkItem}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, margin: '-30px' }}
+                          transition={{ duration: 0.4, delay: i * 0.07, ease: 'easeOut' }}
+                        >
                           <span className={s.checkBox}>
                             {LIMITATION_ICON_MAP[icon] || LIMITATION_ICON_MAP.alert}
                           </span>
                           <span>{text}</span>
-                        </li>
+                        </motion.li>
                       )
                     })}
                   </ul>
