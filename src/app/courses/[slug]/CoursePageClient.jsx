@@ -70,7 +70,7 @@ export default function CoursePageClient({ course }) {
 
   return (
     <>
-      <Header />
+      <Header hasHero />
       <main>
 
         {/* ─── Hero — full-screen photo bg ─── */}
@@ -80,10 +80,6 @@ export default function CoursePageClient({ course }) {
             <div className={s.heroOverlay} />
           </div>
           <div className={s.heroInner}>
-            <div className={s.heroBadges}>
-              {dirTitle && <span className={s.badgeFilled}>{dirTitle}</span>}
-              {c.format && <span className={s.badgeOutline}>{FORMAT_LABELS[c.format] || c.format}</span>}
-            </div>
             <CharReveal as="h1" className={s.heroTitle}>{c.title}</CharReveal>
             {c.shortDescription && <p className={s.heroDesc}>{c.shortDescription}</p>}
             <div className={s.heroButtons}>

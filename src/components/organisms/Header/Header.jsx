@@ -20,7 +20,7 @@ const navLinks = [
   { label: 'Отзывы', id: 'reviews' },
 ]
 
-export default function Header({ data } = {}) {
+export default function Header({ data, hasHero } = {}) {
   const brandName = data?.brandName || 'Люция Ибрагимова'
   const ctaLabel = data?.ctaLabel || 'Выбрать курс'
   const [menuOpen, setMenuOpen] = useState(false)
@@ -45,12 +45,12 @@ export default function Header({ data } = {}) {
   // On home: transparent by default, scrolled = white
   // On other pages: always white
   const handleScroll = useCallback(() => {
-    if (!isHome) {
+    if (!isHome && !hasHero) {
       setScrolled(true)
       return
     }
     setScrolled(window.scrollY > 80)
-  }, [isHome])
+  }, [isHome, hasHero])
 
   useEffect(() => {
     handleScroll()
@@ -72,7 +72,7 @@ export default function Header({ data } = {}) {
   }
 
   // On home + not scrolled = transparent. Otherwise white.
-  const isTransparent = isHome && !scrolled && !menuOpen
+  const isTransparent = (isHome || hasHero) && !scrolled && !menuOpen
 
   return (
     <header
