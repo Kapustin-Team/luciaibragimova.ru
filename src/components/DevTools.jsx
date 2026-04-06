@@ -8,6 +8,10 @@ const Agentation = dynamic(
 )
 
 export default function DevTools() {
-  if (process.env.NODE_ENV !== 'development') return null
-  return <Agentation />
+  const isEnabled = process.env.NEXT_PUBLIC_AGENTATION_ENABLED !== 'false'
+  const endpoint = process.env.NEXT_PUBLIC_AGENTATION_ENDPOINT
+
+  if (!isEnabled) return null
+
+  return endpoint ? <Agentation endpoint={endpoint} /> : <Agentation />
 }
