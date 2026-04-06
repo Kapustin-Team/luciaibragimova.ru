@@ -58,7 +58,7 @@ export default function Directions({ data, directions: strapiDirections } = {}) 
           {dirs.map((d, i) => (
             <motion.div
               key={d.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-30px' }}
               transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}

@@ -15,11 +15,15 @@ function mediaUrl(media) {
 }
 
 export default function FeaturedCourse({ data, courses } = {}) {
-  const course = data?.course || (courses && courses[0]) || null
+  const featuredFallback = (courses || []).find((item) => item.slug === 'vovremya') || (courses && courses[0]) || null
+  const course = data?.course || featuredFallback
+  const label = data?.label || 'Бестселлер'
   const title = data?.title || course?.title || 'Начните свой путь'
   const description = data?.description || course?.description || 'Откройте для себя программу, которая изменит вашу жизнь.'
   const ctaText = data?.ctaText || 'Подробнее'
-  const ctaLink = data?.ctaLink || (course?.slug ? `/courses/${course.slug}` : '#courses')
+  const ctaLink = data?.ctaLink && data.ctaLink !== '/' ? data.ctaLink : (course?.slug ? `/courses/${course.slug}` : '#courses')
+  const secondaryText = data?.ctaSecondaryText || null
+  const secondaryLink = data?.ctaSecondaryLink || null
   const imgSrc = mediaUrl(data?.image || course?.image) || '/interrior/img275.jpg'
 
   const imageRef = useRef(null)
@@ -33,9 +37,13 @@ export default function FeaturedCourse({ data, courses } = {}) {
           <motion.img src={imgSrc} alt={title} className={s.image} style={{ y: imgY }} />
         </div>
         <div className={s.panel}>
+          {label && <div className={s.kicker}>{label}</div>}
           <CharReveal as="h2" className={s.title}>{title}</CharReveal>
           <p className={s.desc}>{description}</p>
-          <a href={ctaLink} className={s.btn}>{ctaText}</a>
+          <div className={s.actions}>
+            <a href={ctaLink} className={s.btn}>{ctaText}</a>
+            {secondaryText && secondaryLink && <a href={secondaryLink} className={s.btnGhost}>{secondaryText}</a>}
+          </div>
         </div>
       </div>
     </SectionReveal>

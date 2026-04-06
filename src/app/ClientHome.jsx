@@ -59,39 +59,27 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
   useEffect(() => {
     let cancelled = false
 
-    const needsHomepage = !homepageState?.blocks?.length
-    const needsDirections = directionsState.length === 0
-    const needsCourses = coursesState.length === 0
-    const needsFaqs = faqsState.length === 0
-    const needsReviews = reviewsState.length === 0
-    const needsTeam = teamState.length === 0
-    const needsConsultationTypes = consultationTypesState.length === 0
-
-    if (!needsHomepage && !needsDirections && !needsCourses && !needsFaqs && !needsReviews && !needsTeam && !needsConsultationTypes) {
-      return
-    }
-
     ;(async () => {
       try {
         const [homepageData, directionsData, coursesData, faqsData, reviewsData, teamData, consultationTypesData] = await Promise.all([
-          needsHomepage ? fetchPublic('homepage?populate[seo][populate]=*&populate[blocks][populate]=*') : Promise.resolve(homepageState),
-          needsDirections ? fetchPublic('directions?populate=*&sort=order:asc') : Promise.resolve(directionsState),
-          needsCourses ? fetchPublic('courses?populate[0]=direction&populate[1]=tariffs&populate[2]=image&populate[3]=author&sort=order:asc&pagination[pageSize]=50') : Promise.resolve(coursesState),
-          needsFaqs ? fetchPublic('faqs?sort=order:asc') : Promise.resolve(faqsState),
-          needsReviews ? fetchPublic('reviews?populate[0]=screenshot&populate[1]=video&populate[2]=course') : Promise.resolve(reviewsState),
-          needsTeam ? fetchPublic('team-members?populate[0]=photo&sort=order:asc') : Promise.resolve(teamState),
-          needsConsultationTypes ? fetchPublic('consultation-types?populate=*&sort=order:asc') : Promise.resolve(consultationTypesState),
+          fetchPublic('homepage?populate[seo][populate]=*&populate[blocks][populate]=*'),
+          fetchPublic('directions?populate=*&sort=order:asc'),
+          fetchPublic('courses?populate[0]=direction&populate[1]=tariffs&populate[2]=image&populate[3]=author&sort=order:asc&pagination[pageSize]=50'),
+          fetchPublic('faqs?sort=order:asc'),
+          fetchPublic('reviews?populate[0]=screenshot&populate[1]=video&populate[2]=course'),
+          fetchPublic('team-members?populate[0]=photo&sort=order:asc'),
+          fetchPublic('consultation-types?populate=*&sort=order:asc'),
         ])
 
         if (cancelled) return
 
         if (homepageData) setHomepageState(homepageData)
-        if (Array.isArray(directionsData) && directionsData.length) setDirectionsState(directionsData)
-        if (Array.isArray(coursesData) && coursesData.length) setCoursesState(coursesData)
-        if (Array.isArray(faqsData) && faqsData.length) setFaqsState(faqsData)
-        if (Array.isArray(reviewsData) && reviewsData.length) setReviewsState(reviewsData)
-        if (Array.isArray(teamData) && teamData.length) setTeamState(teamData)
-        if (Array.isArray(consultationTypesData) && consultationTypesData.length) setConsultationTypesState(consultationTypesData)
+        if (Array.isArray(directionsData)) setDirectionsState(directionsData)
+        if (Array.isArray(coursesData)) setCoursesState(coursesData)
+        if (Array.isArray(faqsData)) setFaqsState(faqsData)
+        if (Array.isArray(reviewsData)) setReviewsState(reviewsData)
+        if (Array.isArray(teamData)) setTeamState(teamData)
+        if (Array.isArray(consultationTypesData)) setConsultationTypesState(consultationTypesData)
       } catch (error) {
         console.error('ClientHome public fallback failed', error)
       }
@@ -100,7 +88,7 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
     return () => {
       cancelled = true
     }
-  }, [homepageState, directionsState, coursesState, faqsState, reviewsState, teamState, consultationTypesState])
+  }, [])
 
   const sharedData = {
     directions: directionsState,

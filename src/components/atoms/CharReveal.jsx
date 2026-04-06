@@ -80,7 +80,7 @@ export default function CharReveal({ as: Tag = 'h2', className, delay = 0, child
       className={className}
       variants={containerVariants}
       custom={delay}
-      initial="hidden"
+      initial={false}
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
     >
