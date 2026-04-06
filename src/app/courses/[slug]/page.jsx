@@ -1,12 +1,8 @@
-import { getCourseBySlug, getCourses } from '@/lib/strapi'
+import { getCourseBySlug } from '@/lib/strapi'
 import CoursePageClient from './CoursePageClient'
 import { notFound } from 'next/navigation'
 
-export async function generateStaticParams() {
-  const courses = await getCourses()
-  if (!courses) return []
-  return courses.map(c => ({ slug: c.slug }))
-}
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }) {
   const { slug } = await params
