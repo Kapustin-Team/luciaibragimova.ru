@@ -1,6 +1,6 @@
 'use client'
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import Header from '@/components/organisms/Header/Header'
@@ -61,6 +61,16 @@ export default function CoursePageClient({ course }) {
   const mediaReviews = (c.reviews || []).filter(r => r.screenshot || r.video)
   const imgSrc = c.image?.url || c.image?.formats?.large?.url || COURSE_IMAGES[c.slug] || '/interrior/img265.jpg'
 
+  // Hero parallax — downward shift as user scrolls past (K007: ref on image container)
+  const heroRef = useRef(null)
+  const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
+  const heroBgY = useTransform(heroProgress, [0, 1], ['0%', '20%'])
+
+  // Results image parallax — upward shift as section enters viewport
+  const resultsImageRef = useRef(null)
+  const { scrollYProgress: resultsProgress } = useScroll({ target: resultsImageRef, offset: ['start end', 'end start'] })
+  const resultsImgY = useTransform(resultsProgress, [0, 1], ['0%', '-10%'])
+
   const infoItems = [
     c.format && { number: FORMAT_LABELS[c.format] || c.format, label: 'Формат' },
     c.duration && { number: c.duration, label: 'Длительность' },
@@ -74,9 +84,9 @@ export default function CoursePageClient({ course }) {
       <main>
 
         {/* ─── Hero — full-screen photo bg ─── */}
-        <section className={s.hero}>
+        <section ref={heroRef} className={s.hero}>
           <div className={s.heroBg}>
-            <img src={imgSrc} alt={c.title} className={s.heroBgImage} />
+            <motion.img src={imgSrc} alt={c.title} className={s.heroBgImage} style={{ y: heroBgY }} />
             <div className={s.heroOverlay} />
           </div>
           <div className={s.heroInner}>
@@ -193,8 +203,8 @@ export default function CoursePageClient({ course }) {
               </div>
               <div className={`${s.resultsLayout} ${!c.resultsImage?.url ? s.resultsLayoutCentered : ''}`}>
                 {c.resultsImage?.url && (
-                  <div className={s.resultsImageCol}>
-                    <img src={c.resultsImage.url} alt="" className={s.resultsImage} />
+                  <div ref={resultsImageRef} className={s.resultsImageCol}>
+                    <motion.img src={c.resultsImage.url} alt="" className={s.resultsImage} style={{ y: resultsImgY }} />
                   </div>
                 )}
                 <ul className={s.resultsList}>
