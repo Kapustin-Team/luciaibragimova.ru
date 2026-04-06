@@ -218,7 +218,7 @@ export default function CoursePageClient({ course }) {
 
         {/* ─── Программа ─── */}
         {c.modules?.length > 0 && (
-          <SectionReveal className={s.sectionAlt} id="program">
+          <SectionReveal className={s.sectionDark} id="program">
             <div className={s.container}>
               <div className={s.centeredHeader}>
                 <CharReveal as="h2" className={s.sectionTitle}>Программа курса</CharReveal>
@@ -252,7 +252,7 @@ export default function CoursePageClient({ course }) {
 
         {/* ─── Методики ─── */}
         {c.methods?.length > 0 && (
-          <SectionReveal variant="mask" className={s.section}>
+          <SectionReveal variant="mask" className={s.sectionAccent}>
             <div className={s.container}>
               <div className={s.centeredHeader}>
                 <CharReveal as="h2" className={s.sectionTitle}>Методики и подходы</CharReveal>
@@ -285,7 +285,7 @@ export default function CoursePageClient({ course }) {
 
         {/* ─── Тарифы ─── */}
         {c.tariffs?.length > 0 && (
-          <SectionReveal className={s.sectionAlt} id="tariffs">
+          <SectionReveal className={s.sectionDark} id="tariffs">
             <div className={s.container}>
               <div className={s.centeredHeader}>
                 <CharReveal as="h2" className={s.sectionTitle}>Выберите тариф</CharReveal>
