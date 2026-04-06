@@ -757,3 +757,36 @@
   gap: 16px
   @media (max-width: 600px)
     grid-template-columns: 1fr
+
+// ─── Dark section card overrides (Modules, Tariffs) ───────────
+
+.sectionDark
+  .tariffCard
+    border-color: rgba(255, 255, 255, 0.1)
+  .tariffPopular
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3)
+  .popularBadge
+    background: var(--bg-cream)
+    color: var(--bg-dark)
+  .tariffCheck
+    background: rgba(255, 255, 255, 0.15)
+  .tariffCross
+    background: rgba(255, 255, 255, 0.08)
+    color: rgba(255, 255, 255, 0.3)
+  .tariffBtn
+    background: var(--bg-cream)
+    color: var(--bg-dark)
+    &:hover
+      background: #FFFFFF
+      color: var(--bg-dark)
+
+// ─── Accent section card overrides (Methods) ──────────────────
+
+.sectionAccent
+  .methodIcon
+    background: rgba(255, 255, 255, 0.15)
+
+// ─── Audience card contrast on cream ──────────────────────────
+
+.audienceCard
+  border-left: 3px solid var(--bg-accent)
