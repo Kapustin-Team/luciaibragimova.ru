@@ -4,55 +4,45 @@ import s from './TrustBlock.module.sass'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 
-const DEFAULT_STEPS = [
+const DEFAULT_STATS = [
   {
-    number: '01',
-    title: 'Знакомство',
-    description: 'Первая встреча и диагностическая беседа для определения вашего запроса и целей обучения',
+    number: '25+',
+    label: 'лет практики',
     image: '/interrior/img224.jpg',
   },
   {
-    number: '02',
-    title: 'Диагностика',
-    description: 'Определение уровня подготовки и подбор оптимальной программы под ваши задачи',
+    number: '3677+',
+    label: 'семей прошли через программы Люции',
     image: '/interrior/img247.jpg',
   },
   {
-    number: '03',
-    title: 'Программа',
-    description: 'Индивидуальный план обучения с учётом вашего опыта, графика и профессиональных целей',
+    number: '14',
+    label: 'авторских программ и курсов',
     image: '/interrior/img225.jpg',
   },
   {
-    number: '04',
-    title: 'Обучение',
-    description: 'Теоретические и практические занятия с опытными преподавателями и супервизорами',
+    number: '10+',
+    label: 'лет работы с трудными подростками',
     image: '/interrior/img266.jpg',
-  },
-  {
-    number: '05',
-    title: 'Практика',
-    description: 'Работа с реальными случаями под наблюдением куратора для закрепления навыков',
-    image: '/interrior/img256.jpg',
-  },
-  {
-    number: '06',
-    title: 'Результат',
-    description: 'Выпуск с профессиональными компетенциями, сертификатом и поддержкой сообщества',
-    image: '/interrior/img257.jpg',
   },
 ]
 
 export default function TrustBlock({ data } = {}) {
-  const label = data?.label || 'Процесс'
+  const hasSteps = Array.isArray(data?.steps) && data.steps.length > 0
+  const hasStats = Array.isArray(data?.stats) && data.stats.length > 0
+
+  const label = data?.label || (hasSteps ? 'Процесс' : 'Опыт в цифрах')
   const heading =
     data?.title ||
-    'Каждый шаг продуман, чтобы дать вам уверенность и профессиональные навыки'
-  const steps = data?.steps?.length
-    ? data.steps
-    : data?.stats?.length
-      ? data.stats
-      : DEFAULT_STEPS
+    (hasSteps
+      ? 'Каждый шаг продуман, чтобы дать вам уверенность и профессиональные навыки'
+      : 'Опыт, которому доверяют семьи')
+
+  const steps = hasSteps
+    ? data.steps.slice(0, 4)
+    : hasStats
+      ? data.stats.slice(0, 4)
+      : DEFAULT_STATS
 
   return (
     <SectionReveal className={s.section} id="trust">
@@ -65,6 +55,11 @@ export default function TrustBlock({ data } = {}) {
         <div className={s.track}>
           {steps.map((step, i) => {
             const number = step.number || String(i + 1).padStart(2, '0')
+            const fallbackImage = DEFAULT_STATS[i]?.image
+            const image = step.image?.url || step.image || fallbackImage || null
+            const title = step.title || null
+            const description = step.description || step.label || null
+
             return (
               <motion.div
                 key={i}
@@ -76,19 +71,15 @@ export default function TrustBlock({ data } = {}) {
               >
                 <div className={s.cardContent}>
                   <div className={s.stepNumber}>{number}</div>
-                  {step.title && <div className={s.title}>{step.title}</div>}
-                  {(step.description || step.label) && (
-                    <p className={s.description}>
-                      {step.description || step.label}
-                    </p>
-                  )}
+                  {title && <div className={s.title}>{title}</div>}
+                  {description && <p className={s.description}>{description}</p>}
                 </div>
                 <div className={s.imageWrap}>
-                  {step.image && (
+                  {image && (
                     <img
                       className={s.image}
-                      src={step.image.url || step.image}
-                      alt={step.title || `Шаг ${number}`}
+                      src={image}
+                      alt={title || description || `Пункт ${number}`}
                       loading="lazy"
                     />
                   )}
