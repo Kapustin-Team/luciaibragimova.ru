@@ -82,6 +82,8 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
     return dirMatch && formatMatch
   })
 
+  const hasCourses = coursesList.length > 0
+
   return (
     <SectionReveal className={s.section} id="courses">
       <div className={s.inner}>
@@ -158,7 +160,10 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
               </a>
             </motion.div>
           ))}
-          {filtered.length === 0 && (
+          {!hasCourses && (
+            <p className={s.empty}>Загружаем курсы…</p>
+          )}
+          {hasCourses && filtered.length === 0 && (
             <p className={s.empty}>Нет курсов по выбранным фильтрам</p>
           )}
         </div>
