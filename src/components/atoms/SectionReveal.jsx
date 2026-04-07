@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 /**
  * Scroll-triggered entrance animation wrapper for page sections.
@@ -9,7 +10,11 @@ import { motion } from 'framer-motion'
  *  – default (no prop): opacity 0→1 + translateY 40→0  (fade-slide)
  *  – variant="mask": clipPath inset reveal from bottom + opacity fade
  *
- * Uses the same viewport config as CharReveal (K004).
+ * Uses an explicit `useInView` hook + `animate` prop instead of `whileInView`.
+ * This is deterministic: React state drives the animation, so it always fires
+ * when the section enters the viewport — even on slow connections, after
+ * hydration delays, or when the section is taller than the viewport.
+ *
  * Does NOT forward refs (K007).
  *
  * @param {ReactNode} children
@@ -19,6 +24,9 @@ import { motion } from 'framer-motion'
  * @param {object} props — passed through to motion.section (id, aria-*, etc.)
  */
 export default function SectionReveal({ children, className, delay = 0, variant, ...props }) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '0px 0px -10% 0px' })
+
   const isMask = variant === 'mask'
 
   const initial = isMask
@@ -35,10 +43,10 @@ export default function SectionReveal({ children, className, delay = 0, variant,
 
   return (
     <motion.section
+      ref={ref}
       className={className}
       initial={initial}
-      whileInView={animate}
-      viewport={{ once: true, amount: 0.05 }}
+      animate={isInView ? animate : initial}
       transition={transition}
       {...props}
     >

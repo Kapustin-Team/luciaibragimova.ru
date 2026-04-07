@@ -1,9 +1,19 @@
 'use client'
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Courses.module.sass'
+
+const gridVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+}
 
 const FORMAT_MAP = { online: 'Онлайн', offline: 'Офлайн', hybrid: 'Гибрид' }
 
@@ -84,6 +94,9 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
 
   const hasCourses = coursesList.length > 0
 
+  const gridRef = useRef(null)
+  const gridInView = useInView(gridRef, { once: true, amount: 0.1 })
+
   return (
     <SectionReveal className={s.section} id="courses">
       <div className={s.inner}>
@@ -123,14 +136,17 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
           </div>
         </div>
 
-        <div className={s.grid}>
+        <motion.div
+          ref={gridRef}
+          className={s.grid}
+          variants={gridVariants}
+          initial="hidden"
+          animate={gridInView ? 'visible' : 'hidden'}
+        >
           {filtered.map((c, i) => (
             <motion.div
               key={c.title}
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+              variants={cardVariants}
             >
               <a
                 href={`/courses/${c.slug || '#'}`}
@@ -166,7 +182,7 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
           {hasCourses && filtered.length === 0 && (
             <p className={s.empty}>Нет курсов по выбранным фильтрам</p>
           )}
-        </div>
+        </motion.div>
       </div>
     </SectionReveal>
   )

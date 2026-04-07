@@ -1,8 +1,19 @@
 'use client'
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import s from './TrustBlock.module.sass'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
+
+const trackVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+}
 
 const DEFAULT_STATS = [
   {
@@ -44,6 +55,9 @@ export default function TrustBlock({ data } = {}) {
       ? data.stats.slice(0, 4)
       : DEFAULT_STATS
 
+  const trackRef = useRef(null)
+  const trackInView = useInView(trackRef, { once: true, amount: 0.15 })
+
   return (
     <SectionReveal className={s.section} id="trust">
       <div className={s.inner}>
@@ -52,7 +66,13 @@ export default function TrustBlock({ data } = {}) {
           {heading}
         </CharReveal>
 
-        <div className={s.track}>
+        <motion.div
+          ref={trackRef}
+          className={s.track}
+          variants={trackVariants}
+          initial="hidden"
+          animate={trackInView ? 'visible' : 'hidden'}
+        >
           {steps.map((step, i) => {
             const number = step.number || String(i + 1).padStart(2, '0')
             const fallbackImage = DEFAULT_STATS[i]?.image
@@ -64,10 +84,7 @@ export default function TrustBlock({ data } = {}) {
               <motion.div
                 key={i}
                 className={s.card}
-                initial={false}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-30px' }}
-                transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+                variants={cardVariants}
               >
                 <div className={s.cardContent}>
                   <div className={s.stepNumber}>{number}</div>
@@ -87,7 +104,7 @@ export default function TrustBlock({ data } = {}) {
               </motion.div>
             )
           })}
-        </div>
+        </motion.div>
       </div>
     </SectionReveal>
   )
