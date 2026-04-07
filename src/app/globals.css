@@ -112,7 +112,7 @@
   --footer-btn-text: #25140C;
   --footer-link-hover: #F7E7DE;
   --selection-bg: #25140C;
-  --header-viewplans-transparent-text: #25140C;
+  --header-viewplans-transparent-text: #F7E7DE;
 
   /* Legacy aliases */
   --coral: var(--accent-orange);

@@ -59,15 +59,16 @@
 .stackCard
   position: absolute
   inset: 0
-  background: rgba(255, 255, 255, 0.06)
-  border: 1px solid rgba(255, 255, 255, 0.08)
+  background: #ffffff
+  border: 1px solid rgba(37, 20, 12, 0.06)
   border-radius: var(--radius-card)
   padding: 40px 44px
-  backdrop-filter: blur(12px)
-  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.4)
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.35)
   display: flex
   flex-direction: column
   will-change: transform, opacity
+  --text-dark: #25140C
+  --text-muted: rgba(37, 20, 12, 0.6)
   @media (max-width: 768px)
     padding: 28px 24px
 
@@ -75,11 +76,11 @@
   width: 52px
   height: 52px
   border-radius: 14px
-  background: rgba(217, 185, 231, 0.15)
+  background: rgba(116, 76, 50, 0.1)
   display: flex
   align-items: center
   justify-content: center
-  color: var(--accent-purple)
+  color: #744C32
   margin-bottom: 20px
 
 .cardTitle
@@ -99,17 +100,17 @@
   align-items: center
   gap: 8px
   font-size: 13px
-  color: rgba(255, 255, 255, 0.4)
+  color: rgba(37, 20, 12, 0.45)
 
 .metaItem
   font-weight: 500
 
 .metaDot
-  color: rgba(255, 255, 255, 0.2)
+  color: rgba(37, 20, 12, 0.25)
 
 .cta
   text-align: center
-  margin-top: 40px
+  margin-bottom: 32px
 
 .btn
   display: inline-flex

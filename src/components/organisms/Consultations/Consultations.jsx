@@ -129,6 +129,9 @@ export default function Consultations({ data, consultationTypes } = {}) {
               <CharReveal as="h2" className={s.title}>{title}</CharReveal>
               <p className={s.subtitle}>{subtitle}</p>
             </div>
+            <div className={s.cta}>
+              <a href="#contact" className={s.btn}>Записаться на консультацию</a>
+            </div>
             <div className={s.stack}>
               {items.map((item, i) => (
                 <StackCard
@@ -139,9 +142,6 @@ export default function Consultations({ data, consultationTypes } = {}) {
                   scrollYProgress={scrollYProgress}
                 />
               ))}
-            </div>
-            <div className={s.cta}>
-              <a href="#contact" className={s.btn}>Записаться на консультацию</a>
             </div>
           </div>
         </div>

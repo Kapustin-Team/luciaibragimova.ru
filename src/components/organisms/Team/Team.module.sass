@@ -8,6 +8,7 @@
 
 .inner
   max-width: var(--container-wide)
+  width: 100%
   margin: 0 auto
   position: relative
   z-index: 1
@@ -32,8 +33,10 @@
 // --- CSS grid track ---
 .track
   display: grid
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
-  gap: 20px
+  grid-template-columns: repeat(4, 1fr)
+  gap: 24px
+  @media (max-width: 1100px)
+    grid-template-columns: repeat(2, 1fr)
   @media (max-width: 600px)
     display: flex
     grid-template-columns: none
@@ -128,31 +131,11 @@
   line-height: 1.5
   display: block
 
-.bioToggle
-  display: inline-flex
-  align-items: center
-  gap: 4px
-  margin-top: 12px
-  padding: 0
-  background: none
-  border: none
-  color: var(--bg-lavender)
-  font-size: 13px
-  font-weight: 600
-  cursor: pointer
-  transition: color 0.2s
-  &:hover
-    color: var(--text-white)
-
-.bioArrowUp
-  transform: rotate(180deg)
-
 .cardBio
   font-size: 13px
   color: var(--text-on-dark-soft)
   line-height: 1.6
-  margin-top: 8px
-  overflow: hidden
+  margin-top: 12px
 
 // --- Decorative background element ---
 .decor

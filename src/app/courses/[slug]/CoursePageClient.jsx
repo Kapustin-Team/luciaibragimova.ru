@@ -576,7 +576,7 @@ export default function CoursePageClient({ course }) {
         </motion.section>
 
       </main>
-      <Footer hideBrand />
+      <Footer />
     </>
   )
 }

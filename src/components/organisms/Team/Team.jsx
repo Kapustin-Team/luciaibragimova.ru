@@ -1,14 +1,23 @@
 'use client'
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Team.module.sass'
 
+const trackVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+}
+
 export default function Team({ data, team: teamMembers } = {}) {
   const title = data?.title || 'Наша команда'
   const subtitle = data?.subtitle || 'Специалисты, которым доверяют'
-  const [expandedId, setExpandedId] = useState(null)
 
   const members = (teamMembers || []).map(m => ({
     id: m.id || m.documentId,
@@ -19,9 +28,8 @@ export default function Team({ data, team: teamMembers } = {}) {
     photo: m.photo?.url || m.photo?.formats?.medium?.url || m.photo?.formats?.small?.url || null,
   }))
 
-  const handleToggleBio = (id) => {
-    setExpandedId(prev => prev === id ? null : id)
-  }
+  const trackRef = useRef(null)
+  const trackInView = useInView(trackRef, { once: true, amount: 0.1 })
 
   if (!members.length) return null
 
@@ -33,15 +41,18 @@ export default function Team({ data, team: teamMembers } = {}) {
           <p className={s.subtitle}>{subtitle}</p>
         </div>
 
-        <div className={s.track}>
+        <motion.div
+          ref={trackRef}
+          className={s.track}
+          variants={trackVariants}
+          initial="hidden"
+          animate={trackInView ? 'visible' : 'hidden'}
+        >
           {members.map((member, i) => (
             <motion.div
               className={s.card}
               key={member.id || i}
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+              variants={cardVariants}
             >
               <div className={s.cardPhotoWrap}>
                 {member.photo ? (
@@ -68,43 +79,13 @@ export default function Team({ data, team: teamMembers } = {}) {
                 {member.specialization && (
                   <span className={s.cardSpec}>{member.specialization}</span>
                 )}
-
                 {member.bio && (
-                  <>
-                    <button
-                      className={s.bioToggle}
-                      onClick={() => handleToggleBio(member.id || i)}
-                    >
-                      {expandedId === (member.id || i) ? 'Скрыть' : 'Подробнее'}
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 14 14"
-                        fill="none"
-                        className={expandedId === (member.id || i) ? s.bioArrowUp : ''}
-                      >
-                        <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </button>
-                    <AnimatePresence>
-                      {expandedId === (member.id || i) && (
-                        <motion.p
-                          className={s.cardBio}
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                          {member.bio}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
-                  </>
+                  <p className={s.cardBio}>{member.bio}</p>
                 )}
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {/* Decorative element */}

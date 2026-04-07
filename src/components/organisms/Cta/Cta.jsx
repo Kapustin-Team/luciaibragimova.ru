@@ -1,7 +1,6 @@
 'use client'
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import SectionReveal from '@/components/atoms/SectionReveal'
+import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import s from './Cta.module.sass'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
@@ -21,11 +20,21 @@ export default function Cta({ data } = {}) {
   const imgScale = useTransform(scrollYProgress, [0, 1], [1.05, 1])
   const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '-5%'])
 
+  // Top-down clipPath mask reveal (top → bottom)
+  const maskRef = useRef(null)
+  const inView = useInView(maskRef, { once: true, margin: '0px 0px -10% 0px' })
+
   return (
-    <SectionReveal variant="mask" className={s.section}>
+    <motion.section
+      ref={maskRef}
+      className={s.section}
+      initial={{ clipPath: 'inset(0 0 100% 0)' }}
+      animate={inView ? { clipPath: 'inset(0 0 0 0)' } : { clipPath: 'inset(0 0 100% 0)' }}
+      transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+    >
       <div ref={sectionRef} className={s.imageWrap}>
         <motion.img style={{ scale: imgScale, y: imgY }} src={src} alt="" className={s.image} />
       </div>
-    </SectionReveal>
+    </motion.section>
   )
 }

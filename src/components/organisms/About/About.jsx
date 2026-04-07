@@ -1,8 +1,6 @@
 'use client'
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import CharReveal from '@/components/atoms/CharReveal'
-import SectionReveal from '@/components/atoms/SectionReveal'
+import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import s from './About.module.sass'
 
 const DEFAULT_HIGHLIGHTS = [
@@ -24,29 +22,66 @@ export default function About({ data } = {}) {
   const { scrollYProgress } = useScroll({ target: imageRef, offset: ['start end', 'end start'] })
   const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '-10%'])
 
+  // Reveal: photo slide-mask from bottom, then content fades in sequentially from right
+  const sectionRef = useRef(null)
+  const inView = useInView(sectionRef, { once: true, margin: '0px 0px -10% 0px' })
+
+  const fadeRight = {
+    hidden: { opacity: 0, x: 30 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  }
+
   return (
-    <SectionReveal className={s.section} id="about" variant="mask">
+    <section ref={sectionRef} className={s.section} id="about">
       <div className={s.inner}>
-        <div className={s.imageWrap} ref={imageRef}>
+        <motion.div
+          className={s.imageWrap}
+          ref={imageRef}
+          initial={{ clipPath: 'inset(100% 0 0 0)' }}
+          animate={inView ? { clipPath: 'inset(0 0 0 0)' } : { clipPath: 'inset(100% 0 0 0)' }}
+          transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
           <motion.img style={{ y: imgY }} src={imageUrl} alt="Люция Ибрагимова" className={s.photo} />
-        </div>
-        <div className={s.textCol}>
-          {label && <span className={s.label}>{label}</span>}
-          <CharReveal as="h3" className={s.title}>{title}</CharReveal>
-          <p className={s.desc}>{description}</p>
-          <ul className={s.list}>
+        </motion.div>
+        <motion.div
+          className={s.textCol}
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.12, delayChildren: 0.6 } },
+          }}
+        >
+          {label && (
+            <motion.span className={s.label} variants={fadeRight}>
+              {label}
+            </motion.span>
+          )}
+          <motion.h3 className={s.title} variants={fadeRight}>
+            {title}
+          </motion.h3>
+          <motion.p className={s.desc} variants={fadeRight}>
+            {description}
+          </motion.p>
+          <motion.ul
+            className={s.list}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.08 } },
+            }}
+          >
             {highlights.map((f, i) => (
-              <li key={i} className={s.listItem}>
+              <motion.li key={i} className={s.listItem} variants={fadeRight}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <circle cx="10" cy="10" r="10" fill="rgba(116,76,50,0.12)" />
                   <path d="M6 10l3 3 5-5" stroke="#25140C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 {f}
-              </li>
+              </motion.li>
             ))}
-          </ul>
-        </div>
+          </motion.ul>
+        </motion.div>
       </div>
-    </SectionReveal>
+    </section>
   )
 }

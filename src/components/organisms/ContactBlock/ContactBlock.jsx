@@ -1,5 +1,6 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './ContactBlock.module.sass'
 import submitContact from '@/lib/submitContact'
@@ -15,6 +16,11 @@ export default function ContactBlock() {
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState(null)
+
+  // Scroll-linked scale-in — subtle zoom as section enters viewport
+  const scaleRef = useRef(null)
+  const { scrollYProgress } = useScroll({ target: scaleRef, offset: ['start end', 'end start'] })
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.96, 1])
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -62,7 +68,7 @@ export default function ContactBlock() {
 
   return (
     <SectionReveal className={s.section} id="contact" variant="mask">
-      <form className={s.inner} onSubmit={handleSubmit}>
+      <motion.form ref={scaleRef} className={s.inner} onSubmit={handleSubmit} style={{ scale }}>
         {/* Left — quiz questions */}
         <div className={s.quizSide}>
           <h3 className={s.sideTitle}>Расскажите о себе</h3>
@@ -124,7 +130,7 @@ export default function ContactBlock() {
             {sending ? 'Отправляем...' : 'Отправить заявку'}
           </button>
         </div>
-      </form>
+      </motion.form>
     </SectionReveal>
   )
 }
