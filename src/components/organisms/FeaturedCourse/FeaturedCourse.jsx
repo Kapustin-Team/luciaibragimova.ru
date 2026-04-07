@@ -41,7 +41,6 @@ export default function FeaturedCourse({ data, courses } = {}) {
           <p className={s.desc}>{description}</p>
           <div className={s.actions}>
             <a href={ctaLink} className={s.btn}>{ctaText}</a>
-            {secondaryText && secondaryLink && <a href={secondaryLink} className={s.btnGhost}>{secondaryText}</a>}
           </div>
         </div>
       </div>

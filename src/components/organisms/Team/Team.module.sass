@@ -34,6 +34,18 @@
   display: grid
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
   gap: 20px
+  @media (max-width: 600px)
+    display: flex
+    grid-template-columns: none
+    overflow-x: auto
+    -webkit-overflow-scrolling: touch
+    scroll-snap-type: x mandatory
+    gap: 16px
+    margin: 0 -24px
+    padding: 0 24px 12px
+    scrollbar-width: none
+    &::-webkit-scrollbar
+      display: none
 
 // --- Card ---
 .card
@@ -46,6 +58,11 @@
     background: rgba(255, 255, 255, 0.1)
     .cardOverlay
       opacity: 0
+  @media (max-width: 600px)
+    min-width: 76vw
+    max-width: 76vw
+    flex-shrink: 0
+    scroll-snap-align: start
 
 .cardPhotoWrap
   position: relative
