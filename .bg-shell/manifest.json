@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": "8f414a1f",
+    "label": "next-dev",
+    "command": "npm run dev",
+    "cwd": "/Users/dmitriikapustin/Documents/GitHub/luciaibragimova.ru",
+    "ownerSessionFile": "/Users/dmitriikapustin/.gsd/sessions/--Users-dmitriikapustin-Documents-GitHub-luciaibragimova.ru--/2026-04-07T07-16-14-895Z_1ca31bf0-0a72-48a2-8b76-fd96592e14f2.jsonl",
+    "persistAcrossSessions": false,
+    "startedAt": 1775546273491,
+    "processType": "server",
+    "group": "research",
+    "readyPattern": null,
+    "readyPort": 3000,
+    "pid": 19185
+  }
+]
