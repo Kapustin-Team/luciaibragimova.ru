@@ -100,17 +100,18 @@
   &::after
     content: ''
     position: absolute
-    bottom: 2px
-    left: 50%
-    transform: translateX(-50%)
-    width: 0
+    bottom: -3px
+    left: 16px
+    right: 16px
     height: 1px
     background: currentColor
-    transition: width 0.3s ease
+    transform: scaleX(0)
+    transform-origin: left center
+    transition: transform 0.3s ease
   &:hover
     color: #25140C
   &:hover::after
-    width: 60%
+    transform: scaleX(1)
   @media (max-width: 960px)
     font-size: 17px
     padding: 12px 24px
@@ -154,10 +155,15 @@
     display: flex
     align-items: center
     justify-content: center
-    color: rgba(26, 26, 46, 0.5)
-    transition: color 0.2s
+    width: 36px
+    height: 36px
+    border-radius: 50%
+    background: rgba(37, 20, 12, 0.08)
+    color: #25140C
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease
     &:hover
-      color: #25140C
+      background: #25140C
+      color: #F7E7DE
   @media (max-width: 960px)
     display: none
 
@@ -184,12 +190,11 @@
   flex-shrink: 0
 
 .viewPlans
-  font-size: 12px
+  font-size: 13px
   font-weight: 500
   color: #F7E7DE
   padding: 10px 24px
-  text-transform: uppercase
-  letter-spacing: 1.5px
+  letter-spacing: 0.2px
   background: #25140C
   border-radius: var(--radius-btn)
   white-space: nowrap
@@ -255,3 +260,10 @@
   color: rgba(255, 255, 255, 0.8)
   &:hover
     color: #FFFFFF
+
+.transparent .socials a
+  background: rgba(255, 255, 255, 0.15)
+  color: #FFFFFF
+  &:hover
+    background: #FFFFFF
+    color: #25140C

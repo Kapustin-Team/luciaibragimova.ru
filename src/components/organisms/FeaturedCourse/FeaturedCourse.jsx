@@ -37,7 +37,6 @@ export default function FeaturedCourse({ data, courses } = {}) {
           <motion.img src={imgSrc} alt={title} className={s.image} style={{ y: imgY }} />
         </div>
         <div className={s.panel}>
-          {label && <div className={s.kicker}>{label}</div>}
           <CharReveal as="h2" className={s.title}>{title}</CharReveal>
           <p className={s.desc}>{description}</p>
           <div className={s.actions}>

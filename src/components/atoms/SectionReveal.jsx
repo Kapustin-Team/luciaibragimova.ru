@@ -36,9 +36,9 @@ export default function SectionReveal({ children, className, delay = 0, variant,
   return (
     <motion.section
       className={className}
-      initial={false}
+      initial={initial}
       whileInView={animate}
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ once: true, amount: 0.05 }}
       transition={transition}
       {...props}
     >

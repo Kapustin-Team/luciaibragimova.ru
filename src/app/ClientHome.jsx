@@ -29,6 +29,13 @@ async function fetchPublic(path) {
   return json.data
 }
 
+// Hidden blocks: kept in code, removed from rendering for now
+const HIDDEN_BLOCK_TYPES = new Set([
+  'blocks.directions-grid',
+  'blocks.directions',
+  'blocks.reviews-section',
+])
+
 const BLOCK_MAP = {
   'blocks.top-banner': TopBanner,
   'blocks.hero': Hero,
@@ -104,7 +111,12 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
 
   if (hasBlocks) {
     const heroBlock = blocks.find((b) => b.__component === 'blocks.hero')
-    const otherBlocks = blocks.filter((b) => b.__component !== 'blocks.hero' && b.__component !== 'blocks.top-banner')
+    const otherBlocks = blocks.filter(
+      (b) =>
+        b.__component !== 'blocks.hero' &&
+        b.__component !== 'blocks.top-banner' &&
+        !HIDDEN_BLOCK_TYPES.has(b.__component)
+    )
 
     return (
       <>
@@ -131,13 +143,13 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
       <Header />
       <main>
         <Hero />
-        <DirectionsGrid directions={directionsState} courses={coursesState} />
+        {/* DirectionsGrid temporarily hidden — keep code for later */}
         <TrustBlock />
         <PinkBanner />
         <About />
         <FeaturedCourse courses={coursesState} />
         <Courses courses={coursesState} />
-        <Reviews reviews={reviewsState} />
+        {/* Reviews temporarily hidden */}
         <Cta />
         <Faq faqs={faqsState} />
         <Consultations consultationTypes={consultationTypesState} />

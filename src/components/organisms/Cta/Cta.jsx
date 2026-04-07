@@ -1,6 +1,7 @@
 'use client'
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Cta.module.sass'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
@@ -21,8 +22,10 @@ export default function Cta({ data } = {}) {
   const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '-5%'])
 
   return (
-    <motion.section ref={sectionRef} className={s.section}>
-      <motion.img style={{ scale: imgScale, y: imgY }} src={src} alt="" className={s.image} />
-    </motion.section>
+    <SectionReveal variant="mask" className={s.section}>
+      <div ref={sectionRef} className={s.imageWrap}>
+        <motion.img style={{ scale: imgScale, y: imgY }} src={src} alt="" className={s.image} />
+      </div>
+    </SectionReveal>
   )
 }

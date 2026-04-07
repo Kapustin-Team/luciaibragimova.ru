@@ -1,5 +1,6 @@
 'use client'
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { FaVideo, FaUsers, FaChild, FaHeart } from 'react-icons/fa'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
@@ -43,11 +44,66 @@ const FALLBACK_CONSULTATIONS = [
   },
 ]
 
+function StackCard({ item, index, total, scrollYProgress }) {
+  // Each card occupies a slice of the scroll. It enters from below during its slice,
+  // then stays pinned. Cards already in place scale down slightly so the new one feels
+  // like it lands on top of a stack.
+  const slice = 1 / (total + 0.5)
+  const enterStart = index * slice
+  const enterEnd = enterStart + slice
+
+  const y = useTransform(
+    scrollYProgress,
+    [enterStart, enterEnd],
+    ['110%', '0%']
+  )
+  const opacity = useTransform(
+    scrollYProgress,
+    [enterStart, enterStart + slice * 0.1, enterEnd],
+    [0, 1, 1]
+  )
+
+  // Cards already placed shrink + drift up as later cards land on them
+  const placedAt = enterEnd
+  const fullyDone = 1
+  const scale = useTransform(
+    scrollYProgress,
+    [placedAt, fullyDone],
+    [1, 1 - (total - 1 - index) * 0.04]
+  )
+  const translateY = useTransform(
+    scrollYProgress,
+    [placedAt, fullyDone],
+    [0, -(total - 1 - index) * 14]
+  )
+
+  return (
+    <motion.div
+      className={s.stackCard}
+      style={{
+        y,
+        opacity,
+        scale,
+        translateY,
+        zIndex: index + 1,
+      }}
+    >
+      <div className={s.iconWrap}>{ICON_MAP[item.icon] || ICON_MAP.heart}</div>
+      <h3 className={s.cardTitle}>{item.title}</h3>
+      <p className={s.cardDesc}>{item.desc}</p>
+      <div className={s.meta}>
+        <span className={s.metaItem}>{item.duration}</span>
+        <span className={s.metaDot}>·</span>
+        <span className={s.metaItem}>{item.format}</span>
+      </div>
+    </motion.div>
+  )
+}
+
 export default function Consultations({ data, consultationTypes } = {}) {
   const title = data?.title || 'Консультации'
   const subtitle = data?.subtitle || 'Индивидуальный подход к вашей ситуации'
 
-  // Use Strapi consultation types if available, otherwise fallback
   const items = consultationTypes?.length
     ? consultationTypes.map((ct) => ({
         icon: ct.icon || 'heart',
@@ -58,36 +114,36 @@ export default function Consultations({ data, consultationTypes } = {}) {
       }))
     : FALLBACK_CONSULTATIONS
 
+  const wrapperRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: wrapperRef,
+    offset: ['start start', 'end end'],
+  })
+
   return (
     <SectionReveal className={s.section} id="consultations">
-      <div className={s.inner}>
-        <div className={s.header}>
-          <CharReveal as="h2" className={s.title}>{title}</CharReveal>
-          <p className={s.subtitle}>{subtitle}</p>
-        </div>
-        <div className={s.grid}>
-          {items.map((item, i) => (
-            <motion.div
-              key={item.title}
-              className={s.card}
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
-            >
-              <div className={s.iconWrap}>{ICON_MAP[item.icon] || ICON_MAP.heart}</div>
-              <h3 className={s.cardTitle}>{item.title}</h3>
-              <p className={s.cardDesc}>{item.desc}</p>
-              <div className={s.meta}>
-                <span className={s.metaItem}>{item.duration}</span>
-                <span className={s.metaDot}>·</span>
-                <span className={s.metaItem}>{item.format}</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        <div className={s.cta}>
-          <a href="#contact" className={s.btn}>Записаться на консультацию</a>
+      <div className={s.scrollWrapper} ref={wrapperRef} style={{ height: `${(items.length + 1) * 100}vh` }}>
+        <div className={s.sticky}>
+          <div className={s.inner}>
+            <div className={s.header}>
+              <CharReveal as="h2" className={s.title}>{title}</CharReveal>
+              <p className={s.subtitle}>{subtitle}</p>
+            </div>
+            <div className={s.stack}>
+              {items.map((item, i) => (
+                <StackCard
+                  key={item.title}
+                  item={item}
+                  index={i}
+                  total={items.length}
+                  scrollYProgress={scrollYProgress}
+                />
+              ))}
+            </div>
+            <div className={s.cta}>
+              <a href="#contact" className={s.btn}>Записаться на консультацию</a>
+            </div>
+          </div>
         </div>
       </div>
     </SectionReveal>
