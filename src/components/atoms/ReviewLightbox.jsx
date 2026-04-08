@@ -7,6 +7,7 @@ export default function ReviewLightbox({ reviews, currentIndex, onClose, onNavig
   const review = reviews[currentIndex]
   const hasVideo = review ? isVideo(review) : false
   const src = review ? (hasVideo ? mediaUrl(review.video) : mediaUrl(review.screenshot)) : null
+  const poster = review && hasVideo ? mediaUrl(review.screenshot) : null
   const hasPrev = currentIndex > 0
   const hasNext = currentIndex < reviews.length - 1
 
@@ -48,6 +49,7 @@ export default function ReviewLightbox({ reviews, currentIndex, onClose, onNavig
           <video
             key={currentIndex}
             src={src}
+            poster={poster || undefined}
             className={s.video}
             controls
             autoPlay

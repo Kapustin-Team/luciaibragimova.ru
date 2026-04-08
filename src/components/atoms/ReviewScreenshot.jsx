@@ -17,6 +17,7 @@ function isVideo(review) {
 export default function ReviewScreenshot({ review, index = 0, onClick }) {
   const hasVideo = isVideo(review)
   const src = hasVideo ? mediaUrl(review.video) : mediaUrl(review.screenshot)
+  const poster = hasVideo ? mediaUrl(review.screenshot) : null
   if (!src) return null
 
   const courseName = review.course?.title || ''
@@ -33,7 +34,7 @@ export default function ReviewScreenshot({ review, index = 0, onClick }) {
       <div className={s.imageWrap}>
         {hasVideo ? (
           <>
-            <video src={src} className={s.image} muted preload="metadata" />
+            <video src={src} poster={poster || undefined} className={s.image} muted preload="metadata" />
             <div className={s.playOverlay}>
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
                 <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.45)" />
