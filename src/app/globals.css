@@ -237,6 +237,9 @@ header[data-transparent] a[class*="viewPlans"] {
 header[data-transparent] nav a:hover {
   /* underline uses currentColor on ::after — inherits white from transparent state */
 }
+header[data-transparent] .socials svg {
+  color: inherit !important;
+}
 header[data-transparent] svg {
   color: rgba(255, 255, 255, 0.7) !important;
 }
