@@ -283,8 +283,12 @@
     color: #FFFFFF
 
 .transparent .socials a
-  background: rgba(255, 255, 255, 0.15)
+  background: rgba(255, 255, 255, 0.1)
+  border: 1px solid rgba(255, 255, 255, 0.24)
   color: #FFFFFF
+  backdrop-filter: blur(6px)
   &:hover
     background: #FFFFFF
+    border-color: #FFFFFF
     color: #25140C
+    transform: translateY(-1px)
