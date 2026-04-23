@@ -16,6 +16,12 @@ const DEFAULT_BUTTONS = [
   { label: 'Бесплатная консультация', href: '#contact', variant: 'filled' },
 ]
 
+function getMediaUrl(media) {
+  if (!media?.url) return null
+  if (media.url.startsWith('http')) return media.url
+  return `${process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'}${media.url}`
+}
+
 export default function Hero({ data } = {}) {
   const title = data?.title || 'Путь к благополучию\nсемьи'
   const description = data?.description || null
@@ -65,12 +71,13 @@ export default function Hero({ data } = {}) {
   const heroRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
+  const heroImage = getMediaUrl(data?.image) || '/hero/lucia-hero.jpg'
 
   return (
     <section className={s.hero} id="hero" ref={heroRef}>
       {/* Static hero background */}
       <div className={s.videoBg}>
-        <motion.img src="/interrior/img265.jpg" alt="" className={s.videoBgMedia} style={{ y: bgY }} />
+        <motion.img src={heroImage} alt="" className={s.videoBgMedia} style={{ y: bgY }} />
         <div className={s.videoOverlay} />
       </div>
 
