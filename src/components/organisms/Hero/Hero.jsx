@@ -18,8 +18,16 @@ const DEFAULT_BUTTONS = [
 
 function getMediaUrl(media) {
   if (!media?.url) return null
-  if (media.url.startsWith('http')) return media.url
-  return `${process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'}${media.url}`
+
+  const baseUrl = media.url.startsWith('http')
+    ? media.url
+    : `${process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'}${media.url}`
+
+  const version = media.updatedAt || media.hash || media.id
+  if (!version) return baseUrl
+
+  const separator = baseUrl.includes('?') ? '&' : '?'
+  return `${baseUrl}${separator}v=${encodeURIComponent(version)}`
 }
 
 export default function Hero({ data } = {}) {
@@ -71,13 +79,29 @@ export default function Hero({ data } = {}) {
   const heroRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
-  const heroImage = getMediaUrl(data?.image) || '/hero/lucia-hero.jpg'
+  const heroVideo = getMediaUrl(data?.video)
+  const heroPoster = getMediaUrl(data?.poster) || getMediaUrl(data?.image) || '/hero/lucia-hero.jpg'
 
   return (
     <section className={s.hero} id="hero" ref={heroRef}>
-      {/* Static hero background */}
+      {/* Hero background */}
       <div className={s.videoBg}>
-        <motion.img src={heroImage} alt="" className={s.videoBgMedia} style={{ y: bgY }} />
+        {heroVideo ? (
+          <motion.video
+            key={`${heroVideo}-${heroPoster || 'no-poster'}`}
+            src={heroVideo}
+            poster={heroPoster || undefined}
+            className={s.videoBgMedia}
+            style={{ y: bgY }}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+        ) : (
+          <motion.img src={heroPoster} alt="" className={s.videoBgMedia} style={{ y: bgY }} />
+        )}
         <div className={s.videoOverlay} />
       </div>
 
