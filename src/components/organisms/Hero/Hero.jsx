@@ -57,6 +57,7 @@ export default function Hero({ data } = {}) {
   // Subtitle rotation
   const [subtitleIdx, setSubtitleIdx] = useState(0)
   const [fade, setFade] = useState(true)
+  const [videoReady, setVideoReady] = useState(false)
 
   useEffect(() => {
     if (subtitles.length <= 1) return
@@ -82,25 +83,36 @@ export default function Hero({ data } = {}) {
   const heroVideo = getMediaUrl(data?.video)
   const heroPoster = getMediaUrl(data?.poster) || getMediaUrl(data?.image) || '/hero/lucia-hero.jpg'
 
+  useEffect(() => {
+    setVideoReady(false)
+  }, [heroVideo, heroPoster])
+
   return (
     <section className={s.hero} id="hero" ref={heroRef}>
       {/* Hero background */}
       <div className={s.videoBg}>
-        {heroVideo ? (
+        <motion.img
+          src={heroPoster}
+          alt=""
+          className={s.videoBgMedia}
+          style={{ y: bgY, opacity: heroVideo && videoReady ? 0 : 1 }}
+        />
+
+        {heroVideo && (
           <motion.video
             key={`${heroVideo}-${heroPoster || 'no-poster'}`}
             src={heroVideo}
             poster={heroPoster || undefined}
             className={s.videoBgMedia}
-            style={{ y: bgY }}
+            style={{ y: bgY, opacity: videoReady ? 1 : 0 }}
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
+            onLoadedData={() => setVideoReady(true)}
+            onCanPlay={() => setVideoReady(true)}
           />
-        ) : (
-          <motion.img src={heroPoster} alt="" className={s.videoBgMedia} style={{ y: bgY }} />
         )}
         <div className={s.videoOverlay} />
       </div>
