@@ -1,7 +1,10 @@
 'use client'
 import { useRef } from 'react'
+import Image from 'next/image'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import s from './Cta.module.sass'
+
+const MotionImage = motion.create(Image)
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
 
@@ -33,7 +36,15 @@ export default function Cta({ data } = {}) {
       transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <div ref={sectionRef} className={s.imageWrap}>
-        <motion.img style={{ scale: imgScale, y: imgY }} src={src} alt="" className={s.image} />
+        <MotionImage
+          style={{ scale: imgScale, y: imgY }}
+          src={src}
+          alt=""
+          className={s.image}
+          width={1600}
+          height={900}
+          sizes="100vw"
+        />
       </div>
     </motion.section>
   )

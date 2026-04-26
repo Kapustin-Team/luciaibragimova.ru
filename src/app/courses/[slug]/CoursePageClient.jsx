@@ -1,5 +1,6 @@
 'use client'
 import { useState, useRef } from 'react'
+import Image from 'next/image'
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
@@ -11,6 +12,16 @@ import ReviewLightbox from '@/components/atoms/ReviewLightbox'
 import { FaBook, FaBrain, FaHeart, FaShieldAlt, FaStar, FaUsers, FaLightbulb, FaEye, FaLeaf, FaSun, FaCheck, FaExclamationTriangle, FaInfoCircle, FaClock, FaBan } from 'react-icons/fa'
 import { HiSparkles } from 'react-icons/hi'
 import s from './course.module.sass'
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+const MotionImage = motion.create(Image)
+
+function mediaUrl(media) {
+  if (!media) return null
+  const url = typeof media === 'string' ? media : media.url || media.formats?.large?.url || media.formats?.medium?.url || media.formats?.small?.url
+  if (!url) return null
+  return url.startsWith('http') || (url.startsWith('/') && !url.startsWith('/uploads')) ? url : `${STRAPI_URL}${url}`
+}
 
 const METHOD_ICON_MAP = {
   book: <FaBook size={20} />, brain: <FaBrain size={20} />, heart: <FaHeart size={20} />,
@@ -59,7 +70,8 @@ export default function CoursePageClient({ course }) {
   const dirTitle = c.direction?.title || SLUG_TO_DIR[c.slug] || ''
   const [reviewLightbox, setReviewLightbox] = useState(null)
   const mediaReviews = (c.reviews || []).filter(r => r.screenshot || r.video)
-  const imgSrc = c.image?.url || c.image?.formats?.large?.url || COURSE_IMAGES[c.slug] || '/interrior/img265.jpg'
+  const imgSrc = mediaUrl(c.image) || COURSE_IMAGES[c.slug] || '/interrior/img265.jpg'
+  const resultsImageUrl = mediaUrl(c.resultsImage)
 
   // Hero parallax — downward shift as user scrolls past (K007: ref on image container)
   const heroRef = useRef(null)
@@ -156,7 +168,15 @@ export default function CoursePageClient({ course }) {
         {/* ─── Hero — full-screen photo bg ─── */}
         <section ref={heroRef} className={s.hero}>
           <div className={s.heroBg}>
-            <motion.img src={imgSrc} alt={c.title} className={s.heroBgImage} style={{ y: heroBgY }} />
+            <MotionImage
+              src={imgSrc}
+              alt={c.title}
+              className={s.heroBgImage}
+              fill
+              priority
+              sizes="100vw"
+              style={{ y: heroBgY }}
+            />
             <div className={s.heroOverlay} />
           </div>
           <div className={s.heroInner}>
@@ -233,7 +253,7 @@ export default function CoursePageClient({ course }) {
               </div>
               <div className={s.audienceGrid} data-count={c.targetAudience.length}>
                 {c.targetAudience.map((a, i) => {
-                  const imgUrl = a.image?.url || a.image?.formats?.small?.url
+                  const imgUrl = mediaUrl(a.image)
                   return (
                     <motion.div
                       key={i}
@@ -245,7 +265,15 @@ export default function CoursePageClient({ course }) {
                     >
                       {imgUrl && (
                         <div className={s.audienceImageWrap}>
-                          <img src={imgUrl} alt="" className={s.audienceImage} />
+                          <Image
+                            src={imgUrl}
+                            alt=""
+                            className={s.audienceImage}
+                            width={640}
+                            height={400}
+                            loading="lazy"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
                         </div>
                       )}
                       <div className={s.audienceContent}>
@@ -305,10 +333,19 @@ export default function CoursePageClient({ course }) {
                 <CharReveal as="h2" className={s.sectionTitle}>Что вы получите</CharReveal>
                 <p className={s.sectionSubtitle}>Конкретные результаты после прохождения программы</p>
               </div>
-              <div className={`${s.resultsLayout} ${!c.resultsImage?.url ? s.resultsLayoutCentered : ''}`}>
-                {c.resultsImage?.url && (
+              <div className={`${s.resultsLayout} ${!resultsImageUrl ? s.resultsLayoutCentered : ''}`}>
+                {resultsImageUrl && (
                   <div ref={resultsImageRef} className={s.resultsImageCol}>
-                    <motion.img src={c.resultsImage.url} alt="" className={s.resultsImage} style={{ y: resultsImgY }} />
+                    <MotionImage
+                      src={resultsImageUrl}
+                      alt=""
+                      className={s.resultsImage}
+                      width={900}
+                      height={700}
+                      loading="lazy"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      style={{ y: resultsImgY }}
+                    />
                   </div>
                 )}
                 <ul className={s.resultsList}>
@@ -531,7 +568,7 @@ export default function CoursePageClient({ course }) {
               </div>
               <div className={s.teachersGrid} data-count={c.teachers.length}>
                 {c.teachers.map((t, i) => {
-                  const src = t.photo?.url || t.photo?.formats?.small?.url
+                  const src = mediaUrl(t.photo)
                   return (
                     <motion.div
                       key={i}
@@ -543,7 +580,15 @@ export default function CoursePageClient({ course }) {
                     >
                       <div className={s.teacherPhotoWrap}>
                         {src ? (
-                          <img src={src} alt={t.name} className={s.teacherPhoto} />
+                          <Image
+                            src={src}
+                            alt={t.name}
+                            className={s.teacherPhoto}
+                            width={120}
+                            height={120}
+                            loading="lazy"
+                            sizes="120px"
+                          />
                         ) : (
                           <div className={s.teacherPhotoPlaceholder}>{t.name?.charAt(0)}</div>
                         )}

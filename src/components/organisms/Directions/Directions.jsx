@@ -1,8 +1,18 @@
 'use client'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Directions.module.sass'
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+
+function mediaUrl(media) {
+  if (!media) return null
+  const url = typeof media === 'string' ? media : media.url || media.formats?.large?.url || media.formats?.medium?.url || media.formats?.small?.url
+  if (!url) return null
+  return url.startsWith('http') || (url.startsWith('/') && !url.startsWith('/uploads')) ? url : `${STRAPI_URL}${url}`
+}
 
 const FALLBACK_DIRS = [
   { title: 'Рождение семьи', desc: 'Курсы для молодых пар, будущих мам и начинающих родителей.', count: 3, image: '/directions/dir-family.webp' },
@@ -38,7 +48,7 @@ function normalizeDirections(strapiDirections) {
     title: d.title,
     desc: d.description || d.shortDescription || '',
     count: d.coursesCount || d.courses?.length || 0,
-    image: d.image?.url || d.image?.formats?.small?.url || findLocalImage(d.title),
+    image: mediaUrl(d.image) || findLocalImage(d.title),
   }))
 }
 
@@ -70,7 +80,15 @@ export default function Directions({ data, directions: strapiDirections } = {}) 
               >
                 {d.image && (
                   <div className={s.cardImageWrap}>
-                    <img src={d.image} alt={d.title} className={s.cardImage} loading="lazy" />
+                    <Image
+                      src={d.image}
+                      alt={d.title}
+                      className={s.cardImage}
+                      width={640}
+                      height={360}
+                      loading="lazy"
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                    />
                   </div>
                 )}
                 <div className={s.cardBody}>

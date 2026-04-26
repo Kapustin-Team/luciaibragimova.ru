@@ -1,7 +1,18 @@
 'use client'
 import { useRef } from 'react'
+import Image from 'next/image'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import s from './About.module.sass'
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+const MotionImage = motion.create(Image)
+
+function mediaUrl(media) {
+  if (!media) return null
+  const url = typeof media === 'string' ? media : media.url || media.formats?.large?.url || media.formats?.medium?.url || media.formats?.small?.url
+  if (!url) return null
+  return url.startsWith('http') || (url.startsWith('/') && !url.startsWith('/uploads')) ? url : `${STRAPI_URL}${url}`
+}
 
 const DEFAULT_HIGHLIGHTS = [
   'Семейный психолог с 25-летним стажем',
@@ -16,7 +27,7 @@ export default function About({ data } = {}) {
   const title = data?.title || 'Помогаю семьям вернуть близость и доверие'
   const description = data?.description || 'Люция Ибрагимова — семейный психолог с 25-летним опытом. Руководитель центра для трудных подростков «Время первых». За более чем 10 лет работы с «безнадёжными» подростками — десятки возвращений в школу, снятий с учётов.'
   const highlights = data?.highlights?.length ? data.highlights : DEFAULT_HIGHLIGHTS
-  const imageUrl = data?.image?.url || '/lucia-new.webp'
+  const imageUrl = mediaUrl(data?.image) || '/lucia-new.webp'
 
   const imageRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: imageRef, offset: ['start end', 'end start'] })
@@ -41,7 +52,16 @@ export default function About({ data } = {}) {
           animate={inView ? { clipPath: 'inset(0 0 0 0)' } : { clipPath: 'inset(100% 0 0 0)' }}
           transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <motion.img style={{ y: imgY }} src={imageUrl} alt="Люция Ибрагимова" className={s.photo} />
+          <MotionImage
+            style={{ y: imgY }}
+            src={imageUrl}
+            alt="Люция Ибрагимова"
+            className={s.photo}
+            width={900}
+            height={900}
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
         </motion.div>
         <motion.div
           className={s.textCol}

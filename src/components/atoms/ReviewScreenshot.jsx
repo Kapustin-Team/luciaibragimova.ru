@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import s from './ReviewScreenshot.module.sass'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
@@ -43,11 +44,14 @@ export default function ReviewScreenshot({ review, index = 0, onClick }) {
             </div>
           </>
         ) : (
-          <img
+          <Image
             src={src}
             alt={`Отзыв ${review.name || ''}`}
             className={s.image}
+            width={640}
+            height={900}
             loading="lazy"
+            sizes="(max-width: 768px) 100vw, 33vw"
           />
         )}
       </div>
