@@ -34,19 +34,6 @@
   gap: 12px
   flex-wrap: wrap
   @media (max-width: 600px)
-    flex-direction: column
-    align-items: flex-start
-    gap: 8px
-
-.directionRow
-  @media (max-width: 600px)
-    flex-direction: row
-    align-items: center
-    flex-wrap: nowrap
-    gap: 8px
-
-.formatRow
-  @media (max-width: 600px)
     display: none
 
 .filterLabel
@@ -54,109 +41,92 @@
   font-weight: 600
   color: var(--text-muted)
   min-width: 100px
-  @media (max-width: 600px)
-    min-width: 0
-
-.directionRow .filterLabel
-  @media (max-width: 600px)
-    display: none
 
 .filters
   display: flex
   gap: 8px
   flex-wrap: wrap
-  @media (max-width: 600px)
-    flex-wrap: nowrap
-    overflow-x: auto
-    -webkit-overflow-scrolling: touch
-    flex: 1
-    min-width: 0
-    padding-bottom: 4px
-    margin-left: -20px
-    padding-left: 20px
-    padding-right: 8px
-    scrollbar-width: none
-    &::-webkit-scrollbar
-      display: none
 
-.formatPicker
-  position: relative
+.mobileDirection
   display: none
   @media (max-width: 600px)
-    display: block
-    flex-shrink: 0
+    display: flex
+    flex-direction: column
+    gap: 6px
 
-.formatIconBtn
-  display: flex
-  align-items: center
-  gap: 6px
-  height: 38px
-  padding: 0 12px
-  border-radius: 100px
-  border: 1.5px solid var(--border-medium)
-  background: transparent
-  color: var(--text-muted)
+.mobileSelectLabel
   font-size: 13px
   font-weight: 600
+  color: var(--text-muted)
+
+.mobileSelectWrap
+  position: relative
+  width: 100%
+
+.mobileSelect
+  appearance: none
+  -webkit-appearance: none
+  -moz-appearance: none
+  width: 100%
+  padding: 14px 44px 14px 16px
+  border-radius: 12px
+  border: 1.5px solid var(--border-medium)
+  background: #FFFFFF
+  color: var(--text-dark)
+  font-size: 15px
+  font-weight: 500
+  font-family: inherit
   cursor: pointer
   transition: var(--transition-fast)
-  &:hover
+  &:focus
+    outline: none
     border-color: #744C32
-    color: #25140C
 
-.formatIconBtnActive
-  background: #744C32
-  border-color: #744C32
-  color: #FFFFFF
-  &:hover
-    color: #FFFFFF
-
-.formatBadge
-  font-size: 12px
-  font-weight: 600
-  white-space: nowrap
-
-.formatSheet
+.mobileSelectChevron
   position: absolute
-  top: calc(100% + 8px)
-  right: 0
-  z-index: 20
-  min-width: 200px
-  padding: 12px
-  background: #FFFFFF
-  border: 1px solid var(--border-medium)
-  border-radius: 12px
-  box-shadow: 0 8px 24px rgba(37, 20, 12, 0.12)
-
-.formatSheetTitle
-  font-size: 12px
-  font-weight: 600
-  text-transform: uppercase
-  letter-spacing: 0.04em
+  right: 16px
+  top: 50%
+  transform: translateY(-50%)
   color: var(--text-muted)
-  margin-bottom: 10px
+  pointer-events: none
 
-.formatSheetList
-  display: flex
-  flex-direction: column
-  gap: 4px
+.mobileFormat
+  display: none
+  @media (max-width: 600px)
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: 12px
 
-.formatSheetBtn
-  text-align: left
-  padding: 10px 12px
-  border-radius: 8px
+.mobileFormatLabel
+  font-size: 13px
+  font-weight: 600
+  color: var(--text-muted)
+
+.formatToggle
+  display: inline-flex
+  padding: 3px
+  background: rgba(37, 20, 12, 0.06)
+  border-radius: 100px
+  position: relative
+
+.toggleOption
   border: none
   background: transparent
-  color: var(--text-dark)
+  padding: 8px 18px
+  border-radius: 100px
   font-size: 14px
-  font-weight: 500
+  font-weight: 600
+  font-family: inherit
+  color: var(--text-muted)
   cursor: pointer
   transition: var(--transition-fast)
-  &:hover
-    background: rgba(116, 76, 50, 0.08)
-  &.active
-    background: #744C32
-    color: #FFFFFF
+  white-space: nowrap
+
+.toggleActive
+  background: #744C32
+  color: #FFFFFF
+  box-shadow: 0 1px 3px rgba(37, 20, 12, 0.15)
 
 .filterBtn
   padding: 8px 20px
@@ -172,8 +142,6 @@
   &:hover
     border-color: #744C32
     color: #25140C
-  @media (max-width: 600px)
-    flex-shrink: 0
 
 .active
   background: #744C32

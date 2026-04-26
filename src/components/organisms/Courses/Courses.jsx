@@ -86,7 +86,6 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
 
   const [dirFilter, setDirFilter] = useState(initialDirection || 'Все')
   const [formatFilter, setFormatFilter] = useState(initialFormat || 'Все')
-  const [formatSheetOpen, setFormatSheetOpen] = useState(false)
 
   useEffect(() => {
     function handleFilter(e) {
@@ -97,22 +96,22 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
     return () => window.removeEventListener('filter-courses', handleFilter)
   }, [])
 
+  // On mobile, default the format toggle to "Онлайн" (no "Все" option there)
   useEffect(() => {
-    if (!formatSheetOpen) return
-    function handleClickOutside(e) {
-      if (!e.target.closest(`.${s.formatPicker}`)) setFormatSheetOpen(false)
+    if (typeof window === 'undefined') return
+    const mq = window.matchMedia('(max-width: 600px)')
+    if (mq.matches && (formatFilter === 'Все' || formatFilter === 'Гибрид')) {
+      setFormatFilter('Онлайн')
     }
-    document.addEventListener('mousedown', handleClickOutside)
-    document.addEventListener('touchstart', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-      document.removeEventListener('touchstart', handleClickOutside)
-    }
-  }, [formatSheetOpen])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const filtered = coursesList.filter(c => {
     const dirMatch = dirFilter === 'Все' || c.dir === dirFilter
-    const formatMatch = formatFilter === 'Все' || c.format === formatFilter
+    const formatMatch =
+      formatFilter === 'Все' ||
+      c.format === formatFilter ||
+      (c.format === 'Гибрид' && (formatFilter === 'Онлайн' || formatFilter === 'Офлайн'))
     return dirMatch && formatMatch
   })
 
@@ -143,45 +142,6 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
                 </button>
               ))}
             </div>
-            <div className={s.formatPicker}>
-              <button
-                type="button"
-                className={`${s.formatIconBtn} ${formatFilter !== 'Все' ? s.formatIconBtnActive : ''}`}
-                aria-label="Формат"
-                aria-expanded={formatSheetOpen}
-                onClick={() => setFormatSheetOpen(v => !v)}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 6h12M4 12h8M4 18h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <circle cx="19" cy="6" r="2.5" stroke="currentColor" strokeWidth="2"/>
-                  <circle cx="15" cy="12" r="2.5" stroke="currentColor" strokeWidth="2"/>
-                  <circle cx="13" cy="18" r="2.5" stroke="currentColor" strokeWidth="2"/>
-                </svg>
-                {formatFilter !== 'Все' && <span className={s.formatBadge}>{formatFilter}</span>}
-              </button>
-              {formatSheetOpen && (
-                <div className={s.formatSheet} role="menu">
-                  <div className={s.formatSheetTitle}>Формат</div>
-                  <div className={s.formatSheetList}>
-                    {FORMAT_NAMES.map(f => (
-                      <button
-                        key={f}
-                        type="button"
-                        role="menuitemradio"
-                        aria-checked={formatFilter === f}
-                        className={`${s.formatSheetBtn} ${formatFilter === f ? s.active : ''}`}
-                        onClick={() => {
-                          setFormatFilter(f)
-                          setFormatSheetOpen(false)
-                        }}
-                      >
-                        {f}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
           </div>
           <div className={`${s.filterRow} ${s.formatRow}`}>
             <span className={s.filterLabel}>Формат:</span>
@@ -195,6 +155,47 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
                   {f}
                 </button>
               ))}
+            </div>
+          </div>
+
+          <div className={s.mobileDirection}>
+            <label className={s.mobileSelectLabel} htmlFor="mobile-direction-select">Направление</label>
+            <div className={s.mobileSelectWrap}>
+              <select
+                id="mobile-direction-select"
+                className={s.mobileSelect}
+                value={dirFilter}
+                onChange={(e) => setDirFilter(e.target.value)}
+              >
+                {DIRECTION_NAMES.map(d => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+              <svg className={s.mobileSelectChevron} width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <div className={s.mobileFormat}>
+            <span className={s.mobileFormatLabel}>Формат</span>
+            <div className={s.formatToggle} role="group" aria-label="Формат">
+              <button
+                type="button"
+                className={`${s.toggleOption} ${formatFilter === 'Онлайн' ? s.toggleActive : ''}`}
+                aria-pressed={formatFilter === 'Онлайн'}
+                onClick={() => setFormatFilter('Онлайн')}
+              >
+                Онлайн
+              </button>
+              <button
+                type="button"
+                className={`${s.toggleOption} ${formatFilter === 'Офлайн' ? s.toggleActive : ''}`}
+                aria-pressed={formatFilter === 'Офлайн'}
+                onClick={() => setFormatFilter('Офлайн')}
+              >
+                Офлайн
+              </button>
             </div>
           </div>
         </div>
