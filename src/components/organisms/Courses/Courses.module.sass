@@ -64,11 +64,12 @@
   width: 100%
 
 .mobileSelect
-  appearance: none
-  -webkit-appearance: none
-  -moz-appearance: none
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 8px
   width: 100%
-  padding: 12px 44px 12px 20px
+  padding: 12px 20px
   border-radius: 100px
   border: none
   background: rgba(37, 20, 12, 0.06)
@@ -76,20 +77,69 @@
   font-size: 14px
   font-weight: 600
   font-family: inherit
+  text-align: left
   cursor: pointer
   transition: var(--transition-fast)
-  &:focus
+  &:focus-visible
     outline: none
     background: rgba(37, 20, 12, 0.09)
 
+.mobileSelectOpen
+  background: rgba(37, 20, 12, 0.09)
+
+.mobileSelectValue
+  flex: 1
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
 .mobileSelectChevron
-  position: absolute
-  right: 18px
-  top: 50%
-  transform: translateY(-50%)
+  flex-shrink: 0
   color: var(--text-dark)
   opacity: 0.6
-  pointer-events: none
+  transition: transform 0.2s ease
+
+.mobileSelectChevronOpen
+  transform: rotate(180deg)
+
+.mobileSelectMenu
+  position: absolute
+  top: calc(100% + 6px)
+  left: 0
+  right: 0
+  z-index: 20
+  list-style: none
+  margin: 0
+  padding: 6px
+  background: var(--bg-cream, #FBF6F0)
+  border-radius: 18px
+  box-shadow: 0 12px 32px rgba(37, 20, 12, 0.18), 0 2px 6px rgba(37, 20, 12, 0.08)
+  max-height: 60vh
+  overflow-y: auto
+
+.mobileSelectOption
+  display: block
+  width: 100%
+  padding: 12px 16px
+  border: none
+  background: transparent
+  color: var(--text-dark)
+  font-size: 14px
+  font-weight: 500
+  font-family: inherit
+  text-align: left
+  border-radius: 12px
+  cursor: pointer
+  transition: var(--transition-fast)
+  &:hover
+    background: rgba(37, 20, 12, 0.05)
+
+.mobileSelectOptionActive
+  background: #744C32
+  color: #FFFFFF
+  font-weight: 600
+  &:hover
+    background: #744C32
 
 .mobileFormat
   display: none
