@@ -229,11 +229,6 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
                   <div className={s.cardThumbPlaceholder} />
                 )}
                 <span className={s.cardOverlay} />
-                <span className={s.cardTopFormat}>{c.format}</span>
-                <div className={s.cardBottomOverlay}>
-                  <h3 className={s.cardOverlayTitle}>{c.title}</h3>
-                  {c.duration && <span className={s.cardOverlayMeta}>{c.duration}</span>}
-                </div>
                 <div className={s.cardMeta}>
                   <span className={s.format}>{c.format}</span>
                   <span className={s.dot}>·</span>
