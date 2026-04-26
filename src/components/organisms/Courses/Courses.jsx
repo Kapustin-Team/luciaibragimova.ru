@@ -86,6 +86,7 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
 
   const [dirFilter, setDirFilter] = useState(initialDirection || 'Все')
   const [formatFilter, setFormatFilter] = useState(initialFormat || 'Все')
+  const [formatSheetOpen, setFormatSheetOpen] = useState(false)
 
   useEffect(() => {
     function handleFilter(e) {
@@ -95,6 +96,19 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
     window.addEventListener('filter-courses', handleFilter)
     return () => window.removeEventListener('filter-courses', handleFilter)
   }, [])
+
+  useEffect(() => {
+    if (!formatSheetOpen) return
+    function handleClickOutside(e) {
+      if (!e.target.closest(`.${s.formatPicker}`)) setFormatSheetOpen(false)
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('touchstart', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [formatSheetOpen])
 
   const filtered = coursesList.filter(c => {
     const dirMatch = dirFilter === 'Все' || c.dir === dirFilter
@@ -116,7 +130,7 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
         </div>
 
         <div className={s.filtersWrap}>
-          <div className={s.filterRow}>
+          <div className={`${s.filterRow} ${s.directionRow}`}>
             <span className={s.filterLabel}>Направление:</span>
             <div className={s.filters}>
               {DIRECTION_NAMES.map(d => (
@@ -129,8 +143,47 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
                 </button>
               ))}
             </div>
+            <div className={s.formatPicker}>
+              <button
+                type="button"
+                className={`${s.formatIconBtn} ${formatFilter !== 'Все' ? s.formatIconBtnActive : ''}`}
+                aria-label="Формат"
+                aria-expanded={formatSheetOpen}
+                onClick={() => setFormatSheetOpen(v => !v)}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 6h12M4 12h8M4 18h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <circle cx="19" cy="6" r="2.5" stroke="currentColor" strokeWidth="2"/>
+                  <circle cx="15" cy="12" r="2.5" stroke="currentColor" strokeWidth="2"/>
+                  <circle cx="13" cy="18" r="2.5" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+                {formatFilter !== 'Все' && <span className={s.formatBadge}>{formatFilter}</span>}
+              </button>
+              {formatSheetOpen && (
+                <div className={s.formatSheet} role="menu">
+                  <div className={s.formatSheetTitle}>Формат</div>
+                  <div className={s.formatSheetList}>
+                    {FORMAT_NAMES.map(f => (
+                      <button
+                        key={f}
+                        type="button"
+                        role="menuitemradio"
+                        aria-checked={formatFilter === f}
+                        className={`${s.formatSheetBtn} ${formatFilter === f ? s.active : ''}`}
+                        onClick={() => {
+                          setFormatFilter(f)
+                          setFormatSheetOpen(false)
+                        }}
+                      >
+                        {f}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-          <div className={s.filterRow}>
+          <div className={`${s.filterRow} ${s.formatRow}`}>
             <span className={s.filterLabel}>Формат:</span>
             <div className={s.filters}>
               {FORMAT_NAMES.map(f => (
@@ -170,7 +223,7 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
                     width={720}
                     height={480}
                     loading="lazy"
-                    sizes="(max-width: 600px) 75vw, (max-width: 1024px) 50vw, 33vw"
+                    sizes="(max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (
                   <div className={s.cardThumbPlaceholder} />
