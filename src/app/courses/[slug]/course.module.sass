@@ -130,6 +130,7 @@
   gap: 0
   @media (max-width: 600px)
     grid-template-columns: 1fr
+    gap: 32px
 
 .infoCard
   border-left: 1px solid rgba(29, 29, 29, 0.1)
@@ -141,6 +142,10 @@
     border-left: none
   @media (max-width: 600px)
     border-left: none
+    padding: 0
+    gap: 10px
+    text-align: center
+    align-items: center
 
 .infoNumber
   font-family: var(--font-heading)
@@ -153,12 +158,22 @@
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
+  @media (max-width: 600px)
+    font-size: 32px
+    white-space: normal
+    overflow: visible
+    text-overflow: clip
+    line-height: 1.15
 
 .infoLabel
   font-family: var(--font-sans)
   font-size: 15px
   color: var(--text-muted)
   line-height: 1.4
+  @media (max-width: 600px)
+    font-size: 13px
+    text-transform: uppercase
+    letter-spacing: 0.08em
 
 // ─── Common sections — ALL beige, no white ────────────────────
 
