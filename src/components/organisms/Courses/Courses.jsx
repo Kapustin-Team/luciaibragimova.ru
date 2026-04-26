@@ -1,9 +1,19 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Courses.module.sass'
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+
+function mediaUrl(media) {
+  if (!media) return null
+  const url = typeof media === 'string' ? media : media.url || media.formats?.large?.url || media.formats?.medium?.url || media.formats?.small?.url
+  if (!url) return null
+  return url.startsWith('http') || (url.startsWith('/') && !url.startsWith('/uploads')) ? url : `${STRAPI_URL}${url}`
+}
 
 const gridVariants = {
   hidden: {},
@@ -65,7 +75,7 @@ function normalizeCourses(strapiCourses) {
     duration: c.duration || '',
     desc: c.shortDescription || '',
     featured: c.featured || false,
-    imageUrl: c.image?.url || c.image?.formats?.small?.url || COURSE_IMAGES[c.slug] || null,
+    imageUrl: mediaUrl(c.image) || COURSE_IMAGES[c.slug] || null,
   }))
 }
 
@@ -153,11 +163,14 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
                 className={`${s.card} ${c.featured ? s.featured : ''}`}
               >
                 {c.imageUrl ? (
-                  <img
+                  <Image
                     src={c.imageUrl}
                     alt={c.title}
                     className={s.cardThumb}
+                    width={720}
+                    height={480}
                     loading="lazy"
+                    sizes="(max-width: 600px) 75vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (
                   <div className={s.cardThumbPlaceholder} />

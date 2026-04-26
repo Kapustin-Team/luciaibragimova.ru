@@ -1,9 +1,19 @@
 'use client'
 import { useRef } from 'react'
+import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import s from './TrustBlock.module.sass'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+
+function mediaUrl(media) {
+  if (!media) return null
+  const url = typeof media === 'string' ? media : media.url || media.formats?.large?.url || media.formats?.medium?.url || media.formats?.small?.url
+  if (!url) return null
+  return url.startsWith('http') || (url.startsWith('/') && !url.startsWith('/uploads')) ? url : `${STRAPI_URL}${url}`
+}
 
 const trackVariants = {
   hidden: {},
@@ -76,7 +86,7 @@ export default function TrustBlock({ data } = {}) {
           {steps.map((step, i) => {
             const number = step.number || String(i + 1).padStart(2, '0')
             const fallbackImage = DEFAULT_STATS[i]?.image
-            const image = step.image?.url || step.image || fallbackImage || null
+            const image = mediaUrl(step.image) || fallbackImage || null
             const title = step.title || null
             const description = step.description || step.label || null
 
@@ -93,11 +103,14 @@ export default function TrustBlock({ data } = {}) {
                 </div>
                 <div className={s.imageWrap}>
                   {image && (
-                    <img
+                    <Image
                       className={s.image}
                       src={image}
                       alt={title || description || `Пункт ${number}`}
+                      width={420}
+                      height={280}
                       loading="lazy"
+                      sizes="(max-width: 768px) 100vw, 25vw"
                     />
                   )}
                 </div>

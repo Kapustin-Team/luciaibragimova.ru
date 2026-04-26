@@ -1,7 +1,10 @@
 'use client'
 import { useRef } from 'react'
+import Image from 'next/image'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import s from './FeaturedCourse.module.sass'
+
+const MotionImage = motion.create(Image)
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
 
@@ -44,7 +47,14 @@ export default function FeaturedCourse({ data, courses } = {}) {
           animate={inView ? { clipPath: 'inset(0 0 0 0)' } : { clipPath: 'inset(100% 0 0 0)' }}
           transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.6 }}
         >
-          <motion.img src={imgSrc} alt={title} className={s.image} style={{ y: imgY }} />
+          <MotionImage
+            src={imgSrc}
+            alt={title}
+            className={s.image}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{ y: imgY }}
+          />
         </motion.div>
         <motion.div
           className={s.panel}

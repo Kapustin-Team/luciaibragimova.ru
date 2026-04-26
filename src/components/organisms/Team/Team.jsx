@@ -1,9 +1,19 @@
 'use client'
 import { useRef } from 'react'
+import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Team.module.sass'
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+
+function mediaUrl(media) {
+  if (!media) return null
+  const url = typeof media === 'string' ? media : media.url || media.formats?.large?.url || media.formats?.medium?.url || media.formats?.small?.url
+  if (!url) return null
+  return url.startsWith('http') || (url.startsWith('/') && !url.startsWith('/uploads')) ? url : `${STRAPI_URL}${url}`
+}
 
 const trackVariants = {
   hidden: {},
@@ -25,7 +35,7 @@ export default function Team({ data, team: teamMembers } = {}) {
     role: m.role,
     bio: m.bio,
     specialization: m.specialization,
-    photo: m.photo?.url || m.photo?.formats?.medium?.url || m.photo?.formats?.small?.url || null,
+    photo: mediaUrl(m.photo),
   }))
 
   const trackRef = useRef(null)
@@ -56,11 +66,14 @@ export default function Team({ data, team: teamMembers } = {}) {
             >
               <div className={s.cardPhotoWrap}>
                 {member.photo ? (
-                  <img
+                  <Image
                     src={member.photo}
                     alt={member.name}
                     className={s.cardPhoto}
+                    width={420}
+                    height={520}
                     loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                   />
                 ) : (
                   <div className={s.cardPhotoPlaceholder}>

@@ -1,7 +1,10 @@
 'use client'
 import { useRef } from 'react'
+import Image from 'next/image'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import s from './PinkBanner.module.sass'
+
+const MotionImage = motion.create(Image)
 
 export default function PinkBanner({ data } = {}) {
   const title = data?.title || 'Более <span>500 семей</span> уже прошли путь к гармонии вместе с Люцией'
@@ -60,7 +63,14 @@ export default function PinkBanner({ data } = {}) {
             animate={inView ? { clipPath: 'inset(0 0 0 0)' } : { clipPath: 'inset(0 0 0 100%)' }}
             transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.4 }}
           >
-            <motion.img src="/interrior/img238.jpg" alt="" className={s.cardImage} style={{ y: imgY }} />
+            <MotionImage
+              src="/interrior/img238.jpg"
+              alt=""
+              className={s.cardImage}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              style={{ y: imgY }}
+            />
           </motion.div>
         </motion.div>
       </div>

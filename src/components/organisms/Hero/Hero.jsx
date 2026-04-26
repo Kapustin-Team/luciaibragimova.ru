@@ -1,8 +1,11 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import s from './Hero.module.sass'
+
+const MotionImage = motion.create(Image)
 
 const DEFAULT_SUBTITLES = [
   'Для родителей подростков',
@@ -91,10 +94,13 @@ export default function Hero({ data } = {}) {
     <section className={s.hero} id="hero" ref={heroRef}>
       {/* Hero background */}
       <div className={s.videoBg}>
-        <motion.img
+        <MotionImage
           src={heroPoster}
           alt=""
           className={s.videoBgMedia}
+          fill
+          priority
+          sizes="100vw"
           style={{ y: bgY, opacity: heroVideo && videoReady ? 0 : 1 }}
         />
 

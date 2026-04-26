@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
+import Image from 'next/image'
 import { FaTelegramPlane, FaVk } from 'react-icons/fa'
 
 const MaxIcon = ({ size = 20 }) => (
@@ -81,10 +82,13 @@ export default function Header({ data, hasHero } = {}) {
     >
       <div className={s.inner}>
         <a href="/" className={s.logo}>
-          <img
+          <Image
             src={isTransparent || menuOpen ? '/logo-light.svg' : '/logo-dark.svg'}
             alt={brandName}
             className={s.logoImg}
+            width={220}
+            height={44}
+            priority
           />
         </a>
 

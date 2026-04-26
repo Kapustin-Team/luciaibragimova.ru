@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import { mediaUrl, isVideo } from './ReviewScreenshot'
 import s from './ReviewLightbox.module.sass'
 
@@ -55,7 +56,14 @@ export default function ReviewLightbox({ reviews, currentIndex, onClose, onNavig
             autoPlay
           />
         ) : (
-          <img src={src} alt={`Отзыв ${review.name || ''}`} className={s.image} />
+          <Image
+            src={src}
+            alt={`Отзыв ${review.name || ''}`}
+            className={s.image}
+            width={1200}
+            height={1600}
+            sizes="100vw"
+          />
         )}
 
         {hasNext && (
