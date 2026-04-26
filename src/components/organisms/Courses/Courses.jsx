@@ -79,6 +79,66 @@ function normalizeCourses(strapiCourses) {
   }))
 }
 
+function MobileDropdown({ options, value, onChange }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if (!open) return
+    function onDocClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
+    function onKey(e) {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('mousedown', onDocClick)
+    document.addEventListener('touchstart', onDocClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDocClick)
+      document.removeEventListener('touchstart', onDocClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  return (
+    <div className={s.mobileSelectWrap} ref={ref}>
+      <button
+        type="button"
+        className={`${s.mobileSelect} ${open ? s.mobileSelectOpen : ''}`}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen(o => !o)}
+      >
+        <span className={s.mobileSelectValue}>{value}</span>
+        <svg
+          className={`${s.mobileSelectChevron} ${open ? s.mobileSelectChevronOpen : ''}`}
+          width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+        >
+          <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+      {open && (
+        <ul className={s.mobileSelectMenu} role="listbox">
+          {options.map(opt => (
+            <li key={opt}>
+              <button
+                type="button"
+                role="option"
+                aria-selected={opt === value}
+                className={`${s.mobileSelectOption} ${opt === value ? s.mobileSelectOptionActive : ''}`}
+                onClick={() => { onChange(opt); setOpen(false) }}
+              >
+                {opt}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
 export default function Courses({ data, courses: strapiCourses, initialDirection, initialFormat } = {}) {
   const title = data?.title || 'Все курсы и тренинги'
   const subtitle = data?.subtitle || 'Выберите формат, который подходит именно вам'
@@ -159,22 +219,12 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
           </div>
 
           <div className={s.mobileDirection}>
-            <label className={s.mobileSelectLabel} htmlFor="mobile-direction-select">Направление</label>
-            <div className={s.mobileSelectWrap}>
-              <select
-                id="mobile-direction-select"
-                className={s.mobileSelect}
-                value={dirFilter}
-                onChange={(e) => setDirFilter(e.target.value)}
-              >
-                {DIRECTION_NAMES.map(d => (
-                  <option key={d} value={d}>{d}</option>
-                ))}
-              </select>
-              <svg className={s.mobileSelectChevron} width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
+            <span className={s.mobileSelectLabel}>Направление</span>
+            <MobileDropdown
+              options={DIRECTION_NAMES}
+              value={dirFilter}
+              onChange={setDirFilter}
+            />
           </div>
 
           <div className={s.mobileFormat}>
