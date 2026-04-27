@@ -79,9 +79,10 @@ function normalizeCourses(strapiCourses) {
   }))
 }
 
-function MobileDropdown({ options, value, onChange }) {
+function MobileDropdown({ options, value, onChange, getLabel }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
+  const labelOf = getLabel || (v => v)
 
   useEffect(() => {
     if (!open) return
@@ -110,7 +111,7 @@ function MobileDropdown({ options, value, onChange }) {
         aria-expanded={open}
         onClick={() => setOpen(o => !o)}
       >
-        <span className={s.mobileSelectValue}>{value}</span>
+        <span className={s.mobileSelectValue}>{labelOf(value)}</span>
         <svg
           className={`${s.mobileSelectChevron} ${open ? s.mobileSelectChevronOpen : ''}`}
           width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"
@@ -129,7 +130,7 @@ function MobileDropdown({ options, value, onChange }) {
                 className={`${s.mobileSelectOption} ${opt === value ? s.mobileSelectOptionActive : ''}`}
                 onClick={() => { onChange(opt); setOpen(false) }}
               >
-                {opt}
+                {labelOf(opt)}
               </button>
             </li>
           ))}
@@ -218,17 +219,13 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
             </div>
           </div>
 
-          <div className={s.mobileDirection}>
-            <span className={s.mobileSelectLabel}>Направление</span>
+          <div className={s.mobileFiltersRow}>
             <MobileDropdown
               options={DIRECTION_NAMES}
               value={dirFilter}
               onChange={setDirFilter}
+              getLabel={d => d === 'Все' ? 'Все направления' : d}
             />
-          </div>
-
-          <div className={s.mobileFormat}>
-            <span className={s.mobileFormatLabel}>Формат</span>
             <div className={s.formatToggle} role="group" aria-label="Формат">
               <button
                 type="button"
