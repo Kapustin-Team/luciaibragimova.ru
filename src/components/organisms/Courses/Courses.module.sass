@@ -59,6 +59,9 @@
       min-width: 0
     > :last-child
       flex: 0 0 auto
+      min-height: 44px
+      box-sizing: border-box
+      align-items: center
 
 .mobileSelectWrap
   position: relative
@@ -70,7 +73,9 @@
   justify-content: space-between
   gap: 8px
   width: 100%
+  min-height: 44px
   padding: 10px 16px
+  box-sizing: border-box
   border-radius: 100px
   border: none
   background: rgba(37, 20, 12, 0.06)
@@ -206,8 +211,8 @@
     gap: 16px
     padding-bottom: 12px
     margin: 0 -20px
-    padding-left: 20px
-    padding-right: 20px
+    padding-left: 32px
+    padding-right: 32px
     scrollbar-width: none
     > *
       min-width: 78vw
@@ -281,7 +286,7 @@
   letter-spacing: 0.01em
   color: var(--text-muted)
   @media (max-width: 600px)
-    margin-bottom: 6px
+    margin-bottom: 10px
     font-size: 12px
 
 .format
@@ -305,7 +310,7 @@
   margin-bottom: 12px
   @media (max-width: 600px)
     font-size: 22px
-    margin-bottom: 6px
+    margin-bottom: 10px
 
 .cardDir
   font-size: 13px
@@ -320,8 +325,8 @@
   margin-bottom: 12px
   @media (max-width: 600px)
     font-size: 13px
-    line-height: 1.5
-    margin-bottom: 8px
+    line-height: 1.35
+    margin-bottom: 12px
 
 .cardActions
   display: flex
