@@ -195,6 +195,13 @@
     color: #FFFFFF
     border-color: #744C32
 
+.carouselViewport
+  width: 100%
+  @media (max-width: 600px)
+    overflow: visible
+    margin: 0 -20px
+    padding: 0 32px
+
 .grid
   display: grid
   grid-template-columns: repeat(3, 1fr)
@@ -205,23 +212,11 @@
   @media (max-width: 600px)
     display: flex
     grid-template-columns: none
-    overflow-x: auto
-    scroll-snap-type: x mandatory
-    scroll-padding-left: 32px
-    -webkit-overflow-scrolling: touch
     gap: 16px
-    padding-bottom: 12px
-    margin: 0 -20px
-    padding-left: 32px
-    padding-right: 32px
-    scrollbar-width: none
+    touch-action: pan-y pinch-zoom
     > *
-      min-width: 78vw
-      max-width: 78vw
-      scroll-snap-align: start
-      flex-shrink: 0
-    &::-webkit-scrollbar
-      display: none
+      flex: 0 0 78vw
+      min-width: 0
 
 .card
   display: flex
