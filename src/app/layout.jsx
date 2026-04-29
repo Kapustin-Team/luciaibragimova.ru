@@ -1,5 +1,21 @@
 import './globals.css'
+import { Bona_Nova, Onest } from 'next/font/google'
 import DevTools from '@/components/DevTools'
+
+const onest = Onest({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-sans',
+  display: 'swap',
+})
+
+const bonaNova = Bona_Nova({
+  subsets: ['latin', 'cyrillic'],
+  weight: '400',
+  style: 'italic',
+  variable: '--font-heading',
+  display: 'swap',
+})
 
 export const metadata = {
   title: 'Студия Люции Ибрагимовой',
@@ -18,7 +34,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ru">
+    <html lang="ru" className={`${onest.variable} ${bonaNova.variable}`}>
       <body>
         {children}
         <DevTools />

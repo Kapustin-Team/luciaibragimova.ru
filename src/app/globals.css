@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&family=Bona+Nova:ital,wght@1,400&subset=cyrillic&display=swap');
-
 * {
   margin: 0;
   padding: 0;
@@ -201,6 +199,9 @@ h1, h2 {
   text-transform: none;
   letter-spacing: -1px;
   line-height: 1.08;
+  overflow: visible;
+  padding-inline: 0.08em;
+  margin-inline: -0.08em;
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
