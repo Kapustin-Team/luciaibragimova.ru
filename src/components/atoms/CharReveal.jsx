@@ -48,7 +48,17 @@ export default function CharReveal({ as: Tag = 'h2', className, delay = 0, child
           }
           // Word tokens → animated inline-block unit
           return (
-            <span key={i} style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'top', paddingBottom: '0.15em' }}>
+            <span
+              key={i}
+              style={{
+                display: 'inline-block',
+                overflow: 'hidden',
+                verticalAlign: 'top',
+                paddingInline: '0.12em',
+                paddingBottom: '0.15em',
+                marginInline: '-0.12em',
+              }}
+            >
               <motion.span style={{ display: 'inline-block' }} variants={wordVariants}>
                 {token}
               </motion.span>
