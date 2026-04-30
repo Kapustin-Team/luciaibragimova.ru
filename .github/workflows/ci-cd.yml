@@ -79,7 +79,6 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
-    - name: Deploy to Coolify
+    - name: Deployment note
       run: |
-        curl -X GET "https://app.coolify.io/api/v1/deploy?uuid=b4skwg8gw8wowwoo8gko0g44&force=true" \
-          -H "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}"
+        echo "Image pushed to GHCR. Production deploy is performed on 95.163.227.107 by pulling the prebuilt image; no server-side builds."
