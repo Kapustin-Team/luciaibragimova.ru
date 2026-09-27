@@ -7,6 +7,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+concurrency:
+  group: lucia-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -37,7 +41,7 @@ jobs:
   build-and-push:
     needs: lint-and-build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
 
     permissions:
       contents: read
@@ -64,7 +68,7 @@ jobs:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         tags: |
           type=ref,event=branch
-          type=sha,prefix={{branch}}-
+          type=sha,prefix={{branch}}-,format=long
           type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
     - name: Build and push Docker image
@@ -74,11 +78,18 @@ jobs:
         file: ./Dockerfile
         push: true
         platforms: linux/amd64
+        build-args: |
+          NEXT_PUBLIC_STRAPI_URL=https://admin.lucia.school
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
-    - name: Deployment note
-      run: |
-        echo "Image pushed to GHCR. Production deploy is performed on 95.163.227.107 by pulling the prebuilt image; no server-side builds."
+    - name: Deploy to client Coolify
+      timeout-minutes: 15
+      env:
+        COOLIFY_WEBHOOK: ${{ vars.LUCIA_COOLIFY_WEBHOOK }}
+        COOLIFY_APP_UUID: ${{ vars.LUCIA_COOLIFY_APP_UUID }}
+        COOLIFY_TOKEN: ${{ secrets.LUCIA_COOLIFY_TOKEN }}
+        HEALTH_URL: https://lucia.school/
+      run: bash .github/scripts/deploy-coolify.sh
