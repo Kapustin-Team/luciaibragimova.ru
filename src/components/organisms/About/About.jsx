@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import s from './About.module.sass'
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://admin.lucia.school'
 const MotionImage = motion.create(Image)
 
 function mediaUrl(media) {

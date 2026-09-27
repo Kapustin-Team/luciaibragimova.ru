@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import s from './ReviewScreenshot.module.sass'
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://admin.lucia.school'
 
 function mediaUrl(media) {
   if (!media) return null

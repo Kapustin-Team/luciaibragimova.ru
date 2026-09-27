@@ -6,7 +6,7 @@ import s from './TrustBlock.module.sass'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://admin.lucia.school'
 
 function mediaUrl(media) {
   if (!media) return null

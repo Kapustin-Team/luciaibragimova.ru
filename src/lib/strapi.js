@@ -1,4 +1,4 @@
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+const STRAPI_URL = process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI_URL || 'https://admin.lucia.school'
 
 async function fetchStrapi(path, params = {}) {
   const url = new URL(`/api${path}`, STRAPI_URL)

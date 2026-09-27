@@ -13,7 +13,7 @@ import { FaBook, FaBrain, FaHeart, FaShieldAlt, FaStar, FaUsers, FaLightbulb, Fa
 import { HiSparkles } from 'react-icons/hi'
 import s from './course.module.sass'
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://admin.lucia.school'
 const MotionImage = motion.create(Image)
 
 function mediaUrl(media) {

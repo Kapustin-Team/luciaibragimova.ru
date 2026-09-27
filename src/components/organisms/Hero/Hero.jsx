@@ -24,7 +24,7 @@ function getMediaUrl(media) {
 
   const baseUrl = media.url.startsWith('http')
     ? media.url
-    : `${process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'}${media.url}`
+    : `${process.env.NEXT_PUBLIC_STRAPI_URL || 'https://admin.lucia.school'}${media.url}`
 
   const version = media.updatedAt || media.hash || media.id
   if (!version) return baseUrl

@@ -20,7 +20,7 @@ import Team from '@/components/organisms/Team/Team'
 import Footer from '@/components/organisms/Footer/Footer'
 import ChatWidget from '@/components/organisms/ChatWidget/ChatWidget'
 
-const STRAPI_PUBLIC_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://luciastrapi.kpstn.ru'
+const STRAPI_PUBLIC_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://admin.lucia.school'
 
 async function fetchPublic(path) {
   const res = await fetch(`${STRAPI_PUBLIC_URL}/api/${path}`, { cache: 'no-store' })
