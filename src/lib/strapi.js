@@ -105,4 +105,26 @@ export async function getTeamMembers() {
   })
 }
 
+export async function getSiteSettings() {
+  return fetchStrapi('/site-setting')
+}
+
+export async function getLegalDocuments() {
+  return fetchStrapi('/legal-documents', {
+    'fields[0]': 'title',
+    'fields[1]': 'slug',
+    'fields[2]': 'showInFooter',
+    'fields[3]': 'order',
+    'sort': 'order:asc',
+  })
+}
+
+export async function getLegalDocument(slug) {
+  const data = await fetchStrapi('/legal-documents', {
+    'filters[slug][$eq]': slug,
+    'populate[0]': 'file',
+  })
+  return data?.[0] || null
+}
+
 export { STRAPI_URL }

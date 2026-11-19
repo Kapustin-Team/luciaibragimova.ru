@@ -1,4 +1,7 @@
 import './globals.css'
+import { getSiteSettings, getLegalDocuments } from '@/lib/strapi'
+import { SiteSettingsProvider } from '@/components/SiteSettings/SiteSettings'
+import CookieBanner from '@/components/organisms/CookieBanner/CookieBanner'
 
 export const metadata = {
   title: 'Студия Люции Ибрагимовой',
@@ -15,11 +18,19 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const [siteSettings, legalDocuments] = await Promise.all([
+    getSiteSettings(),
+    getLegalDocuments(),
+  ])
+
   return (
     <html lang="ru">
       <body>
-        {children}
+        <SiteSettingsProvider initialSettings={siteSettings} initialLegalDocuments={legalDocuments}>
+          {children}
+          <CookieBanner />
+        </SiteSettingsProvider>
       </body>
     </html>
   )

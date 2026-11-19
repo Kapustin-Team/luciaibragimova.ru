@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import CharReveal from '@/components/atoms/CharReveal'
 import s from './Hero.module.sass'
+import { useSiteSettings } from '@/components/SiteSettings/SiteSettings'
 
 const MotionImage = motion.create(Image)
 
@@ -49,13 +50,18 @@ export default function Hero({ data } = {}) {
     : null
   const subtitles = strapiSubtitles || DEFAULT_SUBTITLES
 
-  // Buttons from Strapi ctaPrimary/ctaSecondary or defaults
+  // Buttons from Strapi ctaPrimary/ctaSecondary or defaults.
+  // Second button is shown only when enabled in «Настройки сайта».
+  const settings = useSiteSettings()
   const buttons = data?.ctaPrimary
     ? [
         { label: data.ctaPrimary, href: data.ctaPrimaryLink || '#', variant: 'primary' },
         ...(data.ctaSecondary ? [{ label: data.ctaSecondary, href: data.ctaSecondaryLink || '#', variant: 'filled' }] : []),
       ]
     : DEFAULT_BUTTONS
+  const visibleButtons = settings.showHeroSecondaryButton
+    ? buttons
+    : buttons.filter((b) => b.variant === 'primary')
 
   // Subtitle rotation
   const [subtitleIdx, setSubtitleIdx] = useState(0)
@@ -151,7 +157,7 @@ export default function Hero({ data } = {}) {
 
         {/* Buttons */}
         <div className={s.buttons}>
-          {buttons.map((btn, i) => (
+          {visibleButtons.map((btn, i) => (
             <a
               key={i}
               href={btn.href || '#'}

@@ -1,0 +1,54 @@
+// Shared by server and client components (no 'use client' here).
+
+// Used until Strapi answers (and if it is unavailable).
+// show* flags default to false: hidden elements stay hidden until enabled in Strapi.
+export const DEFAULT_SITE_SETTINGS = {
+  showHeroSecondaryButton: false,
+  showNavConsultations: false,
+  showNavReviews: false,
+  showFeaturedCourse: false,
+  showConsultationsButton: false,
+  showContactForm: false,
+  showFooterAboutLinks: false,
+  showFooterSubscribe: false,
+  showChatPhone: false,
+  showCookieBanner: true,
+  telegramUrl: 'https://t.me/ibragimovapsy',
+  maxUrl: 'https://max.me/ibragimovapsy',
+  vkUrl: 'https://vk.ru/studia_lucii',
+  youtubeUrl: '',
+  phone: '',
+  legalName: 'ИП Ибрагимова Люция Равилевна',
+  inn: '166007578586',
+  ogrn: '325169000050755',
+  legalAddress: '420140, Россия, Татарстан респ., город Казань г.о., г. Казань, ул. Зарничная, д. 10',
+  legalEmail: 'info@luciaibragimova.ru',
+  cookieBannerText:
+    'Мы используем cookie-файлы, чтобы сайт работал корректно. Оставаясь на сайте, вы соглашаетесь с их использованием.',
+}
+
+export const DEFAULT_LEGAL_DOCUMENTS = [
+  { slug: 'terms', title: 'Публичная оферта', showInFooter: true, order: 1 },
+  { slug: 'privacy', title: 'Политика конфиденциальности', showInFooter: true, order: 2 },
+  { slug: 'consent', title: 'Согласие на обработку персональных данных', showInFooter: true, order: 3 },
+  { slug: 'cookies', title: 'Политика использования cookie-файлов', showInFooter: true, order: 4 },
+]
+
+// Short footer labels for the standard documents.
+const FOOTER_LABELS = {
+  terms: 'Оферта',
+  privacy: 'Политика конфиденциальности',
+  consent: 'Согласие на обработку персональных данных',
+  cookies: 'Политика использования cookie-файлов',
+}
+
+// Documents with their own short URL; any other slug lives under /documents/.
+const SHORT_ROUTES = new Set(['terms', 'privacy', 'consent', 'cookies'])
+
+export function legalDocumentHref(slug) {
+  return SHORT_ROUTES.has(slug) ? `/${slug}` : `/documents/${slug}`
+}
+
+export function legalDocumentLabel(doc) {
+  return FOOTER_LABELS[doc.slug] || doc.title
+}

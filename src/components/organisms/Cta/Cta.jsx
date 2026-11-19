@@ -16,7 +16,7 @@ function imageUrl(media) {
 }
 
 export default function Cta({ data } = {}) {
-  const src = imageUrl(data?.image) || '/interrior/img285.jpg'
+  const src = imageUrl(data?.image) || '/interrior/studio-room-birds.jpg'
 
   const sectionRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
