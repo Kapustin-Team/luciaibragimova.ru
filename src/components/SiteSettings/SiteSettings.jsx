@@ -38,10 +38,10 @@ async function fetchPublic(path) {
 
 export function SiteSettingsProvider({ initialSettings, initialLegalDocuments, children }) {
   const [rawSettings, setRawSettings] = useState(initialSettings || null)
+  // Empty array = Strapi answered, all documents unpublished → no footer links.
+  // null = Strapi unavailable → fall back to the standard document list.
   const [legalDocuments, setLegalDocuments] = useState(
-    Array.isArray(initialLegalDocuments) && initialLegalDocuments.length > 0
-      ? initialLegalDocuments
-      : null
+    Array.isArray(initialLegalDocuments) ? initialLegalDocuments : null
   )
 
   // Server-side fetch can fail (internal network); retry from the browser.
@@ -58,7 +58,7 @@ export function SiteSettingsProvider({ initialSettings, initialLegalDocuments, c
         ])
         if (cancelled) return
         if (settingsData) setRawSettings(settingsData)
-        if (Array.isArray(docsData) && docsData.length > 0) setLegalDocuments(docsData)
+        if (Array.isArray(docsData)) setLegalDocuments(docsData)
       } catch (error) {
         console.error('Site settings fetch failed', error)
       }

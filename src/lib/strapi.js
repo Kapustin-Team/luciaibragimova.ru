@@ -119,12 +119,14 @@ export async function getLegalDocuments() {
   })
 }
 
+// Returns { doc, available }: available=false means Strapi did not answer,
+// doc=null with available=true means the document is unpublished or absent.
 export async function getLegalDocument(slug) {
   const data = await fetchStrapi('/legal-documents', {
     'filters[slug][$eq]': slug,
     'populate[0]': 'file',
   })
-  return data?.[0] || null
+  return { doc: data?.[0] || null, available: Array.isArray(data) }
 }
 
 export { STRAPI_URL }

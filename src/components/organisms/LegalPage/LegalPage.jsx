@@ -20,14 +20,16 @@ function fallbackTitle(slug) {
 }
 
 export async function legalPageMetadata(slug) {
-  const doc = await getLegalDocument(slug)
+  const { doc } = await getLegalDocument(slug)
   return { title: `${doc?.title || fallbackTitle(slug)} — ${SITE_NAME}` }
 }
 
 export default async function LegalPage({ slug }) {
-  const doc = await getLegalDocument(slug)
+  const { doc, available } = await getLegalDocument(slug)
   const isStandardDocument = DEFAULT_LEGAL_DOCUMENTS.some((d) => d.slug === slug)
-  if (!doc && !isStandardDocument) notFound()
+  // Unpublished (draft) document → 404. If Strapi is down, standard documents
+  // show a placeholder instead of an error.
+  if (!doc && (available || !isStandardDocument)) notFound()
 
   const title = doc?.title || fallbackTitle(slug)
   const pdf = fileUrl(doc?.file)

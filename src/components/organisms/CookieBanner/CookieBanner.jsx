@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useSiteSettings } from '@/components/SiteSettings/SiteSettings'
+import { useSiteSettings, useLegalDocuments } from '@/components/SiteSettings/SiteSettings'
 import s from './CookieBanner.module.sass'
 
 const STORAGE_KEY = 'lucia_cookie_consent'
 
 export default function CookieBanner() {
   const settings = useSiteSettings()
+  const hasCookiePolicy = useLegalDocuments().some((doc) => doc.slug === 'cookies')
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function CookieBanner() {
         >
           <p className={s.text}>
             {settings.cookieBannerText}{' '}
-            <a href="/cookies" className={s.link}>Подробнее</a>
+            {hasCookiePolicy && <a href="/cookies" className={s.link}>Подробнее</a>}
           </p>
           <button type="button" className={s.button} onClick={accept}>
             Принять
