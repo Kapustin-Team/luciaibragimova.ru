@@ -105,4 +105,28 @@ export async function getTeamMembers() {
   })
 }
 
+export async function getSiteSettings() {
+  return fetchStrapi('/site-setting')
+}
+
+export async function getLegalDocuments() {
+  return fetchStrapi('/legal-documents', {
+    'fields[0]': 'title',
+    'fields[1]': 'slug',
+    'fields[2]': 'showInFooter',
+    'fields[3]': 'order',
+    'sort': 'order:asc',
+  })
+}
+
+// Returns { doc, available }: available=false means Strapi did not answer,
+// doc=null with available=true means the document is unpublished or absent.
+export async function getLegalDocument(slug) {
+  const data = await fetchStrapi('/legal-documents', {
+    'filters[slug][$eq]': slug,
+    'populate[0]': 'file',
+  })
+  return { doc: data?.[0] || null, available: Array.isArray(data) }
+}
+
 export { STRAPI_URL }

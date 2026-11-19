@@ -19,6 +19,7 @@ import ContactBlock from '@/components/organisms/ContactBlock/ContactBlock'
 import Team from '@/components/organisms/Team/Team'
 import Footer from '@/components/organisms/Footer/Footer'
 import ChatWidget from '@/components/organisms/ChatWidget/ChatWidget'
+import { useSiteSettings } from '@/components/SiteSettings/SiteSettings'
 
 const STRAPI_PUBLIC_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://admin.lucia.school'
 
@@ -35,6 +36,12 @@ const HIDDEN_BLOCK_TYPES = new Set([
   'blocks.directions',
   'blocks.reviews-section',
 ])
+
+// Blocks shown only when the flag is enabled in Strapi «Настройки сайта»
+const BLOCK_VISIBILITY_SETTING = {
+  'blocks.featured-course': 'showFeaturedCourse',
+  'blocks.contact-section': 'showContactForm',
+}
 
 const BLOCK_MAP = {
   'blocks.top-banner': TopBanner,
@@ -55,6 +62,11 @@ const BLOCK_MAP = {
 }
 
 export default function ClientHome({ homepage, directions, courses, faqs, reviews, team, consultationTypes }) {
+  const settings = useSiteSettings()
+  const isBlockEnabled = (type) => {
+    const setting = BLOCK_VISIBILITY_SETTING[type]
+    return !setting || Boolean(settings[setting])
+  }
   const [homepageState, setHomepageState] = useState(homepage)
   const [directionsState, setDirectionsState] = useState(directions || [])
   const [coursesState, setCoursesState] = useState(courses || [])
@@ -115,7 +127,8 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
       (b) =>
         b.__component !== 'blocks.hero' &&
         b.__component !== 'blocks.top-banner' &&
-        !HIDDEN_BLOCK_TYPES.has(b.__component)
+        !HIDDEN_BLOCK_TYPES.has(b.__component) &&
+        isBlockEnabled(b.__component)
     )
 
     return (
@@ -147,14 +160,14 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
         <TrustBlock />
         <PinkBanner />
         <About />
-        <FeaturedCourse courses={coursesState} />
+        {isBlockEnabled('blocks.featured-course') && <FeaturedCourse courses={coursesState} />}
         <Courses courses={coursesState} />
         {/* Reviews temporarily hidden */}
         <Cta />
         <Faq faqs={faqsState} />
         <Consultations consultationTypes={consultationTypesState} />
         <Team team={teamState} />
-        <ContactBlock />
+        {isBlockEnabled('blocks.contact-section') && <ContactBlock />}
       </main>
       <Footer directions={directionsState} courses={coursesState} />
       <ChatWidget />

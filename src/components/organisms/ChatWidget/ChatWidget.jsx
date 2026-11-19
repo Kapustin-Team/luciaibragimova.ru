@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { FaTelegramPlane, FaVk, FaPhoneAlt } from 'react-icons/fa'
 import { motion, AnimatePresence } from 'framer-motion'
 import s from './ChatWidget.module.sass'
+import { useSiteSettings } from '@/components/SiteSettings/SiteSettings'
 
 const MaxIcon = ({ size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,15 +12,17 @@ const MaxIcon = ({ size = 20 }) => (
   </svg>
 )
 
-const links = [
-  { icon: <FaPhoneAlt size={18} />, label: 'Позвонить', href: 'tel:+73430000000', color: '#10b981' },
-  { icon: <FaTelegramPlane size={18} />, label: 'Telegram', href: 'https://t.me/ibragimovapsy', color: '#2AABEE' },
-  { icon: <MaxIcon size={18} />, label: 'Max', href: 'https://max.me/ibragimovapsy', color: '#25140C' },
-  { icon: <FaVk size={18} />, label: 'ВКонтакте', href: 'https://vk.com/ibragimova___lucia', color: '#4C75A3' },
-]
-
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
+  const settings = useSiteSettings()
+  const phoneHref = settings.phone ? `tel:${settings.phone.replace(/[^\d+]/g, '')}` : null
+
+  const links = [
+    settings.showChatPhone && phoneHref && { icon: <FaPhoneAlt size={18} />, label: 'Позвонить', href: phoneHref, color: '#10b981' },
+    settings.telegramUrl && { icon: <FaTelegramPlane size={18} />, label: 'Telegram', href: settings.telegramUrl, color: '#2AABEE' },
+    settings.maxUrl && { icon: <MaxIcon size={18} />, label: 'Max', href: settings.maxUrl, color: '#25140C' },
+    settings.vkUrl && { icon: <FaVk size={18} />, label: 'ВКонтакте', href: settings.vkUrl, color: '#4C75A3' },
+  ].filter(Boolean)
 
   return (
     <div className={s.wrapper}>

@@ -11,19 +11,28 @@ const MaxIcon = ({ size = 20 }) => (
   </svg>
 )
 import s from './Header.module.sass'
+import { useSiteSettings } from '@/components/SiteSettings/SiteSettings'
 
-const navLinks = [
+// `setting`: link is shown only when that flag is enabled in Strapi «Настройки сайта»
+const NAV_LINKS = [
   { label: 'О нас', id: 'about' },
   { label: 'Курсы', id: 'courses' },
-  { label: 'Консультации', id: 'consultations' },
+  { label: 'Консультации', id: 'consultations', setting: 'showNavConsultations' },
   { label: 'Специалисты', id: 'about' },
   { label: 'Контакты', id: 'contact' },
-  { label: 'Отзывы', id: 'reviews' },
+  { label: 'Отзывы', id: 'reviews', setting: 'showNavReviews' },
 ]
 
 export default function Header({ data, hasHero } = {}) {
   const brandName = data?.brandName || 'Люция Ибрагимова'
   const ctaLabel = data?.ctaLabel || 'Выбрать курс'
+  const settings = useSiteSettings()
+  const navLinks = NAV_LINKS.filter((link) => !link.setting || settings[link.setting])
+  const socialLinks = [
+    { url: settings.telegramUrl, label: 'Telegram', Icon: FaTelegramPlane },
+    { url: settings.maxUrl, label: 'Max', Icon: MaxIcon },
+    { url: settings.vkUrl, label: 'VK', Icon: FaVk },
+  ].filter((link) => link.url)
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
@@ -105,9 +114,9 @@ export default function Header({ data, hasHero } = {}) {
           ))}
           <div className={s.mobileBottom}>
             <div className={s.mobileSocials}>
-              <a href="https://t.me/ibragimovapsy" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><FaTelegramPlane size={20} /></a>
-              <a href="https://max.me/ibragimovapsy" target="_blank" rel="noopener noreferrer" aria-label="Max"><MaxIcon size={20} /></a>
-              <a href="https://vk.com/ibragimova___lucia" target="_blank" rel="noopener noreferrer" aria-label="VK"><FaVk size={20} /></a>
+              {socialLinks.map(({ url, label, Icon }) => (
+                <a key={label} href={url} target="_blank" rel="noopener noreferrer" aria-label={label}><Icon size={20} /></a>
+              ))}
             </div>
             <a
               href={getHref('courses')}
@@ -121,8 +130,9 @@ export default function Header({ data, hasHero } = {}) {
 
         <div className={s.right}>
           <div className={s.socials}>
-            <a href="https://t.me/ibragimovapsy" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><FaTelegramPlane size={18} /></a>
-            <a href="https://max.me/ibragimovapsy" target="_blank" rel="noopener noreferrer" aria-label="Max"><MaxIcon size={18} /></a>
+            {socialLinks.map(({ url, label, Icon }) => (
+              <a key={label} href={url} target="_blank" rel="noopener noreferrer" aria-label={label}><Icon size={18} /></a>
+            ))}
           </div>
           <a
             href={getHref('courses')}

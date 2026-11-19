@@ -5,6 +5,7 @@ import { FaVideo, FaUsers, FaChild, FaHeart } from 'react-icons/fa'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Consultations.module.sass'
+import { useSiteSettings } from '@/components/SiteSettings/SiteSettings'
 
 const ICON_MAP = {
   video: <FaVideo size={24} />,
@@ -101,6 +102,7 @@ function StackCard({ item, index, total, scrollYProgress }) {
 }
 
 export default function Consultations({ data, consultationTypes } = {}) {
+  const settings = useSiteSettings()
   const title = data?.title || 'Консультации'
   const subtitle = data?.subtitle || 'Индивидуальный подход к вашей ситуации'
 
@@ -129,9 +131,11 @@ export default function Consultations({ data, consultationTypes } = {}) {
               <CharReveal as="h2" className={s.title}>{title}</CharReveal>
               <p className={s.subtitle}>{subtitle}</p>
             </div>
-            <div className={s.cta}>
-              <a href="#contact" className={s.btn}>Записаться на консультацию</a>
-            </div>
+            {settings.showConsultationsButton && (
+              <div className={s.cta}>
+                <a href="#contact" className={s.btn}>Записаться на консультацию</a>
+              </div>
+            )}
             <div className={s.stack}>
               {items.map((item, i) => (
                 <StackCard
