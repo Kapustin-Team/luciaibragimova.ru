@@ -13,9 +13,15 @@ deployment_uuid=$(jq -er '.deployments[0].deployment_uuid' <<<"$response")
 echo "Coolify deployment: $deployment_uuid"
 status_url="${COOLIFY_WEBHOOK%/deploy}/deployments/$deployment_uuid"
 for attempt in $(seq 1 72); do
-  result=$(curl --fail --silent --show-error --max-time 30 \
-    --header "Authorization: Bearer $COOLIFY_TOKEN" "$status_url")
-  status=$(jq -er '.status' <<<"$result")
+  # The status response includes build logs and can be slow; a failed poll
+  # is not a failed deployment, so retry instead of aborting.
+  if ! result=$(curl --fail --silent --show-error --max-time 120 \
+    --header "Authorization: Bearer $COOLIFY_TOKEN" "$status_url"); then
+    echo 'Status request failed, retrying'
+    sleep 10
+    continue
+  fi
+  status=$(jq -er '.status' <<<"$result" || echo unknown)
   case "$status" in
     finished)
       curl --fail --silent --show-error --max-time 30 --retry 5 --retry-delay 5 \

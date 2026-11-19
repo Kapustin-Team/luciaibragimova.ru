@@ -10,6 +10,54 @@ import s from './LegalPage.module.sass'
 
 const SITE_NAME = 'Студия Люции Ибрагимовой'
 
+function textOf(node) {
+  if (!node) return ''
+  if (node.type === 'text') return node.value
+  return (node.children || []).map(textOf).join('')
+}
+
+// Adds data-label (column header) to every table cell, so on mobile
+// each row can be shown as a card: «Header: value».
+function rehypeTableLabels() {
+  return (tree) => {
+    const walk = (node) => {
+      if (node.tagName === 'table') {
+        const headers = []
+        const collect = (n) => {
+          if (n.tagName === 'th') headers.push(textOf(n).trim())
+          ;(n.children || []).forEach(collect)
+        }
+        collect(node)
+        const label = (n) => {
+          if (n.tagName === 'tr') {
+            let i = 0
+            ;(n.children || []).forEach((cell) => {
+              if (cell.tagName === 'td') {
+                cell.properties = { ...(cell.properties || {}), dataLabel: headers[i] || '' }
+                i += 1
+              }
+            })
+          }
+          ;(n.children || []).forEach(label)
+        }
+        label(node)
+        return
+      }
+      ;(node.children || []).forEach(walk)
+    }
+    walk(tree)
+  }
+}
+
+const MARKDOWN_COMPONENTS = {
+  // eslint-disable-next-line no-unused-vars
+  table: ({ node, ...props }) => (
+    <div className={s.tableWrap}>
+      <table {...props} />
+    </div>
+  ),
+}
+
 function fileUrl(file) {
   if (!file?.url) return null
   return file.url.startsWith('http') ? file.url : `${STRAPI_URL}${file.url}`
@@ -48,7 +96,11 @@ export default async function LegalPage({ slug }) {
 
         {doc?.content ? (
           <div className={s.content}>
-            <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{doc.content}</ReactMarkdown>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm, remarkBreaks]}
+              rehypePlugins={[rehypeTableLabels]}
+              components={MARKDOWN_COMPONENTS}
+            >{doc.content}</ReactMarkdown>
           </div>
         ) : (
           <p className={s.placeholder}>

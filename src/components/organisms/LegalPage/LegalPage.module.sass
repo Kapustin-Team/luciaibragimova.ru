@@ -80,3 +80,41 @@
     padding: 8px 10px
     text-align: left
     vertical-align: top
+  th
+    font-weight: 600
+    background: rgba(255, 255, 255, 0.45)
+  // Mobile: every row becomes a card with «header: value» lines
+  @media (max-width: 600px)
+    table, tbody, tr, td
+      display: block
+      width: 100%
+    table
+      margin: 12px 0 20px
+    thead
+      position: absolute
+      width: 1px
+      height: 1px
+      overflow: hidden
+      clip: rect(0 0 0 0)
+    tr
+      background: rgba(255, 255, 255, 0.55)
+      border: 1px solid rgba(37, 20, 12, 0.12)
+      padding: 12px 14px
+      margin-bottom: 10px
+    td
+      border: none
+      padding: 4px 0
+      overflow-wrap: anywhere
+      &::before
+        content: attr(data-label)
+        display: block
+        font-size: 11px
+        font-weight: 600
+        letter-spacing: 0.6px
+        text-transform: uppercase
+        color: var(--text-muted)
+        margin-bottom: 2px
+
+.tableWrap
+  max-width: 100%
+  overflow-x: auto
