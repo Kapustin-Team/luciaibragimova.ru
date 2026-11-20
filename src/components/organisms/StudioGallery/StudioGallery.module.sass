@@ -46,23 +46,23 @@
     display: none
 
 .arrow
-  width: 52px
-  height: 52px
+  // Same look as the round social buttons in the header
+  width: 48px
+  height: 48px
   display: inline-flex
   align-items: center
   justify-content: center
-  border-radius: var(--radius-btn)
-  border: 1px solid rgba(37, 20, 12, 0.2)
-  background: transparent
-  color: var(--text-dark)
+  border-radius: 50%
+  border: none
+  background: rgba(37, 20, 12, 0.08)
+  color: #25140C
   cursor: pointer
-  transition: var(--transition-base)
+  transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease
   &:hover:not(:disabled)
-    background: var(--bg-dark)
-    border-color: var(--bg-dark)
-    color: #ffffff
+    background: #25140C
+    color: #F7E7DE
   &:disabled
-    opacity: 0.35
+    opacity: 0.4
     cursor: default
 
 // Horizontal strip: native scroll + snap (swipe on touch, wheel/trackpad on desktop)
