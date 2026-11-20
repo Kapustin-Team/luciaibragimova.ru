@@ -129,4 +129,10 @@ export async function getLegalDocument(slug) {
   return { doc: data?.[0] || null, available: Array.isArray(data) }
 }
 
+export async function getStudioGallery() {
+  return fetchStrapi('/studio-gallery', {
+    'populate[items][populate]': 'image',
+  })
+}
+
 export { STRAPI_URL }

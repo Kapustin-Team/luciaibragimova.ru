@@ -1,0 +1,125 @@
+.section
+  background: var(--bg-cream)
+  padding: 120px 0 96px
+  overflow: hidden
+  @media (max-width: 768px)
+    padding: 72px 0 56px
+
+.inner
+  max-width: var(--container-wide)
+  margin: 0 auto
+  padding: 0 48px
+  @media (max-width: 768px)
+    padding: 0 16px
+
+.head
+  display: flex
+  align-items: flex-end
+  justify-content: space-between
+  gap: 32px
+  margin-bottom: 48px
+  @media (max-width: 768px)
+    margin-bottom: 28px
+
+.label
+  font-family: var(--font-sans)
+  font-size: 15px
+  font-weight: 500
+  color: var(--text-dark)
+  margin-bottom: 24px
+  @media (max-width: 768px)
+    margin-bottom: 16px
+
+.heading
+  font-family: var(--font-heading)
+  font-style: italic
+  font-weight: 400
+  font-size: clamp(32px, 4vw, 48px)
+  color: var(--text-dark)
+  letter-spacing: -1px
+  line-height: 1.1
+  max-width: 760px
+
+.subtitle
+  margin-top: 16px
+  font-size: 16px
+  line-height: 1.6
+  color: var(--text-muted)
+  max-width: 560px
+
+.arrows
+  display: flex
+  gap: 12px
+  flex-shrink: 0
+  @media (max-width: 768px)
+    display: none
+
+.arrow
+  width: 52px
+  height: 52px
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  border-radius: var(--radius-btn)
+  border: 1px solid rgba(37, 20, 12, 0.2)
+  background: transparent
+  color: var(--text-dark)
+  cursor: pointer
+  transition: var(--transition-base)
+  &:hover:not(:disabled)
+    background: var(--bg-dark)
+    border-color: var(--bg-dark)
+    color: #ffffff
+  &:disabled
+    opacity: 0.35
+    cursor: default
+
+// Horizontal strip: native scroll + snap (swipe on touch, wheel/trackpad on desktop)
+.track
+  display: flex
+  gap: 24px
+  overflow-x: auto
+  scroll-snap-type: x mandatory
+  scroll-behavior: smooth
+  -webkit-overflow-scrolling: touch
+  scrollbar-width: none
+  // Align the first card with the container edge, let the strip bleed to the right
+  padding: 0 max(48px, calc((100vw - var(--container-wide)) / 2 + 48px))
+  scroll-padding: 0 max(48px, calc((100vw - var(--container-wide)) / 2 + 48px))
+  &::-webkit-scrollbar
+    display: none
+  @media (max-width: 768px)
+    gap: 12px
+    padding: 0 16px
+    scroll-padding: 0 16px
+
+.card
+  flex: 0 0 clamp(320px, 40vw, 620px)
+  scroll-snap-align: start
+  margin: 0
+  @media (max-width: 1100px)
+    flex-basis: 55vw
+  @media (max-width: 600px)
+    flex-basis: 82vw
+
+.imageWrap
+  position: relative
+  width: 100%
+  aspect-ratio: 4 / 3
+  overflow: hidden
+  background: rgba(37, 20, 12, 0.06)
+
+.image
+  object-fit: cover
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+  .card:hover &
+    transform: scale(1.03)
+
+.caption
+  margin-top: 14px
+  font-size: 15px
+  font-weight: 500
+  color: var(--text-dark)
+  @media (max-width: 768px)
+    font-size: 14px
+    margin-top: 10px

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Header from '@/components/organisms/Header/Header'
 import Hero from '@/components/organisms/Hero/Hero'
 import Directions from '@/components/organisms/Directions/Directions'
@@ -19,6 +19,7 @@ import ContactBlock from '@/components/organisms/ContactBlock/ContactBlock'
 import Team from '@/components/organisms/Team/Team'
 import Footer from '@/components/organisms/Footer/Footer'
 import ChatWidget from '@/components/organisms/ChatWidget/ChatWidget'
+import StudioGallery from '@/components/organisms/StudioGallery/StudioGallery'
 import { useSiteSettings } from '@/components/SiteSettings/SiteSettings'
 
 const STRAPI_PUBLIC_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://admin.lucia.school'
@@ -61,7 +62,7 @@ const BLOCK_MAP = {
   'blocks.team-section': Team,
 }
 
-export default function ClientHome({ homepage, directions, courses, faqs, reviews, team, consultationTypes }) {
+export default function ClientHome({ homepage, directions, courses, faqs, reviews, team, consultationTypes, studioGallery }) {
   const settings = useSiteSettings()
   const isBlockEnabled = (type) => {
     const setting = BLOCK_VISIBILITY_SETTING[type]
@@ -74,6 +75,7 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
   const [reviewsState, setReviewsState] = useState(reviews || [])
   const [teamState, setTeamState] = useState(team || [])
   const [consultationTypesState, setConsultationTypesState] = useState(consultationTypes || [])
+  const [studioGalleryState, setStudioGalleryState] = useState(studioGallery || null)
 
   useEffect(() => {
     let cancelled = false
@@ -99,6 +101,10 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
         if (Array.isArray(reviewsData)) setReviewsState(reviewsData)
         if (Array.isArray(teamData)) setTeamState(teamData)
         if (Array.isArray(consultationTypesData)) setConsultationTypesState(consultationTypesData)
+        if (!studioGallery) {
+          const galleryData = await fetchPublic('studio-gallery?populate[items][populate]=image').catch(() => null)
+          if (!cancelled && galleryData) setStudioGalleryState(galleryData)
+        }
       } catch (error) {
         console.error('ClientHome public fallback failed', error)
       }
@@ -117,6 +123,15 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
     team: teamState,
     consultationTypes: consultationTypesState,
   }
+
+  // The «Более 500 семей» banner slot: banner and/or «Внутри студии» gallery,
+  // each controlled by its own flag in «Настройки сайта».
+  const renderPinkBannerSlot = (block, key) => (
+    <Fragment key={key}>
+      {settings.showPinkBanner && <PinkBanner data={block} {...sharedData} />}
+      {settings.showStudioGallery && <StudioGallery data={studioGalleryState} />}
+    </Fragment>
+  )
 
   const blocks = homepageState?.blocks || []
   const hasBlocks = blocks.length > 0
@@ -137,6 +152,9 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
         <main>
           {heroBlock && <Hero data={heroBlock} {...sharedData} />}
           {otherBlocks.map((block, i) => {
+            if (block.__component === 'blocks.pink-banner') {
+              return renderPinkBannerSlot(block, `${block.__component}-${i}`)
+            }
             const Component = BLOCK_MAP[block.__component]
             if (!Component) {
               console.warn(`Unknown homepage block: ${block.__component}`)
@@ -158,7 +176,7 @@ export default function ClientHome({ homepage, directions, courses, faqs, review
         <Hero />
         {/* DirectionsGrid temporarily hidden — keep code for later */}
         <TrustBlock />
-        <PinkBanner />
+        {renderPinkBannerSlot(undefined, 'pink-banner-slot')}
         <About />
         {isBlockEnabled('blocks.featured-course') && <FeaturedCourse courses={coursesState} />}
         <Courses courses={coursesState} />
