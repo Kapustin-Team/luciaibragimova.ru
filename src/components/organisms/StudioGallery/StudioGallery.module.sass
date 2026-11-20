@@ -77,6 +77,7 @@
   // Align the first card with the container edge, let the strip bleed to the right
   padding: 0 max(48px, calc((100vw - var(--container-wide)) / 2 + 48px))
   scroll-padding: 0 max(48px, calc((100vw - var(--container-wide)) / 2 + 48px))
+  overscroll-behavior-x: contain
   &::-webkit-scrollbar
     display: none
   @media (max-width: 768px)
@@ -88,6 +89,9 @@
   flex: 0 0 clamp(320px, 40vw, 620px)
   scroll-snap-align: start
   margin: 0
+  // The last card can't reach the start position — snap it to the end instead
+  &:last-child
+    scroll-snap-align: end
   @media (max-width: 1100px)
     flex-basis: 55vw
   @media (max-width: 600px)

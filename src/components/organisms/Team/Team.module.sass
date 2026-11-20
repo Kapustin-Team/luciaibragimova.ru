@@ -43,12 +43,21 @@
     overflow-x: auto
     -webkit-overflow-scrolling: touch
     scroll-snap-type: x mandatory
+    // Snap points respect the side padding (otherwise cards snap to the screen
+    // edge, then get pushed back by the padding and the strip jitters)
+    scroll-padding-inline: 24px
+    overscroll-behavior-x: contain
     gap: 16px
     margin: 0 -24px
     padding: 0 24px 12px
     scrollbar-width: none
     &::-webkit-scrollbar
       display: none
+    // Trailing space after the last card (padding-right is ignored by some
+    // mobile browsers in horizontal flex scrollers)
+    &::after
+      content: ''
+      flex: 0 0 8px
 
 // --- Card ---
 .card
@@ -66,6 +75,11 @@
     max-width: 76vw
     flex-shrink: 0
     scroll-snap-align: start
+    // The last card can't reach the start position — snap it to the end instead
+    &:last-child
+      scroll-snap-align: end
+    // No blur/hover effects on touch: smoother horizontal scrolling
+    backdrop-filter: none
 
 .cardPhotoWrap
   position: relative
