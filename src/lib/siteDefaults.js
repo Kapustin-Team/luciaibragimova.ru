@@ -66,9 +66,8 @@ export function courseHref(course) {
 
 // Used when Strapi has no gallery yet (or is unavailable).
 export const DEFAULT_STUDIO_GALLERY = {
-  label: 'Внутри студии',
-  title: 'Пространство, где спокойно говорить о важном',
-  subtitle: 'Кабинеты для личных консультаций, комнаты для групп и учебный класс.',
+  title: 'Внутри студии',
+  subtitle: 'Пространство, где спокойно говорить о важном',
   items: [
     { src: '/studio/studio-reception.jpg', caption: 'Ресепшен' },
     { src: '/studio/studio-consultation-room.jpg', caption: 'Кабинет для индивидуальных консультаций' },
