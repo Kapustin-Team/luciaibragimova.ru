@@ -6,6 +6,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import CharReveal from '@/components/atoms/CharReveal'
 import SectionReveal from '@/components/atoms/SectionReveal'
 import s from './Courses.module.sass'
+import { courseHref } from '@/lib/siteDefaults'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://admin.lucia.school'
 
@@ -77,6 +78,7 @@ function normalizeCourses(strapiCourses) {
     desc: c.shortDescription || '',
     featured: c.featured || false,
     imageUrl: mediaUrl(c.image) || COURSE_IMAGES[c.slug] || null,
+    link: courseHref(c),
   }))
 }
 
@@ -274,7 +276,8 @@ export default function Courses({ data, courses: strapiCourses, initialDirection
                 variants={cardVariants}
               >
                 <a
-                  href={`/courses/${c.slug || '#'}`}
+                  href={c.link?.href || `/courses/${c.slug || ''}`}
+                  {...(c.link?.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   className={`${s.card} ${c.featured ? s.featured : ''}`}
                 >
                   {c.imageUrl ? (

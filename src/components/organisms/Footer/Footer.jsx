@@ -7,6 +7,7 @@ import {
   legalDocumentHref,
   legalDocumentLabel,
 } from '@/components/SiteSettings/SiteSettings'
+import { courseHref } from '@/lib/siteDefaults'
 
 const MaxIcon = ({ size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,10 +80,10 @@ export default function Footer({ directions, courses }) {
 
   const courseLinks = (courses && courses.length > 0)
     ? [
-        ...courses.slice(0, 4).map(c => ({
-          text: c.title || c.name,
-          href: `/courses/${c.slug}`,
-        })),
+        ...courses.slice(0, 4).map(c => {
+          const link = courseHref(c)
+          return { text: c.title || c.name, href: link.href, external: link.external }
+        }),
         { text: 'Все курсы', href: '/#courses' },
       ]
     : [...FALLBACK_COURSES, { text: 'Все курсы', href: '/#courses' }]
