@@ -9,6 +9,8 @@ export const DEFAULT_SITE_SETTINGS = {
   showFeaturedCourse: false,
   showConsultationsButton: false,
   showContactForm: false,
+  showPinkBanner: false,
+  showStudioGallery: true,
   showCourseTariffs: false,
   showCourseFinalCta: false,
   showFooterAboutLinks: false,
@@ -60,4 +62,19 @@ export function courseHref(course) {
   const link = typeof course?.getcourseLink === 'string' ? course.getcourseLink.trim() : ''
   if (link) return { href: link, external: true }
   return { href: `/courses/${course?.slug || ''}`, external: false }
+}
+
+// Used when Strapi has no gallery yet (or is unavailable).
+export const DEFAULT_STUDIO_GALLERY = {
+  label: 'Внутри студии',
+  title: 'Пространство, где спокойно говорить о важном',
+  subtitle: 'Кабинеты для личных консультаций, комнаты для групп и учебный класс.',
+  items: [
+    { src: '/studio/studio-reception.jpg', caption: 'Ресепшен' },
+    { src: '/studio/studio-consultation-room.jpg', caption: 'Кабинет для индивидуальных консультаций' },
+    { src: '/studio/studio-small-group-room.jpg', caption: 'Комната для малых групп' },
+    { src: '/studio/studio-group-hall.jpg', caption: 'Зал на 10 человек' },
+    { src: '/studio/studio-classroom.jpg', caption: 'Учебный класс' },
+    { src: '/studio/studio-kitchen.jpg', caption: 'Кухня, зона отдыха' },
+  ],
 }

@@ -1,10 +1,10 @@
-import { getHomepage, getDirections, getCourses, getFaqs, getReviews, getTeamMembers, getConsultationTypes } from '@/lib/strapi'
+import { getHomepage, getDirections, getCourses, getFaqs, getReviews, getTeamMembers, getConsultationTypes, getStudioGallery } from '@/lib/strapi'
 import ClientHome from './ClientHome'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-  const [homepage, directions, courses, faqs, reviews, team, consultationTypes] = await Promise.all([
+  const [homepage, directions, courses, faqs, reviews, team, consultationTypes, studioGallery] = await Promise.all([
     getHomepage(),
     getDirections(),
     getCourses(),
@@ -12,6 +12,7 @@ export default async function Home() {
     getReviews(),
     getTeamMembers(),
     getConsultationTypes(),
+    getStudioGallery(),
   ])
 
   return (
@@ -23,6 +24,7 @@ export default async function Home() {
       reviews={reviews || []}
       team={team || []}
       consultationTypes={consultationTypes || []}
+      studioGallery={studioGallery}
     />
   )
 }
