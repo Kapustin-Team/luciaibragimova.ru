@@ -23,7 +23,6 @@ function normalize(data) {
         .filter((item) => item.src)
     : []
   return {
-    label: data?.label || DEFAULT_STUDIO_GALLERY.label,
     title: data?.title || DEFAULT_STUDIO_GALLERY.title,
     subtitle: data?.subtitle ?? DEFAULT_STUDIO_GALLERY.subtitle,
     items: items.length > 0 ? items : DEFAULT_STUDIO_GALLERY.items,
@@ -37,7 +36,7 @@ const ArrowIcon = ({ direction }) => (
 )
 
 export default function StudioGallery({ data } = {}) {
-  const { label, title, subtitle, items } = normalize(data)
+  const { title, subtitle, items } = normalize(data)
 
   const trackRef = useRef(null)
   const inView = useInView(trackRef, { once: true, amount: 0.15 })
@@ -70,7 +69,6 @@ export default function StudioGallery({ data } = {}) {
       <div className={s.inner}>
         <div className={s.head}>
           <div>
-            <p className={s.label}>{label}</p>
             <CharReveal as="h2" className={s.heading}>{title}</CharReveal>
             {subtitle && <p className={s.subtitle}>{subtitle}</p>}
           </div>
