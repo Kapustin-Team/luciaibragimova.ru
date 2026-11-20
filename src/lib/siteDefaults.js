@@ -9,6 +9,8 @@ export const DEFAULT_SITE_SETTINGS = {
   showFeaturedCourse: false,
   showConsultationsButton: false,
   showContactForm: false,
+  showCourseTariffs: false,
+  showCourseFinalCta: false,
   showFooterAboutLinks: false,
   showFooterSubscribe: false,
   showChatPhone: false,
@@ -51,4 +53,11 @@ export function legalDocumentHref(slug) {
 
 export function legalDocumentLabel(doc) {
   return FOOTER_LABELS[doc.slug] || doc.title
+}
+
+// Course with a GetCourse landing goes there; otherwise to its info page on the site.
+export function courseHref(course) {
+  const link = typeof course?.getcourseLink === 'string' ? course.getcourseLink.trim() : ''
+  if (link) return { href: link, external: true }
+  return { href: `/courses/${course?.slug || ''}`, external: false }
 }

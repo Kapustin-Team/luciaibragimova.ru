@@ -12,6 +12,9 @@ import ReviewLightbox from '@/components/atoms/ReviewLightbox'
 import { FaBook, FaBrain, FaHeart, FaShieldAlt, FaStar, FaUsers, FaLightbulb, FaEye, FaLeaf, FaSun, FaCheck, FaExclamationTriangle, FaInfoCircle, FaClock, FaBan } from 'react-icons/fa'
 import { HiSparkles } from 'react-icons/hi'
 import s from './course.module.sass'
+import { FaTelegramPlane, FaVk } from 'react-icons/fa'
+import { useSiteSettings } from '@/components/SiteSettings/SiteSettings'
+import { courseHref } from '@/lib/siteDefaults'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://admin.lucia.school'
 const MotionImage = motion.create(Image)
@@ -65,6 +68,30 @@ const SLUG_TO_DIR = {
   'anti-vygoranie': 'Трансформация', 'put': 'Трансформация', 'igra-lvov': 'Трансформация',
 }
 
+// CTA section scroll-linked scale — subtle zoom-in as it enters viewport.
+// Separate component so the scroll hook only exists when the block is shown.
+function CourseFinalCta({ course, gcLink }) {
+  const ctaRef = useRef(null)
+  const { scrollYProgress: ctaProgress } = useScroll({ target: ctaRef, offset: ['start end', 'end start'] })
+  const ctaScale = useTransform(ctaProgress, [0, 0.5], [0.96, 1])
+
+  return (
+    <motion.section ref={ctaRef} className={s.ctaSection} style={{ scale: ctaScale }}>
+          <div>
+            <CharReveal as="h2" className={s.ctaTitle}>Готовы начать свой путь?</CharReveal>
+            <p className={s.ctaDesc}>Запишитесь на курс «{course.title}» и сделайте первый шаг к изменениям</p>
+            <a
+              href={gcLink.external ? gcLink.href : '#tariffs'}
+              className={s.ctaBtn}
+              {...(gcLink.external ? { target: '_blank', rel: 'noopener' } : {})}
+            >
+              Выбрать тариф
+            </a>
+          </div>
+        </motion.section>
+  )
+}
+
 export default function CoursePageClient({ course }) {
   const c = course
   const dirTitle = c.direction?.title || SLUG_TO_DIR[c.slug] || ''
@@ -78,10 +105,8 @@ export default function CoursePageClient({ course }) {
   const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const heroBgY = useTransform(heroProgress, [0, 1], ['0%', '20%'])
 
-  // CTA section scroll-linked scale — subtle zoom-in as it enters viewport
-  const ctaRef = useRef(null)
-  const { scrollYProgress: ctaProgress } = useScroll({ target: ctaRef, offset: ['start end', 'end start'] })
-  const ctaScale = useTransform(ctaProgress, [0, 0.5], [0.96, 1])
+  const settings = useSiteSettings()
+  const gcLink = courseHref(c)
 
   // Results image parallax — upward shift as section enters viewport
   const resultsImageRef = useRef(null)
@@ -132,13 +157,15 @@ export default function CoursePageClient({ course }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6, ease: 'easeOut' }}
             >
-              <a
-                href={c.getcourseLink || '#tariffs'}
-                className={s.btnPrimary}
-                {...(c.getcourseLink ? { target: '_blank', rel: 'noopener' } : {})}
-              >
-                Выбрать тариф
-              </a>
+              {(gcLink.external || settings.showCourseTariffs) && (
+                <a
+                  href={gcLink.external ? gcLink.href : '#tariffs'}
+                  className={s.btnPrimary}
+                  {...(gcLink.external ? { target: '_blank', rel: 'noopener' } : {})}
+                >
+                  Выбрать тариф
+                </a>
+              )}
               <a href="#program" className={s.btnSecondary}>Программа курса</a>
             </motion.div>
           </div>
@@ -360,7 +387,44 @@ export default function CoursePageClient({ course }) {
         )}
 
         {/* ─── Тарифы ─── */}
-        {c.tariffs?.length > 0 && (
+        {/* Tariffs are hidden until enabled in «Настройки сайта»; instead:
+            GetCourse link → button to the GetCourse landing, no link → «в разработке» */}
+        {!settings.showCourseTariffs && (
+          <SectionReveal className={s.sectionDark} id="tariffs">
+            <div className={s.container}>
+              {gcLink.external ? (
+                <div className={s.centeredHeader}>
+                  <CharReveal as="h2" className={s.sectionTitle}>Тарифы и условия</CharReveal>
+                  <p className={s.sectionSubtitle}>Стоимость, форматы участия и условия курса — на странице записи.</p>
+                  <a href={gcLink.href} className={s.soonBtn} target="_blank" rel="noopener">
+                    Выбрать тариф
+                  </a>
+                </div>
+              ) : (
+                <div className={s.centeredHeader}>
+                  <CharReveal as="h2" className={s.sectionTitle}>Курс в разработке</CharReveal>
+                  <p className={s.sectionSubtitle}>
+                    Скоро появится. Следите за новостями студии — расскажем о старте первыми.
+                  </p>
+                  <div className={s.soonSocials}>
+                    {settings.telegramUrl && (
+                      <a href={settings.telegramUrl} target="_blank" rel="noopener noreferrer" className={s.soonSocial}>
+                        <FaTelegramPlane size={16} /> Telegram
+                      </a>
+                    )}
+                    {settings.vkUrl && (
+                      <a href={settings.vkUrl} target="_blank" rel="noopener noreferrer" className={s.soonSocial}>
+                        <FaVk size={16} /> ВКонтакте
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </SectionReveal>
+        )}
+
+        {settings.showCourseTariffs && c.tariffs?.length > 0 && (
           <SectionReveal className={s.sectionDark} id="tariffs">
             <div className={s.container}>
               <div className={s.centeredHeader}>
@@ -399,7 +463,7 @@ export default function CoursePageClient({ course }) {
                           })}
                         </ul>
                       )}
-                      <a href={c.getcourseLink || '#'} className={s.tariffBtn}>
+                      <a href={gcLink.external ? gcLink.href : '#'} className={s.tariffBtn}>
                         Выбрать тариф
                       </a>
                     </motion.div>
@@ -532,15 +596,8 @@ export default function CoursePageClient({ course }) {
         <About />
 
         {/* ─── CTA — clean, dark bg, large text ─── */}
-        <motion.section ref={ctaRef} className={s.ctaSection} style={{ scale: ctaScale }}>
-          <div>
-            <CharReveal as="h2" className={s.ctaTitle}>Готовы начать свой путь?</CharReveal>
-            <p className={s.ctaDesc}>Запишитесь на курс «{c.title}» и сделайте первый шаг к изменениям</p>
-            <a href={c.getcourseLink || '#tariffs'} className={s.ctaBtn}>
-              Выбрать тариф
-            </a>
-          </div>
-        </motion.section>
+{/* Hidden until enabled in «Настройки сайта» */}
+        {settings.showCourseFinalCta && <CourseFinalCta course={c} gcLink={gcLink} />}
 
       </main>
       <Footer />
